@@ -56,7 +56,7 @@ const http = __importStar(__nccwpck_require__(8611));
 const https = __importStar(__nccwpck_require__(5692));
 const pm = __importStar(__nccwpck_require__(6424));
 const tunnel = __importStar(__nccwpck_require__(7285));
-const undici_1 = __nccwpck_require__(4342);
+const undici_1 = __nccwpck_require__(6221);
 var HttpCodes;
 (function (HttpCodes) {
     HttpCodes[HttpCodes["OK"] = 200] = "OK";
@@ -1793,33 +1793,33 @@ exports.debug = debug; // for test
 
 /***/ }),
 
-/***/ 4342:
+/***/ 6221:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const Client = __nccwpck_require__(4887)
-const Dispatcher = __nccwpck_require__(4977)
-const Pool = __nccwpck_require__(2422)
-const BalancedPool = __nccwpck_require__(9775)
-const Agent = __nccwpck_require__(3195)
-const ProxyAgent = __nccwpck_require__(7014)
-const EnvHttpProxyAgent = __nccwpck_require__(2835)
-const RetryAgent = __nccwpck_require__(1472)
-const errors = __nccwpck_require__(745)
-const util = __nccwpck_require__(4610)
+const Client = __nccwpck_require__(4804)
+const Dispatcher = __nccwpck_require__(1110)
+const Pool = __nccwpck_require__(1385)
+const BalancedPool = __nccwpck_require__(9422)
+const Agent = __nccwpck_require__(9674)
+const ProxyAgent = __nccwpck_require__(7811)
+const EnvHttpProxyAgent = __nccwpck_require__(8824)
+const RetryAgent = __nccwpck_require__(6689)
+const errors = __nccwpck_require__(7934)
+const util = __nccwpck_require__(9969)
 const { InvalidArgumentError } = errors
-const api = __nccwpck_require__(2313)
-const buildConnector = __nccwpck_require__(9482)
-const MockClient = __nccwpck_require__(5839)
-const MockAgent = __nccwpck_require__(9299)
-const MockPool = __nccwpck_require__(9230)
-const mockErrors = __nccwpck_require__(3499)
-const RetryHandler = __nccwpck_require__(6494)
-const { getGlobalDispatcher, setGlobalDispatcher } = __nccwpck_require__(511)
-const DecoratorHandler = __nccwpck_require__(1213)
-const RedirectHandler = __nccwpck_require__(1096)
-const createRedirectInterceptor = __nccwpck_require__(2450)
+const api = __nccwpck_require__(3998)
+const buildConnector = __nccwpck_require__(2535)
+const MockClient = __nccwpck_require__(5978)
+const MockAgent = __nccwpck_require__(4956)
+const MockPool = __nccwpck_require__(9463)
+const mockErrors = __nccwpck_require__(7046)
+const RetryHandler = __nccwpck_require__(3525)
+const { getGlobalDispatcher, setGlobalDispatcher } = __nccwpck_require__(5458)
+const DecoratorHandler = __nccwpck_require__(1630)
+const RedirectHandler = __nccwpck_require__(5045)
+const createRedirectInterceptor = __nccwpck_require__(9583)
 
 Object.assign(Dispatcher.prototype, api)
 
@@ -1837,10 +1837,10 @@ module.exports.DecoratorHandler = DecoratorHandler
 module.exports.RedirectHandler = RedirectHandler
 module.exports.createRedirectInterceptor = createRedirectInterceptor
 module.exports.interceptors = {
-  redirect: __nccwpck_require__(7092),
-  retry: __nccwpck_require__(7612),
-  dump: __nccwpck_require__(8018),
-  dns: __nccwpck_require__(7629)
+  redirect: __nccwpck_require__(7393),
+  retry: __nccwpck_require__(935),
+  dump: __nccwpck_require__(5231),
+  dns: __nccwpck_require__(3214)
 }
 
 module.exports.buildConnector = buildConnector
@@ -1902,7 +1902,7 @@ function makeDispatcher (fn) {
 module.exports.setGlobalDispatcher = setGlobalDispatcher
 module.exports.getGlobalDispatcher = getGlobalDispatcher
 
-const fetchImpl = (__nccwpck_require__(1828).fetch)
+const fetchImpl = (__nccwpck_require__(1351).fetch)
 module.exports.fetch = async function fetch (init, options = undefined) {
   try {
     return await fetchImpl(init, options)
@@ -1914,39 +1914,39 @@ module.exports.fetch = async function fetch (init, options = undefined) {
     throw err
   }
 }
-module.exports.Headers = __nccwpck_require__(7958).Headers
-module.exports.Response = __nccwpck_require__(445).Response
-module.exports.Request = __nccwpck_require__(8969).Request
-module.exports.FormData = __nccwpck_require__(5424).FormData
+module.exports.Headers = __nccwpck_require__(7705).Headers
+module.exports.Response = __nccwpck_require__(3472).Response
+module.exports.Request = __nccwpck_require__(9518).Request
+module.exports.FormData = __nccwpck_require__(5077).FormData
 module.exports.File = globalThis.File ?? (__nccwpck_require__(4573).File)
-module.exports.FileReader = __nccwpck_require__(7849).FileReader
+module.exports.FileReader = __nccwpck_require__(1260).FileReader
 
-const { setGlobalOrigin, getGlobalOrigin } = __nccwpck_require__(7517)
+const { setGlobalOrigin, getGlobalOrigin } = __nccwpck_require__(824)
 
 module.exports.setGlobalOrigin = setGlobalOrigin
 module.exports.getGlobalOrigin = getGlobalOrigin
 
-const { CacheStorage } = __nccwpck_require__(7827)
-const { kConstruct } = __nccwpck_require__(1991)
+const { CacheStorage } = __nccwpck_require__(3622)
+const { kConstruct } = __nccwpck_require__(6612)
 
 // Cache & CacheStorage are tightly coupled with fetch. Even if it may run
 // in an older version of Node, it doesn't have any use without fetch.
 module.exports.caches = new CacheStorage(kConstruct)
 
-const { deleteCookie, getCookies, getSetCookies, setCookie } = __nccwpck_require__(935)
+const { deleteCookie, getCookies, getSetCookies, setCookie } = __nccwpck_require__(7916)
 
 module.exports.deleteCookie = deleteCookie
 module.exports.getCookies = getCookies
 module.exports.getSetCookies = getSetCookies
 module.exports.setCookie = setCookie
 
-const { parseMIMEType, serializeAMimeType } = __nccwpck_require__(9382)
+const { parseMIMEType, serializeAMimeType } = __nccwpck_require__(4203)
 
 module.exports.parseMIMEType = parseMIMEType
 module.exports.serializeAMimeType = serializeAMimeType
 
-const { CloseEvent, ErrorEvent, MessageEvent } = __nccwpck_require__(502)
-module.exports.WebSocket = __nccwpck_require__(4832).WebSocket
+const { CloseEvent, ErrorEvent, MessageEvent } = __nccwpck_require__(8563)
+module.exports.WebSocket = __nccwpck_require__(9263).WebSocket
 module.exports.CloseEvent = CloseEvent
 module.exports.ErrorEvent = ErrorEvent
 module.exports.MessageEvent = MessageEvent
@@ -1962,18 +1962,18 @@ module.exports.MockPool = MockPool
 module.exports.MockAgent = MockAgent
 module.exports.mockErrors = mockErrors
 
-const { EventSource } = __nccwpck_require__(8848)
+const { EventSource } = __nccwpck_require__(2055)
 
 module.exports.EventSource = EventSource
 
 
 /***/ }),
 
-/***/ 7800:
+/***/ 1141:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const { addAbortListener } = __nccwpck_require__(4610)
-const { RequestAbortedError } = __nccwpck_require__(745)
+const { addAbortListener } = __nccwpck_require__(9969)
+const { RequestAbortedError } = __nccwpck_require__(7934)
 
 const kListener = Symbol('kListener')
 const kSignal = Symbol('kSignal')
@@ -2033,16 +2033,16 @@ module.exports = {
 
 /***/ }),
 
-/***/ 1334:
+/***/ 1001:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const assert = __nccwpck_require__(4589)
 const { AsyncResource } = __nccwpck_require__(6698)
-const { InvalidArgumentError, SocketError } = __nccwpck_require__(745)
-const util = __nccwpck_require__(4610)
-const { addSignal, removeSignal } = __nccwpck_require__(7800)
+const { InvalidArgumentError, SocketError } = __nccwpck_require__(7934)
+const util = __nccwpck_require__(9969)
+const { addSignal, removeSignal } = __nccwpck_require__(1141)
 
 class ConnectHandler extends AsyncResource {
   constructor (opts, callback) {
@@ -2148,7 +2148,7 @@ module.exports = connect
 
 /***/ }),
 
-/***/ 3516:
+/***/ 737:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -2162,10 +2162,10 @@ const {
   InvalidArgumentError,
   InvalidReturnValueError,
   RequestAbortedError
-} = __nccwpck_require__(745)
-const util = __nccwpck_require__(4610)
+} = __nccwpck_require__(7934)
+const util = __nccwpck_require__(9969)
 const { AsyncResource } = __nccwpck_require__(6698)
-const { addSignal, removeSignal } = __nccwpck_require__(7800)
+const { addSignal, removeSignal } = __nccwpck_require__(1141)
 const assert = __nccwpck_require__(4589)
 
 const kResume = Symbol('resume')
@@ -2406,16 +2406,16 @@ module.exports = pipeline
 
 /***/ }),
 
-/***/ 2137:
+/***/ 522:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const assert = __nccwpck_require__(4589)
-const { Readable } = __nccwpck_require__(3313)
-const { InvalidArgumentError, RequestAbortedError } = __nccwpck_require__(745)
-const util = __nccwpck_require__(4610)
-const { getResolveErrorBodyCallback } = __nccwpck_require__(7537)
+const { Readable } = __nccwpck_require__(2020)
+const { InvalidArgumentError, RequestAbortedError } = __nccwpck_require__(7934)
+const util = __nccwpck_require__(9969)
+const { getResolveErrorBodyCallback } = __nccwpck_require__(2288)
 const { AsyncResource } = __nccwpck_require__(6698)
 
 class RequestHandler extends AsyncResource {
@@ -2627,18 +2627,18 @@ module.exports.RequestHandler = RequestHandler
 
 /***/ }),
 
-/***/ 5162:
+/***/ 6303:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const assert = __nccwpck_require__(4589)
 const { finished, PassThrough } = __nccwpck_require__(7075)
-const { InvalidArgumentError, InvalidReturnValueError } = __nccwpck_require__(745)
-const util = __nccwpck_require__(4610)
-const { getResolveErrorBodyCallback } = __nccwpck_require__(7537)
+const { InvalidArgumentError, InvalidReturnValueError } = __nccwpck_require__(7934)
+const util = __nccwpck_require__(9969)
+const { getResolveErrorBodyCallback } = __nccwpck_require__(2288)
 const { AsyncResource } = __nccwpck_require__(6698)
-const { addSignal, removeSignal } = __nccwpck_require__(7800)
+const { addSignal, removeSignal } = __nccwpck_require__(1141)
 
 class StreamHandler extends AsyncResource {
   constructor (opts, factory, callback) {
@@ -2854,15 +2854,15 @@ module.exports = stream
 
 /***/ }),
 
-/***/ 3224:
+/***/ 4963:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { InvalidArgumentError, SocketError } = __nccwpck_require__(745)
+const { InvalidArgumentError, SocketError } = __nccwpck_require__(7934)
 const { AsyncResource } = __nccwpck_require__(6698)
-const util = __nccwpck_require__(4610)
-const { addSignal, removeSignal } = __nccwpck_require__(7800)
+const util = __nccwpck_require__(9969)
+const { addSignal, removeSignal } = __nccwpck_require__(1141)
 const assert = __nccwpck_require__(4589)
 
 class UpgradeHandler extends AsyncResource {
@@ -2969,21 +2969,21 @@ module.exports = upgrade
 
 /***/ }),
 
-/***/ 2313:
+/***/ 3998:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-module.exports.request = __nccwpck_require__(2137)
-module.exports.stream = __nccwpck_require__(5162)
-module.exports.pipeline = __nccwpck_require__(3516)
-module.exports.upgrade = __nccwpck_require__(3224)
-module.exports.connect = __nccwpck_require__(1334)
+module.exports.request = __nccwpck_require__(522)
+module.exports.stream = __nccwpck_require__(6303)
+module.exports.pipeline = __nccwpck_require__(737)
+module.exports.upgrade = __nccwpck_require__(4963)
+module.exports.connect = __nccwpck_require__(1001)
 
 
 /***/ }),
 
-/***/ 3313:
+/***/ 2020:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 // Ported from https://github.com/nodejs/undici/pull/907
@@ -2992,9 +2992,9 @@ module.exports.connect = __nccwpck_require__(1334)
 
 const assert = __nccwpck_require__(4589)
 const { Readable } = __nccwpck_require__(7075)
-const { RequestAbortedError, NotSupportedError, InvalidArgumentError, AbortError } = __nccwpck_require__(745)
-const util = __nccwpck_require__(4610)
-const { ReadableStreamFrom } = __nccwpck_require__(4610)
+const { RequestAbortedError, NotSupportedError, InvalidArgumentError, AbortError } = __nccwpck_require__(7934)
+const util = __nccwpck_require__(9969)
+const { ReadableStreamFrom } = __nccwpck_require__(9969)
 
 const kConsume = Symbol('kConsume')
 const kReading = Symbol('kReading')
@@ -3375,15 +3375,15 @@ module.exports = { Readable: BodyReadable, chunksDecode }
 
 /***/ }),
 
-/***/ 7537:
+/***/ 2288:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const assert = __nccwpck_require__(4589)
 const {
   ResponseStatusCodeError
-} = __nccwpck_require__(745)
+} = __nccwpck_require__(7934)
 
-const { chunksDecode } = __nccwpck_require__(3313)
+const { chunksDecode } = __nccwpck_require__(2020)
 const CHUNK_LIMIT = 128 * 1024
 
 async function getResolveErrorBodyCallback ({ callback, body, contentType, statusCode, statusMessage, headers }) {
@@ -3475,16 +3475,16 @@ module.exports = {
 
 /***/ }),
 
-/***/ 9482:
+/***/ 2535:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const net = __nccwpck_require__(7030)
 const assert = __nccwpck_require__(4589)
-const util = __nccwpck_require__(4610)
-const { InvalidArgumentError, ConnectTimeoutError } = __nccwpck_require__(745)
-const timers = __nccwpck_require__(6081)
+const util = __nccwpck_require__(9969)
+const { InvalidArgumentError, ConnectTimeoutError } = __nccwpck_require__(7934)
+const timers = __nccwpck_require__(7622)
 
 function noop () {}
 
@@ -3722,7 +3722,7 @@ module.exports = buildConnector
 
 /***/ }),
 
-/***/ 2029:
+/***/ 832:
 /***/ ((module) => {
 
 
@@ -3847,7 +3847,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 1948:
+/***/ 4757:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -4056,7 +4056,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 745:
+/***/ 7934:
 /***/ ((module) => {
 
 
@@ -4488,7 +4488,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 2469:
+/***/ 1548:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -4496,7 +4496,7 @@ module.exports = {
 const {
   InvalidArgumentError,
   NotSupportedError
-} = __nccwpck_require__(745)
+} = __nccwpck_require__(7934)
 const assert = __nccwpck_require__(4589)
 const {
   isValidHTTPToken,
@@ -4511,9 +4511,9 @@ const {
   validateHandler,
   getServerName,
   normalizedMethodRecords
-} = __nccwpck_require__(4610)
-const { channels } = __nccwpck_require__(1948)
-const { headerNameLowerCasedRecord } = __nccwpck_require__(2029)
+} = __nccwpck_require__(9969)
+const { channels } = __nccwpck_require__(4757)
+const { headerNameLowerCasedRecord } = __nccwpck_require__(832)
 
 // Verifies that a given path is valid does not contain control chars \x00 to \x20
 const invalidPathRegex = /[^\u0021-\u00ff]/
@@ -4756,11 +4756,77 @@ class Request {
     }
   }
 
-  onUpgrade (statusCode, headers, socket) {
+  /**
+   * @param {number|null} statusCode
+   * @param {Buffer[]|null} headers
+   * @param {import('node:stream').Duplex} socket
+   * @param {string} [statusText]
+   */
+  onUpgrade (statusCode, headers, socket, statusText = '') {
+    this.onFinally()
+
     assert(!this.aborted)
     assert(!this.completed)
 
-    return this[kHandler].onUpgrade(statusCode, headers, socket)
+    if (statusCode !== null) {
+      this.#publishUpgradeHeaders(statusCode, headers, statusText)
+    }
+
+    const result = this[kHandler].onUpgrade(statusCode, headers, socket)
+
+    if (!this.aborted) {
+      this.completed = true
+      if (statusCode !== null) {
+        this.#publishUpgradeTrailers()
+      }
+    }
+
+    return result
+  }
+
+  /**
+   * @param {number} statusCode
+   * @param {import('node:http2').IncomingHttpHeaders} headers
+   * @param {(headers: import('node:http2').IncomingHttpHeaders) => Buffer[]} parseHeaders
+   * @param {string} [statusText]
+   */
+  onUpgradeResponse (statusCode, headers, parseHeaders, statusText = '') {
+    assert(!this.aborted)
+    assert(this.completed)
+
+    if (channels.headers.hasSubscribers) {
+      this.#publishUpgradeHeaders(statusCode, parseHeaders(headers), statusText)
+    }
+    this.#publishUpgradeTrailers()
+  }
+
+  /**
+   * @param {Error} error
+   */
+  onUpgradeError (error) {
+    assert(!this.aborted)
+    assert(this.completed)
+
+    if (channels.error.hasSubscribers) {
+      channels.error.publish({ request: this, error })
+    }
+  }
+
+  /**
+   * @param {number} statusCode
+   * @param {Buffer[]} headers
+   * @param {string} statusText
+   */
+  #publishUpgradeHeaders (statusCode, headers, statusText) {
+    if (channels.headers.hasSubscribers) {
+      channels.headers.publish({ request: this, response: { statusCode, headers, statusText } })
+    }
+  }
+
+  #publishUpgradeTrailers () {
+    if (channels.trailers.hasSubscribers) {
+      channels.trailers.publish({ request: this, trailers: [] })
+    }
   }
 
   onComplete (trailers) {
@@ -4911,7 +4977,7 @@ module.exports = Request
 
 /***/ }),
 
-/***/ 3945:
+/***/ 992:
 /***/ ((module) => {
 
 module.exports = {
@@ -4985,7 +5051,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 5862:
+/***/ 1641:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -4993,7 +5059,7 @@ module.exports = {
 const {
   wellknownHeaderNames,
   headerNameLowerCasedRecord
-} = __nccwpck_require__(2029)
+} = __nccwpck_require__(832)
 
 class TstNode {
   /** @type {any} */
@@ -5144,13 +5210,13 @@ module.exports = {
 
 /***/ }),
 
-/***/ 4610:
+/***/ 9969:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const assert = __nccwpck_require__(4589)
-const { kDestroyed, kBodyUsed, kListeners, kBody } = __nccwpck_require__(3945)
+const { kDestroyed, kBodyUsed, kListeners, kBody } = __nccwpck_require__(992)
 const { IncomingMessage } = __nccwpck_require__(7067)
 const stream = __nccwpck_require__(7075)
 const net = __nccwpck_require__(7030)
@@ -5158,9 +5224,9 @@ const { Blob } = __nccwpck_require__(4573)
 const nodeUtil = __nccwpck_require__(7975)
 const { stringify } = __nccwpck_require__(1792)
 const { EventEmitter: EE } = __nccwpck_require__(8474)
-const { InvalidArgumentError } = __nccwpck_require__(745)
-const { headerNameLowerCasedRecord } = __nccwpck_require__(2029)
-const { tree } = __nccwpck_require__(5862)
+const { InvalidArgumentError } = __nccwpck_require__(7934)
+const { headerNameLowerCasedRecord } = __nccwpck_require__(832)
+const { tree } = __nccwpck_require__(1641)
 
 const [nodeMajor, nodeMinor] = process.versions.node.split('.').map(v => Number(v))
 
@@ -5870,18 +5936,18 @@ module.exports = {
 
 /***/ }),
 
-/***/ 3195:
+/***/ 9674:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { InvalidArgumentError } = __nccwpck_require__(745)
-const { kClients, kRunning, kClose, kDestroy, kDispatch, kInterceptors } = __nccwpck_require__(3945)
-const DispatcherBase = __nccwpck_require__(555)
-const Pool = __nccwpck_require__(2422)
-const Client = __nccwpck_require__(4887)
-const util = __nccwpck_require__(4610)
-const createRedirectInterceptor = __nccwpck_require__(2450)
+const { InvalidArgumentError } = __nccwpck_require__(7934)
+const { kClients, kRunning, kClose, kDestroy, kDispatch, kInterceptors } = __nccwpck_require__(992)
+const DispatcherBase = __nccwpck_require__(5190)
+const Pool = __nccwpck_require__(1385)
+const Client = __nccwpck_require__(4804)
+const util = __nccwpck_require__(9969)
+const createRedirectInterceptor = __nccwpck_require__(9583)
 
 const kOnConnect = Symbol('onConnect')
 const kOnDisconnect = Symbol('onDisconnect')
@@ -5898,7 +5964,7 @@ function defaultFactory (origin, opts) {
 }
 
 class Agent extends DispatcherBase {
-  constructor ({ factory = defaultFactory, maxRedirections = 0, connect, ...options } = {}) {
+  constructor ({ factory = defaultFactory, maxRedirections = 0, connect, tls, ...options } = {}) {
     if (typeof factory !== 'function') {
       throw new InvalidArgumentError('factory must be a function.')
     }
@@ -5917,11 +5983,15 @@ class Agent extends DispatcherBase {
       connect = { ...connect }
     }
 
+    if (tls && typeof tls !== 'function') {
+      tls = { ...tls }
+    }
+
     this[kInterceptors] = options.interceptors?.Agent && Array.isArray(options.interceptors.Agent)
       ? options.interceptors.Agent
       : [createRedirectInterceptor({ maxRedirections })]
 
-    this[kOptions] = { ...util.deepClone(options), connect }
+    this[kOptions] = { ...util.deepClone(options), connect, tls }
     this[kOptions].interceptors = options.interceptors
       ? { ...options.interceptors }
       : undefined
@@ -6006,7 +6076,7 @@ module.exports = Agent
 
 /***/ }),
 
-/***/ 9775:
+/***/ 9422:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -6014,7 +6084,7 @@ module.exports = Agent
 const {
   BalancedPoolMissingUpstreamError,
   InvalidArgumentError
-} = __nccwpck_require__(745)
+} = __nccwpck_require__(7934)
 const {
   PoolBase,
   kClients,
@@ -6022,10 +6092,10 @@ const {
   kAddClient,
   kRemoveClient,
   kGetDispatcher
-} = __nccwpck_require__(6182)
-const Pool = __nccwpck_require__(2422)
-const { kUrl, kInterceptors } = __nccwpck_require__(3945)
-const { parseOrigin } = __nccwpck_require__(4610)
+} = __nccwpck_require__(7971)
+const Pool = __nccwpck_require__(1385)
+const { kUrl, kInterceptors } = __nccwpck_require__(992)
+const { parseOrigin } = __nccwpck_require__(9969)
 const kFactory = Symbol('factory')
 
 const kOptions = Symbol('options')
@@ -6222,7 +6292,7 @@ module.exports = BalancedPool
 
 /***/ }),
 
-/***/ 515:
+/***/ 7474:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -6230,9 +6300,9 @@ module.exports = BalancedPool
 /* global WebAssembly */
 
 const assert = __nccwpck_require__(4589)
-const util = __nccwpck_require__(4610)
-const { channels } = __nccwpck_require__(1948)
-const timers = __nccwpck_require__(6081)
+const util = __nccwpck_require__(9969)
+const { channels } = __nccwpck_require__(4757)
+const timers = __nccwpck_require__(7622)
 const {
   RequestContentLengthMismatchError,
   ResponseContentLengthMismatchError,
@@ -6245,7 +6315,7 @@ const {
   BodyTimeoutError,
   HTTPParserError,
   ResponseExceededMaxSizeError
-} = __nccwpck_require__(745)
+} = __nccwpck_require__(7934)
 const {
   kUrl,
   kReset,
@@ -6278,9 +6348,9 @@ const {
   kOnError,
   kResume,
   kHTTPContext
-} = __nccwpck_require__(3945)
+} = __nccwpck_require__(992)
 
-const constants = __nccwpck_require__(4202)
+const constants = __nccwpck_require__(1099)
 const EMPTY_BUF = Buffer.alloc(0)
 const FastBuffer = Buffer[Symbol.species]
 const addListener = util.addListener
@@ -6292,11 +6362,11 @@ const kSocketUsed = Symbol('kSocketUsed')
 let extractBody
 
 async function lazyllhttp () {
-  const llhttpWasmData = process.env.JEST_WORKER_ID ? __nccwpck_require__(6208) : undefined
+  const llhttpWasmData = process.env.JEST_WORKER_ID ? __nccwpck_require__(805) : undefined
 
   let mod
   try {
-    mod = await WebAssembly.compile(__nccwpck_require__(6536))
+    mod = await WebAssembly.compile(__nccwpck_require__(5543))
   } catch (e) {
     /* istanbul ignore next */
 
@@ -6304,7 +6374,7 @@ async function lazyllhttp () {
     // being enabled, but the occurring of this other error
     // * https://github.com/emscripten-core/emscripten/issues/11495
     // got me to remove that check to avoid breaking Node 12.
-    mod = await WebAssembly.compile(llhttpWasmData || __nccwpck_require__(6208))
+    mod = await WebAssembly.compile(llhttpWasmData || __nccwpck_require__(805))
   }
 
   return await WebAssembly.instantiate(mod, {
@@ -6659,7 +6729,7 @@ class Parser {
   }
 
   onUpgrade (head) {
-    const { upgrade, client, socket, headers, statusCode } = this
+    const { upgrade, client, socket, headers, statusCode, statusText } = this
 
     assert(upgrade)
     assert(client[kSocket] === socket)
@@ -6694,9 +6764,10 @@ class Parser {
     client.emit('disconnect', client[kUrl], [client], new InformationalError('upgrade'))
 
     try {
-      request.onUpgrade(statusCode, headers, socket)
-    } catch (err) {
-      util.destroy(socket, err)
+      request.onUpgrade(statusCode, headers, socket, statusText)
+    } catch (error) {
+      util.errorRequest(client, request, error)
+      util.destroy(socket, error)
     }
 
     client[kResume]()
@@ -6953,8 +7024,6 @@ async function connectH1 (client, socket) {
   socket[kParser] = new Parser(client, socket, llhttpInstance)
 
   addListener(socket, 'error', function (err) {
-    assert(err.code !== 'ERR_TLS_CERT_ALTNAME_INVALID')
-
     const parser = this[kParser]
 
     // On Mac OS, we get an ECONNRESET even if there is a full body to be forwarded
@@ -7220,7 +7289,7 @@ function writeH1 (client, request) {
 
   if (util.isFormDataLike(body)) {
     if (!extractBody) {
-      extractBody = (__nccwpck_require__(8266).extractBody)
+      extractBody = (__nccwpck_require__(7687).extractBody)
     }
 
     const [bodyStream, contentType] = extractBody(body)
@@ -7277,12 +7346,22 @@ function writeH1 (client, request) {
   const socket = client[kSocket]
   clearIdleSocketValidation(socket)
 
-  const abort = (err) => {
-    if (request.aborted || request.completed) {
+  /**
+   * @param {Error} [error]
+   */
+  const abort = (error) => {
+    if (request.aborted) {
       return
     }
 
-    util.errorRequest(client, request, err || new RequestAbortedError())
+    if (request.completed) {
+      if (request.upgrade || request.method === 'CONNECT') {
+        util.destroy(socket, new InformationalError('aborted'))
+      }
+      return
+    }
+
+    util.errorRequest(client, request, error || new RequestAbortedError())
 
     util.destroy(body)
     util.destroy(socket, new InformationalError('aborted'))
@@ -7733,20 +7812,21 @@ module.exports = connectH1
 
 /***/ }),
 
-/***/ 9286:
+/***/ 8015:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const assert = __nccwpck_require__(4589)
+const { errorMonitor } = __nccwpck_require__(8474)
 const { pipeline } = __nccwpck_require__(7075)
-const util = __nccwpck_require__(4610)
+const util = __nccwpck_require__(9969)
 const {
   RequestContentLengthMismatchError,
   RequestAbortedError,
   SocketError,
   InformationalError
-} = __nccwpck_require__(745)
+} = __nccwpck_require__(7934)
 const {
   kUrl,
   kReset,
@@ -7765,7 +7845,7 @@ const {
   kResume,
   kSize,
   kHTTPContext
-} = __nccwpck_require__(3945)
+} = __nccwpck_require__(992)
 
 const kOpenStreams = Symbol('open streams')
 
@@ -7813,6 +7893,15 @@ function parseH2Headers (headers) {
   }
 
   return result
+}
+
+/**
+ * @param {import('node:http2').IncomingHttpHeaders} headers
+ * @returns {Buffer[]}
+ */
+function parseH2ResponseHeaders (headers) {
+  const { [HTTP2_HEADER_STATUS]: _statusCode, ...realHeaders } = headers
+  return parseH2Headers(realHeaders)
 }
 
 async function connectH2 (client, socket) {
@@ -7864,8 +7953,6 @@ async function connectH2 (client, socket) {
   socket[kHTTP2Session] = session
 
   util.addListener(socket, 'error', function (err) {
-    assert(err.code !== 'ERR_TLS_CERT_ALTNAME_INVALID')
-
     this[kError] = err
 
     this[kClient][kOnError](err)
@@ -7939,8 +8026,6 @@ function resumeH2 (client) {
 }
 
 function onHttp2SessionError (err) {
-  assert(err.code !== 'ERR_TLS_CERT_ALTNAME_INVALID')
-
   this[kSocket][kError] = err
   this[kClient][kOnError](err)
 }
@@ -8035,22 +8120,32 @@ function writeH2 (client, request) {
   headers[HTTP2_HEADER_AUTHORITY] = host || `${hostname}${port ? `:${port}` : ''}`
   headers[HTTP2_HEADER_METHOD] = method
 
-  const abort = (err) => {
-    if (request.aborted || request.completed) {
+  /**
+   * @param {Error} [error]
+   */
+  const abort = (error) => {
+    if (request.aborted) {
       return
     }
 
-    err = err || new RequestAbortedError()
+    if (request.completed) {
+      if (method === 'CONNECT' && stream != null) {
+        util.destroy(stream, error || new RequestAbortedError())
+      }
+      return
+    }
 
-    util.errorRequest(client, request, err)
+    error = error || new RequestAbortedError()
+
+    util.errorRequest(client, request, error)
 
     if (stream != null) {
-      util.destroy(stream, err)
+      util.destroy(stream, error)
     }
 
     // We do not destroy the socket as we can continue using the session
     // the stream get's destroyed and the session remains to create new streams
-    util.destroy(body, err)
+    util.destroy(body, error)
     client[kQueue][client[kRunningIdx]++] = null
     client[kResume]()
   }
@@ -8069,25 +8164,57 @@ function writeH2 (client, request) {
 
   if (method === 'CONNECT') {
     session.ref()
-    // We are already connected, streams are pending, first request
-    // will create a new stream. We trigger a request to create the stream and wait until
-    // `ready` event is triggered
     // We disabled endStream to allow the user to write to the stream
     stream = session.request(headers, { endStream: false, signal })
+    let upgradeResponseFinished = false
 
-    if (stream.id && !stream.pending) {
-      request.onUpgrade(null, null, stream)
-      ++session[kOpenStreams]
-      client[kQueue][client[kRunningIdx]++] = null
-    } else {
-      stream.once('ready', () => {
-        request.onUpgrade(null, null, stream)
-        ++session[kOpenStreams]
-        client[kQueue][client[kRunningIdx]++] = null
-      })
+    /**
+     * @param {import('node:http2').IncomingHttpHeaders} headers
+     */
+    const onResponse = (headers) => {
+      upgradeResponseFinished = true
+      stream.off(errorMonitor, onUpgradeError)
+      request.onUpgradeResponse(Number(headers[HTTP2_HEADER_STATUS]), headers, parseH2ResponseHeaders)
     }
 
+    /**
+     * @param {Error} error
+     */
+    const onUpgradeError = (error) => {
+      upgradeResponseFinished = true
+      stream.off('response', onResponse)
+      request.onUpgradeError(error)
+    }
+
+    const onReady = () => {
+      try {
+        request.onUpgrade(null, null, stream)
+      } catch (error) {
+        stream.off('response', onResponse)
+        abort(error)
+        return
+      }
+
+      if (request.aborted) {
+        return
+      }
+
+      stream.off('error', abort)
+      stream.once(errorMonitor, onUpgradeError)
+      client[kQueue][client[kRunningIdx]++] = null
+    }
+
+    stream.once('response', onResponse)
+    stream.once('error', abort)
+    ++session[kOpenStreams]
+    onReady()
+
     stream.once('close', () => {
+      if (!upgradeResponseFinished && request.completed) {
+        stream.off('response', onResponse)
+        stream.off(errorMonitor, onUpgradeError)
+        request.onUpgradeError(new InformationalError(`HTTP/2: "stream error" received - code ${stream.rstCode}`))
+      }
       session[kOpenStreams] -= 1
       if (session[kOpenStreams] === 0) session.unref()
     })
@@ -8124,7 +8251,7 @@ function writeH2 (client, request) {
   let contentLength = util.bodyLength(body)
 
   if (util.isFormDataLike(body)) {
-    extractBody ??= (__nccwpck_require__(8266).extractBody)
+    extractBody ??= (__nccwpck_require__(7687).extractBody)
 
     const [bodyStream, contentType] = extractBody(body)
     headers['content-type'] = contentType
@@ -8484,7 +8611,7 @@ module.exports = connectH2
 
 /***/ }),
 
-/***/ 4887:
+/***/ 4804:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 // @ts-check
@@ -8494,16 +8621,16 @@ module.exports = connectH2
 const assert = __nccwpck_require__(4589)
 const net = __nccwpck_require__(7030)
 const http = __nccwpck_require__(7067)
-const util = __nccwpck_require__(4610)
-const { channels } = __nccwpck_require__(1948)
-const Request = __nccwpck_require__(2469)
-const DispatcherBase = __nccwpck_require__(555)
+const util = __nccwpck_require__(9969)
+const { channels } = __nccwpck_require__(4757)
+const Request = __nccwpck_require__(1548)
+const DispatcherBase = __nccwpck_require__(5190)
 const {
   InvalidArgumentError,
   InformationalError,
   ClientDestroyedError
-} = __nccwpck_require__(745)
-const buildConnector = __nccwpck_require__(9482)
+} = __nccwpck_require__(7934)
+const buildConnector = __nccwpck_require__(2535)
 const {
   kUrl,
   kServerName,
@@ -8545,9 +8672,9 @@ const {
   kHTTPContext,
   kMaxConcurrentStreams,
   kResume
-} = __nccwpck_require__(3945)
-const connectH1 = __nccwpck_require__(515)
-const connectH2 = __nccwpck_require__(9286)
+} = __nccwpck_require__(992)
+const connectH1 = __nccwpck_require__(7474)
+const connectH2 = __nccwpck_require__(8015)
 let deprecatedInterceptorWarned = false
 
 const kClosedResolve = Symbol('kClosedResolve')
@@ -8596,9 +8723,10 @@ class Client extends DispatcherBase {
     // h2
     maxConcurrentStreams,
     allowH2,
-    webSocket
+    webSocket,
+    eventSource
   } = {}) {
-    super({ webSocket })
+    super({ webSocket, eventSource })
 
     if (keepAlive !== undefined) {
       throw new InvalidArgumentError('unsupported keepAlive, use pipelining=0 instead')
@@ -8854,7 +8982,7 @@ class Client extends DispatcherBase {
   }
 }
 
-const createRedirectInterceptor = __nccwpck_require__(2450)
+const createRedirectInterceptor = __nccwpck_require__(9583)
 
 function onError (client, err) {
   if (
@@ -9114,23 +9242,25 @@ module.exports = Client
 
 /***/ }),
 
-/***/ 555:
+/***/ 5190:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const Dispatcher = __nccwpck_require__(4977)
+const buffer = __nccwpck_require__(4573)
+const Dispatcher = __nccwpck_require__(1110)
 const {
   ClientDestroyedError,
   ClientClosedError,
   InvalidArgumentError
-} = __nccwpck_require__(745)
-const { kDestroy, kClose, kClosed, kDestroyed, kDispatch, kInterceptors } = __nccwpck_require__(3945)
+} = __nccwpck_require__(7934)
+const { kDestroy, kClose, kClosed, kDestroyed, kDispatch, kInterceptors } = __nccwpck_require__(992)
 
 const kOnDestroyed = Symbol('onDestroyed')
 const kOnClosed = Symbol('onClosed')
 const kInterceptedDispatch = Symbol('Intercepted Dispatch')
 const kWebSocketOptions = Symbol('webSocketOptions')
+const kEventSourceOptions = Symbol('eventSourceOptions')
 
 class DispatcherBase extends Dispatcher {
   constructor (opts) {
@@ -9141,12 +9271,19 @@ class DispatcherBase extends Dispatcher {
     this[kClosed] = false
     this[kOnClosed] = []
     this[kWebSocketOptions] = opts?.webSocket ?? {}
+    this[kEventSourceOptions] = opts?.eventSource ?? {}
   }
 
   get webSocketOptions () {
     return {
       maxFragments: this[kWebSocketOptions].maxFragments ?? 131072,
       maxPayloadSize: this[kWebSocketOptions].maxPayloadSize ?? 128 * 1024 * 1024
+    }
+  }
+
+  get eventSourceOptions () {
+    return {
+      maxEventSize: this[kEventSourceOptions].maxEventSize ?? buffer.kStringMaxLength
     }
   }
 
@@ -9320,7 +9457,7 @@ module.exports = DispatcherBase
 
 /***/ }),
 
-/***/ 4977:
+/***/ 1110:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -9392,15 +9529,15 @@ module.exports = Dispatcher
 
 /***/ }),
 
-/***/ 2835:
+/***/ 8824:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const DispatcherBase = __nccwpck_require__(555)
-const { kClose, kDestroy, kClosed, kDestroyed, kDispatch, kNoProxyAgent, kHttpProxyAgent, kHttpsProxyAgent } = __nccwpck_require__(3945)
-const ProxyAgent = __nccwpck_require__(7014)
-const Agent = __nccwpck_require__(3195)
+const DispatcherBase = __nccwpck_require__(5190)
+const { kClose, kDestroy, kClosed, kDestroyed, kDispatch, kNoProxyAgent, kHttpProxyAgent, kHttpsProxyAgent } = __nccwpck_require__(992)
+const ProxyAgent = __nccwpck_require__(7811)
+const Agent = __nccwpck_require__(9674)
 
 const DEFAULT_PORTS = {
   'http:': 80,
@@ -9559,7 +9696,7 @@ module.exports = EnvHttpProxyAgent
 
 /***/ }),
 
-/***/ 8038:
+/***/ 4663:
 /***/ ((module) => {
 
 /* eslint-disable */
@@ -9683,15 +9820,15 @@ module.exports = class FixedQueue {
 
 /***/ }),
 
-/***/ 6182:
+/***/ 7971:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const DispatcherBase = __nccwpck_require__(555)
-const FixedQueue = __nccwpck_require__(8038)
-const { kConnected, kSize, kRunning, kPending, kQueued, kBusy, kFree, kUrl, kClose, kDestroy, kDispatch } = __nccwpck_require__(3945)
-const PoolStats = __nccwpck_require__(9112)
+const DispatcherBase = __nccwpck_require__(5190)
+const FixedQueue = __nccwpck_require__(4663)
+const { kConnected, kSize, kRunning, kPending, kQueued, kBusy, kFree, kUrl, kClose, kDestroy, kDispatch } = __nccwpck_require__(992)
+const PoolStats = __nccwpck_require__(4255)
 
 const kClients = Symbol('clients')
 const kNeedDrain = Symbol('needDrain')
@@ -9884,10 +10021,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ 9112:
+/***/ 4255:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const { kFree, kConnected, kPending, kQueued, kRunning, kSize } = __nccwpck_require__(3945)
+const { kFree, kConnected, kPending, kQueued, kRunning, kSize } = __nccwpck_require__(992)
 const kPool = Symbol('pool')
 
 class PoolStats {
@@ -9925,7 +10062,7 @@ module.exports = PoolStats
 
 /***/ }),
 
-/***/ 2422:
+/***/ 1385:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -9936,14 +10073,14 @@ const {
   kNeedDrain,
   kAddClient,
   kGetDispatcher
-} = __nccwpck_require__(6182)
-const Client = __nccwpck_require__(4887)
+} = __nccwpck_require__(7971)
+const Client = __nccwpck_require__(4804)
 const {
   InvalidArgumentError
-} = __nccwpck_require__(745)
-const util = __nccwpck_require__(4610)
-const { kUrl, kInterceptors } = __nccwpck_require__(3945)
-const buildConnector = __nccwpck_require__(9482)
+} = __nccwpck_require__(7934)
+const util = __nccwpck_require__(9969)
+const { kUrl, kInterceptors } = __nccwpck_require__(992)
+const buildConnector = __nccwpck_require__(2535)
 
 const kOptions = Symbol('options')
 const kConnections = Symbol('connections')
@@ -10039,19 +10176,19 @@ module.exports = Pool
 
 /***/ }),
 
-/***/ 7014:
+/***/ 7811:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { kProxy, kClose, kDestroy, kDispatch, kInterceptors } = __nccwpck_require__(3945)
+const { kProxy, kClose, kDestroy, kDispatch, kInterceptors } = __nccwpck_require__(992)
 const { URL } = __nccwpck_require__(3136)
-const Agent = __nccwpck_require__(3195)
-const Pool = __nccwpck_require__(2422)
-const DispatcherBase = __nccwpck_require__(555)
-const { InvalidArgumentError, RequestAbortedError, SecureProxyConnectionError } = __nccwpck_require__(745)
-const buildConnector = __nccwpck_require__(9482)
-const Client = __nccwpck_require__(4887)
+const Agent = __nccwpck_require__(9674)
+const Pool = __nccwpck_require__(1385)
+const DispatcherBase = __nccwpck_require__(5190)
+const { InvalidArgumentError, RequestAbortedError, SecureProxyConnectionError } = __nccwpck_require__(7934)
+const buildConnector = __nccwpck_require__(2535)
+const Client = __nccwpck_require__(4804)
 
 const kAgent = Symbol('proxy agent')
 const kClient = Symbol('proxy client')
@@ -10320,13 +10457,13 @@ module.exports = ProxyAgent
 
 /***/ }),
 
-/***/ 1472:
+/***/ 6689:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const Dispatcher = __nccwpck_require__(4977)
-const RetryHandler = __nccwpck_require__(6494)
+const Dispatcher = __nccwpck_require__(1110)
+const RetryHandler = __nccwpck_require__(3525)
 
 class RetryAgent extends Dispatcher {
   #agent = null
@@ -10362,7 +10499,7 @@ module.exports = RetryAgent
 
 /***/ }),
 
-/***/ 511:
+/***/ 5458:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -10370,8 +10507,8 @@ module.exports = RetryAgent
 // We include a version number for the Dispatcher API. In case of breaking changes,
 // this version number must be increased to avoid conflicts.
 const globalDispatcher = Symbol.for('undici.globalDispatcher.1')
-const { InvalidArgumentError } = __nccwpck_require__(745)
-const Agent = __nccwpck_require__(3195)
+const { InvalidArgumentError } = __nccwpck_require__(7934)
+const Agent = __nccwpck_require__(9674)
 
 if (getGlobalDispatcher() === undefined) {
   setGlobalDispatcher(new Agent())
@@ -10401,7 +10538,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 1213:
+/***/ 1630:
 /***/ ((module) => {
 
 
@@ -10452,15 +10589,15 @@ module.exports = class DecoratorHandler {
 
 /***/ }),
 
-/***/ 1096:
+/***/ 5045:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const util = __nccwpck_require__(4610)
-const { kBodyUsed } = __nccwpck_require__(3945)
+const util = __nccwpck_require__(9969)
+const { kBodyUsed } = __nccwpck_require__(992)
 const assert = __nccwpck_require__(4589)
-const { InvalidArgumentError } = __nccwpck_require__(745)
+const { InvalidArgumentError } = __nccwpck_require__(7934)
 const EE = __nccwpck_require__(8474)
 
 const redirectableStatusCodes = [300, 301, 302, 303, 307, 308]
@@ -10691,20 +10828,20 @@ module.exports = RedirectHandler
 
 /***/ }),
 
-/***/ 6494:
+/***/ 3525:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 const assert = __nccwpck_require__(4589)
 
-const { kRetryHandlerDefaultRetry } = __nccwpck_require__(3945)
-const { RequestRetryError } = __nccwpck_require__(745)
+const { kRetryHandlerDefaultRetry } = __nccwpck_require__(992)
+const { RequestRetryError } = __nccwpck_require__(7934)
 const {
   isDisturbed,
   parseHeaders,
   parseRangeHeader,
   wrapRequestBody
-} = __nccwpck_require__(4610)
+} = __nccwpck_require__(9969)
 
 function calculateRetryAfterHeader (retryAfter) {
   const current = Date.now()
@@ -10901,7 +11038,10 @@ class RetryHandler {
     this.retryCount += 1
 
     if (statusCode >= 300) {
-      if (this.retryOpts.statusCodes.includes(statusCode) === false) {
+      // Only expose a response if no earlier attempt has reached the caller.
+      // Otherwise abort this attempt so the error settles the existing body
+      // instead of replacing it with a new response.
+      if (!this.headersSent && this.retryOpts.statusCodes.includes(statusCode) === false) {
         this.headersSent = true
         this.checkpointResponseEnd(headers, resume)
         return this.handler.onHeaders(
@@ -11132,14 +11272,14 @@ module.exports = RetryHandler
 
 /***/ }),
 
-/***/ 7629:
+/***/ 3214:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 const { isIP } = __nccwpck_require__(7030)
 const { lookup } = __nccwpck_require__(610)
-const DecoratorHandler = __nccwpck_require__(1213)
-const { InvalidArgumentError, InformationalError } = __nccwpck_require__(745)
+const DecoratorHandler = __nccwpck_require__(1630)
+const { InvalidArgumentError, InformationalError } = __nccwpck_require__(7934)
 const maxInt = Math.pow(2, 31) - 1
 
 class DNSInstance {
@@ -11514,14 +11654,14 @@ module.exports = interceptorOpts => {
 
 /***/ }),
 
-/***/ 8018:
+/***/ 5231:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const util = __nccwpck_require__(4610)
-const { InvalidArgumentError, RequestAbortedError } = __nccwpck_require__(745)
-const DecoratorHandler = __nccwpck_require__(1213)
+const util = __nccwpck_require__(9969)
+const { InvalidArgumentError, RequestAbortedError } = __nccwpck_require__(7934)
+const DecoratorHandler = __nccwpck_require__(1630)
 
 class DumpHandler extends DecoratorHandler {
   #maxSize = 1024 * 1024
@@ -11644,12 +11784,12 @@ module.exports = createDumpInterceptor
 
 /***/ }),
 
-/***/ 2450:
+/***/ 9583:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const RedirectHandler = __nccwpck_require__(1096)
+const RedirectHandler = __nccwpck_require__(5045)
 
 function createRedirectInterceptor ({ maxRedirections: defaultMaxRedirections }) {
   return (dispatch) => {
@@ -11672,11 +11812,11 @@ module.exports = createRedirectInterceptor
 
 /***/ }),
 
-/***/ 7092:
+/***/ 7393:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
-const RedirectHandler = __nccwpck_require__(1096)
+const RedirectHandler = __nccwpck_require__(5045)
 
 module.exports = opts => {
   const globalMaxRedirections = opts?.maxRedirections
@@ -11703,11 +11843,11 @@ module.exports = opts => {
 
 /***/ }),
 
-/***/ 7612:
+/***/ 935:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
-const RetryHandler = __nccwpck_require__(6494)
+const RetryHandler = __nccwpck_require__(3525)
 
 module.exports = globalOpts => {
   return dispatch => {
@@ -11729,13 +11869,13 @@ module.exports = globalOpts => {
 
 /***/ }),
 
-/***/ 4202:
+/***/ 1099:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SPECIAL_HEADERS = exports.HEADER_STATE = exports.MINOR = exports.MAJOR = exports.CONNECTION_TOKEN_CHARS = exports.HEADER_CHARS = exports.TOKEN = exports.STRICT_TOKEN = exports.HEX = exports.URL_CHAR = exports.STRICT_URL_CHAR = exports.USERINFO_CHARS = exports.MARK = exports.ALPHANUM = exports.NUM = exports.HEX_MAP = exports.NUM_MAP = exports.ALPHA = exports.FINISH = exports.H_METHOD_MAP = exports.METHOD_MAP = exports.METHODS_RTSP = exports.METHODS_ICE = exports.METHODS_HTTP = exports.METHODS = exports.LENIENT_FLAGS = exports.FLAGS = exports.TYPE = exports.ERROR = void 0;
-const utils_1 = __nccwpck_require__(9474);
+const utils_1 = __nccwpck_require__(2747);
 // C headers
 var ERROR;
 (function (ERROR) {
@@ -12013,7 +12153,7 @@ exports.SPECIAL_HEADERS = {
 
 /***/ }),
 
-/***/ 6208:
+/***/ 805:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -12025,7 +12165,7 @@ module.exports = Buffer.from('AGFzbQEAAAABJwdgAX8Bf2ADf39/AX9gAX8AYAJ/fwBgBH9/f3
 
 /***/ }),
 
-/***/ 6536:
+/***/ 5543:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -12037,7 +12177,7 @@ module.exports = Buffer.from('AGFzbQEAAAABJwdgAX8Bf2ADf39/AX9gAX8AYAJ/fwBgBH9/f3
 
 /***/ }),
 
-/***/ 9474:
+/***/ 2747:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -12058,13 +12198,13 @@ exports.enumToMap = enumToMap;
 
 /***/ }),
 
-/***/ 9299:
+/***/ 4956:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { kClients } = __nccwpck_require__(3945)
-const Agent = __nccwpck_require__(3195)
+const { kClients } = __nccwpck_require__(992)
+const Agent = __nccwpck_require__(9674)
 const {
   kAgent,
   kMockAgentSet,
@@ -12075,14 +12215,14 @@ const {
   kGetNetConnect,
   kOptions,
   kFactory
-} = __nccwpck_require__(5923)
-const MockClient = __nccwpck_require__(5839)
-const MockPool = __nccwpck_require__(9230)
-const { matchValue, buildMockOptions } = __nccwpck_require__(1271)
-const { InvalidArgumentError, UndiciError } = __nccwpck_require__(745)
-const Dispatcher = __nccwpck_require__(4977)
-const Pluralizer = __nccwpck_require__(1775)
-const PendingInterceptorsFormatter = __nccwpck_require__(2332)
+} = __nccwpck_require__(8568)
+const MockClient = __nccwpck_require__(5978)
+const MockPool = __nccwpck_require__(9463)
+const { matchValue, buildMockOptions } = __nccwpck_require__(6204)
+const { InvalidArgumentError, UndiciError } = __nccwpck_require__(7934)
+const Dispatcher = __nccwpck_require__(1110)
+const Pluralizer = __nccwpck_require__(5196)
+const PendingInterceptorsFormatter = __nccwpck_require__(2379)
 
 class MockAgent extends Dispatcher {
   constructor (opts) {
@@ -12225,14 +12365,14 @@ module.exports = MockAgent
 
 /***/ }),
 
-/***/ 5839:
+/***/ 5978:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const { promisify } = __nccwpck_require__(7975)
-const Client = __nccwpck_require__(4887)
-const { buildMockDispatch } = __nccwpck_require__(1271)
+const Client = __nccwpck_require__(4804)
+const { buildMockDispatch } = __nccwpck_require__(6204)
 const {
   kDispatches,
   kMockAgent,
@@ -12241,10 +12381,10 @@ const {
   kOrigin,
   kOriginalDispatch,
   kConnected
-} = __nccwpck_require__(5923)
-const { MockInterceptor } = __nccwpck_require__(1193)
-const Symbols = __nccwpck_require__(3945)
-const { InvalidArgumentError } = __nccwpck_require__(745)
+} = __nccwpck_require__(8568)
+const { MockInterceptor } = __nccwpck_require__(4646)
+const Symbols = __nccwpck_require__(992)
+const { InvalidArgumentError } = __nccwpck_require__(7934)
 
 /**
  * MockClient provides an API that extends the Client to influence the mockDispatches.
@@ -12291,12 +12431,12 @@ module.exports = MockClient
 
 /***/ }),
 
-/***/ 3499:
+/***/ 7046:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { UndiciError } = __nccwpck_require__(745)
+const { UndiciError } = __nccwpck_require__(7934)
 
 const kMockNotMatchedError = Symbol.for('undici.error.UND_MOCK_ERR_MOCK_NOT_MATCHED')
 
@@ -12326,12 +12466,12 @@ module.exports = {
 
 /***/ }),
 
-/***/ 1193:
+/***/ 4646:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { getResponseData, buildKey, addMockDispatch } = __nccwpck_require__(1271)
+const { getResponseData, buildKey, addMockDispatch } = __nccwpck_require__(6204)
 const {
   kDispatches,
   kDispatchKey,
@@ -12339,9 +12479,9 @@ const {
   kDefaultTrailers,
   kContentLength,
   kMockDispatch
-} = __nccwpck_require__(5923)
-const { InvalidArgumentError } = __nccwpck_require__(745)
-const { buildURL } = __nccwpck_require__(4610)
+} = __nccwpck_require__(8568)
+const { InvalidArgumentError } = __nccwpck_require__(7934)
+const { buildURL } = __nccwpck_require__(9969)
 
 /**
  * Defines the scope API for an interceptor reply
@@ -12540,14 +12680,14 @@ module.exports.MockScope = MockScope
 
 /***/ }),
 
-/***/ 9230:
+/***/ 9463:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const { promisify } = __nccwpck_require__(7975)
-const Pool = __nccwpck_require__(2422)
-const { buildMockDispatch } = __nccwpck_require__(1271)
+const Pool = __nccwpck_require__(1385)
+const { buildMockDispatch } = __nccwpck_require__(6204)
 const {
   kDispatches,
   kMockAgent,
@@ -12556,10 +12696,10 @@ const {
   kOrigin,
   kOriginalDispatch,
   kConnected
-} = __nccwpck_require__(5923)
-const { MockInterceptor } = __nccwpck_require__(1193)
-const Symbols = __nccwpck_require__(3945)
-const { InvalidArgumentError } = __nccwpck_require__(745)
+} = __nccwpck_require__(8568)
+const { MockInterceptor } = __nccwpck_require__(4646)
+const Symbols = __nccwpck_require__(992)
+const { InvalidArgumentError } = __nccwpck_require__(7934)
 
 /**
  * MockPool provides an API that extends the Pool to influence the mockDispatches.
@@ -12606,7 +12746,7 @@ module.exports = MockPool
 
 /***/ }),
 
-/***/ 5923:
+/***/ 8568:
 /***/ ((module) => {
 
 
@@ -12636,20 +12776,20 @@ module.exports = {
 
 /***/ }),
 
-/***/ 1271:
+/***/ 6204:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { MockNotMatchedError } = __nccwpck_require__(3499)
+const { MockNotMatchedError } = __nccwpck_require__(7046)
 const {
   kDispatches,
   kMockAgent,
   kOriginalDispatch,
   kOrigin,
   kGetNetConnect
-} = __nccwpck_require__(5923)
-const { buildURL } = __nccwpck_require__(4610)
+} = __nccwpck_require__(8568)
+const { buildURL } = __nccwpck_require__(9969)
 const { STATUS_CODES } = __nccwpck_require__(7067)
 const {
   types: {
@@ -13010,7 +13150,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 2332:
+/***/ 2379:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -13060,7 +13200,7 @@ module.exports = class PendingInterceptorsFormatter {
 
 /***/ }),
 
-/***/ 1775:
+/***/ 5196:
 /***/ ((module) => {
 
 
@@ -13096,7 +13236,7 @@ module.exports = class Pluralizer {
 
 /***/ }),
 
-/***/ 6081:
+/***/ 7622:
 /***/ ((module) => {
 
 
@@ -13526,20 +13666,20 @@ module.exports = {
 
 /***/ }),
 
-/***/ 9292:
+/***/ 5067:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { kConstruct } = __nccwpck_require__(1991)
-const { urlEquals, getFieldValues } = __nccwpck_require__(2100)
-const { kEnumerableProperty, isDisturbed } = __nccwpck_require__(4610)
-const { webidl } = __nccwpck_require__(7931)
-const { Response, cloneResponse, fromInnerResponse } = __nccwpck_require__(445)
-const { Request, fromInnerRequest } = __nccwpck_require__(8969)
-const { kState } = __nccwpck_require__(2229)
-const { fetching } = __nccwpck_require__(1828)
-const { urlIsHttpHttpsScheme, createDeferredPromise, readAllBytes } = __nccwpck_require__(2278)
+const { kConstruct } = __nccwpck_require__(6612)
+const { urlEquals, getFieldValues } = __nccwpck_require__(413)
+const { kEnumerableProperty, isDisturbed } = __nccwpck_require__(9969)
+const { webidl } = __nccwpck_require__(4666)
+const { Response, cloneResponse, fromInnerResponse } = __nccwpck_require__(3472)
+const { Request, fromInnerRequest } = __nccwpck_require__(9518)
+const { kState } = __nccwpck_require__(2010)
+const { fetching } = __nccwpck_require__(1351)
+const { urlIsHttpHttpsScheme, createDeferredPromise, readAllBytes } = __nccwpck_require__(295)
 const assert = __nccwpck_require__(4589)
 
 /**
@@ -14392,15 +14532,15 @@ module.exports = {
 
 /***/ }),
 
-/***/ 7827:
+/***/ 3622:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { kConstruct } = __nccwpck_require__(1991)
-const { Cache } = __nccwpck_require__(9292)
-const { webidl } = __nccwpck_require__(7931)
-const { kEnumerableProperty } = __nccwpck_require__(4610)
+const { kConstruct } = __nccwpck_require__(6612)
+const { Cache } = __nccwpck_require__(5067)
+const { webidl } = __nccwpck_require__(4666)
+const { kEnumerableProperty } = __nccwpck_require__(9969)
 
 class CacheStorage {
   /**
@@ -14551,26 +14691,26 @@ module.exports = {
 
 /***/ }),
 
-/***/ 1991:
+/***/ 6612:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 module.exports = {
-  kConstruct: (__nccwpck_require__(3945).kConstruct)
+  kConstruct: (__nccwpck_require__(992).kConstruct)
 }
 
 
 /***/ }),
 
-/***/ 2100:
+/***/ 413:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const assert = __nccwpck_require__(4589)
-const { URLSerializer } = __nccwpck_require__(9382)
-const { isValidHeaderName } = __nccwpck_require__(2278)
+const { URLSerializer } = __nccwpck_require__(4203)
+const { isValidHeaderName } = __nccwpck_require__(295)
 
 /**
  * @see https://url.spec.whatwg.org/#concept-url-equals
@@ -14615,7 +14755,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 3866:
+/***/ 2929:
 /***/ ((module) => {
 
 
@@ -14634,15 +14774,15 @@ module.exports = {
 
 /***/ }),
 
-/***/ 935:
+/***/ 7916:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { parseSetCookie } = __nccwpck_require__(3920)
-const { stringify } = __nccwpck_require__(4999)
-const { webidl } = __nccwpck_require__(7931)
-const { Headers } = __nccwpck_require__(7958)
+const { parseSetCookie } = __nccwpck_require__(703)
+const { stringify } = __nccwpck_require__(2926)
+const { webidl } = __nccwpck_require__(4666)
+const { Headers } = __nccwpck_require__(7705)
 
 /**
  * @typedef {Object} Cookie
@@ -14825,14 +14965,14 @@ module.exports = {
 
 /***/ }),
 
-/***/ 3920:
+/***/ 703:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { maxNameValuePairSize, maxAttributeValueSize } = __nccwpck_require__(3866)
-const { isCTLExcludingHtab } = __nccwpck_require__(4999)
-const { collectASequenceOfCodePointsFast } = __nccwpck_require__(9382)
+const { maxNameValuePairSize, maxAttributeValueSize } = __nccwpck_require__(2929)
+const { isCTLExcludingHtab } = __nccwpck_require__(2926)
+const { collectASequenceOfCodePointsFast } = __nccwpck_require__(4203)
 const assert = __nccwpck_require__(4589)
 
 /**
@@ -15142,7 +15282,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 4999:
+/***/ 2926:
 /***/ ((module) => {
 
 
@@ -15501,12 +15641,13 @@ module.exports = {
 
 /***/ }),
 
-/***/ 6565:
+/***/ 5028:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
+const buffer = __nccwpck_require__(4573)
 const { Transform } = __nccwpck_require__(7075)
-const { isASCIINumber, isValidLastEventId } = __nccwpck_require__(8857)
+const { isASCIINumber, isValidLastEventId } = __nccwpck_require__(6187)
 
 /**
  * @type {number[]} BOM
@@ -15529,10 +15670,18 @@ const COLON = 0x3A
  */
 const SPACE = 0x20
 
+const defaultMaxEventSize = buffer.kStringMaxLength
+
 const DATA = Buffer.from('data')
 const EVENT = Buffer.from('event')
 const ID = Buffer.from('id')
 const RETRY = Buffer.from('retry')
+
+// Each data field creates a string node, and each unconsumed input chunk keeps
+// a Buffer wrapper. The absolute ceiling protects the large default byte limit.
+const minParserItems = 1024
+const maxParserItems = 131072
+const bytesPerParserItem = 128
 
 function isASCIINumberBytes (buffer, start) {
   if (start >= buffer.length) {
@@ -15570,6 +15719,12 @@ function isFieldName (line, length, field) {
   }
 
   return true
+}
+
+function createMaxEventSizeExceededError () {
+  const error = new Error('EventSource message size exceeded')
+  error.aborted = false
+  return error
 }
 
 /**
@@ -15620,6 +15775,13 @@ class EventSourceStream extends Transform {
   pos = 0
   lineChunkIndex = 0
   linePos = 0
+  lineLength = 0
+  eventSize = 0
+  eventFieldSizes = { data: 0, event: 0, id: 0, retry: 0 }
+  dataLineCount = 0
+  maxEventSize
+  maxDataLines
+  maxBufferedChunks
 
   event = {
     data: undefined,
@@ -15630,6 +15792,7 @@ class EventSourceStream extends Transform {
 
   /**
    * @param {object} options
+   * @param {number} [options.maxEventSize]
    * @param {eventSourceSettings} options.eventSourceSettings
    * @param {Function} [options.push]
    */
@@ -15641,6 +15804,12 @@ class EventSourceStream extends Transform {
     super(options)
 
     this.state = options.eventSourceSettings || {}
+    this.maxEventSize = options.maxEventSize ?? defaultMaxEventSize
+    const parserItemLimit = this.maxEventSize > 0
+      ? Math.min(maxParserItems, Math.max(minParserItems, Math.floor(this.maxEventSize / bytesPerParserItem)))
+      : 0
+    this.maxDataLines = parserItemLimit
+    this.maxBufferedChunks = parserItemLimit
     if (options.push) {
       this.push = options.push
     }
@@ -15658,6 +15827,14 @@ class EventSourceStream extends Transform {
       return
     }
 
+    // A leading line ending can immediately release the currently buffered
+    // line, even when it uses the final allowed chunk slot.
+    if (this.maxEventSize > 0 &&
+        this.chunks.length >= this.maxBufferedChunks &&
+        chunk[0] !== LF && chunk[0] !== CR) {
+      callback(createMaxEventSizeExceededError())
+      return
+    }
     this.chunks.push(chunk)
 
     // Strip leading byte-order-mark if we opened the stream and started
@@ -15736,7 +15913,12 @@ class EventSourceStream extends Transform {
 
         // In any case, we can process the line as we reached an
         // end-of-line character
-        this.parseLine(this.readLine(), this.event)
+        try {
+          this.parseLine(this.readLine(), this.event)
+        } catch (error) {
+          callback(error)
+          return
+        }
         this.consumeCurrentByte()
         // A line was processed and this could be the end of the event. We need
         // to check if the next line is empty to determine if the event is
@@ -15745,15 +15927,28 @@ class EventSourceStream extends Transform {
         continue
       }
 
+      // readLine() is only called after CR or LF. Reject an unfinished line
+      // before it can retain an unbounded number of decoded chunks. The seven
+      // extra bytes allow the longest field prefix ("event: " or "retry: ").
+      if (this.maxEventSize > 0 && ++this.lineLength > this.maxEventSize + 7) {
+        callback(createMaxEventSizeExceededError())
+        return
+      }
       this.advanceCursor()
     }
 
     callback()
   }
 
+  _destroy (error, callback) {
+    this.chunks.length = 0
+    this.clearEvent()
+    super._destroy(error, callback)
+  }
+
   /**
    * @param {Buffer} line
-   * @param {EventStreamEvent} event
+   * @param {EventSourceStreamEvent} event
    */
   parseLine (line, event) {
     // If the line is empty (a blank line)
@@ -15787,6 +15982,13 @@ class EventSourceStream extends Transform {
     }
 
     if (isFieldName(line, fieldLength, DATA)) {
+      if (this.maxEventSize > 0 && this.dataLineCount >= this.maxDataLines) {
+        throw createMaxEventSizeExceededError()
+      }
+      const valueBytes = line.length - valueStart
+      const dataSize = this.eventFieldSizes.data + (event.data === undefined ? 0 : 1) + valueBytes
+      this.setEventFieldSize('data', dataSize)
+
       const value = line.toString('utf8', valueStart)
 
       if (event.data === undefined) {
@@ -15794,11 +15996,13 @@ class EventSourceStream extends Transform {
       } else {
         event.data += `\n${value}`
       }
+      this.dataLineCount++
       return
     }
 
     if (isFieldName(line, fieldLength, RETRY)) {
       if (isASCIINumberBytes(line, valueStart)) {
+        this.setEventFieldSize('retry', line.length - valueStart)
         event.retry = line.toString('utf8', valueStart)
       }
       return
@@ -15806,18 +16010,27 @@ class EventSourceStream extends Transform {
 
     if (isFieldName(line, fieldLength, ID)) {
       if (isValidLastEventIdBytes(line, valueStart)) {
+        this.setEventFieldSize('id', line.length - valueStart)
         event.id = line.toString('utf8', valueStart)
       }
       return
     }
 
     if (isFieldName(line, fieldLength, EVENT)) {
-      const value = line.toString('utf8', valueStart)
-
-      if (value.length > 0) {
-        event.event = value
+      if (valueStart < line.length) {
+        this.setEventFieldSize('event', line.length - valueStart)
+        event.event = line.toString('utf8', valueStart)
       }
     }
+  }
+
+  setEventFieldSize (field, size) {
+    const eventSize = this.eventSize - this.eventFieldSizes[field] + size
+    if (this.maxEventSize > 0 && eventSize > this.maxEventSize) {
+      throw createMaxEventSizeExceededError()
+    }
+    this.eventSize = eventSize
+    this.eventFieldSizes[field] = size
   }
 
   /**
@@ -15850,6 +16063,12 @@ class EventSourceStream extends Transform {
     this.event.event = undefined
     this.event.id = undefined
     this.event.retry = undefined
+    this.eventSize = 0
+    this.dataLineCount = 0
+    this.eventFieldSizes.data = 0
+    this.eventFieldSizes.event = 0
+    this.eventFieldSizes.id = 0
+    this.eventFieldSizes.retry = 0
   }
 
   hasPendingEvent () {
@@ -15885,14 +16104,16 @@ class EventSourceStream extends Transform {
   syncLineStartToCursor () {
     this.lineChunkIndex = this.chunkIndex
     this.linePos = this.pos
+    this.lineLength = 0
     this.dropConsumedChunks()
   }
 
   dropConsumedChunks () {
-    while (this.lineChunkIndex > 0) {
-      this.chunks.shift()
-      this.lineChunkIndex--
-      this.chunkIndex--
+    if (this.lineChunkIndex > 0) {
+      const consumed = this.lineChunkIndex
+      this.chunks.splice(0, consumed)
+      this.lineChunkIndex = 0
+      this.chunkIndex -= consumed
     }
 
     if (this.chunkIndex === this.chunks.length) {
@@ -16001,22 +16222,23 @@ module.exports = {
 
 /***/ }),
 
-/***/ 8848:
+/***/ 2055:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const { pipeline } = __nccwpck_require__(7075)
-const { fetching } = __nccwpck_require__(1828)
-const { makeRequest } = __nccwpck_require__(8969)
-const { webidl } = __nccwpck_require__(7931)
-const { EventSourceStream } = __nccwpck_require__(6565)
-const { parseMIMEType } = __nccwpck_require__(9382)
-const { createFastMessageEvent } = __nccwpck_require__(502)
-const { isNetworkError } = __nccwpck_require__(445)
-const { delay } = __nccwpck_require__(8857)
-const { kEnumerableProperty } = __nccwpck_require__(4610)
-const { environmentSettingsObject } = __nccwpck_require__(2278)
+const { fetching } = __nccwpck_require__(1351)
+const { makeRequest } = __nccwpck_require__(9518)
+const { webidl } = __nccwpck_require__(4666)
+const { EventSourceStream } = __nccwpck_require__(5028)
+const { parseMIMEType } = __nccwpck_require__(4203)
+const { createFastMessageEvent } = __nccwpck_require__(8563)
+const { isNetworkError } = __nccwpck_require__(3472)
+const { delay } = __nccwpck_require__(6187)
+const { kEnumerableProperty } = __nccwpck_require__(9969)
+const { environmentSettingsObject } = __nccwpck_require__(295)
+const { getGlobalDispatcher } = __nccwpck_require__(5458)
 
 let experimentalWarned = false
 
@@ -16298,6 +16520,7 @@ class EventSource extends EventTarget {
 
       const eventSourceStream = new EventSourceStream({
         eventSourceSettings: this.#state,
+        maxEventSize: this.#dispatcher.eventSourceOptions?.maxEventSize,
         push: (event) => {
           this.dispatchEvent(createFastMessageEvent(
             event.type,
@@ -16476,7 +16699,8 @@ webidl.converters.EventSourceInitDict = webidl.dictionaryConverter([
   },
   {
     key: 'dispatcher', // undici only
-    converter: webidl.converters.any
+    converter: webidl.converters.any,
+    defaultValue: () => getGlobalDispatcher()
   }
 ])
 
@@ -16488,7 +16712,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 8857:
+/***/ 6187:
 /***/ ((module) => {
 
 
@@ -16532,12 +16756,12 @@ module.exports = {
 
 /***/ }),
 
-/***/ 8266:
+/***/ 7687:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const util = __nccwpck_require__(4610)
+const util = __nccwpck_require__(9969)
 const {
   ReadableStreamFrom,
   isBlobLike,
@@ -16547,16 +16771,16 @@ const {
   fullyReadBody,
   extractMimeType,
   utf8DecodeBytes
-} = __nccwpck_require__(2278)
-const { FormData } = __nccwpck_require__(5424)
-const { kState } = __nccwpck_require__(2229)
-const { webidl } = __nccwpck_require__(7931)
+} = __nccwpck_require__(295)
+const { FormData } = __nccwpck_require__(5077)
+const { kState } = __nccwpck_require__(2010)
+const { webidl } = __nccwpck_require__(4666)
 const { Blob } = __nccwpck_require__(4573)
 const assert = __nccwpck_require__(4589)
 const { isErrored, isDisturbed } = __nccwpck_require__(7075)
 const { isArrayBuffer } = __nccwpck_require__(3429)
-const { serializeAMimeType } = __nccwpck_require__(9382)
-const { multipartFormDataParser } = __nccwpck_require__(894)
+const { serializeAMimeType } = __nccwpck_require__(4203)
+const { multipartFormDataParser } = __nccwpck_require__(589)
 let random
 
 try {
@@ -17068,7 +17292,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 5273:
+/***/ 9242:
 /***/ ((module) => {
 
 
@@ -17199,7 +17423,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 9382:
+/***/ 4203:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -17950,12 +18174,12 @@ module.exports = {
 
 /***/ }),
 
-/***/ 383:
+/***/ 3666:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { kConnected, kSize } = __nccwpck_require__(3945)
+const { kConnected, kSize } = __nccwpck_require__(992)
 
 class CompatWeakRef {
   constructor (value) {
@@ -18003,14 +18227,14 @@ module.exports = function () {
 
 /***/ }),
 
-/***/ 4396:
+/***/ 1445:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const { Blob, File } = __nccwpck_require__(4573)
-const { kState } = __nccwpck_require__(2229)
-const { webidl } = __nccwpck_require__(7931)
+const { kState } = __nccwpck_require__(2010)
+const { webidl } = __nccwpck_require__(4666)
 
 // TODO(@KhafraDev): remove
 class FileLike {
@@ -18136,16 +18360,16 @@ module.exports = { FileLike, isFileLike }
 
 /***/ }),
 
-/***/ 894:
+/***/ 589:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { isUSVString, bufferToLowerCasedHeaderName } = __nccwpck_require__(4610)
-const { utf8DecodeBytes } = __nccwpck_require__(2278)
-const { HTTP_TOKEN_CODEPOINTS, isomorphicDecode } = __nccwpck_require__(9382)
-const { isFileLike } = __nccwpck_require__(4396)
-const { makeEntry } = __nccwpck_require__(5424)
+const { isUSVString, bufferToLowerCasedHeaderName } = __nccwpck_require__(9969)
+const { utf8DecodeBytes } = __nccwpck_require__(295)
+const { HTTP_TOKEN_CODEPOINTS, isomorphicDecode } = __nccwpck_require__(4203)
+const { isFileLike } = __nccwpck_require__(1445)
+const { makeEntry } = __nccwpck_require__(5077)
 const assert = __nccwpck_require__(4589)
 const { File: NodeFile } = __nccwpck_require__(4573)
 
@@ -18617,16 +18841,16 @@ module.exports = {
 
 /***/ }),
 
-/***/ 5424:
+/***/ 5077:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { isBlobLike, iteratorMixin } = __nccwpck_require__(2278)
-const { kState } = __nccwpck_require__(2229)
-const { kEnumerableProperty } = __nccwpck_require__(4610)
-const { FileLike, isFileLike } = __nccwpck_require__(4396)
-const { webidl } = __nccwpck_require__(7931)
+const { isBlobLike, iteratorMixin } = __nccwpck_require__(295)
+const { kState } = __nccwpck_require__(2010)
+const { kEnumerableProperty } = __nccwpck_require__(9969)
+const { FileLike, isFileLike } = __nccwpck_require__(1445)
+const { webidl } = __nccwpck_require__(4666)
 const { File: NativeFile } = __nccwpck_require__(4573)
 const nodeUtil = __nccwpck_require__(7975)
 
@@ -18876,7 +19100,7 @@ module.exports = { FormData, makeEntry }
 
 /***/ }),
 
-/***/ 7517:
+/***/ 824:
 /***/ ((module) => {
 
 
@@ -18923,21 +19147,21 @@ module.exports = {
 
 /***/ }),
 
-/***/ 7958:
+/***/ 7705:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 // https://github.com/Ethan-Arrowood/undici-fetch
 
 
 
-const { kConstruct } = __nccwpck_require__(3945)
-const { kEnumerableProperty } = __nccwpck_require__(4610)
+const { kConstruct } = __nccwpck_require__(992)
+const { kEnumerableProperty } = __nccwpck_require__(9969)
 const {
   iteratorMixin,
   isValidHeaderName,
   isValidHeaderValue
-} = __nccwpck_require__(2278)
-const { webidl } = __nccwpck_require__(7931)
+} = __nccwpck_require__(295)
+const { webidl } = __nccwpck_require__(4666)
 const assert = __nccwpck_require__(4589)
 const util = __nccwpck_require__(7975)
 
@@ -19617,7 +19841,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 1828:
+/***/ 1351:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 // https://github.com/Ethan-Arrowood/undici-fetch
@@ -19630,9 +19854,9 @@ const {
   filterResponse,
   makeResponse,
   fromInnerResponse
-} = __nccwpck_require__(445)
-const { HeadersList } = __nccwpck_require__(7958)
-const { Request, cloneRequest } = __nccwpck_require__(8969)
+} = __nccwpck_require__(3472)
+const { HeadersList } = __nccwpck_require__(7705)
+const { Request, cloneRequest } = __nccwpck_require__(9518)
 const zlib = __nccwpck_require__(8522)
 const {
   bytesMatch,
@@ -19668,23 +19892,23 @@ const {
   buildContentRange,
   createInflate,
   extractMimeType
-} = __nccwpck_require__(2278)
-const { kState, kDispatcher } = __nccwpck_require__(2229)
+} = __nccwpck_require__(295)
+const { kState, kDispatcher } = __nccwpck_require__(2010)
 const assert = __nccwpck_require__(4589)
-const { safelyExtractBody, extractBody } = __nccwpck_require__(8266)
+const { safelyExtractBody, extractBody } = __nccwpck_require__(7687)
 const {
   redirectStatusSet,
   nullBodyStatus,
   safeMethodsSet,
   requestBodyHeader,
   subresourceSet
-} = __nccwpck_require__(5273)
+} = __nccwpck_require__(9242)
 const EE = __nccwpck_require__(8474)
 const { Readable, pipeline, finished } = __nccwpck_require__(7075)
-const { addAbortListener, isErrored, isReadable, bufferToLowerCasedHeaderName } = __nccwpck_require__(4610)
-const { dataURLProcessor, serializeAMimeType, minimizeSupportedMimeType } = __nccwpck_require__(9382)
-const { getGlobalDispatcher } = __nccwpck_require__(511)
-const { webidl } = __nccwpck_require__(7931)
+const { addAbortListener, isErrored, isReadable, bufferToLowerCasedHeaderName } = __nccwpck_require__(9969)
+const { dataURLProcessor, serializeAMimeType, minimizeSupportedMimeType } = __nccwpck_require__(4203)
+const { getGlobalDispatcher } = __nccwpck_require__(5458)
+const { webidl } = __nccwpck_require__(4666)
 const { STATUS_CODES } = __nccwpck_require__(7067)
 const GET_OR_HEAD = ['GET', 'HEAD']
 
@@ -21572,8 +21796,10 @@ async function httpNetworkFetch (
   // 19. Run these steps in parallel:
 
   //    1. Run these steps, but abort when fetchParams is canceled:
-  fetchParams.controller.onAborted = onAborted
-  fetchParams.controller.on('terminated', onAborted)
+  if (!fetchParams.controller.resume) {
+    fetchParams.controller.on('terminated', onAborted)
+  }
+
   fetchParams.controller.resume = async () => {
     // 1. While true
     while (true) {
@@ -21742,8 +21968,6 @@ async function httpNetworkFetch (
           }
           location = headersList.get('location', true)
 
-          this.body = new Readable({ read: resume })
-
           const decoders = []
 
           const willFollow = location && request.redirect === 'follow' &&
@@ -21761,7 +21985,7 @@ async function httpNetworkFetch (
             // CVE fix similar to urllib3 (GHSA-gm62-xv2j-4w53) and curl (CVE-2022-32206).
             const maxContentEncodings = 5
             if (codings.length > maxContentEncodings) {
-              reject(new Error(`too many content-encodings in response: ${codings.length}, maximum allowed is ${maxContentEncodings}`))
+              this.abort(new Error(`too many content-encodings in response: ${codings.length}, maximum allowed is ${maxContentEncodings}`))
               return true
             }
 
@@ -21793,6 +22017,8 @@ async function httpNetworkFetch (
               }
             }
           }
+
+          this.body = new Readable({ read: resume })
 
           const onError = this.onError.bind(this)
 
@@ -21838,10 +22064,6 @@ async function httpNetworkFetch (
         onComplete () {
           if (this.abort) {
             fetchParams.controller.off('terminated', this.abort)
-          }
-
-          if (fetchParams.controller.onAborted) {
-            fetchParams.controller.off('terminated', fetchParams.controller.onAborted)
           }
 
           fetchParams.controller.ended = true
@@ -21896,23 +22118,23 @@ module.exports = {
 
 /***/ }),
 
-/***/ 8969:
+/***/ 9518:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 /* globals AbortController */
 
 
 
-const { extractBody, mixinBody, cloneBody, bodyUnusable } = __nccwpck_require__(8266)
-const { Headers, fill: fillHeaders, HeadersList, setHeadersGuard, getHeadersGuard, setHeadersList, getHeadersList } = __nccwpck_require__(7958)
-const { FinalizationRegistry } = __nccwpck_require__(383)()
-const util = __nccwpck_require__(4610)
+const { extractBody, mixinBody, cloneBody, bodyUnusable } = __nccwpck_require__(7687)
+const { Headers, fill: fillHeaders, HeadersList, setHeadersGuard, getHeadersGuard, setHeadersList, getHeadersList } = __nccwpck_require__(7705)
+const { FinalizationRegistry } = __nccwpck_require__(3666)()
+const util = __nccwpck_require__(9969)
 const nodeUtil = __nccwpck_require__(7975)
 const {
   isValidHTTPToken,
   sameOrigin,
   environmentSettingsObject
-} = __nccwpck_require__(2278)
+} = __nccwpck_require__(295)
 const {
   forbiddenMethodsSet,
   corsSafeListedMethodsSet,
@@ -21922,12 +22144,12 @@ const {
   requestCredentials,
   requestCache,
   requestDuplex
-} = __nccwpck_require__(5273)
+} = __nccwpck_require__(9242)
 const { kEnumerableProperty, normalizedMethodRecordsBase, normalizedMethodRecords } = util
-const { kHeaders, kSignal, kState, kDispatcher } = __nccwpck_require__(2229)
-const { webidl } = __nccwpck_require__(7931)
-const { URLSerializer } = __nccwpck_require__(9382)
-const { kConstruct } = __nccwpck_require__(3945)
+const { kHeaders, kSignal, kState, kDispatcher } = __nccwpck_require__(2010)
+const { webidl } = __nccwpck_require__(4666)
+const { URLSerializer } = __nccwpck_require__(4203)
+const { kConstruct } = __nccwpck_require__(992)
 const assert = __nccwpck_require__(4589)
 const { getMaxListeners, setMaxListeners, getEventListeners, defaultMaxListeners } = __nccwpck_require__(8474)
 
@@ -22940,14 +23162,14 @@ module.exports = { Request, makeRequest, fromInnerRequest, cloneRequest }
 
 /***/ }),
 
-/***/ 445:
+/***/ 3472:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { Headers, HeadersList, fill, getHeadersGuard, setHeadersGuard, setHeadersList } = __nccwpck_require__(7958)
-const { extractBody, cloneBody, mixinBody, hasFinalizationRegistry, streamRegistry, bodyUnusable } = __nccwpck_require__(8266)
-const util = __nccwpck_require__(4610)
+const { Headers, HeadersList, fill, getHeadersGuard, setHeadersGuard, setHeadersList } = __nccwpck_require__(7705)
+const { extractBody, cloneBody, mixinBody, hasFinalizationRegistry, streamRegistry, bodyUnusable } = __nccwpck_require__(7687)
+const util = __nccwpck_require__(9969)
 const nodeUtil = __nccwpck_require__(7975)
 const { kEnumerableProperty } = util
 const {
@@ -22959,16 +23181,16 @@ const {
   isErrorLike,
   isomorphicEncode,
   environmentSettingsObject: relevantRealm
-} = __nccwpck_require__(2278)
+} = __nccwpck_require__(295)
 const {
   redirectStatusSet,
   nullBodyStatus
-} = __nccwpck_require__(5273)
-const { kState, kHeaders } = __nccwpck_require__(2229)
-const { webidl } = __nccwpck_require__(7931)
-const { FormData } = __nccwpck_require__(5424)
-const { URLSerializer } = __nccwpck_require__(9382)
-const { kConstruct } = __nccwpck_require__(3945)
+} = __nccwpck_require__(9242)
+const { kState, kHeaders } = __nccwpck_require__(2010)
+const { webidl } = __nccwpck_require__(4666)
+const { FormData } = __nccwpck_require__(5077)
+const { URLSerializer } = __nccwpck_require__(4203)
+const { kConstruct } = __nccwpck_require__(992)
 const assert = __nccwpck_require__(4589)
 const { types } = __nccwpck_require__(7975)
 
@@ -23557,7 +23779,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 2229:
+/***/ 2010:
 /***/ ((module) => {
 
 
@@ -23573,21 +23795,21 @@ module.exports = {
 
 /***/ }),
 
-/***/ 2278:
+/***/ 295:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const { Transform } = __nccwpck_require__(7075)
 const zlib = __nccwpck_require__(8522)
-const { redirectStatusSet, referrerPolicySet: referrerPolicyTokens, badPortsSet } = __nccwpck_require__(5273)
-const { getGlobalOrigin } = __nccwpck_require__(7517)
-const { collectASequenceOfCodePoints, collectAnHTTPQuotedString, removeChars, parseMIMEType } = __nccwpck_require__(9382)
+const { redirectStatusSet, referrerPolicySet: referrerPolicyTokens, badPortsSet } = __nccwpck_require__(9242)
+const { getGlobalOrigin } = __nccwpck_require__(824)
+const { collectASequenceOfCodePoints, collectAnHTTPQuotedString, removeChars, parseMIMEType } = __nccwpck_require__(4203)
 const { performance } = __nccwpck_require__(643)
-const { isBlobLike, ReadableStreamFrom, isValidHTTPToken, normalizedMethodRecordsBase } = __nccwpck_require__(4610)
+const { isBlobLike, ReadableStreamFrom, isValidHTTPToken, normalizedMethodRecordsBase } = __nccwpck_require__(9969)
 const assert = __nccwpck_require__(4589)
 const { isUint8Array } = __nccwpck_require__(3429)
-const { webidl } = __nccwpck_require__(7931)
+const { webidl } = __nccwpck_require__(4666)
 
 let supportedHashes = []
 
@@ -25212,14 +25434,14 @@ module.exports = {
 
 /***/ }),
 
-/***/ 7931:
+/***/ 4666:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const { types, inspect } = __nccwpck_require__(7975)
 const { markAsUncloneable } = __nccwpck_require__(5919)
-const { toUSVString } = __nccwpck_require__(4610)
+const { toUSVString } = __nccwpck_require__(9969)
 
 /** @type {import('../../../types/webidl').Webidl} */
 const webidl = {}
@@ -25914,7 +26136,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 4133:
+/***/ 7352:
 /***/ ((module) => {
 
 
@@ -26211,7 +26433,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 7849:
+/***/ 1260:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -26220,16 +26442,16 @@ const {
   staticPropertyDescriptors,
   readOperation,
   fireAProgressEvent
-} = __nccwpck_require__(4428)
+} = __nccwpck_require__(1417)
 const {
   kState,
   kError,
   kResult,
   kEvents,
   kAborted
-} = __nccwpck_require__(4879)
-const { webidl } = __nccwpck_require__(7931)
-const { kEnumerableProperty } = __nccwpck_require__(4610)
+} = __nccwpck_require__(6488)
+const { webidl } = __nccwpck_require__(4666)
+const { kEnumerableProperty } = __nccwpck_require__(9969)
 
 class FileReader extends EventTarget {
   constructor () {
@@ -26562,12 +26784,12 @@ module.exports = {
 
 /***/ }),
 
-/***/ 4275:
+/***/ 652:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { webidl } = __nccwpck_require__(7931)
+const { webidl } = __nccwpck_require__(4666)
 
 const kState = Symbol('ProgressEvent state')
 
@@ -26647,7 +26869,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 4879:
+/***/ 6488:
 /***/ ((module) => {
 
 
@@ -26664,7 +26886,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 4428:
+/***/ 1417:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
@@ -26675,10 +26897,10 @@ const {
   kResult,
   kAborted,
   kLastProgressEventFired
-} = __nccwpck_require__(4879)
-const { ProgressEvent } = __nccwpck_require__(4275)
-const { getEncoding } = __nccwpck_require__(4133)
-const { serializeAMimeType, parseMIMEType } = __nccwpck_require__(9382)
+} = __nccwpck_require__(6488)
+const { ProgressEvent } = __nccwpck_require__(652)
+const { getEncoding } = __nccwpck_require__(7352)
+const { serializeAMimeType, parseMIMEType } = __nccwpck_require__(4203)
 const { types } = __nccwpck_require__(7975)
 const { StringDecoder } = __nccwpck_require__(3193)
 const { btoa } = __nccwpck_require__(4573)
@@ -27062,27 +27284,27 @@ module.exports = {
 
 /***/ }),
 
-/***/ 7507:
+/***/ 6522:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { uid, states, sentCloseFrameState, emptyBuffer, opcodes } = __nccwpck_require__(9986)
+const { uid, states, sentCloseFrameState, emptyBuffer, opcodes } = __nccwpck_require__(645)
 const {
   kReadyState,
   kSentClose,
   kByteParser,
   kReceivedClose,
   kResponse
-} = __nccwpck_require__(9058)
-const { fireEvent, failWebsocketConnection, isClosing, isClosed, isEstablished, parseExtensions } = __nccwpck_require__(4751)
-const { channels } = __nccwpck_require__(1948)
-const { CloseEvent } = __nccwpck_require__(502)
-const { makeRequest } = __nccwpck_require__(8969)
-const { fetching } = __nccwpck_require__(1828)
-const { Headers, getHeadersList } = __nccwpck_require__(7958)
-const { getDecodeSplit } = __nccwpck_require__(2278)
-const { WebsocketFrameSend } = __nccwpck_require__(5546)
+} = __nccwpck_require__(1281)
+const { fireEvent, failWebsocketConnection, isClosing, isClosed, isEstablished, parseExtensions } = __nccwpck_require__(4362)
+const { channels } = __nccwpck_require__(4757)
+const { CloseEvent } = __nccwpck_require__(8563)
+const { makeRequest } = __nccwpck_require__(9518)
+const { fetching } = __nccwpck_require__(1351)
+const { Headers, getHeadersList } = __nccwpck_require__(7705)
+const { getDecodeSplit } = __nccwpck_require__(295)
+const { WebsocketFrameSend } = __nccwpck_require__(8833)
 
 /** @type {import('crypto')} */
 let crypto
@@ -27440,7 +27662,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 9986:
+/***/ 645:
 /***/ ((module) => {
 
 
@@ -27513,14 +27735,14 @@ module.exports = {
 
 /***/ }),
 
-/***/ 502:
+/***/ 8563:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { webidl } = __nccwpck_require__(7931)
-const { kEnumerableProperty } = __nccwpck_require__(4610)
-const { kConstruct } = __nccwpck_require__(3945)
+const { webidl } = __nccwpck_require__(4666)
+const { kEnumerableProperty } = __nccwpck_require__(9969)
+const { kConstruct } = __nccwpck_require__(992)
 const { MessagePort } = __nccwpck_require__(5919)
 
 /**
@@ -27849,12 +28071,12 @@ module.exports = {
 
 /***/ }),
 
-/***/ 5546:
+/***/ 8833:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { maxUnsigned16Bit } = __nccwpck_require__(9986)
+const { maxUnsigned16Bit } = __nccwpck_require__(645)
 
 const BUFFER_SIZE = 16386
 
@@ -27952,14 +28174,14 @@ module.exports = {
 
 /***/ }),
 
-/***/ 4487:
+/***/ 3478:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const { createInflateRaw, Z_DEFAULT_WINDOWBITS } = __nccwpck_require__(8522)
-const { isValidClientWindowBits } = __nccwpck_require__(4751)
-const { MessageSizeExceededError } = __nccwpck_require__(745)
+const { isValidClientWindowBits } = __nccwpck_require__(4362)
+const { MessageSizeExceededError } = __nccwpck_require__(7934)
 
 const tail = Buffer.from([0x00, 0x00, 0xff, 0xff])
 const kBuffer = Symbol('kBuffer')
@@ -28064,16 +28286,16 @@ module.exports = { PerMessageDeflate }
 
 /***/ }),
 
-/***/ 2362:
+/***/ 735:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
 const { Writable } = __nccwpck_require__(7075)
 const assert = __nccwpck_require__(4589)
-const { parserStates, opcodes, states, emptyBuffer, sentCloseFrameState } = __nccwpck_require__(9986)
-const { kReadyState, kSentClose, kResponse, kReceivedClose } = __nccwpck_require__(9058)
-const { channels } = __nccwpck_require__(1948)
+const { parserStates, opcodes, states, emptyBuffer, sentCloseFrameState } = __nccwpck_require__(645)
+const { kReadyState, kSentClose, kResponse, kReceivedClose } = __nccwpck_require__(1281)
+const { channels } = __nccwpck_require__(4757)
 const {
   isValidStatusCode,
   isValidOpcode,
@@ -28083,11 +28305,11 @@ const {
   isControlFrame,
   isTextBinaryFrame,
   isContinuationFrame
-} = __nccwpck_require__(4751)
-const { WebsocketFrameSend } = __nccwpck_require__(5546)
-const { closeWebSocketConnection } = __nccwpck_require__(7507)
-const { PerMessageDeflate } = __nccwpck_require__(4487)
-const { MessageSizeExceededError } = __nccwpck_require__(745)
+} = __nccwpck_require__(4362)
+const { WebsocketFrameSend } = __nccwpck_require__(8833)
+const { closeWebSocketConnection } = __nccwpck_require__(6522)
+const { PerMessageDeflate } = __nccwpck_require__(3478)
+const { MessageSizeExceededError } = __nccwpck_require__(7934)
 
 function failWebsocketConnectionWithCode (ws, code, reason) {
   closeWebSocketConnection(ws, code, reason, Buffer.byteLength(reason))
@@ -28318,6 +28540,20 @@ class ByteParser extends Writable {
         if (isControlFrame(this.#info.opcode)) {
           this.#loop = this.parseControlFrame(body)
           this.#state = parserStates.INFO
+
+          // If the automatic PONG/CLOSE reply filled the socket's write buffer,
+          // stop parsing and resume on drain so a PING flood cannot grow the
+          // outbound queue without bound.
+          const socket = this.ws[kResponse].socket
+          if (this.#loop && socket.writableNeedDrain) {
+            this.#loop = false
+            socket.once('drain', () => {
+              if (this.destroyed) return
+              this.#loop = true
+              this.run(callback)
+            })
+            return
+          }
         } else {
           if (!this.#info.compressed) {
             if (!this.writeFragments(body)) {
@@ -28584,14 +28820,14 @@ module.exports = {
 
 /***/ }),
 
-/***/ 6254:
+/***/ 6731:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { WebsocketFrameSend } = __nccwpck_require__(5546)
-const { opcodes, sendHints } = __nccwpck_require__(9986)
-const FixedQueue = __nccwpck_require__(8038)
+const { WebsocketFrameSend } = __nccwpck_require__(8833)
+const { opcodes, sendHints } = __nccwpck_require__(645)
+const FixedQueue = __nccwpck_require__(4663)
 
 /** @type {typeof Uint8Array} */
 const FastBuffer = Buffer[Symbol.species]
@@ -28695,7 +28931,7 @@ module.exports = { SendQueue }
 
 /***/ }),
 
-/***/ 9058:
+/***/ 1281:
 /***/ ((module) => {
 
 
@@ -28714,16 +28950,16 @@ module.exports = {
 
 /***/ }),
 
-/***/ 4751:
+/***/ 4362:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { kReadyState, kController, kResponse, kBinaryType, kWebSocketURL } = __nccwpck_require__(9058)
-const { states, opcodes } = __nccwpck_require__(9986)
-const { ErrorEvent, createFastMessageEvent } = __nccwpck_require__(502)
+const { kReadyState, kController, kResponse, kBinaryType, kWebSocketURL } = __nccwpck_require__(1281)
+const { states, opcodes } = __nccwpck_require__(645)
+const { ErrorEvent, createFastMessageEvent } = __nccwpck_require__(8563)
 const { isUtf8 } = __nccwpck_require__(4573)
-const { collectASequenceOfCodePointsFast, removeHTTPWhitespace } = __nccwpck_require__(9382)
+const { collectASequenceOfCodePointsFast, removeHTTPWhitespace } = __nccwpck_require__(4203)
 
 /* globals Blob */
 
@@ -29043,15 +29279,15 @@ module.exports = {
 
 /***/ }),
 
-/***/ 4832:
+/***/ 9263:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 
 
-const { webidl } = __nccwpck_require__(7931)
-const { URLSerializer } = __nccwpck_require__(9382)
-const { environmentSettingsObject } = __nccwpck_require__(2278)
-const { staticPropertyDescriptors, states, sentCloseFrameState, sendHints } = __nccwpck_require__(9986)
+const { webidl } = __nccwpck_require__(4666)
+const { URLSerializer } = __nccwpck_require__(4203)
+const { environmentSettingsObject } = __nccwpck_require__(295)
+const { staticPropertyDescriptors, states, sentCloseFrameState, sendHints } = __nccwpck_require__(645)
 const {
   kWebSocketURL,
   kReadyState,
@@ -29060,21 +29296,21 @@ const {
   kResponse,
   kSentClose,
   kByteParser
-} = __nccwpck_require__(9058)
+} = __nccwpck_require__(1281)
 const {
   isConnecting,
   isEstablished,
   isClosing,
   isValidSubprotocol,
   fireEvent
-} = __nccwpck_require__(4751)
-const { establishWebSocketConnection, closeWebSocketConnection } = __nccwpck_require__(7507)
-const { ByteParser } = __nccwpck_require__(2362)
-const { kEnumerableProperty, isBlobLike } = __nccwpck_require__(4610)
-const { getGlobalDispatcher } = __nccwpck_require__(511)
+} = __nccwpck_require__(4362)
+const { establishWebSocketConnection, closeWebSocketConnection } = __nccwpck_require__(6522)
+const { ByteParser } = __nccwpck_require__(735)
+const { kEnumerableProperty, isBlobLike } = __nccwpck_require__(9969)
+const { getGlobalDispatcher } = __nccwpck_require__(5458)
 const { types } = __nccwpck_require__(7975)
-const { ErrorEvent, CloseEvent } = __nccwpck_require__(502)
-const { SendQueue } = __nccwpck_require__(6254)
+const { ErrorEvent, CloseEvent } = __nccwpck_require__(8563)
+const { SendQueue } = __nccwpck_require__(6731)
 
 // https://websockets.spec.whatwg.org/#interface-definition
 class WebSocket extends EventTarget {
@@ -29645,6 +29881,25 @@ module.exports = {
 
 /***/ }),
 
+/***/ 9239:
+/***/ ((module) => {
+
+function webpackEmptyAsyncContext(req) {
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncaught exception popping up in devtools
+	return Promise.resolve().then(() => {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	});
+}
+webpackEmptyAsyncContext.keys = () => ([]);
+webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
+webpackEmptyAsyncContext.id = 9239;
+module.exports = webpackEmptyAsyncContext;
+
+/***/ }),
+
 /***/ 2613:
 /***/ ((module) => {
 
@@ -29876,18 +30131,18 @@ module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("util");
 
 /***/ }),
 
-/***/ 6553:
+/***/ 7195:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var Scalar = __nccwpck_require__(6129);
-var YAMLMap = __nccwpck_require__(6122);
-var YAMLSeq = __nccwpck_require__(5971);
-var resolveBlockMap = __nccwpck_require__(8459);
-var resolveBlockSeq = __nccwpck_require__(2714);
-var resolveFlowCollection = __nccwpck_require__(5106);
+var identity = __nccwpck_require__(5393);
+var Scalar = __nccwpck_require__(8927);
+var YAMLMap = __nccwpck_require__(4920);
+var YAMLSeq = __nccwpck_require__(9517);
+var resolveBlockMap = __nccwpck_require__(5309);
+var resolveBlockSeq = __nccwpck_require__(4792);
+var resolveFlowCollection = __nccwpck_require__(3308);
 
 function resolveCollection(CN, ctx, token, onError, tagName, tag) {
     const coll = token.type === 'block-map'
@@ -29973,15 +30228,15 @@ exports.composeCollection = composeCollection;
 
 /***/ }),
 
-/***/ 3031:
+/***/ 6849:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var Document = __nccwpck_require__(9097);
-var composeNode = __nccwpck_require__(3613);
-var resolveEnd = __nccwpck_require__(8608);
-var resolveProps = __nccwpck_require__(2523);
+var Document = __nccwpck_require__(192);
+var composeNode = __nccwpck_require__(3059);
+var resolveEnd = __nccwpck_require__(4302);
+var resolveProps = __nccwpck_require__(3705);
 
 function composeDoc(options, directives, { offset, start, value, end }, onError) {
     const opts = Object.assign({ _directives: directives }, options);
@@ -30025,17 +30280,17 @@ exports.composeDoc = composeDoc;
 
 /***/ }),
 
-/***/ 3613:
+/***/ 3059:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var Alias = __nccwpck_require__(709);
-var identity = __nccwpck_require__(1667);
-var composeCollection = __nccwpck_require__(6553);
-var composeScalar = __nccwpck_require__(3929);
-var resolveEnd = __nccwpck_require__(8608);
-var utilEmptyScalarPosition = __nccwpck_require__(7595);
+var Alias = __nccwpck_require__(3103);
+var identity = __nccwpck_require__(5393);
+var composeCollection = __nccwpck_require__(7195);
+var composeScalar = __nccwpck_require__(8763);
+var resolveEnd = __nccwpck_require__(4302);
+var utilEmptyScalarPosition = __nccwpck_require__(3109);
 
 const CN = { composeNode, composeEmptyNode };
 function composeNode(ctx, token, props, onError) {
@@ -30060,19 +30315,26 @@ function composeNode(ctx, token, props, onError) {
         case 'block-map':
         case 'block-seq':
         case 'flow-collection':
-            node = composeCollection.composeCollection(CN, ctx, token, props, onError);
-            if (anchor)
-                node.anchor = anchor.source.substring(1);
+            try {
+                node = composeCollection.composeCollection(CN, ctx, token, props, onError);
+                if (anchor)
+                    node.anchor = anchor.source.substring(1);
+            }
+            catch (error) {
+                // Almost certainly here due to a stack overflow
+                const message = error instanceof Error ? error.message : String(error);
+                onError(token, 'RESOURCE_EXHAUSTION', message);
+            }
             break;
         default: {
             const message = token.type === 'error'
                 ? token.message
                 : `Unsupported token (type: ${token.type})`;
             onError(token, 'UNEXPECTED_TOKEN', message);
-            node = composeEmptyNode(ctx, token.offset, undefined, null, props, onError);
             isSrcToken = false;
         }
     }
+    node ?? (node = composeEmptyNode(ctx, token.offset, undefined, null, props, onError));
     if (anchor && node.anchor === '')
         onError(anchor, 'BAD_ALIAS', 'Anchor cannot be an empty string');
     if (atKey &&
@@ -30137,15 +30399,15 @@ exports.composeNode = composeNode;
 
 /***/ }),
 
-/***/ 3929:
+/***/ 8763:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var Scalar = __nccwpck_require__(6129);
-var resolveBlockScalar = __nccwpck_require__(117);
-var resolveFlowScalar = __nccwpck_require__(7001);
+var identity = __nccwpck_require__(5393);
+var Scalar = __nccwpck_require__(8927);
+var resolveBlockScalar = __nccwpck_require__(3727);
+var resolveFlowScalar = __nccwpck_require__(5720);
 
 function composeScalar(ctx, token, tagToken, onError) {
     const { value, type, comment, range } = token.type === 'block-scalar'
@@ -30232,18 +30494,18 @@ exports.composeScalar = composeScalar;
 
 /***/ }),
 
-/***/ 3156:
+/***/ 4870:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
 var node_process = __nccwpck_require__(932);
-var directives = __nccwpck_require__(8202);
-var Document = __nccwpck_require__(9097);
-var errors = __nccwpck_require__(1940);
-var identity = __nccwpck_require__(1667);
-var composeDoc = __nccwpck_require__(3031);
-var resolveEnd = __nccwpck_require__(8608);
+var directives = __nccwpck_require__(248);
+var Document = __nccwpck_require__(192);
+var errors = __nccwpck_require__(6394);
+var identity = __nccwpck_require__(5393);
+var composeDoc = __nccwpck_require__(6849);
+var resolveEnd = __nccwpck_require__(4302);
 
 function getErrorPos(src) {
     if (typeof src === 'number')
@@ -30334,8 +30596,10 @@ class Composer {
             }
         }
         if (afterDoc) {
-            Array.prototype.push.apply(doc.errors, this.errors);
-            Array.prototype.push.apply(doc.warnings, this.warnings);
+            for (let i = 0; i < this.errors.length; ++i)
+                doc.errors.push(this.errors[i]);
+            for (let i = 0; i < this.warnings.length; ++i)
+                doc.warnings.push(this.warnings[i]);
         }
         else {
             doc.errors = this.errors;
@@ -30461,17 +30725,17 @@ exports.Composer = Composer;
 
 /***/ }),
 
-/***/ 8459:
+/***/ 5309:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var Pair = __nccwpck_require__(6033);
-var YAMLMap = __nccwpck_require__(6122);
-var resolveProps = __nccwpck_require__(2523);
-var utilContainsNewline = __nccwpck_require__(9823);
-var utilFlowIndentCheck = __nccwpck_require__(8983);
-var utilMapIncludes = __nccwpck_require__(119);
+var Pair = __nccwpck_require__(9511);
+var YAMLMap = __nccwpck_require__(4920);
+var resolveProps = __nccwpck_require__(3705);
+var utilContainsNewline = __nccwpck_require__(2641);
+var utilFlowIndentCheck = __nccwpck_require__(6445);
+var utilMapIncludes = __nccwpck_require__(6949);
 
 const startColMsg = 'All mapping items must start at the same column';
 function resolveBlockMap({ composeNode, composeEmptyNode }, ctx, bm, onError, tag) {
@@ -30585,12 +30849,12 @@ exports.resolveBlockMap = resolveBlockMap;
 
 /***/ }),
 
-/***/ 117:
+/***/ 3727:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var Scalar = __nccwpck_require__(6129);
+var Scalar = __nccwpck_require__(8927);
 
 function resolveBlockScalar(ctx, scalar, onError) {
     const start = scalar.offset;
@@ -30792,14 +31056,14 @@ exports.resolveBlockScalar = resolveBlockScalar;
 
 /***/ }),
 
-/***/ 2714:
+/***/ 4792:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var YAMLSeq = __nccwpck_require__(5971);
-var resolveProps = __nccwpck_require__(2523);
-var utilFlowIndentCheck = __nccwpck_require__(8983);
+var YAMLSeq = __nccwpck_require__(9517);
+var resolveProps = __nccwpck_require__(3705);
+var utilFlowIndentCheck = __nccwpck_require__(6445);
 
 function resolveBlockSeq({ composeNode, composeEmptyNode }, ctx, bs, onError, tag) {
     const NodeClass = tag?.nodeClass ?? YAMLSeq.YAMLSeq;
@@ -30850,7 +31114,7 @@ exports.resolveBlockSeq = resolveBlockSeq;
 
 /***/ }),
 
-/***/ 8608:
+/***/ 4302:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -30896,19 +31160,19 @@ exports.resolveEnd = resolveEnd;
 
 /***/ }),
 
-/***/ 5106:
+/***/ 3308:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var Pair = __nccwpck_require__(6033);
-var YAMLMap = __nccwpck_require__(6122);
-var YAMLSeq = __nccwpck_require__(5971);
-var resolveEnd = __nccwpck_require__(8608);
-var resolveProps = __nccwpck_require__(2523);
-var utilContainsNewline = __nccwpck_require__(9823);
-var utilMapIncludes = __nccwpck_require__(119);
+var identity = __nccwpck_require__(5393);
+var Pair = __nccwpck_require__(9511);
+var YAMLMap = __nccwpck_require__(4920);
+var YAMLSeq = __nccwpck_require__(9517);
+var resolveEnd = __nccwpck_require__(4302);
+var resolveProps = __nccwpck_require__(3705);
+var utilContainsNewline = __nccwpck_require__(2641);
+var utilMapIncludes = __nccwpck_require__(6949);
 
 const blockMsg = 'Block collections are not allowed within flow collections';
 const isBlock = (token) => token && (token.type === 'block-map' || token.type === 'block-seq');
@@ -31112,13 +31376,13 @@ exports.resolveFlowCollection = resolveFlowCollection;
 
 /***/ }),
 
-/***/ 7001:
+/***/ 5720:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var Scalar = __nccwpck_require__(6129);
-var resolveEnd = __nccwpck_require__(8608);
+var Scalar = __nccwpck_require__(8927);
+var resolveEnd = __nccwpck_require__(4302);
 
 function resolveFlowScalar(scalar, strict, onError) {
     const { offset, type, source, end } = scalar;
@@ -31183,46 +31447,47 @@ function plainValue(source, onError) {
     }
     if (badChar)
         onError(0, 'BAD_SCALAR_START', `Plain value cannot start with ${badChar}`);
-    return foldLines(source);
+    return unfoldLines(source);
 }
 function singleQuotedValue(source, onError) {
     if (source[source.length - 1] !== "'" || source.length === 1)
         onError(source.length, 'MISSING_CHAR', "Missing closing 'quote");
-    return foldLines(source.slice(1, -1)).replace(/''/g, "'");
+    return unfoldLines(source.slice(1, -1)).replace(/''/g, "'");
 }
-function foldLines(source) {
-    /**
-     * The negative lookbehind here and in the `re` RegExp is to
-     * prevent causing a polynomial search time in certain cases.
-     *
-     * The try-catch is for Safari, which doesn't support this yet:
-     * https://caniuse.com/js-regexp-lookbehind
-     */
-    let first, line;
-    try {
-        first = new RegExp('(.*?)(?<![ \t])[ \t]*\r?\n', 'sy');
-        line = new RegExp('[ \t]*(.*?)(?:(?<![ \t])[ \t]*)?\r?\n', 'sy');
-    }
-    catch {
-        first = /(.*?)[ \t]*\r?\n/sy;
-        line = /[ \t]*(.*?)[ \t]*\r?\n/sy;
-    }
-    let match = first.exec(source);
+function unfoldLines(source) {
+    const line = /(.*?)\r?\n/sy;
+    let match = line.exec(source);
     if (!match)
         return source;
-    let res = match[1];
+    /**
+     * The negative lookbehinds in these RegExps are to
+     * prevent causing a polynomial search time in certain cases.
+     *
+     * The try-catch is for Safari < 16.4 and other old browsers:
+     * https://caniuse.com/js-regexp-lookbehind
+     */
+    let trimEnd, trimBoth;
+    try {
+        trimEnd = new RegExp('(?<![ \t])[ \t]+$');
+        trimBoth = new RegExp('^[ \t]+|(?<![ \t])[ \t]+$', 'g');
+    }
+    catch {
+        trimEnd = /[ \t]+$/;
+        trimBoth = /^[ \t]+|[ \t]+$/g;
+    }
+    let res = match[1].replace(trimEnd, '');
     let sep = ' ';
-    let pos = first.lastIndex;
-    line.lastIndex = pos;
+    let pos = line.lastIndex;
     while ((match = line.exec(source))) {
-        if (match[1] === '') {
+        const lm = match[1].replace(trimBoth, '');
+        if (lm === '') {
             if (sep === '\n')
                 res += sep;
             else
                 sep = '\n';
         }
         else {
-            res += sep + match[1];
+            res += sep + lm;
             sep = ' ';
         }
         pos = line.lastIndex;
@@ -31261,7 +31526,7 @@ function doubleQuotedValue(source, onError) {
                     next = source[++i + 1];
             }
             else if (next === 'x' || next === 'u' || next === 'U') {
-                const length = { x: 2, u: 4, U: 8 }[next];
+                const length = next === 'x' ? 2 : next === 'u' ? 4 : 8;
                 res += parseCharCode(source, i + 1, length, onError);
                 i += length;
             }
@@ -31331,12 +31596,14 @@ function parseCharCode(source, offset, length, onError) {
     const cc = source.substr(offset, length);
     const ok = cc.length === length && /^[0-9a-fA-F]+$/.test(cc);
     const code = ok ? parseInt(cc, 16) : NaN;
-    if (isNaN(code)) {
+    try {
+        return String.fromCodePoint(code);
+    }
+    catch {
         const raw = source.substr(offset - 2, length + 2);
         onError(offset - 2, 'BAD_DQ_ESCAPE', `Invalid escape sequence ${raw}`);
         return raw;
     }
-    return String.fromCodePoint(code);
 }
 
 exports.resolveFlowScalar = resolveFlowScalar;
@@ -31344,7 +31611,7 @@ exports.resolveFlowScalar = resolveFlowScalar;
 
 /***/ }),
 
-/***/ 2523:
+/***/ 3705:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -31499,7 +31766,7 @@ exports.resolveProps = resolveProps;
 
 /***/ }),
 
-/***/ 9823:
+/***/ 2641:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -31542,7 +31809,7 @@ exports.containsNewline = containsNewline;
 
 /***/ }),
 
-/***/ 7595:
+/***/ 3109:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -31577,12 +31844,12 @@ exports.emptyScalarPosition = emptyScalarPosition;
 
 /***/ }),
 
-/***/ 8983:
+/***/ 6445:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var utilContainsNewline = __nccwpck_require__(9823);
+var utilContainsNewline = __nccwpck_require__(2641);
 
 function flowIndentCheck(indent, fc, onError) {
     if (fc?.type === 'flow-collection') {
@@ -31601,12 +31868,12 @@ exports.flowIndentCheck = flowIndentCheck;
 
 /***/ }),
 
-/***/ 119:
+/***/ 6949:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
+var identity = __nccwpck_require__(5393);
 
 function mapIncludes(ctx, items, search) {
     const { uniqueKeys } = ctx.options;
@@ -31623,22 +31890,22 @@ exports.mapIncludes = mapIncludes;
 
 /***/ }),
 
-/***/ 9097:
+/***/ 192:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var Alias = __nccwpck_require__(709);
-var Collection = __nccwpck_require__(9521);
-var identity = __nccwpck_require__(1667);
-var Pair = __nccwpck_require__(6033);
-var toJS = __nccwpck_require__(3103);
-var Schema = __nccwpck_require__(1516);
-var stringifyDocument = __nccwpck_require__(2577);
-var anchors = __nccwpck_require__(6840);
-var applyReviver = __nccwpck_require__(4009);
-var createNode = __nccwpck_require__(4592);
-var directives = __nccwpck_require__(8202);
+var Alias = __nccwpck_require__(3103);
+var Collection = __nccwpck_require__(5551);
+var identity = __nccwpck_require__(5393);
+var Pair = __nccwpck_require__(9511);
+var toJS = __nccwpck_require__(5509);
+var Schema = __nccwpck_require__(8126);
+var stringifyDocument = __nccwpck_require__(6815);
+var anchors = __nccwpck_require__(7838);
+var applyReviver = __nccwpck_require__(4167);
+var createNode = __nccwpck_require__(5374);
+var directives = __nccwpck_require__(248);
 
 class Document {
     constructor(value, replacer, options) {
@@ -31967,13 +32234,13 @@ exports.Document = Document;
 
 /***/ }),
 
-/***/ 6840:
+/***/ 7838:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var visit = __nccwpck_require__(9520);
+var identity = __nccwpck_require__(5393);
+var visit = __nccwpck_require__(5814);
 
 /**
  * Verify that the input string is a valid anchor.
@@ -32050,7 +32317,7 @@ exports.findNewAnchor = findNewAnchor;
 
 /***/ }),
 
-/***/ 4009:
+/***/ 4167:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -32114,14 +32381,14 @@ exports.applyReviver = applyReviver;
 
 /***/ }),
 
-/***/ 4592:
+/***/ 5374:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var Alias = __nccwpck_require__(709);
-var identity = __nccwpck_require__(1667);
-var Scalar = __nccwpck_require__(6129);
+var Alias = __nccwpck_require__(3103);
+var identity = __nccwpck_require__(5393);
+var Scalar = __nccwpck_require__(8927);
 
 const defaultTagPrefix = 'tag:yaml.org,2002:';
 function findTagObject(value, tagName, tags) {
@@ -32211,13 +32478,13 @@ exports.createNode = createNode;
 
 /***/ }),
 
-/***/ 8202:
+/***/ 248:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var visit = __nccwpck_require__(9520);
+var identity = __nccwpck_require__(5393);
+var visit = __nccwpck_require__(5814);
 
 const escapeChars = {
     '!': '%21',
@@ -32396,7 +32663,7 @@ exports.Directives = Directives;
 
 /***/ }),
 
-/***/ 1940:
+/***/ 6394:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -32465,28 +32732,28 @@ exports.prettifyError = prettifyError;
 
 /***/ }),
 
-/***/ 9611:
+/***/ 1717:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 var __webpack_unused_export__;
 
 
-var composer = __nccwpck_require__(3156);
-var Document = __nccwpck_require__(9097);
-var Schema = __nccwpck_require__(1516);
-var errors = __nccwpck_require__(1940);
-var Alias = __nccwpck_require__(709);
-var identity = __nccwpck_require__(1667);
-var Pair = __nccwpck_require__(6033);
-var Scalar = __nccwpck_require__(6129);
-var YAMLMap = __nccwpck_require__(6122);
-var YAMLSeq = __nccwpck_require__(5971);
-var cst = __nccwpck_require__(5553);
-var lexer = __nccwpck_require__(6101);
-var lineCounter = __nccwpck_require__(8376);
-var parser = __nccwpck_require__(8932);
-var publicApi = __nccwpck_require__(9123);
-var visit = __nccwpck_require__(9520);
+var composer = __nccwpck_require__(4870);
+var Document = __nccwpck_require__(192);
+var Schema = __nccwpck_require__(8126);
+var errors = __nccwpck_require__(6394);
+var Alias = __nccwpck_require__(3103);
+var identity = __nccwpck_require__(5393);
+var Pair = __nccwpck_require__(9511);
+var Scalar = __nccwpck_require__(8927);
+var YAMLMap = __nccwpck_require__(4920);
+var YAMLSeq = __nccwpck_require__(9517);
+var cst = __nccwpck_require__(3323);
+var lexer = __nccwpck_require__(4979);
+var lineCounter = __nccwpck_require__(7330);
+var parser = __nccwpck_require__(3750);
+var publicApi = __nccwpck_require__(5477);
+var visit = __nccwpck_require__(5814);
 
 
 
@@ -32523,7 +32790,7 @@ __webpack_unused_export__ = visit.visitAsync;
 
 /***/ }),
 
-/***/ 2285:
+/***/ 5323:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
@@ -32549,16 +32816,16 @@ exports.warn = warn;
 
 /***/ }),
 
-/***/ 709:
+/***/ 3103:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var anchors = __nccwpck_require__(6840);
-var visit = __nccwpck_require__(9520);
-var identity = __nccwpck_require__(1667);
-var Node = __nccwpck_require__(9733);
-var toJS = __nccwpck_require__(3103);
+var anchors = __nccwpck_require__(7838);
+var visit = __nccwpck_require__(5814);
+var identity = __nccwpck_require__(5393);
+var Node = __nccwpck_require__(8684);
+var toJS = __nccwpck_require__(5509);
 
 class Alias extends Node.NodeBase {
     constructor(source) {
@@ -32575,6 +32842,8 @@ class Alias extends Node.NodeBase {
      * instance of the `source` anchor before this node.
      */
     resolve(doc, ctx) {
+        if (ctx?.maxAliasCount === 0)
+            throw new ReferenceError('Alias resolution is disabled');
         let nodes;
         if (ctx?.aliasResolveCache) {
             nodes = ctx.aliasResolveCache;
@@ -32597,38 +32866,40 @@ class Alias extends Node.NodeBase {
             if (node.anchor === this.source)
                 found = node;
         }
+        if (found && ctx) {
+            const { anchors, doc, maxAliasCount } = ctx;
+            let data = anchors.get(found);
+            if (!data) {
+                // Resolve anchors for Node.prototype.toJS()
+                toJS.toJS(found, null, ctx);
+                data = anchors.get(found);
+            }
+            /* istanbul ignore if */
+            if (data?.res === undefined) {
+                const msg = 'This should not happen: Alias anchor was not resolved?';
+                throw new ReferenceError(msg);
+            }
+            if (maxAliasCount >= 0) {
+                data.count += 1;
+                if (data.aliasCount === 0)
+                    data.aliasCount = getAliasCount(doc, found, anchors);
+                if (data.count * data.aliasCount > maxAliasCount) {
+                    const msg = 'Excessive alias count indicates a resource exhaustion attack';
+                    throw new ReferenceError(msg);
+                }
+            }
+        }
         return found;
     }
     toJSON(_arg, ctx) {
         if (!ctx)
             return { source: this.source };
-        const { anchors, doc, maxAliasCount } = ctx;
-        const source = this.resolve(doc, ctx);
+        const source = this.resolve(ctx.doc, ctx);
         if (!source) {
             const msg = `Unresolved alias (the anchor must be set before the alias): ${this.source}`;
             throw new ReferenceError(msg);
         }
-        let data = anchors.get(source);
-        if (!data) {
-            // Resolve anchors for Node.prototype.toJS()
-            toJS.toJS(source, null, ctx);
-            data = anchors.get(source);
-        }
-        /* istanbul ignore if */
-        if (data?.res === undefined) {
-            const msg = 'This should not happen: Alias anchor was not resolved?';
-            throw new ReferenceError(msg);
-        }
-        if (maxAliasCount >= 0) {
-            data.count += 1;
-            if (data.aliasCount === 0)
-                data.aliasCount = getAliasCount(doc, source, anchors);
-            if (data.count * data.aliasCount > maxAliasCount) {
-                const msg = 'Excessive alias count indicates a resource exhaustion attack';
-                throw new ReferenceError(msg);
-            }
-        }
-        return data.res;
+        return ctx.anchors.get(source).res;
     }
     toString(ctx, _onComment, _onChompKeep) {
         const src = `*${this.source}`;
@@ -32672,14 +32943,14 @@ exports.Alias = Alias;
 
 /***/ }),
 
-/***/ 9521:
+/***/ 5551:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var createNode = __nccwpck_require__(4592);
-var identity = __nccwpck_require__(1667);
-var Node = __nccwpck_require__(9733);
+var createNode = __nccwpck_require__(5374);
+var identity = __nccwpck_require__(5393);
+var Node = __nccwpck_require__(8684);
 
 function collectionFromPath(schema, path, value) {
     let v = value;
@@ -32830,14 +33101,14 @@ exports.isEmptyPath = isEmptyPath;
 
 /***/ }),
 
-/***/ 9733:
+/***/ 8684:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var applyReviver = __nccwpck_require__(4009);
-var identity = __nccwpck_require__(1667);
-var toJS = __nccwpck_require__(3103);
+var applyReviver = __nccwpck_require__(4167);
+var identity = __nccwpck_require__(5393);
+var toJS = __nccwpck_require__(5509);
 
 class NodeBase {
     constructor(type) {
@@ -32877,15 +33148,15 @@ exports.NodeBase = NodeBase;
 
 /***/ }),
 
-/***/ 6033:
+/***/ 9511:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var createNode = __nccwpck_require__(4592);
-var stringifyPair = __nccwpck_require__(8880);
-var addPairToJSMap = __nccwpck_require__(3311);
-var identity = __nccwpck_require__(1667);
+var createNode = __nccwpck_require__(5374);
+var stringifyPair = __nccwpck_require__(4686);
+var addPairToJSMap = __nccwpck_require__(8846);
+var identity = __nccwpck_require__(5393);
 
 function createPair(key, value, ctx) {
     const k = createNode.createNode(key, undefined, ctx);
@@ -32923,14 +33194,14 @@ exports.createPair = createPair;
 
 /***/ }),
 
-/***/ 6129:
+/***/ 8927:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var Node = __nccwpck_require__(9733);
-var toJS = __nccwpck_require__(3103);
+var identity = __nccwpck_require__(5393);
+var Node = __nccwpck_require__(8684);
+var toJS = __nccwpck_require__(5509);
 
 const isScalarValue = (value) => !value || (typeof value !== 'function' && typeof value !== 'object');
 class Scalar extends Node.NodeBase {
@@ -32957,17 +33228,17 @@ exports.isScalarValue = isScalarValue;
 
 /***/ }),
 
-/***/ 6122:
+/***/ 4920:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var stringifyCollection = __nccwpck_require__(8864);
-var addPairToJSMap = __nccwpck_require__(3311);
-var Collection = __nccwpck_require__(9521);
-var identity = __nccwpck_require__(1667);
-var Pair = __nccwpck_require__(6033);
-var Scalar = __nccwpck_require__(6129);
+var stringifyCollection = __nccwpck_require__(958);
+var addPairToJSMap = __nccwpck_require__(8846);
+var Collection = __nccwpck_require__(5551);
+var identity = __nccwpck_require__(5393);
+var Pair = __nccwpck_require__(9511);
+var Scalar = __nccwpck_require__(8927);
 
 function findPair(items, key) {
     const k = identity.isScalar(key) ? key.value : key;
@@ -33111,17 +33382,17 @@ exports.findPair = findPair;
 
 /***/ }),
 
-/***/ 5971:
+/***/ 9517:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var createNode = __nccwpck_require__(4592);
-var stringifyCollection = __nccwpck_require__(8864);
-var Collection = __nccwpck_require__(9521);
-var identity = __nccwpck_require__(1667);
-var Scalar = __nccwpck_require__(6129);
-var toJS = __nccwpck_require__(3103);
+var createNode = __nccwpck_require__(5374);
+var stringifyCollection = __nccwpck_require__(958);
+var Collection = __nccwpck_require__(5551);
+var identity = __nccwpck_require__(5393);
+var Scalar = __nccwpck_require__(8927);
+var toJS = __nccwpck_require__(5509);
 
 class YAMLSeq extends Collection.Collection {
     static get tagName() {
@@ -33233,16 +33504,16 @@ exports.YAMLSeq = YAMLSeq;
 
 /***/ }),
 
-/***/ 3311:
+/***/ 8846:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var log = __nccwpck_require__(2285);
-var merge = __nccwpck_require__(7976);
-var stringify = __nccwpck_require__(7072);
-var identity = __nccwpck_require__(1667);
-var toJS = __nccwpck_require__(3103);
+var log = __nccwpck_require__(5323);
+var merge = __nccwpck_require__(810);
+var stringify = __nccwpck_require__(5706);
+var identity = __nccwpck_require__(5393);
+var toJS = __nccwpck_require__(5509);
 
 function addPairToJSMap(ctx, map, { key, value }) {
     if (identity.isNode(key) && key.addToJSMap)
@@ -33305,7 +33576,7 @@ exports.addPairToJSMap = addPairToJSMap;
 
 /***/ }),
 
-/***/ 1667:
+/***/ 5393:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -33365,12 +33636,12 @@ exports.isSeq = isSeq;
 
 /***/ }),
 
-/***/ 3103:
+/***/ 5509:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
+var identity = __nccwpck_require__(5393);
 
 /**
  * Recursively convert any node or its contents to native JavaScript
@@ -33411,15 +33682,15 @@ exports.toJS = toJS;
 
 /***/ }),
 
-/***/ 2562:
+/***/ 1868:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var resolveBlockScalar = __nccwpck_require__(117);
-var resolveFlowScalar = __nccwpck_require__(7001);
-var errors = __nccwpck_require__(1940);
-var stringifyString = __nccwpck_require__(81);
+var resolveBlockScalar = __nccwpck_require__(3727);
+var resolveFlowScalar = __nccwpck_require__(5720);
+var errors = __nccwpck_require__(6394);
+var stringifyString = __nccwpck_require__(5259);
 
 function resolveAsScalar(token, strict = true, onError) {
     if (token) {
@@ -33636,7 +33907,7 @@ exports.setScalarValue = setScalarValue;
 
 /***/ }),
 
-/***/ 4297:
+/***/ 535:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -33706,7 +33977,7 @@ exports.stringify = stringify;
 
 /***/ }),
 
-/***/ 4903:
+/***/ 8233:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -33812,14 +34083,14 @@ exports.visit = visit;
 
 /***/ }),
 
-/***/ 5553:
+/***/ 3323:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var cstScalar = __nccwpck_require__(2562);
-var cstStringify = __nccwpck_require__(4297);
-var cstVisit = __nccwpck_require__(4903);
+var cstScalar = __nccwpck_require__(1868);
+var cstStringify = __nccwpck_require__(535);
+var cstVisit = __nccwpck_require__(8233);
 
 /** The byte order mark */
 const BOM = '\u{FEFF}';
@@ -33931,12 +34202,12 @@ exports.tokenType = tokenType;
 
 /***/ }),
 
-/***/ 6101:
+/***/ 4979:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var cst = __nccwpck_require__(5553);
+var cst = __nccwpck_require__(3323);
 
 /*
 START -> stream
@@ -34248,7 +34519,7 @@ class Lexer {
             const n = (yield* this.pushCount(1)) + (yield* this.pushSpaces(true));
             this.indentNext = this.indentValue + 1;
             this.indentValue += n;
-            return yield* this.parseBlockStart();
+            return 'block-start';
         }
         return 'doc';
     }
@@ -34569,32 +34840,36 @@ class Lexer {
         return 0;
     }
     *pushIndicators() {
-        switch (this.charAt(0)) {
-            case '!':
-                return ((yield* this.pushTag()) +
-                    (yield* this.pushSpaces(true)) +
-                    (yield* this.pushIndicators()));
-            case '&':
-                return ((yield* this.pushUntil(isNotAnchorChar)) +
-                    (yield* this.pushSpaces(true)) +
-                    (yield* this.pushIndicators()));
-            case '-': // this is an error
-            case '?': // this is an error outside flow collections
-            case ':': {
-                const inFlow = this.flowLevel > 0;
-                const ch1 = this.charAt(1);
-                if (isEmpty(ch1) || (inFlow && flowIndicatorChars.has(ch1))) {
-                    if (!inFlow)
-                        this.indentNext = this.indentValue + 1;
-                    else if (this.flowKey)
-                        this.flowKey = false;
-                    return ((yield* this.pushCount(1)) +
-                        (yield* this.pushSpaces(true)) +
-                        (yield* this.pushIndicators()));
+        let n = 0;
+        loop: while (true) {
+            switch (this.charAt(0)) {
+                case '!':
+                    n += yield* this.pushTag();
+                    n += yield* this.pushSpaces(true);
+                    continue loop;
+                case '&':
+                    n += yield* this.pushUntil(isNotAnchorChar);
+                    n += yield* this.pushSpaces(true);
+                    continue loop;
+                case '-': // this is an error
+                case '?': // this is an error outside flow collections
+                case ':': {
+                    const inFlow = this.flowLevel > 0;
+                    const ch1 = this.charAt(1);
+                    if (isEmpty(ch1) || (inFlow && flowIndicatorChars.has(ch1))) {
+                        if (!inFlow)
+                            this.indentNext = this.indentValue + 1;
+                        else if (this.flowKey)
+                            this.flowKey = false;
+                        n += yield* this.pushCount(1);
+                        n += yield* this.pushSpaces(true);
+                        continue loop;
+                    }
                 }
             }
+            break loop;
         }
-        return 0;
+        return n;
     }
     *pushTag() {
         if (this.charAt(1) === '<') {
@@ -34657,7 +34932,7 @@ exports.Lexer = Lexer;
 
 /***/ }),
 
-/***/ 8376:
+/***/ 7330:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -34705,14 +34980,14 @@ exports.LineCounter = LineCounter;
 
 /***/ }),
 
-/***/ 8932:
+/***/ 3750:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
 var node_process = __nccwpck_require__(932);
-var cst = __nccwpck_require__(5553);
-var lexer = __nccwpck_require__(6101);
+var cst = __nccwpck_require__(3323);
+var lexer = __nccwpck_require__(4979);
 
 function includesToken(list, type) {
     for (let i = 0; i < list.length; ++i)
@@ -34780,6 +35055,14 @@ function getFirstKeyStartProps(prev) {
     }
     return prev.splice(i, prev.length);
 }
+function arrayPushArray(target, source) {
+    // May exhaust call stack with large `source` array
+    if (source.length < 1e5)
+        Array.prototype.push.apply(target, source);
+    else
+        for (let i = 0; i < source.length; ++i)
+            target.push(source[i]);
+}
 function fixFlowSeqItems(fc) {
     if (fc.start.type === 'flow-seq-start') {
         for (const it of fc.items) {
@@ -34792,12 +35075,12 @@ function fixFlowSeqItems(fc) {
                 delete it.key;
                 if (isFlowToken(it.value)) {
                     if (it.value.end)
-                        Array.prototype.push.apply(it.value.end, it.sep);
+                        arrayPushArray(it.value.end, it.sep);
                     else
                         it.value.end = it.sep;
                 }
                 else
-                    Array.prototype.push.apply(it.start, it.sep);
+                    arrayPushArray(it.start, it.sep);
                 delete it.sep;
             }
         }
@@ -35217,7 +35500,7 @@ class Parser {
                         const prev = map.items[map.items.length - 2];
                         const end = prev?.value?.end;
                         if (Array.isArray(end)) {
-                            Array.prototype.push.apply(end, it.start);
+                            arrayPushArray(end, it.start);
                             end.push(this.sourceToken);
                             map.items.pop();
                             return;
@@ -35432,7 +35715,7 @@ class Parser {
                         const prev = seq.items[seq.items.length - 2];
                         const end = prev?.value?.end;
                         if (Array.isArray(end)) {
-                            Array.prototype.push.apply(end, it.start);
+                            arrayPushArray(end, it.start);
                             end.push(this.sourceToken);
                             seq.items.pop();
                             return;
@@ -35684,18 +35967,18 @@ exports.Parser = Parser;
 
 /***/ }),
 
-/***/ 9123:
+/***/ 5477:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var composer = __nccwpck_require__(3156);
-var Document = __nccwpck_require__(9097);
-var errors = __nccwpck_require__(1940);
-var log = __nccwpck_require__(2285);
-var identity = __nccwpck_require__(1667);
-var lineCounter = __nccwpck_require__(8376);
-var parser = __nccwpck_require__(8932);
+var composer = __nccwpck_require__(4870);
+var Document = __nccwpck_require__(192);
+var errors = __nccwpck_require__(6394);
+var log = __nccwpck_require__(5323);
+var identity = __nccwpck_require__(5393);
+var lineCounter = __nccwpck_require__(7330);
+var parser = __nccwpck_require__(3750);
 
 function parseOptions(options) {
     const prettyErrors = options.prettyErrors !== false;
@@ -35798,16 +36081,16 @@ exports.stringify = stringify;
 
 /***/ }),
 
-/***/ 1516:
+/***/ 8126:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var map = __nccwpck_require__(4783);
-var seq = __nccwpck_require__(3166);
-var string = __nccwpck_require__(828);
-var tags = __nccwpck_require__(1278);
+var identity = __nccwpck_require__(5393);
+var map = __nccwpck_require__(5277);
+var seq = __nccwpck_require__(1112);
+var string = __nccwpck_require__(9854);
+var tags = __nccwpck_require__(9840);
 
 const sortMapEntriesByKey = (a, b) => a.key < b.key ? -1 : a.key > b.key ? 1 : 0;
 class Schema {
@@ -35844,13 +36127,13 @@ exports.Schema = Schema;
 
 /***/ }),
 
-/***/ 4783:
+/***/ 5277:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var YAMLMap = __nccwpck_require__(6122);
+var identity = __nccwpck_require__(5393);
+var YAMLMap = __nccwpck_require__(4920);
 
 const map = {
     collection: 'map',
@@ -35870,12 +36153,12 @@ exports.map = map;
 
 /***/ }),
 
-/***/ 7316:
+/***/ 4250:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var Scalar = __nccwpck_require__(6129);
+var Scalar = __nccwpck_require__(8927);
 
 const nullTag = {
     identify: value => value == null,
@@ -35894,13 +36177,13 @@ exports.nullTag = nullTag;
 
 /***/ }),
 
-/***/ 3166:
+/***/ 1112:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var YAMLSeq = __nccwpck_require__(5971);
+var identity = __nccwpck_require__(5393);
+var YAMLSeq = __nccwpck_require__(9517);
 
 const seq = {
     collection: 'seq',
@@ -35920,12 +36203,12 @@ exports.seq = seq;
 
 /***/ }),
 
-/***/ 828:
+/***/ 9854:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var stringifyString = __nccwpck_require__(81);
+var stringifyString = __nccwpck_require__(5259);
 
 const string = {
     identify: value => typeof value === 'string',
@@ -35943,12 +36226,12 @@ exports.string = string;
 
 /***/ }),
 
-/***/ 4971:
+/***/ 4173:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var Scalar = __nccwpck_require__(6129);
+var Scalar = __nccwpck_require__(8927);
 
 const boolTag = {
     identify: value => typeof value === 'boolean',
@@ -35971,13 +36254,13 @@ exports.boolTag = boolTag;
 
 /***/ }),
 
-/***/ 8409:
+/***/ 1539:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var Scalar = __nccwpck_require__(6129);
-var stringifyNumber = __nccwpck_require__(4813);
+var Scalar = __nccwpck_require__(8927);
+var stringifyNumber = __nccwpck_require__(2147);
 
 const floatNaN = {
     identify: value => typeof value === 'number',
@@ -36025,12 +36308,12 @@ exports.floatNaN = floatNaN;
 
 /***/ }),
 
-/***/ 3142:
+/***/ 6164:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var stringifyNumber = __nccwpck_require__(4813);
+var stringifyNumber = __nccwpck_require__(2147);
 
 const intIdentify = (value) => typeof value === 'bigint' || Number.isInteger(value);
 const intResolve = (str, offset, radix, { intAsBigInt }) => (intAsBigInt ? BigInt(str) : parseInt(str.substring(offset), radix));
@@ -36074,18 +36357,18 @@ exports.intOct = intOct;
 
 /***/ }),
 
-/***/ 4284:
+/***/ 9634:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var map = __nccwpck_require__(4783);
-var _null = __nccwpck_require__(7316);
-var seq = __nccwpck_require__(3166);
-var string = __nccwpck_require__(828);
-var bool = __nccwpck_require__(4971);
-var float = __nccwpck_require__(8409);
-var int = __nccwpck_require__(3142);
+var map = __nccwpck_require__(5277);
+var _null = __nccwpck_require__(4250);
+var seq = __nccwpck_require__(1112);
+var string = __nccwpck_require__(9854);
+var bool = __nccwpck_require__(4173);
+var float = __nccwpck_require__(1539);
+var int = __nccwpck_require__(6164);
 
 const schema = [
     map.map,
@@ -36106,14 +36389,14 @@ exports.schema = schema;
 
 /***/ }),
 
-/***/ 2451:
+/***/ 1501:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var Scalar = __nccwpck_require__(6129);
-var map = __nccwpck_require__(4783);
-var seq = __nccwpck_require__(3166);
+var Scalar = __nccwpck_require__(8927);
+var map = __nccwpck_require__(5277);
+var seq = __nccwpck_require__(1112);
 
 function intIdentify(value) {
     return typeof value === 'bigint' || Number.isInteger(value);
@@ -36177,27 +36460,27 @@ exports.schema = schema;
 
 /***/ }),
 
-/***/ 1278:
+/***/ 9840:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var map = __nccwpck_require__(4783);
-var _null = __nccwpck_require__(7316);
-var seq = __nccwpck_require__(3166);
-var string = __nccwpck_require__(828);
-var bool = __nccwpck_require__(4971);
-var float = __nccwpck_require__(8409);
-var int = __nccwpck_require__(3142);
-var schema = __nccwpck_require__(4284);
-var schema$1 = __nccwpck_require__(2451);
-var binary = __nccwpck_require__(5559);
-var merge = __nccwpck_require__(7976);
-var omap = __nccwpck_require__(7083);
-var pairs = __nccwpck_require__(8309);
-var schema$2 = __nccwpck_require__(7493);
-var set = __nccwpck_require__(6348);
-var timestamp = __nccwpck_require__(2908);
+var map = __nccwpck_require__(5277);
+var _null = __nccwpck_require__(4250);
+var seq = __nccwpck_require__(1112);
+var string = __nccwpck_require__(9854);
+var bool = __nccwpck_require__(4173);
+var float = __nccwpck_require__(1539);
+var int = __nccwpck_require__(6164);
+var schema = __nccwpck_require__(9634);
+var schema$1 = __nccwpck_require__(1501);
+var binary = __nccwpck_require__(3465);
+var merge = __nccwpck_require__(810);
+var omap = __nccwpck_require__(3445);
+var pairs = __nccwpck_require__(9439);
+var schema$2 = __nccwpck_require__(4947);
+var set = __nccwpck_require__(1418);
+var timestamp = __nccwpck_require__(9490);
 
 const schemas = new Map([
     ['core', schema.schema],
@@ -36283,14 +36566,14 @@ exports.getTags = getTags;
 
 /***/ }),
 
-/***/ 5559:
+/***/ 3465:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
 var node_buffer = __nccwpck_require__(181);
-var Scalar = __nccwpck_require__(6129);
-var stringifyString = __nccwpck_require__(81);
+var Scalar = __nccwpck_require__(8927);
+var stringifyString = __nccwpck_require__(5259);
 
 const binary = {
     identify: value => value instanceof Uint8Array, // Buffer inherits from Uint8Array
@@ -36360,12 +36643,12 @@ exports.binary = binary;
 
 /***/ }),
 
-/***/ 2130:
+/***/ 2516:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var Scalar = __nccwpck_require__(6129);
+var Scalar = __nccwpck_require__(8927);
 
 function boolStringify({ value, source }, ctx) {
     const boolObj = value ? trueTag : falseTag;
@@ -36396,13 +36679,13 @@ exports.trueTag = trueTag;
 
 /***/ }),
 
-/***/ 6314:
+/***/ 7364:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var Scalar = __nccwpck_require__(6129);
-var stringifyNumber = __nccwpck_require__(4813);
+var Scalar = __nccwpck_require__(8927);
+var stringifyNumber = __nccwpck_require__(2147);
 
 const floatNaN = {
     identify: value => typeof value === 'number',
@@ -36453,12 +36736,12 @@ exports.floatNaN = floatNaN;
 
 /***/ }),
 
-/***/ 5165:
+/***/ 1667:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var stringifyNumber = __nccwpck_require__(4813);
+var stringifyNumber = __nccwpck_require__(2147);
 
 const intIdentify = (value) => typeof value === 'bigint' || Number.isInteger(value);
 function intResolve(str, offset, radix, { intAsBigInt }) {
@@ -36536,13 +36819,13 @@ exports.intOct = intOct;
 
 /***/ }),
 
-/***/ 7976:
+/***/ 810:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var Scalar = __nccwpck_require__(6129);
+var identity = __nccwpck_require__(5393);
+var Scalar = __nccwpck_require__(8927);
 
 // If the value associated with a merge key is a single mapping node, each of
 // its key/value pairs is inserted into the current mapping, unless the key
@@ -36569,18 +36852,18 @@ const isMergeKey = (ctx, key) => (merge.identify(key) ||
         merge.identify(key.value))) &&
     ctx?.doc.schema.tags.some(tag => tag.tag === merge.tag && tag.default);
 function addMergeToJSMap(ctx, map, value) {
-    value = ctx && identity.isAlias(value) ? value.resolve(ctx.doc) : value;
-    if (identity.isSeq(value))
-        for (const it of value.items)
+    const source = resolveAliasValue(ctx, value);
+    if (identity.isSeq(source))
+        for (const it of source.items)
             mergeValue(ctx, map, it);
-    else if (Array.isArray(value))
-        for (const it of value)
+    else if (Array.isArray(source))
+        for (const it of source)
             mergeValue(ctx, map, it);
     else
-        mergeValue(ctx, map, value);
+        mergeValue(ctx, map, source);
 }
 function mergeValue(ctx, map, value) {
-    const source = ctx && identity.isAlias(value) ? value.resolve(ctx.doc) : value;
+    const source = resolveAliasValue(ctx, value);
     if (!identity.isMap(source))
         throw new Error('Merge sources must be maps or map aliases');
     const srcMap = source.toJSON(null, ctx, Map);
@@ -36603,6 +36886,9 @@ function mergeValue(ctx, map, value) {
     }
     return map;
 }
+function resolveAliasValue(ctx, value) {
+    return ctx && identity.isAlias(value) ? value.resolve(ctx.doc, ctx) : value;
+}
 
 exports.addMergeToJSMap = addMergeToJSMap;
 exports.isMergeKey = isMergeKey;
@@ -36611,16 +36897,16 @@ exports.merge = merge;
 
 /***/ }),
 
-/***/ 7083:
+/***/ 3445:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var toJS = __nccwpck_require__(3103);
-var YAMLMap = __nccwpck_require__(6122);
-var YAMLSeq = __nccwpck_require__(5971);
-var pairs = __nccwpck_require__(8309);
+var identity = __nccwpck_require__(5393);
+var toJS = __nccwpck_require__(5509);
+var YAMLMap = __nccwpck_require__(4920);
+var YAMLSeq = __nccwpck_require__(9517);
+var pairs = __nccwpck_require__(9439);
 
 class YAMLOMap extends YAMLSeq.YAMLSeq {
     constructor() {
@@ -36695,15 +36981,15 @@ exports.omap = omap;
 
 /***/ }),
 
-/***/ 8309:
+/***/ 9439:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var Pair = __nccwpck_require__(6033);
-var Scalar = __nccwpck_require__(6129);
-var YAMLSeq = __nccwpck_require__(5971);
+var identity = __nccwpck_require__(5393);
+var Pair = __nccwpck_require__(9511);
+var Scalar = __nccwpck_require__(8927);
+var YAMLSeq = __nccwpck_require__(9517);
 
 function resolvePairs(seq, onError) {
     if (identity.isSeq(seq)) {
@@ -36784,24 +37070,24 @@ exports.resolvePairs = resolvePairs;
 
 /***/ }),
 
-/***/ 7493:
+/***/ 4947:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var map = __nccwpck_require__(4783);
-var _null = __nccwpck_require__(7316);
-var seq = __nccwpck_require__(3166);
-var string = __nccwpck_require__(828);
-var binary = __nccwpck_require__(5559);
-var bool = __nccwpck_require__(2130);
-var float = __nccwpck_require__(6314);
-var int = __nccwpck_require__(5165);
-var merge = __nccwpck_require__(7976);
-var omap = __nccwpck_require__(7083);
-var pairs = __nccwpck_require__(8309);
-var set = __nccwpck_require__(6348);
-var timestamp = __nccwpck_require__(2908);
+var map = __nccwpck_require__(5277);
+var _null = __nccwpck_require__(4250);
+var seq = __nccwpck_require__(1112);
+var string = __nccwpck_require__(9854);
+var binary = __nccwpck_require__(3465);
+var bool = __nccwpck_require__(2516);
+var float = __nccwpck_require__(7364);
+var int = __nccwpck_require__(1667);
+var merge = __nccwpck_require__(810);
+var omap = __nccwpck_require__(3445);
+var pairs = __nccwpck_require__(9439);
+var set = __nccwpck_require__(1418);
+var timestamp = __nccwpck_require__(9490);
 
 const schema = [
     map.map,
@@ -36832,14 +37118,14 @@ exports.schema = schema;
 
 /***/ }),
 
-/***/ 6348:
+/***/ 1418:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var Pair = __nccwpck_require__(6033);
-var YAMLMap = __nccwpck_require__(6122);
+var identity = __nccwpck_require__(5393);
+var Pair = __nccwpck_require__(9511);
+var YAMLMap = __nccwpck_require__(4920);
 
 class YAMLSet extends YAMLMap.YAMLMap {
     constructor(schema) {
@@ -36935,12 +37221,12 @@ exports.set = set;
 
 /***/ }),
 
-/***/ 2908:
+/***/ 9490:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var stringifyNumber = __nccwpck_require__(4813);
+var stringifyNumber = __nccwpck_require__(2147);
 
 /** Internal types handle bigint as number, because TS can't figure it out. */
 function parseSexagesimal(str, asBigInt) {
@@ -37047,7 +37333,7 @@ exports.timestamp = timestamp;
 
 /***/ }),
 
-/***/ 2383:
+/***/ 2633:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -37205,15 +37491,15 @@ exports.foldFlowLines = foldFlowLines;
 
 /***/ }),
 
-/***/ 7072:
+/***/ 5706:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var anchors = __nccwpck_require__(6840);
-var identity = __nccwpck_require__(1667);
-var stringifyComment = __nccwpck_require__(9448);
-var stringifyString = __nccwpck_require__(81);
+var anchors = __nccwpck_require__(7838);
+var identity = __nccwpck_require__(5393);
+var stringifyComment = __nccwpck_require__(1741);
+var stringifyString = __nccwpck_require__(5259);
 
 function createStringifyContext(doc, options) {
     const opt = Object.assign({
@@ -37232,6 +37518,7 @@ function createStringifyContext(doc, options) {
         nullStr: 'null',
         simpleKeys: false,
         singleQuote: null,
+        trailingComma: false,
         trueStr: 'true',
         verifyAliasOrder: true
     }, doc.schema.toStringOptions, options);
@@ -37343,14 +37630,14 @@ exports.stringify = stringify;
 
 /***/ }),
 
-/***/ 8864:
+/***/ 958:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var stringify = __nccwpck_require__(7072);
-var stringifyComment = __nccwpck_require__(9448);
+var identity = __nccwpck_require__(5393);
+var stringify = __nccwpck_require__(5706);
+var stringifyComment = __nccwpck_require__(1741);
 
 function stringifyCollection(collection, ctx, options) {
     const flow = ctx.inFlow ?? collection.flow;
@@ -37452,12 +37739,22 @@ function stringifyFlowCollection({ items }, ctx, { flowChars, itemIndent }) {
         if (comment)
             reqNewline = true;
         let str = stringify.stringify(item, itemCtx, () => (comment = null));
-        if (i < items.length - 1)
+        reqNewline || (reqNewline = lines.length > linesAtValue || str.includes('\n'));
+        if (i < items.length - 1) {
             str += ',';
+        }
+        else if (ctx.options.trailingComma) {
+            if (ctx.options.lineWidth > 0) {
+                reqNewline || (reqNewline = lines.reduce((sum, line) => sum + line.length + 2, 2) +
+                    (str.length + 2) >
+                    ctx.options.lineWidth);
+            }
+            if (reqNewline) {
+                str += ',';
+            }
+        }
         if (comment)
             str += stringifyComment.lineComment(str, itemIndent, commentString(comment));
-        if (!reqNewline && (lines.length > linesAtValue || str.includes('\n')))
-            reqNewline = true;
         lines.push(str);
         linesAtValue = lines.length;
     }
@@ -37495,7 +37792,7 @@ exports.stringifyCollection = stringifyCollection;
 
 /***/ }),
 
-/***/ 9448:
+/***/ 1741:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -37526,14 +37823,14 @@ exports.stringifyComment = stringifyComment;
 
 /***/ }),
 
-/***/ 2577:
+/***/ 6815:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var stringify = __nccwpck_require__(7072);
-var stringifyComment = __nccwpck_require__(9448);
+var identity = __nccwpck_require__(5393);
+var stringify = __nccwpck_require__(5706);
+var stringifyComment = __nccwpck_require__(1741);
 
 function stringifyDocument(doc, options) {
     const lines = [];
@@ -37620,7 +37917,7 @@ exports.stringifyDocument = stringifyDocument;
 
 /***/ }),
 
-/***/ 4813:
+/***/ 2147:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -37635,7 +37932,8 @@ function stringifyNumber({ format, minFractionDigits, tag, value }) {
     if (!format &&
         minFractionDigits &&
         (!tag || tag === 'tag:yaml.org,2002:float') &&
-        /^\d/.test(n)) {
+        /^-?\d/.test(n) &&
+        !n.includes('e')) {
         let i = n.indexOf('.');
         if (i < 0) {
             i = n.length;
@@ -37653,15 +37951,15 @@ exports.stringifyNumber = stringifyNumber;
 
 /***/ }),
 
-/***/ 8880:
+/***/ 4686:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
-var Scalar = __nccwpck_require__(6129);
-var stringify = __nccwpck_require__(7072);
-var stringifyComment = __nccwpck_require__(9448);
+var identity = __nccwpck_require__(5393);
+var Scalar = __nccwpck_require__(8927);
+var stringify = __nccwpck_require__(5706);
+var stringifyComment = __nccwpck_require__(1741);
 
 function stringifyPair({ key, value }, ctx, onComment, onChompKeep) {
     const { allNullValues, doc, indent, indentStep, options: { commentString, indentSeq, simpleKeys } } = ctx;
@@ -37812,13 +38110,13 @@ exports.stringifyPair = stringifyPair;
 
 /***/ }),
 
-/***/ 81:
+/***/ 5259:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var Scalar = __nccwpck_require__(6129);
-var foldFlowLines = __nccwpck_require__(2383);
+var Scalar = __nccwpck_require__(8927);
+var foldFlowLines = __nccwpck_require__(2633);
 
 const getFoldOptions = (ctx, isBlock) => ({
     indentAtStart: isBlock ? ctx.indent.length : ctx.indentAtStart,
@@ -38157,12 +38455,12 @@ exports.stringifyString = stringifyString;
 
 /***/ }),
 
-/***/ 9520:
+/***/ 5814:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
 
-var identity = __nccwpck_require__(1667);
+var identity = __nccwpck_require__(5393);
 
 const BREAK = Symbol('break visit');
 const SKIP = Symbol('skip children');
@@ -57894,7 +58192,7 @@ function generateSecurityHeaders(siteUrl) {
 
 /***/ }),
 
-/***/ 652:
+/***/ 8271:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
 
 /* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
@@ -58508,10 +58806,494 @@ function analyzeMobileSEO(html, url) {
 
 /***/ }),
 
-/***/ 5563:
+/***/ 6584:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
 
 /* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   J: () => (/* binding */ generateSchemaTemplate),
+/* harmony export */   y: () => (/* binding */ analyzeStructuredData)
+/* harmony export */ });
+/* harmony import */ var cheerio__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2612);
+// src/analyzers/structured-data-analyzer.ts
+
+var SCHEMA_REQUIREMENTS = {
+  "Organization": {
+    required: ["name", "url"],
+    recommended: ["logo", "sameAs", "contactPoint", "address"]
+  },
+  "WebSite": {
+    required: ["name", "url"],
+    recommended: ["potentialAction", "publisher"]
+  },
+  "WebPage": {
+    required: ["name"],
+    recommended: ["description", "url", "breadcrumb", "mainEntity"]
+  },
+  "Article": {
+    required: ["headline", "author", "datePublished"],
+    recommended: ["image", "dateModified", "publisher", "description", "mainEntityOfPage"]
+  },
+  "BlogPosting": {
+    required: ["headline", "author", "datePublished"],
+    recommended: ["image", "dateModified", "publisher", "description"]
+  },
+  "NewsArticle": {
+    required: ["headline", "author", "datePublished", "image"],
+    recommended: ["dateModified", "publisher", "description"]
+  },
+  "Product": {
+    required: ["name"],
+    recommended: ["image", "description", "offers", "brand", "sku", "aggregateRating", "review"]
+  },
+  "Offer": {
+    required: ["price", "priceCurrency"],
+    recommended: ["availability", "url", "priceValidUntil"]
+  },
+  "FAQPage": {
+    required: ["mainEntity"],
+    recommended: []
+  },
+  "Question": {
+    required: ["name", "acceptedAnswer"],
+    recommended: []
+  },
+  "HowTo": {
+    required: ["name", "step"],
+    recommended: ["image", "totalTime", "estimatedCost", "supply", "tool"]
+  },
+  "BreadcrumbList": {
+    required: ["itemListElement"],
+    recommended: []
+  },
+  "LocalBusiness": {
+    required: ["name", "address"],
+    recommended: ["telephone", "openingHours", "geo", "image", "priceRange"]
+  },
+  "Event": {
+    required: ["name", "startDate", "location"],
+    recommended: ["endDate", "description", "image", "offers", "performer", "organizer"]
+  },
+  "Review": {
+    required: ["itemReviewed", "reviewRating", "author"],
+    recommended: ["reviewBody", "datePublished"]
+  },
+  "AggregateRating": {
+    required: ["ratingValue", "reviewCount"],
+    recommended: ["bestRating", "worstRating"]
+  },
+  "Person": {
+    required: ["name"],
+    recommended: ["url", "image", "jobTitle", "sameAs"]
+  },
+  "VideoObject": {
+    required: ["name", "thumbnailUrl", "uploadDate"],
+    recommended: ["description", "contentUrl", "duration", "embedUrl"]
+  },
+  "ImageObject": {
+    required: ["contentUrl"],
+    recommended: ["caption", "creditText", "creator"]
+  },
+  "SoftwareApplication": {
+    required: ["name"],
+    recommended: ["operatingSystem", "applicationCategory", "offers", "aggregateRating"]
+  },
+  "Recipe": {
+    required: ["name", "recipeIngredient", "recipeInstructions"],
+    recommended: ["image", "author", "prepTime", "cookTime", "totalTime", "nutrition"]
+  },
+  "Course": {
+    required: ["name", "provider"],
+    recommended: ["description", "offers"]
+  }
+};
+function parseJsonLd(script) {
+  try {
+    const data = JSON.parse(script);
+    return { data };
+  } catch (e) {
+    return { data: null, error: `Invalid JSON: ${e.message}` };
+  }
+}
+function extractTypes(data) {
+  const types = [];
+  if (!data) return types;
+  if (Array.isArray(data)) {
+    for (const item of data) {
+      types.push(...extractTypes(item));
+    }
+  } else if (typeof data === "object") {
+    if (data["@type"]) {
+      const schemaType = Array.isArray(data["@type"]) ? data["@type"] : [data["@type"]];
+      types.push(...schemaType);
+    }
+    if (data["@graph"]) {
+      types.push(...extractTypes(data["@graph"]));
+    }
+  }
+  return types;
+}
+function validateSchema(data, type) {
+  const errors = [];
+  const warnings = [];
+  const properties = [];
+  if (!data || typeof data !== "object") {
+    return { type, isValid: false, errors: ["Invalid schema object"], warnings, properties };
+  }
+  for (const key of Object.keys(data)) {
+    if (!key.startsWith("@")) {
+      properties.push(key);
+    }
+  }
+  const requirements = SCHEMA_REQUIREMENTS[type];
+  if (requirements) {
+    for (const prop of requirements.required) {
+      if (!data[prop]) {
+        errors.push(`Missing required property: ${prop}`);
+      }
+    }
+    for (const prop of requirements.recommended) {
+      if (!data[prop]) {
+        warnings.push(`Missing recommended property: ${prop}`);
+      }
+    }
+  }
+  if (type === "Article" || type === "BlogPosting" || type === "NewsArticle") {
+    if (data.author && typeof data.author === "string") {
+      warnings.push("author should be a Person or Organization object, not a string");
+    }
+    if (data.publisher && typeof data.publisher === "string") {
+      warnings.push("publisher should be an Organization object, not a string");
+    }
+    if (data.datePublished && !/^\d{4}-\d{2}-\d{2}/.test(data.datePublished)) {
+      warnings.push("datePublished should be in ISO 8601 format (YYYY-MM-DD)");
+    }
+  }
+  if (type === "Product") {
+    if (!data.offers) {
+      warnings.push("Product without offers/price - may not show rich results");
+    }
+  }
+  if (type === "FAQPage") {
+    if (data.mainEntity) {
+      const questions = Array.isArray(data.mainEntity) ? data.mainEntity : [data.mainEntity];
+      for (let i = 0; i < questions.length; i++) {
+        const q = questions[i];
+        if (!q.name && !q["@type"]?.includes("Question")) {
+          errors.push(`FAQ item ${i + 1} is not a valid Question`);
+        }
+        if (!q.acceptedAnswer) {
+          errors.push(`FAQ item ${i + 1} missing acceptedAnswer`);
+        }
+      }
+    }
+  }
+  if (type === "BreadcrumbList") {
+    if (data.itemListElement) {
+      const items = Array.isArray(data.itemListElement) ? data.itemListElement : [data.itemListElement];
+      items.forEach((item, i) => {
+        if (!item.position) {
+          errors.push(`Breadcrumb item ${i + 1} missing position`);
+        }
+        if (!item.name && !item.item?.name) {
+          errors.push(`Breadcrumb item ${i + 1} missing name`);
+        }
+      });
+    }
+  }
+  if (type === "LocalBusiness") {
+    if (data.geo) {
+      if (!data.geo.latitude || !data.geo.longitude) {
+        warnings.push("geo should include latitude and longitude");
+      }
+    }
+    if (data.openingHours && typeof data.openingHours === "string") {
+      warnings.push("openingHours should be an array of OpeningHoursSpecification objects for rich results");
+    }
+  }
+  return {
+    type,
+    isValid: errors.length === 0,
+    errors,
+    warnings,
+    properties
+  };
+}
+function analyzeStructuredData(html, url) {
+  const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
+  const schemas = [];
+  const issues = [];
+  const recommendations = [];
+  let score = 100;
+  const foundTypes = /* @__PURE__ */ new Set();
+  $('script[type="application/ld+json"]').each((_, el) => {
+    const content = $(el).html();
+    if (!content) return;
+    const { data, error } = parseJsonLd(content);
+    if (error) {
+      issues.push({
+        code: "SCHEMA_INVALID_JSON",
+        severity: "critical",
+        category: "technical",
+        title: "Invalid JSON-LD syntax",
+        description: error,
+        impact: "Schema will not be parsed by search engines",
+        howToFix: "Fix JSON syntax errors. Use a JSON validator.",
+        affectedUrls: [url]
+      });
+      score -= 20;
+      return;
+    }
+    const types = extractTypes(data);
+    const processItem = (item) => {
+      if (!item || typeof item !== "object") return;
+      let itemType = item["@type"];
+      if (Array.isArray(itemType)) itemType = itemType[0];
+      if (itemType) {
+        foundTypes.add(itemType);
+        const validation = validateSchema(item, itemType);
+        schemas.push(validation);
+        if (!validation.isValid) {
+          for (const err of validation.errors) {
+            issues.push({
+              code: "SCHEMA_VALIDATION_ERROR",
+              severity: "warning",
+              category: "technical",
+              title: `${itemType} schema error: ${err}`,
+              description: `The ${itemType} schema is missing required properties or has invalid data.`,
+              impact: "May not qualify for rich results",
+              howToFix: `Add the missing property: ${err.replace("Missing required property: ", "")}`,
+              affectedUrls: [url]
+            });
+            score -= 5;
+          }
+        }
+      }
+      if (item["@graph"] && Array.isArray(item["@graph"])) {
+        item["@graph"].forEach(processItem);
+      }
+    };
+    if (Array.isArray(data)) {
+      data.forEach(processItem);
+    } else {
+      processItem(data);
+    }
+  });
+  const hasOrganization = foundTypes.has("Organization");
+  const hasWebSite = foundTypes.has("WebSite");
+  const hasWebPage = foundTypes.has("WebPage");
+  const hasBreadcrumb = foundTypes.has("BreadcrumbList");
+  const hasArticle = foundTypes.has("Article") || foundTypes.has("BlogPosting") || foundTypes.has("NewsArticle");
+  const hasProduct = foundTypes.has("Product");
+  const hasFAQ = foundTypes.has("FAQPage");
+  const hasHowTo = foundTypes.has("HowTo");
+  const hasLocalBusiness = foundTypes.has("LocalBusiness");
+  const hasEvent = foundTypes.has("Event");
+  const hasReview = foundTypes.has("Review") || foundTypes.has("AggregateRating");
+  if (!hasOrganization) {
+    recommendations.push("Add Organization schema for brand knowledge panel");
+    score -= 5;
+  }
+  if (!hasWebSite) {
+    recommendations.push("Add WebSite schema with SearchAction for sitelinks search box");
+    score -= 3;
+  }
+  if (!hasBreadcrumb) {
+    recommendations.push("Add BreadcrumbList schema for breadcrumb rich results");
+    score -= 3;
+  }
+  if (!hasArticle && !hasProduct && !hasFAQ && !hasHowTo && !hasLocalBusiness && !hasEvent) {
+    recommendations.push("Add page-specific schema (Article, Product, FAQ, HowTo, etc.)");
+    score -= 10;
+    issues.push({
+      code: "SCHEMA_NO_RICH_RESULT_TYPE",
+      severity: "warning",
+      category: "technical",
+      title: "No rich result schema found",
+      description: "Page lacks schema types that enable rich results (Article, Product, FAQ, etc.)",
+      impact: "Missing opportunity for enhanced search results",
+      howToFix: "Add appropriate schema type for your content (e.g., Article for blog posts, Product for products, FAQ for Q&A)",
+      affectedUrls: [url]
+    });
+  }
+  if (schemas.length === 0) {
+    score -= 20;
+    issues.push({
+      code: "SCHEMA_NONE_FOUND",
+      severity: "warning",
+      category: "technical",
+      title: "No structured data found",
+      description: "No JSON-LD structured data detected on the page.",
+      impact: "Missing rich results, reduced AI understanding, lower search visibility",
+      howToFix: "Add JSON-LD structured data. At minimum, include Organization and WebPage schemas.",
+      affectedUrls: [url]
+    });
+  }
+  if (schemas.length > 0 && !hasFAQ) {
+    recommendations.push("Consider adding FAQPage schema - excellent for AI search citations");
+  }
+  if (!foundTypes.has("Person") && hasArticle) {
+    recommendations.push("Use Person schema for authors to improve E-E-A-T signals");
+  }
+  return {
+    score: Math.max(0, Math.min(100, score)),
+    schemas,
+    hasOrganization,
+    hasWebSite,
+    hasWebPage,
+    hasBreadcrumb,
+    hasArticle,
+    hasProduct,
+    hasFAQ,
+    hasHowTo,
+    hasLocalBusiness,
+    hasEvent,
+    hasReview,
+    issues,
+    recommendations
+  };
+}
+function generateSchemaTemplate(pageType, options) {
+  const { siteName, siteUrl, authorName, organizationName } = options;
+  const baseSchemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: organizationName || siteName,
+      url: siteUrl,
+      logo: `${siteUrl}/logo.png`
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: siteName,
+      url: siteUrl,
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${siteUrl}/search?q={search_term_string}`
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ];
+  const pageSchemas = {
+    article: {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: "{{title}}",
+      description: "{{description}}",
+      image: "{{image_url}}",
+      datePublished: "{{date_published}}",
+      dateModified: "{{date_modified}}",
+      author: {
+        "@type": "Person",
+        name: authorName || "{{author_name}}",
+        url: "{{author_url}}"
+      },
+      publisher: {
+        "@type": "Organization",
+        name: organizationName || siteName,
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteUrl}/logo.png`
+        }
+      }
+    },
+    product: {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: "{{product_name}}",
+      description: "{{product_description}}",
+      image: "{{product_image}}",
+      brand: {
+        "@type": "Brand",
+        name: "{{brand_name}}"
+      },
+      sku: "{{sku}}",
+      offers: {
+        "@type": "Offer",
+        price: "{{price}}",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+        url: "{{product_url}}"
+      },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "{{rating}}",
+        reviewCount: "{{review_count}}"
+      }
+    },
+    faq: {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "{{question_1}}",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "{{answer_1}}"
+          }
+        },
+        {
+          "@type": "Question",
+          name: "{{question_2}}",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "{{answer_2}}"
+          }
+        }
+      ]
+    },
+    "local-business": {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      name: "{{business_name}}",
+      description: "{{description}}",
+      url: siteUrl,
+      telephone: "{{phone}}",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "{{street}}",
+        addressLocality: "{{city}}",
+        addressRegion: "{{state}}",
+        postalCode: "{{zip}}",
+        addressCountry: "{{country}}"
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: "{{latitude}}",
+        longitude: "{{longitude}}"
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          opens: "09:00",
+          closes: "17:00"
+        }
+      ]
+    },
+    website: baseSchemas[1]
+  };
+  const result = [...baseSchemas];
+  if (pageType !== "website" && pageSchemas[pageType]) {
+    result.push(pageSchemas[pageType]);
+  }
+  return JSON.stringify(result, null, 2);
+}
+
+
+
+
+/***/ }),
+
+/***/ 5844:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
+
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   Bp: () => (/* binding */ looksLikeHtmlFallback),
 /* harmony export */   L1: () => (/* binding */ crawlUrl),
 /* harmony export */   OU: () => (/* binding */ analyzeUrl),
 /* harmony export */   PW: () => (/* binding */ httpHead),
@@ -58541,13 +59323,20 @@ function headersToObject(headers) {
   });
   return obj;
 }
+function looksLikeHtmlFallback(body, contentType) {
+  if (contentType && /text\/html/i.test(contentType)) return true;
+  if (typeof body !== "string") return false;
+  const head = body.trimStart().slice(0, 200).toLowerCase();
+  return head.startsWith("<!doctype html") || head.startsWith("<html");
+}
 async function httpGet(url, config = {}) {
   const {
     headers = {},
     timeout = DEFAULT_TIMEOUT,
     validateStatus = (status) => status >= 200 && status < 300,
     maxRedirects = 5,
-    params
+    params,
+    maxBytes
   } = config;
   let finalUrl = url;
   if (params) {
@@ -58574,7 +59363,7 @@ async function httpGet(url, config = {}) {
     if (contentType.includes("application/json")) {
       data = await response.json();
     } else {
-      data = await response.text();
+      data = await readText(response, maxBytes);
     }
     clearTimeout(timeoutId);
     if (!validateStatus(response.status)) {
@@ -58600,6 +59389,23 @@ async function httpGet(url, config = {}) {
     }
     throw error;
   }
+}
+async function readText(response, maxBytes) {
+  if (!maxBytes || !response.body) return response.text();
+  const reader = response.body.getReader();
+  const chunks = [];
+  let received = 0;
+  while (received < maxBytes) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    received += value.byteLength;
+  }
+  if (received >= maxBytes) await reader.cancel().catch(() => void 0);
+  const decoder = new TextDecoder();
+  let text = "";
+  for (const chunk of chunks) text += decoder.decode(chunk, { stream: true });
+  return text + decoder.decode();
 }
 async function httpHead(url, config = {}) {
   const {
@@ -59275,489 +60081,6 @@ function generateRecommendations(issues) {
 
 
 
-/***/ }),
-
-/***/ 4203:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
-
-/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   J: () => (/* binding */ generateSchemaTemplate),
-/* harmony export */   y: () => (/* binding */ analyzeStructuredData)
-/* harmony export */ });
-/* harmony import */ var cheerio__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2612);
-// src/analyzers/structured-data-analyzer.ts
-
-var SCHEMA_REQUIREMENTS = {
-  "Organization": {
-    required: ["name", "url"],
-    recommended: ["logo", "sameAs", "contactPoint", "address"]
-  },
-  "WebSite": {
-    required: ["name", "url"],
-    recommended: ["potentialAction", "publisher"]
-  },
-  "WebPage": {
-    required: ["name"],
-    recommended: ["description", "url", "breadcrumb", "mainEntity"]
-  },
-  "Article": {
-    required: ["headline", "author", "datePublished"],
-    recommended: ["image", "dateModified", "publisher", "description", "mainEntityOfPage"]
-  },
-  "BlogPosting": {
-    required: ["headline", "author", "datePublished"],
-    recommended: ["image", "dateModified", "publisher", "description"]
-  },
-  "NewsArticle": {
-    required: ["headline", "author", "datePublished", "image"],
-    recommended: ["dateModified", "publisher", "description"]
-  },
-  "Product": {
-    required: ["name"],
-    recommended: ["image", "description", "offers", "brand", "sku", "aggregateRating", "review"]
-  },
-  "Offer": {
-    required: ["price", "priceCurrency"],
-    recommended: ["availability", "url", "priceValidUntil"]
-  },
-  "FAQPage": {
-    required: ["mainEntity"],
-    recommended: []
-  },
-  "Question": {
-    required: ["name", "acceptedAnswer"],
-    recommended: []
-  },
-  "HowTo": {
-    required: ["name", "step"],
-    recommended: ["image", "totalTime", "estimatedCost", "supply", "tool"]
-  },
-  "BreadcrumbList": {
-    required: ["itemListElement"],
-    recommended: []
-  },
-  "LocalBusiness": {
-    required: ["name", "address"],
-    recommended: ["telephone", "openingHours", "geo", "image", "priceRange"]
-  },
-  "Event": {
-    required: ["name", "startDate", "location"],
-    recommended: ["endDate", "description", "image", "offers", "performer", "organizer"]
-  },
-  "Review": {
-    required: ["itemReviewed", "reviewRating", "author"],
-    recommended: ["reviewBody", "datePublished"]
-  },
-  "AggregateRating": {
-    required: ["ratingValue", "reviewCount"],
-    recommended: ["bestRating", "worstRating"]
-  },
-  "Person": {
-    required: ["name"],
-    recommended: ["url", "image", "jobTitle", "sameAs"]
-  },
-  "VideoObject": {
-    required: ["name", "thumbnailUrl", "uploadDate"],
-    recommended: ["description", "contentUrl", "duration", "embedUrl"]
-  },
-  "ImageObject": {
-    required: ["contentUrl"],
-    recommended: ["caption", "creditText", "creator"]
-  },
-  "SoftwareApplication": {
-    required: ["name"],
-    recommended: ["operatingSystem", "applicationCategory", "offers", "aggregateRating"]
-  },
-  "Recipe": {
-    required: ["name", "recipeIngredient", "recipeInstructions"],
-    recommended: ["image", "author", "prepTime", "cookTime", "totalTime", "nutrition"]
-  },
-  "Course": {
-    required: ["name", "provider"],
-    recommended: ["description", "offers"]
-  }
-};
-function parseJsonLd(script) {
-  try {
-    const data = JSON.parse(script);
-    return { data };
-  } catch (e) {
-    return { data: null, error: `Invalid JSON: ${e.message}` };
-  }
-}
-function extractTypes(data) {
-  const types = [];
-  if (!data) return types;
-  if (Array.isArray(data)) {
-    for (const item of data) {
-      types.push(...extractTypes(item));
-    }
-  } else if (typeof data === "object") {
-    if (data["@type"]) {
-      const schemaType = Array.isArray(data["@type"]) ? data["@type"] : [data["@type"]];
-      types.push(...schemaType);
-    }
-    if (data["@graph"]) {
-      types.push(...extractTypes(data["@graph"]));
-    }
-  }
-  return types;
-}
-function validateSchema(data, type) {
-  const errors = [];
-  const warnings = [];
-  const properties = [];
-  if (!data || typeof data !== "object") {
-    return { type, isValid: false, errors: ["Invalid schema object"], warnings, properties };
-  }
-  for (const key of Object.keys(data)) {
-    if (!key.startsWith("@")) {
-      properties.push(key);
-    }
-  }
-  const requirements = SCHEMA_REQUIREMENTS[type];
-  if (requirements) {
-    for (const prop of requirements.required) {
-      if (!data[prop]) {
-        errors.push(`Missing required property: ${prop}`);
-      }
-    }
-    for (const prop of requirements.recommended) {
-      if (!data[prop]) {
-        warnings.push(`Missing recommended property: ${prop}`);
-      }
-    }
-  }
-  if (type === "Article" || type === "BlogPosting" || type === "NewsArticle") {
-    if (data.author && typeof data.author === "string") {
-      warnings.push("author should be a Person or Organization object, not a string");
-    }
-    if (data.publisher && typeof data.publisher === "string") {
-      warnings.push("publisher should be an Organization object, not a string");
-    }
-    if (data.datePublished && !/^\d{4}-\d{2}-\d{2}/.test(data.datePublished)) {
-      warnings.push("datePublished should be in ISO 8601 format (YYYY-MM-DD)");
-    }
-  }
-  if (type === "Product") {
-    if (!data.offers) {
-      warnings.push("Product without offers/price - may not show rich results");
-    }
-  }
-  if (type === "FAQPage") {
-    if (data.mainEntity) {
-      const questions = Array.isArray(data.mainEntity) ? data.mainEntity : [data.mainEntity];
-      for (let i = 0; i < questions.length; i++) {
-        const q = questions[i];
-        if (!q.name && !q["@type"]?.includes("Question")) {
-          errors.push(`FAQ item ${i + 1} is not a valid Question`);
-        }
-        if (!q.acceptedAnswer) {
-          errors.push(`FAQ item ${i + 1} missing acceptedAnswer`);
-        }
-      }
-    }
-  }
-  if (type === "BreadcrumbList") {
-    if (data.itemListElement) {
-      const items = Array.isArray(data.itemListElement) ? data.itemListElement : [data.itemListElement];
-      items.forEach((item, i) => {
-        if (!item.position) {
-          errors.push(`Breadcrumb item ${i + 1} missing position`);
-        }
-        if (!item.name && !item.item?.name) {
-          errors.push(`Breadcrumb item ${i + 1} missing name`);
-        }
-      });
-    }
-  }
-  if (type === "LocalBusiness") {
-    if (data.geo) {
-      if (!data.geo.latitude || !data.geo.longitude) {
-        warnings.push("geo should include latitude and longitude");
-      }
-    }
-    if (data.openingHours && typeof data.openingHours === "string") {
-      warnings.push("openingHours should be an array of OpeningHoursSpecification objects for rich results");
-    }
-  }
-  return {
-    type,
-    isValid: errors.length === 0,
-    errors,
-    warnings,
-    properties
-  };
-}
-function analyzeStructuredData(html, url) {
-  const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
-  const schemas = [];
-  const issues = [];
-  const recommendations = [];
-  let score = 100;
-  const foundTypes = /* @__PURE__ */ new Set();
-  $('script[type="application/ld+json"]').each((_, el) => {
-    const content = $(el).html();
-    if (!content) return;
-    const { data, error } = parseJsonLd(content);
-    if (error) {
-      issues.push({
-        code: "SCHEMA_INVALID_JSON",
-        severity: "critical",
-        category: "technical",
-        title: "Invalid JSON-LD syntax",
-        description: error,
-        impact: "Schema will not be parsed by search engines",
-        howToFix: "Fix JSON syntax errors. Use a JSON validator.",
-        affectedUrls: [url]
-      });
-      score -= 20;
-      return;
-    }
-    const types = extractTypes(data);
-    const processItem = (item) => {
-      if (!item || typeof item !== "object") return;
-      let itemType = item["@type"];
-      if (Array.isArray(itemType)) itemType = itemType[0];
-      if (itemType) {
-        foundTypes.add(itemType);
-        const validation = validateSchema(item, itemType);
-        schemas.push(validation);
-        if (!validation.isValid) {
-          for (const err of validation.errors) {
-            issues.push({
-              code: "SCHEMA_VALIDATION_ERROR",
-              severity: "warning",
-              category: "technical",
-              title: `${itemType} schema error: ${err}`,
-              description: `The ${itemType} schema is missing required properties or has invalid data.`,
-              impact: "May not qualify for rich results",
-              howToFix: `Add the missing property: ${err.replace("Missing required property: ", "")}`,
-              affectedUrls: [url]
-            });
-            score -= 5;
-          }
-        }
-      }
-      if (item["@graph"] && Array.isArray(item["@graph"])) {
-        item["@graph"].forEach(processItem);
-      }
-    };
-    if (Array.isArray(data)) {
-      data.forEach(processItem);
-    } else {
-      processItem(data);
-    }
-  });
-  const hasOrganization = foundTypes.has("Organization");
-  const hasWebSite = foundTypes.has("WebSite");
-  const hasWebPage = foundTypes.has("WebPage");
-  const hasBreadcrumb = foundTypes.has("BreadcrumbList");
-  const hasArticle = foundTypes.has("Article") || foundTypes.has("BlogPosting") || foundTypes.has("NewsArticle");
-  const hasProduct = foundTypes.has("Product");
-  const hasFAQ = foundTypes.has("FAQPage");
-  const hasHowTo = foundTypes.has("HowTo");
-  const hasLocalBusiness = foundTypes.has("LocalBusiness");
-  const hasEvent = foundTypes.has("Event");
-  const hasReview = foundTypes.has("Review") || foundTypes.has("AggregateRating");
-  if (!hasOrganization) {
-    recommendations.push("Add Organization schema for brand knowledge panel");
-    score -= 5;
-  }
-  if (!hasWebSite) {
-    recommendations.push("Add WebSite schema with SearchAction for sitelinks search box");
-    score -= 3;
-  }
-  if (!hasBreadcrumb) {
-    recommendations.push("Add BreadcrumbList schema for breadcrumb rich results");
-    score -= 3;
-  }
-  if (!hasArticle && !hasProduct && !hasFAQ && !hasHowTo && !hasLocalBusiness && !hasEvent) {
-    recommendations.push("Add page-specific schema (Article, Product, FAQ, HowTo, etc.)");
-    score -= 10;
-    issues.push({
-      code: "SCHEMA_NO_RICH_RESULT_TYPE",
-      severity: "warning",
-      category: "technical",
-      title: "No rich result schema found",
-      description: "Page lacks schema types that enable rich results (Article, Product, FAQ, etc.)",
-      impact: "Missing opportunity for enhanced search results",
-      howToFix: "Add appropriate schema type for your content (e.g., Article for blog posts, Product for products, FAQ for Q&A)",
-      affectedUrls: [url]
-    });
-  }
-  if (schemas.length === 0) {
-    score -= 20;
-    issues.push({
-      code: "SCHEMA_NONE_FOUND",
-      severity: "warning",
-      category: "technical",
-      title: "No structured data found",
-      description: "No JSON-LD structured data detected on the page.",
-      impact: "Missing rich results, reduced AI understanding, lower search visibility",
-      howToFix: "Add JSON-LD structured data. At minimum, include Organization and WebPage schemas.",
-      affectedUrls: [url]
-    });
-  }
-  if (schemas.length > 0 && !hasFAQ) {
-    recommendations.push("Consider adding FAQPage schema - excellent for AI search citations");
-  }
-  if (!foundTypes.has("Person") && hasArticle) {
-    recommendations.push("Use Person schema for authors to improve E-E-A-T signals");
-  }
-  return {
-    score: Math.max(0, Math.min(100, score)),
-    schemas,
-    hasOrganization,
-    hasWebSite,
-    hasWebPage,
-    hasBreadcrumb,
-    hasArticle,
-    hasProduct,
-    hasFAQ,
-    hasHowTo,
-    hasLocalBusiness,
-    hasEvent,
-    hasReview,
-    issues,
-    recommendations
-  };
-}
-function generateSchemaTemplate(pageType, options) {
-  const { siteName, siteUrl, authorName, organizationName } = options;
-  const baseSchemas = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      name: organizationName || siteName,
-      url: siteUrl,
-      logo: `${siteUrl}/logo.png`
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      name: siteName,
-      url: siteUrl,
-      potentialAction: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate: `${siteUrl}/search?q={search_term_string}`
-        },
-        "query-input": "required name=search_term_string"
-      }
-    }
-  ];
-  const pageSchemas = {
-    article: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      headline: "{{title}}",
-      description: "{{description}}",
-      image: "{{image_url}}",
-      datePublished: "{{date_published}}",
-      dateModified: "{{date_modified}}",
-      author: {
-        "@type": "Person",
-        name: authorName || "{{author_name}}",
-        url: "{{author_url}}"
-      },
-      publisher: {
-        "@type": "Organization",
-        name: organizationName || siteName,
-        logo: {
-          "@type": "ImageObject",
-          url: `${siteUrl}/logo.png`
-        }
-      }
-    },
-    product: {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      name: "{{product_name}}",
-      description: "{{product_description}}",
-      image: "{{product_image}}",
-      brand: {
-        "@type": "Brand",
-        name: "{{brand_name}}"
-      },
-      sku: "{{sku}}",
-      offers: {
-        "@type": "Offer",
-        price: "{{price}}",
-        priceCurrency: "USD",
-        availability: "https://schema.org/InStock",
-        url: "{{product_url}}"
-      },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "{{rating}}",
-        reviewCount: "{{review_count}}"
-      }
-    },
-    faq: {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "{{question_1}}",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "{{answer_1}}"
-          }
-        },
-        {
-          "@type": "Question",
-          name: "{{question_2}}",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "{{answer_2}}"
-          }
-        }
-      ]
-    },
-    "local-business": {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      name: "{{business_name}}",
-      description: "{{description}}",
-      url: siteUrl,
-      telephone: "{{phone}}",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "{{street}}",
-        addressLocality: "{{city}}",
-        addressRegion: "{{state}}",
-        postalCode: "{{zip}}",
-        addressCountry: "{{country}}"
-      },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: "{{latitude}}",
-        longitude: "{{longitude}}"
-      },
-      openingHoursSpecification: [
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          opens: "09:00",
-          closes: "17:00"
-        }
-      ]
-    },
-    website: baseSchemas[1]
-  };
-  const result = [...baseSchemas];
-  if (pageType !== "website" && pageSchemas[pageType]) {
-    result.push(pageSchemas[pageType]);
-  }
-  return JSON.stringify(result, null, 2);
-}
-
-
-
-
 /***/ })
 
 /******/ });
@@ -60214,8 +60537,8 @@ class DecodedURL extends URL {
 //# sourceMappingURL=proxy.js.map
 // EXTERNAL MODULE: ../../node_modules/.pnpm/tunnel@0.0.6/node_modules/tunnel/index.js
 var node_modules_tunnel = __nccwpck_require__(7285);
-// EXTERNAL MODULE: ../../node_modules/.pnpm/undici@6.28.1/node_modules/undici/index.js
-var undici = __nccwpck_require__(4342);
+// EXTERNAL MODULE: ../../node_modules/.pnpm/undici@6.29.1/node_modules/undici/index.js
+var undici = __nccwpck_require__(6221);
 ;// CONCATENATED MODULE: ../../node_modules/.pnpm/@actions+http-client@4.0.1/node_modules/@actions/http-client/lib/index.js
 /* eslint-disable @typescript-eslint/no-explicit-any */
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -67891,8 +68214,8 @@ function getOctokit(token, options, ...additionalPlugins) {
 //# sourceMappingURL=github.js.map
 // EXTERNAL MODULE: ../agent-runtime/dist/chunk-M27NQCWW.mjs
 var chunk_M27NQCWW = __nccwpck_require__(8488);
-// EXTERNAL MODULE: ../agent-runtime/dist/chunk-NATXE6B3.mjs
-var chunk_NATXE6B3 = __nccwpck_require__(5563);
+// EXTERNAL MODULE: ../agent-runtime/dist/chunk-ZLQQXIZ3.mjs
+var chunk_ZLQQXIZ3 = __nccwpck_require__(5844);
 // EXTERNAL MODULE: ../agent-runtime/dist/chunk-3ZSCLNTW.mjs
 var chunk_3ZSCLNTW = __nccwpck_require__(856);
 // EXTERNAL MODULE: ../agent-runtime/dist/chunk-4E4MQOSP.mjs
@@ -67900,20 +68223,20 @@ var chunk_4E4MQOSP = __nccwpck_require__(3537);
 // EXTERNAL MODULE: ../agent-runtime/dist/chunk-AK2IC22C.mjs
 var chunk_AK2IC22C = __nccwpck_require__(5697);
 // EXTERNAL MODULE: ../agent-runtime/dist/chunk-VSQD74I7.mjs
-var chunk_VSQD74I7 = __nccwpck_require__(4203);
+var chunk_VSQD74I7 = __nccwpck_require__(6584);
 // EXTERNAL MODULE: ../agent-runtime/dist/chunk-2JADKV3Z.mjs
 var chunk_2JADKV3Z = __nccwpck_require__(8339);
 // EXTERNAL MODULE: ../agent-runtime/dist/chunk-K6VSXDD6.mjs
-var chunk_K6VSXDD6 = __nccwpck_require__(652);
+var chunk_K6VSXDD6 = __nccwpck_require__(8271);
 // EXTERNAL MODULE: ../agent-runtime/dist/chunk-6BWS3CLP.mjs
 var chunk_6BWS3CLP = __nccwpck_require__(9320);
-// EXTERNAL MODULE: ../../node_modules/.pnpm/yaml@2.8.2/node_modules/yaml/dist/index.js
-var dist = __nccwpck_require__(9611);
+// EXTERNAL MODULE: ../../node_modules/.pnpm/yaml@2.9.1/node_modules/yaml/dist/index.js
+var dist = __nccwpck_require__(1717);
 // EXTERNAL MODULE: ../../node_modules/.pnpm/cheerio@1.0.0-rc.12/node_modules/cheerio/lib/esm/index.js + 72 modules
 var esm = __nccwpck_require__(2612);
 // EXTERNAL MODULE: external "util"
 var external_util_ = __nccwpck_require__(9023);
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/tslib.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/tslib.mjs
 function __classPrivateFieldSet(receiver, state, value, kind, f) {
     if (kind === "m")
         throw new TypeError("Private method is not writable");
@@ -67932,7 +68255,7 @@ function __classPrivateFieldGet(receiver, state, kind, f) {
 }
 
 
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/utils/uuid.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/utils/uuid.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 /**
  * https://stackoverflow.com/a/2117523
@@ -67948,7 +68271,7 @@ let uuid4 = function () {
     return '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, (c) => (+c ^ (randomByte() & (15 >> (+c / 4)))).toString(16));
 };
 //# sourceMappingURL=uuid.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/errors.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/errors.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 function isAbortError(err) {
     return (typeof err === 'object' &&
@@ -67985,7 +68308,7 @@ const castToError = (err) => {
     return new Error(err);
 };
 //# sourceMappingURL=errors.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/core/error.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/core/error.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 class error_OpenAIError extends Error {
@@ -68102,8 +68425,39 @@ class InvalidWebhookSignatureError extends Error {
         super(message);
     }
 }
+/**
+ * Error thrown by the API server during OAuth token exchange.
+ * Can have status codes 400, 401, or 403.
+ * Other status codes from OAuth endpoints are raised as normal APIError types.
+ */
+class OAuthError extends APIError {
+    constructor(status, error, headers) {
+        let finalMessage = 'OAuth2 authentication error';
+        let error_code = undefined;
+        if (error && typeof error === 'object') {
+            const errorData = error;
+            error_code = errorData['error'];
+            const description = errorData['error_description'];
+            if (description && typeof description === 'string') {
+                finalMessage = description;
+            }
+            else if (error_code) {
+                finalMessage = error_code;
+            }
+        }
+        super(status, error, finalMessage, headers);
+        this.error_code = error_code;
+    }
+}
+class SubjectTokenProviderError extends error_OpenAIError {
+    constructor(message, provider, cause) {
+        super(message);
+        this.provider = provider;
+        this.cause = cause;
+    }
+}
 //# sourceMappingURL=error.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/utils/values.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/utils/values.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 // https://url.spec.whatwg.org/#url-scheme-string
@@ -68198,14 +68552,14 @@ const safeJSON = (text) => {
     }
 };
 //# sourceMappingURL=values.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/utils/sleep.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/utils/sleep.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 //# sourceMappingURL=sleep.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/version.mjs
-const openai_version_VERSION = '6.22.0'; // x-release-please-version
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/version.mjs
+const openai_version_VERSION = '6.49.0'; // x-release-please-version
 //# sourceMappingURL=version.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/detect-platform.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/detect-platform.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 const isRunningInBrowser = () => {
@@ -68363,7 +68717,7 @@ const getPlatformHeaders = () => {
     return (_platformHeaders ?? (_platformHeaders = getPlatformProperties()));
 };
 //# sourceMappingURL=detect-platform.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/shims.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/shims.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 function getDefaultFetch() {
     if (typeof fetch !== 'undefined') {
@@ -68449,7 +68803,7 @@ async function CancelReadableStream(stream) {
     await cancelPromise;
 }
 //# sourceMappingURL=shims.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/request-options.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/request-options.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 const FallbackEncoder = ({ headers, body }) => {
     return {
@@ -68460,7 +68814,7 @@ const FallbackEncoder = ({ headers, body }) => {
     };
 };
 //# sourceMappingURL=request-options.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/qs/formats.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/qs/formats.mjs
 const default_format = 'RFC3986';
 const default_formatter = (v) => String(v);
 const formatters = {
@@ -68470,7 +68824,7 @@ const formatters = {
 const RFC1738 = 'RFC1738';
 const RFC3986 = 'RFC3986';
 //# sourceMappingURL=formats.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/qs/utils.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/qs/utils.mjs
 
 
 let has = (obj, key) => ((has = Object.hasOwn ?? Function.prototype.call.bind(Object.prototype.hasOwnProperty)),
@@ -68688,7 +69042,7 @@ function maybe_map(val, fn) {
     return fn(val);
 }
 //# sourceMappingURL=utils.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/qs/stringify.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/qs/stringify.mjs
 
 
 
@@ -68963,18 +69317,14 @@ function stringify(object, opts = {}) {
     return joined.length > 0 ? prefix + joined : '';
 }
 //# sourceMappingURL=stringify.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/qs/index.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/utils/query.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-const formats = {
-    formatters: formatters,
-    RFC1738: RFC1738,
-    RFC3986: RFC3986,
-    default: default_format,
-};
-
-
-//# sourceMappingURL=index.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/utils/bytes.mjs
+function stringifyQuery(query) {
+    return stringify(query, { arrayFormat: 'brackets' });
+}
+//# sourceMappingURL=query.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/utils/bytes.mjs
 function concatBytes(buffers) {
     let length = 0;
     for (const buffer of buffers) {
@@ -69001,7 +69351,7 @@ function decodeUTF8(bytes) {
         ((decoder = new globalThis.TextDecoder()), (decodeUTF8_ = decoder.decode.bind(decoder))))(bytes);
 }
 //# sourceMappingURL=bytes.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/decoders/line.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/decoders/line.mjs
 var _LineDecoder_buffer, _LineDecoder_carriageReturnIndex;
 
 
@@ -69110,7 +69460,7 @@ function findDoubleNewlineIndex(buffer) {
     return -1;
 }
 //# sourceMappingURL=line.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/utils/log.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/utils/log.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 const levelNumbers = {
@@ -69175,6 +69525,9 @@ const formatRequestDetails = (details) => {
         details.headers = Object.fromEntries((details.headers instanceof Headers ? [...details.headers] : Object.entries(details.headers)).map(([name, value]) => [
             name,
             (name.toLowerCase() === 'authorization' ||
+                name.toLowerCase() === 'api-key' ||
+                name.toLowerCase() === 'x-api-key' ||
+                name.toLowerCase() === 'x-amz-security-token' ||
                 name.toLowerCase() === 'cookie' ||
                 name.toLowerCase() === 'set-cookie') ?
                 '***'
@@ -69190,7 +69543,7 @@ const formatRequestDetails = (details) => {
     return details;
 };
 //# sourceMappingURL=log.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/core/streaming.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/core/streaming.mjs
 var _Stream_client;
 
 
@@ -69208,7 +69561,7 @@ class Stream {
         this.controller = controller;
         __classPrivateFieldSet(this, _Stream_client, client, "f");
     }
-    static fromSSEResponse(response, controller, client) {
+    static fromSSEResponse(response, controller, client, synthesizeEventData) {
         let consumed = false;
         const logger = client ? loggerFor(client) : console;
         async function* iterator() {
@@ -69238,7 +69591,7 @@ class Stream {
                         if (data && data.error) {
                             throw new APIError(undefined, data.error, undefined, response.headers);
                         }
-                        yield data;
+                        yield synthesizeEventData ? { event: sse.event, data } : data;
                     }
                     else {
                         let data;
@@ -69281,14 +69634,46 @@ class Stream {
         let consumed = false;
         async function* iterLines() {
             const lineDecoder = new LineDecoder();
-            const iter = ReadableStreamToAsyncIterable(readableStream);
-            for await (const chunk of iter) {
-                for (const line of lineDecoder.decode(chunk)) {
+            const reader = readableStream.getReader();
+            let closed = false;
+            let cancelPromise;
+            const cancel = () => {
+                cancelPromise ?? (cancelPromise = reader.cancel());
+                cancelPromise.catch(() => { });
+            };
+            controller.signal.addEventListener('abort', cancel, { once: true });
+            try {
+                if (controller.signal.aborted) {
+                    cancel();
+                    return;
+                }
+                while (true) {
+                    const { value: chunk, done } = await reader.read();
+                    if (done) {
+                        closed = true;
+                        break;
+                    }
+                    if (controller.signal.aborted)
+                        return;
+                    for (const line of lineDecoder.decode(chunk)) {
+                        if (controller.signal.aborted)
+                            return;
+                        yield line;
+                    }
+                }
+                if (controller.signal.aborted)
+                    return;
+                for (const line of lineDecoder.flush()) {
+                    if (controller.signal.aborted)
+                        return;
                     yield line;
                 }
             }
-            for (const line of lineDecoder.flush()) {
-                yield line;
+            finally {
+                controller.signal.removeEventListener('abort', cancel);
+                if (!closed)
+                    cancel();
+                reader.releaseLock();
             }
         }
         async function* iterator() {
@@ -69308,7 +69693,7 @@ class Stream {
             }
             catch (e) {
                 // If the user calls `stream.controller.abort()`, we should exit without throwing.
-                if (isAbortError(e))
+                if (controller.signal.aborted || isAbortError(e))
                     return;
                 throw e;
             }
@@ -69479,7 +69864,7 @@ function partition(str, delimiter) {
     return [str, '', ''];
 }
 //# sourceMappingURL=streaming.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/parse.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/parse.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -69491,9 +69876,9 @@ async function defaultParseResponse(client, props) {
             // Note: there is an invariant here that isn't represented in the type system
             // that if you set `stream: true` the response type must also be `Stream<T>`
             if (props.options.__streamClass) {
-                return props.options.__streamClass.fromSSEResponse(response, props.controller, client);
+                return props.options.__streamClass.fromSSEResponse(response, props.controller, client, props.options.__synthesizeEventData);
             }
-            return Stream.fromSSEResponse(response, props.controller, client);
+            return Stream.fromSSEResponse(response, props.controller, client, props.options.__synthesizeEventData);
         }
         // fetch refuses to read the body when the status code is 204.
         if (response.status === 204) {
@@ -69536,7 +69921,7 @@ function addRequestID(value, response) {
     });
 }
 //# sourceMappingURL=parse.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/core/api-promise.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/core/api-promise.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 var _APIPromise_client;
 
@@ -69609,7 +69994,7 @@ class APIPromise extends Promise {
 }
 _APIPromise_client = new WeakMap();
 //# sourceMappingURL=api-promise.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/core/pagination.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/core/pagination.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 var _AbstractPage_client;
 
@@ -69757,9 +70142,238 @@ class ConversationCursorPage extends AbstractPage {
         };
     }
 }
+class NextCursorPage extends AbstractPage {
+    constructor(client, response, body, options) {
+        super(client, response, body, options);
+        this.data = body.data || [];
+        this.has_more = body.has_more || false;
+        this.next = body.next || null;
+    }
+    getPaginatedItems() {
+        return this.data ?? [];
+    }
+    hasNextPage() {
+        if (this.has_more === false) {
+            return false;
+        }
+        return super.hasNextPage();
+    }
+    nextPageRequestOptions() {
+        const cursor = this.next;
+        if (!cursor) {
+            return null;
+        }
+        return {
+            ...this.options,
+            query: {
+                ...maybeObj(this.options.query),
+                after: cursor,
+            },
+        };
+    }
+}
 //# sourceMappingURL=pagination.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/uploads.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/auth/workload-identity-auth.mjs
 
+
+const SUBJECT_TOKEN_TYPES = {
+    jwt: 'urn:ietf:params:oauth:token-type:jwt',
+    id: 'urn:ietf:params:oauth:token-type:id_token',
+};
+const TOKEN_EXCHANGE_GRANT_TYPE = 'urn:ietf:params:oauth:grant-type:token-exchange';
+class WorkloadIdentityAuth {
+    constructor(config, fetch) {
+        this.cachedToken = null;
+        this.refreshPromise = null;
+        this.tokenExchangeUrl = 'https://auth.openai.com/oauth/token';
+        this.config = config;
+        this.fetch = fetch ?? getDefaultFetch();
+    }
+    async getToken() {
+        if (!this.cachedToken || this.isTokenExpired(this.cachedToken)) {
+            if (this.refreshPromise) {
+                return await this.refreshPromise;
+            }
+            this.refreshPromise = this.refreshToken();
+            try {
+                const token = await this.refreshPromise;
+                return token;
+            }
+            finally {
+                this.refreshPromise = null;
+            }
+        }
+        if (this.needsRefresh(this.cachedToken) && !this.refreshPromise) {
+            this.refreshPromise = this.refreshToken().finally(() => {
+                this.refreshPromise = null;
+            });
+        }
+        return this.cachedToken.token;
+    }
+    async refreshToken() {
+        const subjectToken = await this.config.provider.getToken();
+        const body = {
+            grant_type: TOKEN_EXCHANGE_GRANT_TYPE,
+            subject_token: subjectToken,
+            subject_token_type: SUBJECT_TOKEN_TYPES[this.config.provider.tokenType],
+            identity_provider_id: this.config.identityProviderId,
+            service_account_id: this.config.serviceAccountId,
+        };
+        if (this.config.clientId) {
+            body['client_id'] = this.config.clientId;
+        }
+        const response = await this.fetch(this.tokenExchangeUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        });
+        if (!response.ok) {
+            const errorText = await response.text();
+            let body = undefined;
+            try {
+                body = JSON.parse(errorText);
+            }
+            catch { }
+            if (response.status === 400 || response.status === 401 || response.status === 403) {
+                throw new OAuthError(response.status, body, response.headers);
+            }
+            throw APIError.generate(response.status, body, `Token exchange failed with status ${response.status}`, response.headers);
+        }
+        const tokenResponse = await response.json();
+        if (typeof tokenResponse !== 'object' ||
+            tokenResponse === null ||
+            !('access_token' in tokenResponse) ||
+            typeof tokenResponse.access_token !== 'string' ||
+            tokenResponse.access_token.trim().length === 0) {
+            throw new error_OpenAIError("Token exchange response missing 'access_token' field");
+        }
+        const accessToken = tokenResponse.access_token;
+        const expiresIn = tokenResponse.expires_in ?? 3600;
+        const expiresAt = Date.now() + expiresIn * 1000;
+        this.cachedToken = {
+            token: accessToken,
+            expiresAt,
+        };
+        return accessToken;
+    }
+    isTokenExpired(cachedToken) {
+        return Date.now() >= cachedToken.expiresAt;
+    }
+    needsRefresh(cachedToken) {
+        const bufferSeconds = this.config.refreshBufferSeconds ?? 1200;
+        const bufferMs = bufferSeconds * 1000;
+        return Date.now() >= cachedToken.expiresAt - bufferMs;
+    }
+    invalidateToken() {
+        this.cachedToken = null;
+        this.refreshPromise = null;
+    }
+}
+//# sourceMappingURL=workload-identity-auth.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/headers.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+const brand_privateNullableHeaders = /* @__PURE__ */ Symbol('brand.privateNullableHeaders');
+const httpTokenHeaderName = /^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/;
+function* iterateHeaders(headers) {
+    if (!headers)
+        return;
+    if (brand_privateNullableHeaders in headers) {
+        const { values, nulls } = headers;
+        yield* values.entries();
+        for (const name of nulls) {
+            yield [name, null];
+        }
+        return;
+    }
+    let shouldClear = false;
+    let iter;
+    if (headers instanceof Headers) {
+        iter = headers.entries();
+    }
+    else if (isReadonlyArray(headers)) {
+        iter = headers;
+    }
+    else {
+        shouldClear = true;
+        iter = Object.entries(headers ?? {});
+    }
+    for (let row of iter) {
+        const name = row[0];
+        if (typeof name !== 'string')
+            throw new TypeError('expected header name to be a string');
+        const values = isReadonlyArray(row[1]) ? row[1] : [row[1]];
+        let didClear = false;
+        for (const value of values) {
+            if (value === undefined)
+                continue;
+            // Objects keys always overwrite older headers, they never append.
+            // Yield a null to clear the header before adding the new values.
+            if (shouldClear && !didClear) {
+                didClear = true;
+                yield [name, null];
+            }
+            yield [name, value];
+        }
+    }
+}
+const buildHeaders = (newHeaders) => {
+    const targetHeaders = new Headers();
+    const nullHeaders = new Set();
+    for (const headers of newHeaders) {
+        const seenHeaders = new Set();
+        for (const [name, value] of iterateHeaders(headers)) {
+            if (!httpTokenHeaderName.test(name)) {
+                throw new TypeError(`Header name must be a valid HTTP token ["${name}"]`);
+            }
+            const lowerName = name.toLowerCase();
+            if (!seenHeaders.has(lowerName)) {
+                targetHeaders.delete(lowerName);
+                seenHeaders.add(lowerName);
+            }
+            if (value === null) {
+                targetHeaders.delete(lowerName);
+                nullHeaders.add(lowerName);
+            }
+            else {
+                targetHeaders.append(lowerName, value);
+                nullHeaders.delete(lowerName);
+            }
+        }
+    }
+    return { [brand_privateNullableHeaders]: true, values: targetHeaders, nulls: nullHeaders };
+};
+const isEmptyHeaders = (headers) => {
+    for (const _ of iterateHeaders(headers))
+        return false;
+    return true;
+};
+//# sourceMappingURL=headers.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/uploads.mjs
+
+
+
+const brand_privateStreamingFile = /* @__PURE__ */ Symbol('brand.privateStreamingFile');
+/**
+ * Wrap a stream as an uploadable file without reading it into memory.
+ *
+ * Unlike {@link toFile}, this helper does not create a web `File`, because the `File` constructor
+ * must consume all of its contents up front. The stream is instead encoded lazily as multipart
+ * form data when the request is sent.
+ */
+function toStreamingFile(data, name, options) {
+    if (!name) {
+        throw new TypeError('toStreamingFile requires a non-empty file name');
+    }
+    return {
+        [brand_privateStreamingFile]: true,
+        data,
+        name,
+        ...(options?.type ? { type: options.type } : {}),
+    };
+}
 const checkFileSupport = () => {
     if (typeof File === 'undefined') {
         const { process } = globalThis;
@@ -69797,9 +70411,15 @@ const isAsyncIterable = (value) => value != null && typeof value === 'object' &&
 const maybeMultipartFormRequestOptions = async (opts, fetch) => {
     if (!hasUploadableValue(opts.body))
         return opts;
+    if (hasStreamingUploadableValue(opts.body)) {
+        return createStreamingFormRequestOptions(opts);
+    }
     return { ...opts, body: await createForm(opts.body, fetch) };
 };
 const multipartFormRequestOptions = async (opts, fetch) => {
+    if (hasStreamingUploadableValue(opts.body)) {
+        return createStreamingFormRequestOptions(opts);
+    }
     return { ...opts, body: await createForm(opts.body, fetch) };
 };
 const supportsFormDataMap = /* @__PURE__ */ new WeakMap();
@@ -69844,9 +70464,31 @@ const createForm = async (body, fetch) => {
 // We check for Blob not File because Bun.File doesn't inherit from File,
 // but they both inherit from Blob and have a `name` property at runtime.
 const isNamedBlob = (value) => value instanceof Blob && 'name' in value;
+const isReadableStream = (value) => typeof value === 'object' &&
+    value !== null &&
+    'getReader' in value &&
+    typeof value.getReader === 'function';
+const isStreamingFile = (value) => typeof value === 'object' && value !== null && brand_privateStreamingFile in value;
 const isUploadable = (value) => typeof value === 'object' &&
     value !== null &&
-    (value instanceof Response || isAsyncIterable(value) || isNamedBlob(value));
+    (value instanceof Response ||
+        isAsyncIterable(value) ||
+        isReadableStream(value) ||
+        isStreamingFile(value) ||
+        isNamedBlob(value));
+const hasStreamingUploadableValue = (value) => {
+    if (isStreamingFile(value) || isAsyncIterable(value) || isReadableStream(value))
+        return true;
+    if (Array.isArray(value))
+        return value.some(hasStreamingUploadableValue);
+    if (value && typeof value === 'object' && !isNamedBlob(value) && !(value instanceof Response)) {
+        for (const k in value) {
+            if (hasStreamingUploadableValue(value[k]))
+                return true;
+        }
+    }
+    return false;
+};
 const hasUploadableValue = (value) => {
     if (isUploadable(value))
         return true;
@@ -69860,6 +70502,124 @@ const hasUploadableValue = (value) => {
     }
     return false;
 };
+const createStreamingFormRequestOptions = (opts) => {
+    const boundary = `openai-${Math.random().toString(36).slice(2)}`;
+    const body = ReadableStreamFrom(iterateMultipartBody(opts.body, boundary));
+    return {
+        ...opts,
+        body,
+        headers: buildHeaders([{ 'content-type': `multipart/form-data; boundary=${boundary}` }, opts.headers]),
+    };
+};
+async function* iterateMultipartBody(body, boundary) {
+    for await (const { key, value } of iterateFormEntries(body)) {
+        yield bytes_encodeUTF8(`--${boundary}\r\n`);
+        if (isUploadable(value)) {
+            const filename = getStreamingFileName(value);
+            const type = getStreamingFileType(value);
+            yield bytes_encodeUTF8(`Content-Disposition: form-data; name="${escapeHeaderValue(key)}"; filename="${escapeHeaderValue(filename)}"\r\n` + `Content-Type: ${type}\r\n\r\n`);
+            yield* iterateBytes(getStreamingFileData(value));
+        }
+        else {
+            yield bytes_encodeUTF8(`Content-Disposition: form-data; name="${escapeHeaderValue(key)}"\r\n\r\n${String(value)}`);
+        }
+        yield bytes_encodeUTF8('\r\n');
+    }
+    yield bytes_encodeUTF8(`--${boundary}--\r\n`);
+}
+async function* iterateFormEntries(body) {
+    if (!body || typeof body !== 'object')
+        return;
+    for (const [key, value] of Object.entries(body)) {
+        yield* iterateFormValue(key, value);
+    }
+}
+async function* iterateFormValue(key, value) {
+    if (value === undefined)
+        return;
+    if (value == null) {
+        throw new TypeError(`Received null for "${key}"; to pass null in FormData, you must use the string 'null'`);
+    }
+    if (typeof value === 'string' ||
+        typeof value === 'number' ||
+        typeof value === 'boolean' ||
+        isUploadable(value)) {
+        yield { key, value };
+    }
+    else if (Array.isArray(value)) {
+        for (const entry of value) {
+            yield* iterateFormValue(key + '[]', entry);
+        }
+    }
+    else if (typeof value === 'object') {
+        for (const [name, prop] of Object.entries(value)) {
+            yield* iterateFormValue(`${key}[${name}]`, prop);
+        }
+    }
+    else {
+        throw new TypeError(`Invalid value given to form, expected a string, number, boolean, object, Array, File or Blob but got ${value} instead`);
+    }
+}
+function getStreamingFileName(value) {
+    return isStreamingFile(value) ? value.name : getName(value) ?? 'unknown_file';
+}
+function getStreamingFileType(value) {
+    if (isStreamingFile(value))
+        return value.type || 'application/octet-stream';
+    if (isNamedBlob(value) && value.type)
+        return value.type;
+    if (value instanceof Response)
+        return value.headers.get('content-type') || 'application/octet-stream';
+    return 'application/octet-stream';
+}
+function getStreamingFileData(value) {
+    if (isStreamingFile(value))
+        return value.data;
+    return value;
+}
+async function* iterateBytes(value) {
+    if (typeof value === 'string') {
+        yield bytes_encodeUTF8(value);
+    }
+    else if (ArrayBuffer.isView(value)) {
+        yield new Uint8Array(value.buffer, value.byteOffset, value.byteLength);
+    }
+    else if (value instanceof ArrayBuffer) {
+        yield new Uint8Array(value);
+    }
+    else if (value instanceof Response) {
+        if (value.body) {
+            yield* iterateBytes(value.body);
+        }
+        else {
+            yield* iterateBytes(await value.blob());
+        }
+    }
+    else if (value instanceof Blob) {
+        if (typeof value.stream === 'function') {
+            yield* iterateBytes(value.stream());
+        }
+        else {
+            yield new Uint8Array(await value.arrayBuffer());
+        }
+    }
+    else if (isReadableStream(value)) {
+        for await (const chunk of ReadableStreamToAsyncIterable(value)) {
+            yield* iterateBytes(chunk);
+        }
+    }
+    else if (isAsyncIterable(value)) {
+        for await (const chunk of value) {
+            yield* iterateBytes(chunk);
+        }
+    }
+    else {
+        throw new TypeError(`Invalid streaming file chunk: ${String(value)}`);
+    }
+}
+function escapeHeaderValue(value) {
+    return value.replace(/["\\\r\n]/g, (character) => encodeURIComponent(character));
+}
 const addFormValue = async (form, key, value) => {
     if (value === undefined)
         return;
@@ -69890,7 +70650,7 @@ const addFormValue = async (form, key, value) => {
     }
 };
 //# sourceMappingURL=uploads.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/to-file.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/to-file.mjs
 
 
 /**
@@ -69979,10 +70739,11 @@ function propsForError(value) {
     return `; props: [${props.map((p) => `"${p}"`).join(', ')}]`;
 }
 //# sourceMappingURL=to-file.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/core/uploads.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/core/uploads.mjs
+
 
 //# sourceMappingURL=uploads.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/core/resource.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/core/resource.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 class APIResource {
     constructor(client) {
@@ -69990,7 +70751,7 @@ class APIResource {
     }
 }
 //# sourceMappingURL=resource.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/utils/path.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/utils/path.mjs
 
 /**
  * Percent-encode everything that isn't safe to have in a path without encoding safe chars.
@@ -70065,11 +70826,14 @@ const createPathTagFunction = (pathEncoder = encodeURIPath) => function path(sta
  */
 const path_path = /* @__PURE__ */ createPathTagFunction(encodeURIPath);
 //# sourceMappingURL=path.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/chat/completions/messages.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/chat/completions/messages.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
+/**
+ * Given a list of messages comprising a conversation, the model will return a response.
+ */
 class Messages extends APIResource {
     /**
      * Get the messages in a stored chat completion. Only Chat Completions that have
@@ -70086,14 +70850,15 @@ class Messages extends APIResource {
      * ```
      */
     list(completionID, query = {}, options) {
-        return this._client.getAPIList(path_path `/chat/completions/${completionID}/messages`, (CursorPage), { query, ...options });
+        return this._client.getAPIList(path_path `/chat/completions/${completionID}/messages`, (CursorPage), { query, ...options, __security: { bearerAuth: true } });
     }
 }
 //# sourceMappingURL=messages.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/error.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/error.mjs
+/** @deprecated Import from ./core/error instead */
 
 //# sourceMappingURL=error.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/lib/parser.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/lib/parser.mjs
 
 function isChatCompletionFunctionTool(tool) {
     return tool !== undefined && 'function' in tool && tool.function !== undefined;
@@ -70256,7 +71021,7 @@ function validateInputTools(tools) {
     }
 }
 //# sourceMappingURL=parser.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/lib/chatCompletionUtils.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/lib/chatCompletionUtils.mjs
 const isAssistantMessage = (message) => {
     return message?.role === 'assistant';
 };
@@ -70267,8 +71032,8 @@ function isPresent(obj) {
     return obj != null;
 }
 //# sourceMappingURL=chatCompletionUtils.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/lib/EventStream.mjs
-var _EventStream_instances, _EventStream_connectedPromise, _EventStream_resolveConnectedPromise, _EventStream_rejectConnectedPromise, _EventStream_endPromise, _EventStream_resolveEndPromise, _EventStream_rejectEndPromise, _EventStream_listeners, _EventStream_ended, _EventStream_errored, _EventStream_aborted, _EventStream_catchingPromiseCreated, _EventStream_handleError;
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/lib/EventStream.mjs
+var _EventStream_instances, _EventStream_connectedPromise, _EventStream_resolveConnectedPromise, _EventStream_rejectConnectedPromise, _EventStream_endPromise, _EventStream_resolveEndPromise, _EventStream_rejectEndPromise, _EventStream_listeners, _EventStream_abortListeners, _EventStream_ended, _EventStream_errored, _EventStream_aborted, _EventStream_catchingPromiseCreated, _EventStream_removeAbortListeners, _EventStream_handleError;
 
 
 class EventStream {
@@ -70282,6 +71047,7 @@ class EventStream {
         _EventStream_resolveEndPromise.set(this, () => { });
         _EventStream_rejectEndPromise.set(this, () => { });
         _EventStream_listeners.set(this, {});
+        _EventStream_abortListeners.set(this, []);
         _EventStream_ended.set(this, false);
         _EventStream_errored.set(this, false);
         _EventStream_aborted.set(this, false);
@@ -70305,8 +71071,16 @@ class EventStream {
         // Unfortunately if we call `executor()` immediately we get runtime errors about
         // references to `this` before the `super()` constructor call returns.
         setTimeout(() => {
-            executor().then(() => {
-                this._emitFinal();
+            Promise.resolve()
+                .then(executor)
+                .then(() => {
+                try {
+                    this._emitFinal();
+                }
+                catch (error) {
+                    __classPrivateFieldGet(this, _EventStream_instances, "m", _EventStream_handleError).call(this, error);
+                    return;
+                }
                 this._emit('end');
             }, __classPrivateFieldGet(this, _EventStream_instances, "m", _EventStream_handleError).bind(this));
         }, 0);
@@ -70328,6 +71102,17 @@ class EventStream {
     }
     abort() {
         this.controller.abort();
+    }
+    _listenForAbort(signal) {
+        if (!signal || this.ended)
+            return;
+        if (signal.aborted) {
+            this.controller.abort();
+            return;
+        }
+        const listener = () => this.controller.abort();
+        signal.addEventListener('abort', listener, { once: true });
+        __classPrivateFieldGet(this, _EventStream_abortListeners, "f").push({ signal, listener });
     }
     /**
      * Adds the listener function to the end of the listeners array for the event.
@@ -70386,6 +71171,103 @@ class EventStream {
             this.once(event, resolve);
         });
     }
+    /**
+     * Returns an async iterator that yields every time the event is triggered.
+     * The iterator ends when the stream ends and rejects if the stream errors
+     * or is aborted. If you request the 'error' or 'abort' event, the iterator
+     * yields that event instead of rejecting.
+     *
+     * Example:
+     *
+     *   for await (const [message] of stream.events('message')) {
+     *     await processMessage(message);
+     *   }
+     */
+    events(event) {
+        const pushQueue = [];
+        const readQueue = [];
+        let ended = this.ended;
+        let failure;
+        let failureDelivered = false;
+        const doneResult = () => ({ value: undefined, done: true });
+        const finishReaders = () => {
+            while (readQueue.length) {
+                readQueue.shift().resolve(doneResult());
+            }
+        };
+        const rejectReader = () => {
+            if (!failure || failureDelivered || !readQueue.length)
+                return;
+            failureDelivered = true;
+            readQueue.shift().reject(failure);
+        };
+        const cleanup = () => {
+            this.off(event, onEvent);
+            this.off('end', onEnd);
+            if (event !== 'error')
+                this.off('error', onFailure);
+            if (event !== 'abort')
+                this.off('abort', onFailure);
+        };
+        const onEvent = (...args) => {
+            if (ended)
+                return;
+            const reader = readQueue.shift();
+            if (reader) {
+                reader.resolve({ value: args, done: false });
+            }
+            else {
+                pushQueue.push(args);
+            }
+        };
+        const onFailure = (error) => {
+            failure = error;
+            if (!pushQueue.length)
+                rejectReader();
+        };
+        const onEnd = () => {
+            ended = true;
+            cleanup();
+            if (!pushQueue.length) {
+                rejectReader();
+                finishReaders();
+            }
+        };
+        if (!ended) {
+            this.on(event, onEvent);
+            this.on('end', onEnd);
+            if (event !== 'error')
+                this.on('error', onFailure);
+            if (event !== 'abort')
+                this.on('abort', onFailure);
+        }
+        return {
+            next: () => {
+                const value = pushQueue.shift();
+                if (value)
+                    return Promise.resolve({ value, done: false });
+                if (failure && !failureDelivered) {
+                    failureDelivered = true;
+                    return Promise.reject(failure);
+                }
+                if (ended)
+                    return Promise.resolve(doneResult());
+                return new Promise((resolve, reject) => {
+                    readQueue.push({ resolve, reject });
+                });
+            },
+            return: () => {
+                ended = true;
+                pushQueue.length = 0;
+                cleanup();
+                finishReaders();
+                return Promise.resolve(doneResult());
+            },
+            [Symbol.asyncIterator]() {
+                return this;
+            },
+        };
+    }
     async done() {
         __classPrivateFieldSet(this, _EventStream_catchingPromiseCreated, true, "f");
         await __classPrivateFieldGet(this, _EventStream_endPromise, "f");
@@ -70396,6 +71278,7 @@ class EventStream {
             return;
         }
         if (event === 'end') {
+            __classPrivateFieldGet(this, _EventStream_instances, "m", _EventStream_removeAbortListeners).call(this);
             __classPrivateFieldSet(this, _EventStream_ended, true, "f");
             __classPrivateFieldGet(this, _EventStream_resolveEndPromise, "f").call(this);
         }
@@ -70433,7 +71316,11 @@ class EventStream {
     }
     _emitFinal() { }
 }
-_EventStream_connectedPromise = new WeakMap(), _EventStream_resolveConnectedPromise = new WeakMap(), _EventStream_rejectConnectedPromise = new WeakMap(), _EventStream_endPromise = new WeakMap(), _EventStream_resolveEndPromise = new WeakMap(), _EventStream_rejectEndPromise = new WeakMap(), _EventStream_listeners = new WeakMap(), _EventStream_ended = new WeakMap(), _EventStream_errored = new WeakMap(), _EventStream_aborted = new WeakMap(), _EventStream_catchingPromiseCreated = new WeakMap(), _EventStream_instances = new WeakSet(), _EventStream_handleError = function _EventStream_handleError(error) {
+_EventStream_connectedPromise = new WeakMap(), _EventStream_resolveConnectedPromise = new WeakMap(), _EventStream_rejectConnectedPromise = new WeakMap(), _EventStream_endPromise = new WeakMap(), _EventStream_resolveEndPromise = new WeakMap(), _EventStream_rejectEndPromise = new WeakMap(), _EventStream_listeners = new WeakMap(), _EventStream_abortListeners = new WeakMap(), _EventStream_ended = new WeakMap(), _EventStream_errored = new WeakMap(), _EventStream_aborted = new WeakMap(), _EventStream_catchingPromiseCreated = new WeakMap(), _EventStream_instances = new WeakSet(), _EventStream_removeAbortListeners = function _EventStream_removeAbortListeners() {
+    for (const { signal, listener } of __classPrivateFieldGet(this, _EventStream_abortListeners, "f").splice(0)) {
+        signal.removeEventListener('abort', listener);
+    }
+}, _EventStream_handleError = function _EventStream_handleError(error) {
     __classPrivateFieldSet(this, _EventStream_errored, true, "f");
     if (error instanceof Error && error.name === 'AbortError') {
         error = new APIUserAbortError();
@@ -70454,7 +71341,7 @@ _EventStream_connectedPromise = new WeakMap(), _EventStream_resolveConnectedProm
     return this._emit('error', new error_OpenAIError(String(error)));
 };
 //# sourceMappingURL=EventStream.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/lib/RunnableFunction.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/lib/RunnableFunction.mjs
 function isRunnableFunctionWithParse(fn) {
     return typeof fn.parse === 'function';
 }
@@ -70469,7 +71356,7 @@ class ParsingToolFunction {
     }
 }
 //# sourceMappingURL=RunnableFunction.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/lib/AbstractChatCompletionRunner.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/lib/AbstractChatCompletionRunner.mjs
 var _AbstractChatCompletionRunner_instances, _AbstractChatCompletionRunner_getFinalContent, _AbstractChatCompletionRunner_getFinalMessage, _AbstractChatCompletionRunner_getFinalFunctionToolCall, _AbstractChatCompletionRunner_getFinalFunctionToolCallResult, _AbstractChatCompletionRunner_calculateTotalUsage, _AbstractChatCompletionRunner_validateParams, _AbstractChatCompletionRunner_stringifyFunctionCallResult;
 
 
@@ -70477,7 +71364,62 @@ var _AbstractChatCompletionRunner_instances, _AbstractChatCompletionRunner_getFi
 
 
 
+
 const DEFAULT_MAX_CHAT_COMPLETIONS = 10;
+function normalizeToolCallIds(chatCompletion) {
+    for (const choice of chatCompletion.choices) {
+        for (const toolCall of choice.message.tool_calls ?? []) {
+            // Some OpenAI-compatible providers omit tool call IDs or return an empty string.
+            // Generate a unique ID before the completion is stored or emitted so the assistant
+            // tool call and its result message always reference the same value.
+            if (!toolCall.id) {
+                toolCall.id = `call_${uuid4()}`;
+            }
+        }
+    }
+}
+/**
+ * Parsed completions contain response-only and helper-only fields. Keep those
+ * on runner.messages for callers, but only replay valid request fields.
+ */
+function toRequestMessage(message) {
+    if (!isAssistantMessage(message))
+        return message;
+    const requestMessage = { role: 'assistant' };
+    if (message.audio != null)
+        requestMessage.audio = { id: message.audio.id };
+    if (message.content !== undefined)
+        requestMessage.content = message.content;
+    if (message.function_call != null)
+        requestMessage.function_call = message.function_call;
+    if (message.name !== undefined)
+        requestMessage.name = message.name;
+    if (message.refusal != null)
+        requestMessage.refusal = message.refusal;
+    if (message.tool_calls !== undefined) {
+        requestMessage.tool_calls = message.tool_calls.map((toolCall) => {
+            if (toolCall.type === 'custom') {
+                return {
+                    id: toolCall.id,
+                    type: toolCall.type,
+                    custom: {
+                        input: toolCall.custom.input,
+                        name: toolCall.custom.name,
+                    },
+                };
+            }
+            return {
+                id: toolCall.id,
+                type: toolCall.type,
+                function: {
+                    arguments: toolCall.function.arguments,
+                    name: toolCall.function.name,
+                },
+            };
+        });
+    }
+    return requestMessage;
+}
 class AbstractChatCompletionRunner extends EventStream {
     constructor() {
         super(...arguments);
@@ -70486,6 +71428,7 @@ class AbstractChatCompletionRunner extends EventStream {
         this.messages = [];
     }
     _addChatCompletion(chatCompletion) {
+        normalizeToolCallIds(chatCompletion);
         this._chatCompletions.push(chatCompletion);
         this._emit('chatCompletion', chatCompletion);
         const message = chatCompletion.choices[0]?.message;
@@ -70532,7 +71475,7 @@ class AbstractChatCompletionRunner extends EventStream {
         return __classPrivateFieldGet(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalContent).call(this);
     }
     /**
-     * @returns a promise that resolves with the the final assistant ChatCompletionMessage response,
+     * @returns a promise that resolves with the final assistant ChatCompletionMessage response,
      * or rejects if an error occurred or the stream ended prematurely without producing a ChatCompletionMessage.
      */
     async finalMessage() {
@@ -70579,12 +71522,7 @@ class AbstractChatCompletionRunner extends EventStream {
         }
     }
     async _createChatCompletion(client, params, options) {
-        const signal = options?.signal;
-        if (signal) {
-            if (signal.aborted)
-                this.controller.abort();
-            signal.addEventListener('abort', () => this.controller.abort());
-        }
+        this._listenForAbort(options?.signal);
         __classPrivateFieldGet(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_validateParams).call(this, params);
         const chatCompletion = await client.chat.completions.create({ ...params, stream: false }, { ...options, signal: this.controller.signal });
         this._connected();
@@ -70596,11 +71534,12 @@ class AbstractChatCompletionRunner extends EventStream {
         }
         return await this._createChatCompletion(client, params, options);
     }
-    async _runTools(client, params, options) {
+    async _runTools(client, params, runner, options) {
         const role = 'tool';
-        const { tool_choice = 'auto', stream, ...restParams } = params;
+        const { tool_choice = 'auto', stream, toolContext: inputToolContext, ...restParams } = params;
+        const toolContext = inputToolContext;
         const singleFunctionToCall = typeof tool_choice !== 'string' && tool_choice.type === 'function' && tool_choice?.function?.name;
-        const { maxChatCompletions = DEFAULT_MAX_CHAT_COMPLETIONS } = options || {};
+        const { maxChatCompletions = DEFAULT_MAX_CHAT_COMPLETIONS, afterCompletion } = options || {};
         // TODO(someday): clean this logic up
         const inputTools = params.tools.map((tool) => {
             if (isAutoParsableTool(tool)) {
@@ -70643,55 +71582,83 @@ class AbstractChatCompletionRunner extends EventStream {
         for (const message of params.messages) {
             this._addMessage(message, false);
         }
+        const runToolCall = async (toolCall) => {
+            if (toolCall.type !== 'function')
+                return { message: undefined, functionCalled: false };
+            const tool_call_id = toolCall.id;
+            const { name, arguments: args } = toolCall.function;
+            const fn = functionsByName[name];
+            if (!fn) {
+                const content = `Invalid tool_call: ${JSON.stringify(name)}. Available options are: ${Object.keys(functionsByName)
+                    .map((name) => JSON.stringify(name))
+                    .join(', ')}. Please try again`;
+                return { message: { role, tool_call_id, content }, functionCalled: false };
+            }
+            if (singleFunctionToCall && singleFunctionToCall !== name) {
+                const content = `Invalid tool_call: ${JSON.stringify(name)}. ${JSON.stringify(singleFunctionToCall)} requested. Please try again`;
+                return { message: { role, tool_call_id, content }, functionCalled: false };
+            }
+            let rawContent;
+            if (isRunnableFunctionWithParse(fn)) {
+                let parsed;
+                try {
+                    parsed = await fn.parse(args);
+                }
+                catch (error) {
+                    const content = error instanceof Error ? error.message : String(error);
+                    return { message: { role, tool_call_id, content }, functionCalled: false };
+                }
+                rawContent = await fn.function(parsed, runner, toolContext);
+            }
+            else {
+                rawContent = await fn.function(args, runner, toolContext);
+            }
+            const content = __classPrivateFieldGet(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_stringifyFunctionCallResult).call(this, rawContent);
+            return { message: { role, tool_call_id, content }, functionCalled: true };
+        };
         for (let i = 0; i < maxChatCompletions; ++i) {
             const chatCompletion = await this._createChatCompletion(client, {
                 ...restParams,
                 tool_choice,
                 tools,
-                messages: [...this.messages],
+                messages: this.messages.map(toRequestMessage),
             }, options);
             const message = chatCompletion.choices[0]?.message;
             if (!message) {
                 throw new error_OpenAIError(`missing message in ChatCompletion response`);
             }
             if (!message.tool_calls?.length) {
+                await afterCompletion?.(chatCompletion, runner);
                 return;
             }
-            for (const tool_call of message.tool_calls) {
-                if (tool_call.type !== 'function')
-                    continue;
-                const tool_call_id = tool_call.id;
-                const { name, arguments: args } = tool_call.function;
-                const fn = functionsByName[name];
-                if (!fn) {
-                    const content = `Invalid tool_call: ${JSON.stringify(name)}. Available options are: ${Object.keys(functionsByName)
-                        .map((name) => JSON.stringify(name))
-                        .join(', ')}. Please try again`;
-                    this._addMessage({ role, tool_call_id, content });
-                    continue;
-                }
-                else if (singleFunctionToCall && singleFunctionToCall !== name) {
-                    const content = `Invalid tool_call: ${JSON.stringify(name)}. ${JSON.stringify(singleFunctionToCall)} requested. Please try again`;
-                    this._addMessage({ role, tool_call_id, content });
-                    continue;
-                }
-                let parsed;
-                try {
-                    parsed = isRunnableFunctionWithParse(fn) ? await fn.parse(args) : args;
-                }
-                catch (error) {
-                    const content = error instanceof Error ? error.message : String(error);
-                    this._addMessage({ role, tool_call_id, content });
-                    continue;
-                }
-                // @ts-expect-error it can't rule out `never` type.
-                const rawContent = await fn.function(parsed, this);
-                const content = __classPrivateFieldGet(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_stringifyFunctionCallResult).call(this, rawContent);
-                this._addMessage({ role, tool_call_id, content });
-                if (singleFunctionToCall) {
-                    return;
+            if (singleFunctionToCall || params.parallel_tool_calls === false) {
+                for (const toolCall of message.tool_calls) {
+                    const result = await runToolCall(toolCall);
+                    if (result.message)
+                        this._addMessage(result.message);
+                    if (singleFunctionToCall && result.functionCalled) {
+                        await afterCompletion?.(chatCompletion, runner);
+                        return;
+                    }
                 }
             }
+            else {
+                const results = await Promise.allSettled(message.tool_calls.map(runToolCall));
+                // Wait for every concurrently running tool to settle before surfacing an
+                // error so tool side effects cannot continue after the runner has ended.
+                for (const result of results) {
+                    if (result.status === 'rejected')
+                        throw result.reason;
+                }
+                // Promise.allSettled preserves input order, so the next request receives
+                // tool result messages in the same order as the assistant's tool calls.
+                for (const result of results) {
+                    if (result.status === 'fulfilled' && result.value.message) {
+                        this._addMessage(result.value.message);
+                    }
+                }
+            }
+            await afterCompletion?.(chatCompletion, runner);
         }
         return;
     }
@@ -70717,7 +71684,12 @@ _AbstractChatCompletionRunner_instances = new WeakSet(), _AbstractChatCompletion
     for (let i = this.messages.length - 1; i >= 0; i--) {
         const message = this.messages[i];
         if (isAssistantMessage(message) && message?.tool_calls?.length) {
-            return message.tool_calls.filter((x) => x.type === 'function').at(-1)?.function;
+            for (let j = message.tool_calls.length - 1; j >= 0; j--) {
+                const toolCall = message.tool_calls[j];
+                if (toolCall?.type === 'function') {
+                    return toolCall.function;
+                }
+            }
         }
     }
     return;
@@ -70757,7 +71729,7 @@ _AbstractChatCompletionRunner_instances = new WeakSet(), _AbstractChatCompletion
             : JSON.stringify(rawContent));
 };
 //# sourceMappingURL=AbstractChatCompletionRunner.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/lib/ChatCompletionRunner.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/lib/ChatCompletionRunner.mjs
 
 
 class ChatCompletionRunner extends AbstractChatCompletionRunner {
@@ -70767,7 +71739,7 @@ class ChatCompletionRunner extends AbstractChatCompletionRunner {
             ...options,
             headers: { ...options?.headers, 'X-Stainless-Helper-Method': 'runTools' },
         };
-        runner._run(() => runner._runTools(client, params, opts));
+        runner._run(() => runner._runTools(client, params, runner, opts));
         return runner;
     }
     _addMessage(message, emit = true) {
@@ -70778,7 +71750,7 @@ class ChatCompletionRunner extends AbstractChatCompletionRunner {
     }
 }
 //# sourceMappingURL=ChatCompletionRunner.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/_vendor/partial-json-parser/parser.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/_vendor/partial-json-parser/parser.mjs
 const STR = 0b000000001;
 const NUM = 0b000000010;
 const ARR = 0b000000100;
@@ -71020,25 +71992,58 @@ const _parseJSON = (jsonString, allow) => {
 const partialParse = (input) => parseJSON(input, Allow.ALL ^ Allow.NUM);
 
 //# sourceMappingURL=parser.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/streaming.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/streaming.mjs
+/** @deprecated Import from ./core/streaming instead */
 
 //# sourceMappingURL=streaming.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/lib/ChatCompletionStream.mjs
-var _ChatCompletionStream_instances, _ChatCompletionStream_params, _ChatCompletionStream_choiceEventStates, _ChatCompletionStream_currentChatCompletionSnapshot, _ChatCompletionStream_beginRequest, _ChatCompletionStream_getChoiceEventState, _ChatCompletionStream_addChunk, _ChatCompletionStream_emitToolCallDoneEvent, _ChatCompletionStream_emitContentDoneEvents, _ChatCompletionStream_endRequest, _ChatCompletionStream_getAutoParseableResponseFormat, _ChatCompletionStream_accumulateChatCompletion;
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/lib/ChatCompletionStream.mjs
+var _ChatCompletionStream_instances, _ChatCompletionStream_params, _ChatCompletionStream_audioDoneChoiceIndexes, _ChatCompletionStream_choiceEventStates, _ChatCompletionStream_currentChatCompletionSnapshot, _ChatCompletionStream_beginRequest, _ChatCompletionStream_getChoiceEventState, _ChatCompletionStream_addChunk, _ChatCompletionStream_emitToolCallDoneEvent, _ChatCompletionStream_emitContentDoneEvents, _ChatCompletionStream_endRequest, _ChatCompletionStream_getAutoParseableResponseFormat, _ChatCompletionStream_accumulateChatCompletion;
 
 
 
 
 
 
+
+// Keep message records readable as empty chunks by older SDKs. Their finalizer
+// overwrites `object`, so the encoded payload does not leak into completions.
+const CHAT_COMPLETION_READABLE_STREAM_MESSAGE_PREFIX = 'chat.completion.chunk.message:';
+function makeChatCompletionReadableStreamMessageChunk(chunk, message, toolCallIds) {
+    const payload = {
+        type: 'message',
+        message,
+        ...(toolCallIds ? { tool_call_ids: toolCallIds } : {}),
+    };
+    return {
+        id: chunk.id,
+        choices: [],
+        created: chunk.created,
+        model: chunk.model,
+        object: `${CHAT_COMPLETION_READABLE_STREAM_MESSAGE_PREFIX}${JSON.stringify(payload)}`,
+    };
+}
+function isChatCompletionReadableStreamMessage(item) {
+    return (('type' in item && item.type === 'message' && 'message' in item) ||
+        ('object' in item &&
+            typeof item.object === 'string' &&
+            item.object.startsWith(CHAT_COMPLETION_READABLE_STREAM_MESSAGE_PREFIX)));
+}
+function getChatCompletionReadableStreamMessage(item) {
+    if ('type' in item) {
+        return item;
+    }
+    return JSON.parse(item.object.slice(CHAT_COMPLETION_READABLE_STREAM_MESSAGE_PREFIX.length));
+}
 class ChatCompletionStream extends AbstractChatCompletionRunner {
     constructor(params) {
         super();
         _ChatCompletionStream_instances.add(this);
         _ChatCompletionStream_params.set(this, void 0);
+        _ChatCompletionStream_audioDoneChoiceIndexes.set(this, void 0);
         _ChatCompletionStream_choiceEventStates.set(this, void 0);
         _ChatCompletionStream_currentChatCompletionSnapshot.set(this, void 0);
         __classPrivateFieldSet(this, _ChatCompletionStream_params, params, "f");
+        __classPrivateFieldSet(this, _ChatCompletionStream_audioDoneChoiceIndexes, new Set(), "f");
         __classPrivateFieldSet(this, _ChatCompletionStream_choiceEventStates, [], "f");
     }
     get currentChatCompletionSnapshot() {
@@ -71063,12 +72068,7 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
     }
     async _createChatCompletion(client, params, options) {
         super._createChatCompletion;
-        const signal = options?.signal;
-        if (signal) {
-            if (signal.aborted)
-                this.controller.abort();
-            signal.addEventListener('abort', () => this.controller.abort());
-        }
+        this._listenForAbort(options?.signal);
         __classPrivateFieldGet(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_beginRequest).call(this);
         const stream = await client.chat.completions.create({ ...params, stream: true }, { ...options, signal: this.controller.signal });
         this._connected();
@@ -71081,32 +72081,53 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
         return this._addChatCompletion(__classPrivateFieldGet(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_endRequest).call(this));
     }
     async _fromReadableStream(readableStream, options) {
-        const signal = options?.signal;
-        if (signal) {
-            if (signal.aborted)
-                this.controller.abort();
-            signal.addEventListener('abort', () => this.controller.abort());
-        }
+        this._listenForAbort(options?.signal);
         __classPrivateFieldGet(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_beginRequest).call(this);
         this._connected();
         const stream = Stream.fromReadableStream(readableStream, this.controller);
         let chatId;
-        for await (const chunk of stream) {
-            if (chatId && chatId !== chunk.id) {
+        for await (const item of stream) {
+            if (isChatCompletionReadableStreamMessage(item)) {
+                const message = getChatCompletionReadableStreamMessage(item);
+                if (__classPrivateFieldGet(this, _ChatCompletionStream_currentChatCompletionSnapshot, "f")) {
+                    const toolCalls = __classPrivateFieldGet(this, _ChatCompletionStream_currentChatCompletionSnapshot, "f").choices[0]?.message.tool_calls;
+                    for (const [index, id] of message.tool_call_ids?.entries() ?? []) {
+                        const toolCall = toolCalls?.[index];
+                        if (toolCall && id) {
+                            toolCall.id = id;
+                        }
+                    }
+                    this._addChatCompletion(__classPrivateFieldGet(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_endRequest).call(this));
+                    chatId = undefined;
+                }
+                this._addMessage(message.message);
+                continue;
+            }
+            const chunk = item;
+            if (chatId && chunk.id && chatId !== chunk.id) {
                 // A new request has been made.
                 this._addChatCompletion(__classPrivateFieldGet(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_endRequest).call(this));
             }
             __classPrivateFieldGet(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_addChunk).call(this, chunk);
-            chatId = chunk.id;
+            if (chunk.id)
+                chatId = chunk.id;
         }
         if (stream.controller.signal?.aborted) {
             throw new APIUserAbortError();
         }
-        return this._addChatCompletion(__classPrivateFieldGet(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_endRequest).call(this));
+        if (__classPrivateFieldGet(this, _ChatCompletionStream_currentChatCompletionSnapshot, "f")) {
+            return this._addChatCompletion(__classPrivateFieldGet(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_endRequest).call(this));
+        }
+        const lastChatCompletion = this._chatCompletions[this._chatCompletions.length - 1];
+        if (lastChatCompletion) {
+            return lastChatCompletion;
+        }
+        throw new error_OpenAIError(`request ended without sending any chunks`);
     }
-    [(_ChatCompletionStream_params = new WeakMap(), _ChatCompletionStream_choiceEventStates = new WeakMap(), _ChatCompletionStream_currentChatCompletionSnapshot = new WeakMap(), _ChatCompletionStream_instances = new WeakSet(), _ChatCompletionStream_beginRequest = function _ChatCompletionStream_beginRequest() {
+    [(_ChatCompletionStream_params = new WeakMap(), _ChatCompletionStream_audioDoneChoiceIndexes = new WeakMap(), _ChatCompletionStream_choiceEventStates = new WeakMap(), _ChatCompletionStream_currentChatCompletionSnapshot = new WeakMap(), _ChatCompletionStream_instances = new WeakSet(), _ChatCompletionStream_beginRequest = function _ChatCompletionStream_beginRequest() {
         if (this.ended)
             return;
+        __classPrivateFieldSet(this, _ChatCompletionStream_audioDoneChoiceIndexes, new Set(), "f");
         __classPrivateFieldSet(this, _ChatCompletionStream_currentChatCompletionSnapshot, undefined, "f");
     }, _ChatCompletionStream_getChoiceEventState = function _ChatCompletionStream_getChoiceEventState(choice) {
         let state = __classPrivateFieldGet(this, _ChatCompletionStream_choiceEventStates, "f")[choice.index];
@@ -71130,21 +72151,22 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
         this._emit('chunk', chunk, completion);
         for (const choice of chunk.choices) {
             const choiceSnapshot = completion.choices[choice.index];
-            if (choice.delta.content != null &&
+            const { delta } = choice;
+            if (delta?.content != null &&
                 choiceSnapshot.message?.role === 'assistant' &&
                 choiceSnapshot.message?.content) {
-                this._emit('content', choice.delta.content, choiceSnapshot.message.content);
+                this._emit('content', delta.content, choiceSnapshot.message.content);
                 this._emit('content.delta', {
-                    delta: choice.delta.content,
+                    delta: delta.content,
                     snapshot: choiceSnapshot.message.content,
                     parsed: choiceSnapshot.message.parsed,
                 });
             }
-            if (choice.delta.refusal != null &&
+            if (delta?.refusal != null &&
                 choiceSnapshot.message?.role === 'assistant' &&
                 choiceSnapshot.message?.refusal) {
                 this._emit('refusal.delta', {
-                    delta: choice.delta.refusal,
+                    delta: delta.refusal,
                     snapshot: choiceSnapshot.message.refusal,
                 });
             }
@@ -71167,7 +72189,7 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
                     __classPrivateFieldGet(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_emitToolCallDoneEvent).call(this, choiceSnapshot, state.current_tool_call_index);
                 }
             }
-            for (const toolCall of choice.delta.tool_calls ?? []) {
+            for (const toolCall of delta?.tool_calls ?? []) {
                 if (state.current_tool_call_index !== toolCall.index) {
                     __classPrivateFieldGet(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_emitContentDoneEvents).call(this, choiceSnapshot);
                     // new tool call started, the previous one is done
@@ -71177,7 +72199,7 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
                 }
                 state.current_tool_call_index = toolCall.index;
             }
-            for (const toolCallDelta of choice.delta.tool_calls ?? []) {
+            for (const toolCallDelta of delta?.tool_calls ?? []) {
                 const toolCallSnapshot = choiceSnapshot.message.tool_calls?.[toolCallDelta.index];
                 if (!toolCallSnapshot?.type) {
                     continue;
@@ -71253,9 +72275,11 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
         if (!snapshot) {
             throw new error_OpenAIError(`request ended without sending any chunks`);
         }
+        const audioDoneChoiceIndexes = __classPrivateFieldGet(this, _ChatCompletionStream_audioDoneChoiceIndexes, "f");
+        __classPrivateFieldSet(this, _ChatCompletionStream_audioDoneChoiceIndexes, new Set(), "f");
         __classPrivateFieldSet(this, _ChatCompletionStream_currentChatCompletionSnapshot, undefined, "f");
         __classPrivateFieldSet(this, _ChatCompletionStream_choiceEventStates, [], "f");
-        return finalizeChatCompletion(snapshot, __classPrivateFieldGet(this, _ChatCompletionStream_params, "f"));
+        return finalizeChatCompletion(snapshot, __classPrivateFieldGet(this, _ChatCompletionStream_params, "f"), audioDoneChoiceIndexes);
     }, _ChatCompletionStream_getAutoParseableResponseFormat = function _ChatCompletionStream_getAutoParseableResponseFormat() {
         const responseFormat = __classPrivateFieldGet(this, _ChatCompletionStream_params, "f")?.response_format;
         if (isAutoParsableResponseFormat(responseFormat)) {
@@ -71263,7 +72287,7 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
         }
         return null;
     }, _ChatCompletionStream_accumulateChatCompletion = function _ChatCompletionStream_accumulateChatCompletion(chunk) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         let snapshot = __classPrivateFieldGet(this, _ChatCompletionStream_currentChatCompletionSnapshot, "f");
         const { choices, ...rest } = chunk;
         if (!snapshot) {
@@ -71272,7 +72296,7 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
                 choices: [],
             }, "f");
         }
-        else {
+        else if (chunk.id) {
             Object.assign(snapshot, rest);
         }
         for (const { delta, finish_reason, index, logprobs = null, ...other } of chunk.choices) {
@@ -71312,14 +72336,39 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
             Object.assign(choice, other);
             if (!delta)
                 continue; // Shouldn't happen; just in case.
-            const { content, refusal, function_call, role, tool_calls, ...rest } = delta;
+            __classPrivateFieldGet(this, _ChatCompletionStream_audioDoneChoiceIndexes, "f").delete(index);
+            const { audio, content, refusal, function_call, role, tool_calls, ...rest } = delta;
             assertIsEmpty(rest);
             Object.assign(choice.message, rest);
+            if (audio?.expires_at != null &&
+                audio.id == null &&
+                audio.data == null &&
+                audio.transcript == null &&
+                content == null &&
+                refusal == null &&
+                function_call == null &&
+                role == null &&
+                tool_calls == null &&
+                Object.keys(rest).length === 0) {
+                __classPrivateFieldGet(this, _ChatCompletionStream_audioDoneChoiceIndexes, "f").add(index);
+            }
             if (refusal) {
                 choice.message.refusal = (choice.message.refusal || '') + refusal;
             }
             if (role)
                 choice.message.role = role;
+            if (audio) {
+                const audioSnapshot = ((_c = choice.message).audio ?? (_c.audio = {}));
+                if (audio.id != null)
+                    audioSnapshot.id = audio.id;
+                if (audio.data != null)
+                    audioSnapshot.data = (audioSnapshot.data ?? '') + audio.data;
+                if (audio.transcript != null) {
+                    audioSnapshot.transcript = (audioSnapshot.transcript ?? '') + audio.transcript;
+                }
+                if (audio.expires_at != null)
+                    audioSnapshot.expires_at = audio.expires_at;
+            }
             if (function_call) {
                 if (!choice.message.function_call) {
                     choice.message.function_call = function_call;
@@ -71328,7 +72377,7 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
                     if (function_call.name)
                         choice.message.function_call.name = function_call.name;
                     if (function_call.arguments) {
-                        (_c = choice.message.function_call).arguments ?? (_c.arguments = '');
+                        (_d = choice.message.function_call).arguments ?? (_d.arguments = '');
                         choice.message.function_call.arguments += function_call.arguments;
                     }
                 }
@@ -71336,14 +72385,15 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
             if (content) {
                 choice.message.content = (choice.message.content || '') + content;
                 if (!choice.message.refusal && __classPrivateFieldGet(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_getAutoParseableResponseFormat).call(this)) {
-                    choice.message.parsed = partialParse(choice.message.content);
+                    // The partial parser does not accept whitespace-only input.
+                    choice.message.parsed = choice.message.content.trim() ? partialParse(choice.message.content) : null;
                 }
             }
             if (tool_calls) {
                 if (!choice.message.tool_calls)
                     choice.message.tool_calls = [];
                 for (const { index, id, type, function: fn, ...rest } of tool_calls) {
-                    const tool_call = ((_d = choice.message.tool_calls)[index] ?? (_d[index] = {}));
+                    const tool_call = ((_e = choice.message.tool_calls)[index] ?? (_e[index] = {}));
                     Object.assign(tool_call, rest);
                     if (id)
                         tool_call.id = id;
@@ -71419,16 +72469,20 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
         return stream.toReadableStream();
     }
 }
-function finalizeChatCompletion(snapshot, params) {
+function finalizeChatCompletion(snapshot, params, audioDoneChoiceIndexes) {
     const { id, choices, created, model, system_fingerprint, ...rest } = snapshot;
     const completion = {
         ...rest,
         id,
         choices: choices.map(({ message, finish_reason, index, logprobs, ...choiceRest }) => {
-            if (!finish_reason) {
+            const { content = null, function_call, tool_calls, audio, ...messageRest } = message;
+            // Audio streams can end with an expires_at-only chunk after the
+            // generated audio, without a separate finish_reason.
+            const finishReason = finish_reason ?? (audioDoneChoiceIndexes.has(index) && isCompleteAudio(audio) ? 'stop' : null);
+            if (!finishReason) {
                 throw new error_OpenAIError(`missing finish_reason for choice ${index}`);
             }
-            const { content = null, function_call, tool_calls, ...messageRest } = message;
+            const audioResponse = audio ? { audio: audio } : {};
             const role = message.role; // this is what we expect; in theory it could be different which would make our types a slight lie but would be fine.
             if (!role) {
                 throw new error_OpenAIError(`missing role for choice ${index}`);
@@ -71444,12 +72498,13 @@ function finalizeChatCompletion(snapshot, params) {
                 return {
                     ...choiceRest,
                     message: {
+                        ...audioResponse,
                         content,
                         function_call: { arguments: args, name },
                         role,
                         refusal: message.refusal ?? null,
                     },
-                    finish_reason,
+                    finish_reason: finishReason,
                     index,
                     logprobs,
                 };
@@ -71458,19 +72513,17 @@ function finalizeChatCompletion(snapshot, params) {
                 return {
                     ...choiceRest,
                     index,
-                    finish_reason,
+                    finish_reason: finishReason,
                     logprobs,
                     message: {
                         ...messageRest,
+                        ...audioResponse,
                         role,
                         content,
                         refusal: message.refusal ?? null,
                         tool_calls: tool_calls.map((tool_call, i) => {
                             const { function: fn, type, id, ...toolRest } = tool_call;
                             const { arguments: args, name, ...fnRest } = fn || {};
-                            if (id == null) {
-                                throw new error_OpenAIError(`missing choices[${index}].tool_calls[${i}].id\n${str(snapshot)}`);
-                            }
                             if (type == null) {
                                 throw new error_OpenAIError(`missing choices[${index}].tool_calls[${i}].type\n${str(snapshot)}`);
                             }
@@ -71480,15 +72533,20 @@ function finalizeChatCompletion(snapshot, params) {
                             if (args == null) {
                                 throw new error_OpenAIError(`missing choices[${index}].tool_calls[${i}].function.arguments\n${str(snapshot)}`);
                             }
-                            return { ...toolRest, id, type, function: { ...fnRest, name, arguments: args } };
+                            return {
+                                ...toolRest,
+                                id: id || `call_${uuid4()}`,
+                                type,
+                                function: { ...fnRest, name, arguments: args },
+                            };
                         }),
                     },
                 };
             }
             return {
                 ...choiceRest,
-                message: { ...messageRest, content, role, refusal: message.refusal ?? null },
-                finish_reason,
+                message: { ...messageRest, ...audioResponse, content, role, refusal: message.refusal ?? null },
+                finish_reason: finishReason,
                 index,
                 logprobs,
             };
@@ -71499,6 +72557,9 @@ function finalizeChatCompletion(snapshot, params) {
         ...(system_fingerprint ? { system_fingerprint } : {}),
     };
     return maybeParseChatCompletion(completion, params);
+}
+function isCompleteAudio(audio) {
+    return audio?.id != null && audio.data != null && audio.transcript != null && audio.expires_at != null;
 }
 function str(x) {
     return JSON.stringify(x);
@@ -71513,13 +72574,90 @@ function assertIsEmpty(obj) {
 }
 function assertNever(_x) { }
 //# sourceMappingURL=ChatCompletionStream.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/lib/ChatCompletionStreamingRunner.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/lib/ChatCompletionStreamingRunner.mjs
+
+
+
 
 class ChatCompletionStreamingRunner extends ChatCompletionStream {
     static fromReadableStream(stream) {
         const runner = new ChatCompletionStreamingRunner(null);
         runner._run(() => runner._fromReadableStream(stream));
         return runner;
+    }
+    toReadableStream() {
+        const pushQueue = [];
+        const readQueue = [];
+        let done = false;
+        let lastChunk;
+        let toolCallIds;
+        const pushEvent = (event) => {
+            const reader = readQueue.shift();
+            if (reader) {
+                reader.resolve(event);
+            }
+            else {
+                pushQueue.push(event);
+            }
+        };
+        this.on('chunk', (chunk) => {
+            lastChunk = chunk;
+            pushEvent(chunk);
+        });
+        this.on('message', (message) => {
+            if (isAssistantMessage(message)) {
+                toolCallIds = message.tool_calls?.map((toolCall) => toolCall.id);
+                return;
+            }
+            if (isToolMessage(message)) {
+                if (!lastChunk) {
+                    throw new error_OpenAIError('cannot serialize a tool message before receiving any chunks');
+                }
+                pushEvent(makeChatCompletionReadableStreamMessageChunk(lastChunk, message, toolCallIds));
+            }
+        });
+        this.on('end', () => {
+            done = true;
+            for (const reader of readQueue) {
+                reader.resolve(undefined);
+            }
+            readQueue.length = 0;
+        });
+        this.on('abort', (err) => {
+            done = true;
+            for (const reader of readQueue) {
+                reader.reject(err);
+            }
+            readQueue.length = 0;
+        });
+        this.on('error', (err) => {
+            done = true;
+            for (const reader of readQueue) {
+                reader.reject(err);
+            }
+            readQueue.length = 0;
+        });
+        const iterator = () => ({
+            next: async () => {
+                if (!pushQueue.length) {
+                    if (done) {
+                        return { value: undefined, done: true };
+                    }
+                    return new Promise((resolve, reject) => readQueue.push({ resolve, reject })).then((event) => (event ? { value: event, done: false } : { value: undefined, done: true }));
+                }
+                const event = pushQueue.shift();
+                if (!event) {
+                    return { value: undefined, done: true };
+                }
+                return { value: event, done: false };
+            },
+            return: async () => {
+                this.abort();
+                return { value: undefined, done: true };
+            },
+        });
+        const stream = new Stream(iterator, this.controller);
+        return stream.toReadableStream();
     }
     static runTools(client, params, options) {
         const runner = new ChatCompletionStreamingRunner(
@@ -71529,12 +72667,12 @@ class ChatCompletionStreamingRunner extends ChatCompletionStream {
             ...options,
             headers: { ...options?.headers, 'X-Stainless-Helper-Method': 'runTools' },
         };
-        runner._run(() => runner._runTools(client, params, opts));
+        runner._run(() => runner._runTools(client, params, runner, opts));
         return runner;
     }
 }
 //# sourceMappingURL=ChatCompletionStreamingRunner.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/chat/completions/completions.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/chat/completions/completions.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -71545,13 +72683,21 @@ class ChatCompletionStreamingRunner extends ChatCompletionStream {
 
 
 
+/**
+ * Given a list of messages comprising a conversation, the model will return a response.
+ */
 class Completions extends APIResource {
     constructor() {
         super(...arguments);
         this.messages = new Messages(this._client);
     }
     create(body, options) {
-        return this._client.post('/chat/completions', { body, ...options, stream: body.stream ?? false });
+        return this._client.post('/chat/completions', {
+            body,
+            ...options,
+            stream: body.stream ?? false,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Get a stored chat completion. Only Chat Completions that have been created with
@@ -71564,7 +72710,10 @@ class Completions extends APIResource {
      * ```
      */
     retrieve(completionID, options) {
-        return this._client.get(path_path `/chat/completions/${completionID}`, options);
+        return this._client.get(path_path `/chat/completions/${completionID}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Modify a stored chat completion. Only Chat Completions that have been created
@@ -71580,7 +72729,11 @@ class Completions extends APIResource {
      * ```
      */
     update(completionID, body, options) {
-        return this._client.post(path_path `/chat/completions/${completionID}`, { body, ...options });
+        return this._client.post(path_path `/chat/completions/${completionID}`, {
+            body,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * List stored Chat Completions. Only Chat Completions that have been stored with
@@ -71595,7 +72748,11 @@ class Completions extends APIResource {
      * ```
      */
     list(query = {}, options) {
-        return this._client.getAPIList('/chat/completions', (CursorPage), { query, ...options });
+        return this._client.getAPIList('/chat/completions', (CursorPage), {
+            query,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Delete a stored chat completion. Only Chat Completions that have been created
@@ -71608,7 +72765,10 @@ class Completions extends APIResource {
      * ```
      */
     delete(completionID, options) {
-        return this._client.delete(path_path `/chat/completions/${completionID}`, options);
+        return this._client.delete(path_path `/chat/completions/${completionID}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     parse(body, options) {
         validateInputTools(body.tools);
@@ -71641,7 +72801,7 @@ class Completions extends APIResource {
 
 Completions.Messages = Messages;
 //# sourceMappingURL=completions.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/chat/chat.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/chat/chat.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -71654,106 +72814,2608 @@ class Chat extends APIResource {
 }
 Chat.Completions = Completions;
 //# sourceMappingURL=chat.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/chat/completions/index.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/chat/completions/index.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
 //# sourceMappingURL=index.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/chat/index.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/chat/index.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 //# sourceMappingURL=index.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/headers.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/admin-api-keys.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-const brand_privateNullableHeaders = /* @__PURE__ */ Symbol('brand.privateNullableHeaders');
-function* iterateHeaders(headers) {
-    if (!headers)
-        return;
-    if (brand_privateNullableHeaders in headers) {
-        const { values, nulls } = headers;
-        yield* values.entries();
-        for (const name of nulls) {
-            yield [name, null];
-        }
-        return;
+
+
+class AdminAPIKeys extends APIResource {
+    /**
+     * Create an organization admin API key
+     *
+     * @example
+     * ```ts
+     * const adminAPIKey =
+     *   await client.admin.organization.adminAPIKeys.create({
+     *     name: 'New Admin Key',
+     *   });
+     * ```
+     */
+    create(body, options) {
+        return this._client.post('/organization/admin_api_keys', {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
     }
-    let shouldClear = false;
-    let iter;
-    if (headers instanceof Headers) {
-        iter = headers.entries();
+    /**
+     * Retrieve a single organization API key
+     *
+     * @example
+     * ```ts
+     * const adminAPIKey =
+     *   await client.admin.organization.adminAPIKeys.retrieve(
+     *     'key_id',
+     *   );
+     * ```
+     */
+    retrieve(keyID, options) {
+        return this._client.get(path_path `/organization/admin_api_keys/${keyID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
     }
-    else if (isReadonlyArray(headers)) {
-        iter = headers;
+    /**
+     * List organization API keys
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const adminAPIKey of client.admin.organization.adminAPIKeys.list()) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(query = {}, options) {
+        return this._client.getAPIList('/organization/admin_api_keys', (CursorPage), {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
     }
-    else {
-        shouldClear = true;
-        iter = Object.entries(headers ?? {});
-    }
-    for (let row of iter) {
-        const name = row[0];
-        if (typeof name !== 'string')
-            throw new TypeError('expected header name to be a string');
-        const values = isReadonlyArray(row[1]) ? row[1] : [row[1]];
-        let didClear = false;
-        for (const value of values) {
-            if (value === undefined)
-                continue;
-            // Objects keys always overwrite older headers, they never append.
-            // Yield a null to clear the header before adding the new values.
-            if (shouldClear && !didClear) {
-                didClear = true;
-                yield [name, null];
-            }
-            yield [name, value];
-        }
+    /**
+     * Delete an organization admin API key
+     *
+     * @example
+     * ```ts
+     * const adminAPIKey =
+     *   await client.admin.organization.adminAPIKeys.delete(
+     *     'key_id',
+     *   );
+     * ```
+     */
+    delete(keyID, options) {
+        return this._client.delete(path_path `/organization/admin_api_keys/${keyID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
     }
 }
-const buildHeaders = (newHeaders) => {
-    const targetHeaders = new Headers();
-    const nullHeaders = new Set();
-    for (const headers of newHeaders) {
-        const seenHeaders = new Set();
-        for (const [name, value] of iterateHeaders(headers)) {
-            const lowerName = name.toLowerCase();
-            if (!seenHeaders.has(lowerName)) {
-                targetHeaders.delete(name);
-                seenHeaders.add(lowerName);
-            }
-            if (value === null) {
-                targetHeaders.delete(name);
-                nullHeaders.add(lowerName);
-            }
-            else {
-                targetHeaders.append(name, value);
-                nullHeaders.delete(lowerName);
-            }
-        }
-    }
-    return { [brand_privateNullableHeaders]: true, values: targetHeaders, nulls: nullHeaders };
-};
-const isEmptyHeaders = (headers) => {
-    for (const _ of iterateHeaders(headers))
-        return false;
-    return true;
-};
-//# sourceMappingURL=headers.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/audio/speech.mjs
+//# sourceMappingURL=admin-api-keys.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/audit-logs.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
+/**
+ * List user actions and configuration changes within this organization.
+ */
+class AuditLogs extends APIResource {
+    /**
+     * List user actions and configuration changes within this organization.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const auditLogListResponse of client.admin.organization.auditLogs.list()) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(query = {}, options) {
+        return this._client.getAPIList('/organization/audit_logs', (ConversationCursorPage), {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=audit-logs.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/certificates.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class Certificates extends APIResource {
+    /**
+     * Upload a certificate to the organization. This does **not** automatically
+     * activate the certificate.
+     *
+     * Organizations can upload up to 50 certificates.
+     *
+     * @example
+     * ```ts
+     * const certificate =
+     *   await client.admin.organization.certificates.create({
+     *     certificate: 'certificate',
+     *   });
+     * ```
+     */
+    create(body, options) {
+        return this._client.post('/organization/certificates', {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Get a certificate that has been uploaded to the organization.
+     *
+     * You can get a certificate regardless of whether it is active or not.
+     *
+     * @example
+     * ```ts
+     * const certificate =
+     *   await client.admin.organization.certificates.retrieve(
+     *     'certificate_id',
+     *   );
+     * ```
+     */
+    retrieve(certificateID, query = {}, options) {
+        return this._client.get(path_path `/organization/certificates/${certificateID}`, {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Modify a certificate. Note that only the name can be modified.
+     *
+     * @example
+     * ```ts
+     * const certificate =
+     *   await client.admin.organization.certificates.update(
+     *     'certificate_id',
+     *   );
+     * ```
+     */
+    update(certificateID, body, options) {
+        return this._client.post(path_path `/organization/certificates/${certificateID}`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * List uploaded certificates for this organization.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const certificateListResponse of client.admin.organization.certificates.list()) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(query = {}, options) {
+        return this._client.getAPIList('/organization/certificates', (ConversationCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Delete a certificate from the organization.
+     *
+     * The certificate must be inactive for the organization and all projects.
+     *
+     * @example
+     * ```ts
+     * const certificate =
+     *   await client.admin.organization.certificates.delete(
+     *     'certificate_id',
+     *   );
+     * ```
+     */
+    delete(certificateID, options) {
+        return this._client.delete(path_path `/organization/certificates/${certificateID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Activate certificates at the organization level.
+     *
+     * You can atomically and idempotently activate up to 10 certificates at a time.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const certificateActivateResponse of client.admin.organization.certificates.activate(
+     *   { certificate_ids: ['cert_abc'] },
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    activate(body, options) {
+        return this._client.getAPIList('/organization/certificates/activate', (Page), {
+            body,
+            method: 'post',
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Deactivate certificates at the organization level.
+     *
+     * You can atomically and idempotently deactivate up to 10 certificates at a time.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const certificateDeactivateResponse of client.admin.organization.certificates.deactivate(
+     *   { certificate_ids: ['cert_abc'] },
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    deactivate(body, options) {
+        return this._client.getAPIList('/organization/certificates/deactivate', (Page), { body, method: 'post', ...options, __security: { adminAPIKeyAuth: true } });
+    }
+}
+//# sourceMappingURL=certificates.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/data-retention.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+class DataRetention extends APIResource {
+    /**
+     * Retrieves organization data retention controls.
+     *
+     * @example
+     * ```ts
+     * const organizationDataRetention =
+     *   await client.admin.organization.dataRetention.retrieve();
+     * ```
+     */
+    retrieve(options) {
+        return this._client.get('/organization/data_retention', {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Updates organization data retention controls.
+     *
+     * @example
+     * ```ts
+     * const organizationDataRetention =
+     *   await client.admin.organization.dataRetention.update({
+     *     retention_type: 'zero_data_retention',
+     *   });
+     * ```
+     */
+    update(body, options) {
+        return this._client.post('/organization/data_retention', {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=data-retention.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/invites.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class Invites extends APIResource {
+    /**
+     * Create an invite for a user to the organization. The invite must be accepted by
+     * the user before they have access to the organization.
+     *
+     * @example
+     * ```ts
+     * const invite =
+     *   await client.admin.organization.invites.create({
+     *     email: 'email',
+     *     role: 'reader',
+     *   });
+     * ```
+     */
+    create(body, options) {
+        return this._client.post('/organization/invites', {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves an invite.
+     *
+     * @example
+     * ```ts
+     * const invite =
+     *   await client.admin.organization.invites.retrieve(
+     *     'invite_id',
+     *   );
+     * ```
+     */
+    retrieve(inviteID, options) {
+        return this._client.get(path_path `/organization/invites/${inviteID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Returns a list of invites in the organization.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const invite of client.admin.organization.invites.list()) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(query = {}, options) {
+        return this._client.getAPIList('/organization/invites', (ConversationCursorPage), {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Delete an invite. If the invite has already been accepted, it cannot be deleted.
+     *
+     * @example
+     * ```ts
+     * const invite =
+     *   await client.admin.organization.invites.delete(
+     *     'invite_id',
+     *   );
+     * ```
+     */
+    delete(inviteID, options) {
+        return this._client.delete(path_path `/organization/invites/${inviteID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=invites.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/roles.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class Roles extends APIResource {
+    /**
+     * Creates a custom role for the organization.
+     *
+     * @example
+     * ```ts
+     * const role = await client.admin.organization.roles.create({
+     *   permissions: ['string'],
+     *   role_name: 'role_name',
+     * });
+     * ```
+     */
+    create(body, options) {
+        return this._client.post('/organization/roles', {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves an organization role.
+     *
+     * @example
+     * ```ts
+     * const role = await client.admin.organization.roles.retrieve(
+     *   'role_id',
+     * );
+     * ```
+     */
+    retrieve(roleID, options) {
+        return this._client.get(path_path `/organization/roles/${roleID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Updates an existing organization role.
+     *
+     * @example
+     * ```ts
+     * const role = await client.admin.organization.roles.update(
+     *   'role_id',
+     * );
+     * ```
+     */
+    update(roleID, body, options) {
+        return this._client.post(path_path `/organization/roles/${roleID}`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Lists the roles configured for the organization.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const role of client.admin.organization.roles.list()) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(query = {}, options) {
+        return this._client.getAPIList('/organization/roles', (NextCursorPage), {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Deletes a custom role from the organization.
+     *
+     * @example
+     * ```ts
+     * const role = await client.admin.organization.roles.delete(
+     *   'role_id',
+     * );
+     * ```
+     */
+    delete(roleID, options) {
+        return this._client.delete(path_path `/organization/roles/${roleID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=roles.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/spend-alerts.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class SpendAlerts extends APIResource {
+    /**
+     * Creates an organization spend alert.
+     *
+     * @example
+     * ```ts
+     * const organizationSpendAlert =
+     *   await client.admin.organization.spendAlerts.create({
+     *     currency: 'USD',
+     *     interval: 'month',
+     *     notification_channel: {
+     *       recipients: ['string'],
+     *       type: 'email',
+     *     },
+     *     threshold_amount: 0,
+     *   });
+     * ```
+     */
+    create(body, options) {
+        return this._client.post('/organization/spend_alerts', {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves an organization spend alert.
+     *
+     * @example
+     * ```ts
+     * const organizationSpendAlert =
+     *   await client.admin.organization.spendAlerts.retrieve(
+     *     'alert_id',
+     *   );
+     * ```
+     */
+    retrieve(alertID, options) {
+        return this._client.get(path_path `/organization/spend_alerts/${alertID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Updates an organization spend alert.
+     *
+     * @example
+     * ```ts
+     * const organizationSpendAlert =
+     *   await client.admin.organization.spendAlerts.update(
+     *     'alert_id',
+     *     {
+     *       currency: 'USD',
+     *       interval: 'month',
+     *       notification_channel: {
+     *         recipients: ['string'],
+     *         type: 'email',
+     *       },
+     *       threshold_amount: 0,
+     *     },
+     *   );
+     * ```
+     */
+    update(alertID, body, options) {
+        return this._client.post(path_path `/organization/spend_alerts/${alertID}`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Lists organization spend alerts.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const organizationSpendAlert of client.admin.organization.spendAlerts.list()) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(query = {}, options) {
+        return this._client.getAPIList('/organization/spend_alerts', (ConversationCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Deletes an organization spend alert.
+     *
+     * @example
+     * ```ts
+     * const organizationSpendAlertDeleted =
+     *   await client.admin.organization.spendAlerts.delete(
+     *     'alert_id',
+     *   );
+     * ```
+     */
+    delete(alertID, options) {
+        return this._client.delete(path_path `/organization/spend_alerts/${alertID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=spend-alerts.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/spend-limit.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+class SpendLimit extends APIResource {
+    /**
+     * Get the organization's hard spend limit.
+     *
+     * @example
+     * ```ts
+     * const organizationSpendLimit =
+     *   await client.admin.organization.spendLimit.retrieve();
+     * ```
+     */
+    retrieve(options) {
+        return this._client.get('/organization/spend_limit', {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Create or replace the organization's hard spend limit.
+     *
+     * @example
+     * ```ts
+     * const organizationSpendLimit =
+     *   await client.admin.organization.spendLimit.update({
+     *     currency: 'USD',
+     *     interval: 'month',
+     *     threshold_amount: 1,
+     *   });
+     * ```
+     */
+    update(body, options) {
+        return this._client.post('/organization/spend_limit', {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Delete the organization's hard spend limit.
+     *
+     * @example
+     * ```ts
+     * const organizationSpendLimitDeleted =
+     *   await client.admin.organization.spendLimit.delete();
+     * ```
+     */
+    delete(options) {
+        return this._client.delete('/organization/spend_limit', {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=spend-limit.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/usage.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+class Usage extends APIResource {
+    /**
+     * Get audio speeches usage details for the organization.
+     *
+     * @example
+     * ```ts
+     * const response =
+     *   await client.admin.organization.usage.audioSpeeches({
+     *     start_time: 0,
+     *   });
+     * ```
+     */
+    audioSpeeches(query, options) {
+        return this._client.get('/organization/usage/audio_speeches', {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Get audio transcriptions usage details for the organization.
+     *
+     * @example
+     * ```ts
+     * const response =
+     *   await client.admin.organization.usage.audioTranscriptions(
+     *     { start_time: 0 },
+     *   );
+     * ```
+     */
+    audioTranscriptions(query, options) {
+        return this._client.get('/organization/usage/audio_transcriptions', {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Get code interpreter sessions usage details for the organization.
+     *
+     * @example
+     * ```ts
+     * const response =
+     *   await client.admin.organization.usage.codeInterpreterSessions(
+     *     { start_time: 0 },
+     *   );
+     * ```
+     */
+    codeInterpreterSessions(query, options) {
+        return this._client.get('/organization/usage/code_interpreter_sessions', {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Get completions usage details for the organization.
+     *
+     * @example
+     * ```ts
+     * const response =
+     *   await client.admin.organization.usage.completions({
+     *     start_time: 0,
+     *   });
+     * ```
+     */
+    completions(query, options) {
+        return this._client.get('/organization/usage/completions', {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Get costs details for the organization.
+     *
+     * @example
+     * ```ts
+     * const response =
+     *   await client.admin.organization.usage.costs({
+     *     start_time: 0,
+     *   });
+     * ```
+     */
+    costs(query, options) {
+        return this._client.get('/organization/costs', {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Get embeddings usage details for the organization.
+     *
+     * @example
+     * ```ts
+     * const response =
+     *   await client.admin.organization.usage.embeddings({
+     *     start_time: 0,
+     *   });
+     * ```
+     */
+    embeddings(query, options) {
+        return this._client.get('/organization/usage/embeddings', {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Get file search calls usage details for the organization.
+     *
+     * @example
+     * ```ts
+     * const response =
+     *   await client.admin.organization.usage.fileSearchCalls({
+     *     start_time: 0,
+     *   });
+     * ```
+     */
+    fileSearchCalls(query, options) {
+        return this._client.get('/organization/usage/file_search_calls', {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Get images usage details for the organization.
+     *
+     * @example
+     * ```ts
+     * const response =
+     *   await client.admin.organization.usage.images({
+     *     start_time: 0,
+     *   });
+     * ```
+     */
+    images(query, options) {
+        return this._client.get('/organization/usage/images', {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Get moderations usage details for the organization.
+     *
+     * @example
+     * ```ts
+     * const response =
+     *   await client.admin.organization.usage.moderations({
+     *     start_time: 0,
+     *   });
+     * ```
+     */
+    moderations(query, options) {
+        return this._client.get('/organization/usage/moderations', {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Get vector stores usage details for the organization.
+     *
+     * @example
+     * ```ts
+     * const response =
+     *   await client.admin.organization.usage.vectorStores({
+     *     start_time: 0,
+     *   });
+     * ```
+     */
+    vectorStores(query, options) {
+        return this._client.get('/organization/usage/vector_stores', {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Get web search calls usage details for the organization.
+     *
+     * @example
+     * ```ts
+     * const response =
+     *   await client.admin.organization.usage.webSearchCalls({
+     *     start_time: 0,
+     *   });
+     * ```
+     */
+    webSearchCalls(query, options) {
+        return this._client.get('/organization/usage/web_search_calls', {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=usage.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/groups/roles.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class roles_Roles extends APIResource {
+    /**
+     * Assigns an organization role to a group within the organization.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.groups.roles.create(
+     *     'group_id',
+     *     { role_id: 'role_id' },
+     *   );
+     * ```
+     */
+    create(groupID, body, options) {
+        return this._client.post(path_path `/organization/groups/${groupID}/roles`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves an organization role assigned to a group.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.groups.roles.retrieve(
+     *     'role_id',
+     *     { group_id: 'group_id' },
+     *   );
+     * ```
+     */
+    retrieve(roleID, params, options) {
+        const { group_id } = params;
+        return this._client.get(path_path `/organization/groups/${group_id}/roles/${roleID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Lists the organization roles assigned to a group within the organization.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const roleListResponse of client.admin.organization.groups.roles.list(
+     *   'group_id',
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(groupID, query = {}, options) {
+        return this._client.getAPIList(path_path `/organization/groups/${groupID}/roles`, (NextCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Unassigns an organization role from a group within the organization.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.groups.roles.delete(
+     *     'role_id',
+     *     { group_id: 'group_id' },
+     *   );
+     * ```
+     */
+    delete(roleID, params, options) {
+        const { group_id } = params;
+        return this._client.delete(path_path `/organization/groups/${group_id}/roles/${roleID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=roles.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/groups/users.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class Users extends APIResource {
+    /**
+     * Adds a user to a group.
+     *
+     * @example
+     * ```ts
+     * const user =
+     *   await client.admin.organization.groups.users.create(
+     *     'group_id',
+     *     { user_id: 'user_id' },
+     *   );
+     * ```
+     */
+    create(groupID, body, options) {
+        return this._client.post(path_path `/organization/groups/${groupID}/users`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves a user in a group.
+     *
+     * @example
+     * ```ts
+     * const user =
+     *   await client.admin.organization.groups.users.retrieve(
+     *     'user_id',
+     *     { group_id: 'group_id' },
+     *   );
+     * ```
+     */
+    retrieve(userID, params, options) {
+        const { group_id } = params;
+        return this._client.get(path_path `/organization/groups/${group_id}/users/${userID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Lists the users assigned to a group.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const organizationGroupUser of client.admin.organization.groups.users.list(
+     *   'group_id',
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(groupID, query = {}, options) {
+        return this._client.getAPIList(path_path `/organization/groups/${groupID}/users`, (NextCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Removes a user from a group.
+     *
+     * @example
+     * ```ts
+     * const user =
+     *   await client.admin.organization.groups.users.delete(
+     *     'user_id',
+     *     { group_id: 'group_id' },
+     *   );
+     * ```
+     */
+    delete(userID, params, options) {
+        const { group_id } = params;
+        return this._client.delete(path_path `/organization/groups/${group_id}/users/${userID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=users.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/groups/groups.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+
+
+
+
+class Groups extends APIResource {
+    constructor() {
+        super(...arguments);
+        this.users = new Users(this._client);
+        this.roles = new roles_Roles(this._client);
+    }
+    /**
+     * Creates a new group in the organization.
+     *
+     * @example
+     * ```ts
+     * const group = await client.admin.organization.groups.create(
+     *   { name: 'x' },
+     * );
+     * ```
+     */
+    create(body, options) {
+        return this._client.post('/organization/groups', {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves a group.
+     *
+     * @example
+     * ```ts
+     * const group =
+     *   await client.admin.organization.groups.retrieve(
+     *     'group_id',
+     *   );
+     * ```
+     */
+    retrieve(groupID, options) {
+        return this._client.get(path_path `/organization/groups/${groupID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Updates a group's information.
+     *
+     * @example
+     * ```ts
+     * const group = await client.admin.organization.groups.update(
+     *   'group_id',
+     *   { name: 'x' },
+     * );
+     * ```
+     */
+    update(groupID, body, options) {
+        return this._client.post(path_path `/organization/groups/${groupID}`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Lists all groups in the organization.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const group of client.admin.organization.groups.list()) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(query = {}, options) {
+        return this._client.getAPIList('/organization/groups', (NextCursorPage), {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Deletes a group from the organization.
+     *
+     * @example
+     * ```ts
+     * const group = await client.admin.organization.groups.delete(
+     *   'group_id',
+     * );
+     * ```
+     */
+    delete(groupID, options) {
+        return this._client.delete(path_path `/organization/groups/${groupID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+Groups.Users = Users;
+Groups.Roles = roles_Roles;
+//# sourceMappingURL=groups.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/api-keys.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class APIKeys extends APIResource {
+    /**
+     * Retrieves an API key in the project.
+     *
+     * @example
+     * ```ts
+     * const projectAPIKey =
+     *   await client.admin.organization.projects.apiKeys.retrieve(
+     *     'api_key_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    retrieve(apiKeyID, params, options) {
+        const { project_id } = params;
+        return this._client.get(path_path `/organization/projects/${project_id}/api_keys/${apiKeyID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Returns a list of API keys in the project.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const projectAPIKey of client.admin.organization.projects.apiKeys.list(
+     *   'project_id',
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(projectID, query = {}, options) {
+        return this._client.getAPIList(path_path `/organization/projects/${projectID}/api_keys`, (ConversationCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Deletes an API key from the project.
+     *
+     * Returns confirmation of the key deletion, or an error if the key belonged to a
+     * service account.
+     *
+     * @example
+     * ```ts
+     * const apiKey =
+     *   await client.admin.organization.projects.apiKeys.delete(
+     *     'api_key_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    delete(apiKeyID, params, options) {
+        const { project_id } = params;
+        return this._client.delete(path_path `/organization/projects/${project_id}/api_keys/${apiKeyID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=api-keys.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/certificates.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class certificates_Certificates extends APIResource {
+    /**
+     * List certificates for this project.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const certificateListResponse of client.admin.organization.projects.certificates.list(
+     *   'project_id',
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(projectID, query = {}, options) {
+        return this._client.getAPIList(path_path `/organization/projects/${projectID}/certificates`, (ConversationCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Activate certificates at the project level.
+     *
+     * You can atomically and idempotently activate up to 10 certificates at a time.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const certificateActivateResponse of client.admin.organization.projects.certificates.activate(
+     *   'project_id',
+     *   { certificate_ids: ['cert_abc'] },
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    activate(projectID, body, options) {
+        return this._client.getAPIList(path_path `/organization/projects/${projectID}/certificates/activate`, (Page), { body, method: 'post', ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Deactivate certificates at the project level. You can atomically and
+     * idempotently deactivate up to 10 certificates at a time.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const certificateDeactivateResponse of client.admin.organization.projects.certificates.deactivate(
+     *   'project_id',
+     *   { certificate_ids: ['cert_abc'] },
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    deactivate(projectID, body, options) {
+        return this._client.getAPIList(path_path `/organization/projects/${projectID}/certificates/deactivate`, (Page), { body, method: 'post', ...options, __security: { adminAPIKeyAuth: true } });
+    }
+}
+//# sourceMappingURL=certificates.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/data-retention.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+class data_retention_DataRetention extends APIResource {
+    /**
+     * Retrieves project data retention controls.
+     *
+     * @example
+     * ```ts
+     * const projectDataRetention =
+     *   await client.admin.organization.projects.dataRetention.retrieve(
+     *     'project_id',
+     *   );
+     * ```
+     */
+    retrieve(projectID, options) {
+        return this._client.get(path_path `/organization/projects/${projectID}/data_retention`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Updates project data retention controls.
+     *
+     * @example
+     * ```ts
+     * const projectDataRetention =
+     *   await client.admin.organization.projects.dataRetention.update(
+     *     'project_id',
+     *     { retention_type: 'organization_default' },
+     *   );
+     * ```
+     */
+    update(projectID, body, options) {
+        return this._client.post(path_path `/organization/projects/${projectID}/data_retention`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=data-retention.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/hosted-tool-permissions.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+class HostedToolPermissions extends APIResource {
+    /**
+     * Returns hosted tool permissions for a project.
+     *
+     * @example
+     * ```ts
+     * const projectHostedToolPermissions =
+     *   await client.admin.organization.projects.hostedToolPermissions.retrieve(
+     *     'project_id',
+     *   );
+     * ```
+     */
+    retrieve(projectID, options) {
+        return this._client.get(path_path `/organization/projects/${projectID}/hosted_tool_permissions`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Updates hosted tool permissions for a project.
+     *
+     * @example
+     * ```ts
+     * const projectHostedToolPermissions =
+     *   await client.admin.organization.projects.hostedToolPermissions.update(
+     *     'project_id',
+     *   );
+     * ```
+     */
+    update(projectID, body, options) {
+        return this._client.post(path_path `/organization/projects/${projectID}/hosted_tool_permissions`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=hosted-tool-permissions.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/model-permissions.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+class ModelPermissions extends APIResource {
+    /**
+     * Returns model permissions for a project.
+     *
+     * @example
+     * ```ts
+     * const projectModelPermissions =
+     *   await client.admin.organization.projects.modelPermissions.retrieve(
+     *     'project_id',
+     *   );
+     * ```
+     */
+    retrieve(projectID, options) {
+        return this._client.get(path_path `/organization/projects/${projectID}/model_permissions`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Updates model permissions for a project.
+     *
+     * @example
+     * ```ts
+     * const projectModelPermissions =
+     *   await client.admin.organization.projects.modelPermissions.update(
+     *     'project_id',
+     *     { mode: 'allow_list', model_ids: ['string'] },
+     *   );
+     * ```
+     */
+    update(projectID, body, options) {
+        return this._client.post(path_path `/organization/projects/${projectID}/model_permissions`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Deletes model permissions for a project.
+     *
+     * @example
+     * ```ts
+     * const projectModelPermissionsDeleted =
+     *   await client.admin.organization.projects.modelPermissions.delete(
+     *     'project_id',
+     *   );
+     * ```
+     */
+    delete(projectID, options) {
+        return this._client.delete(path_path `/organization/projects/${projectID}/model_permissions`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=model-permissions.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/rate-limits.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class RateLimits extends APIResource {
+    /**
+     * Returns the rate limits per model for a project.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const projectRateLimit of client.admin.organization.projects.rateLimits.listRateLimits(
+     *   'project_id',
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    listRateLimits(projectID, query = {}, options) {
+        return this._client.getAPIList(path_path `/organization/projects/${projectID}/rate_limits`, (ConversationCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Updates a project rate limit.
+     *
+     * @example
+     * ```ts
+     * const projectRateLimit =
+     *   await client.admin.organization.projects.rateLimits.updateRateLimit(
+     *     'rate_limit_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    updateRateLimit(rateLimitID, params, options) {
+        const { project_id, ...body } = params;
+        return this._client.post(path_path `/organization/projects/${project_id}/rate_limits/${rateLimitID}`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=rate-limits.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/roles.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class projects_roles_Roles extends APIResource {
+    /**
+     * Creates a custom role for a project.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.projects.roles.create(
+     *     'project_id',
+     *     { permissions: ['string'], role_name: 'role_name' },
+     *   );
+     * ```
+     */
+    create(projectID, body, options) {
+        return this._client.post(path_path `/projects/${projectID}/roles`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves a project role.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.projects.roles.retrieve(
+     *     'role_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    retrieve(roleID, params, options) {
+        const { project_id } = params;
+        return this._client.get(path_path `/projects/${project_id}/roles/${roleID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Updates an existing project role.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.projects.roles.update(
+     *     'role_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    update(roleID, params, options) {
+        const { project_id, ...body } = params;
+        return this._client.post(path_path `/projects/${project_id}/roles/${roleID}`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Lists the roles configured for a project.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const role of client.admin.organization.projects.roles.list(
+     *   'project_id',
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(projectID, query = {}, options) {
+        return this._client.getAPIList(path_path `/projects/${projectID}/roles`, (NextCursorPage), {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Deletes a custom role from a project.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.projects.roles.delete(
+     *     'role_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    delete(roleID, params, options) {
+        const { project_id } = params;
+        return this._client.delete(path_path `/projects/${project_id}/roles/${roleID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=roles.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/spend-alerts.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class spend_alerts_SpendAlerts extends APIResource {
+    /**
+     * Creates a project spend alert.
+     *
+     * @example
+     * ```ts
+     * const projectSpendAlert =
+     *   await client.admin.organization.projects.spendAlerts.create(
+     *     'project_id',
+     *     {
+     *       currency: 'USD',
+     *       interval: 'month',
+     *       notification_channel: {
+     *         recipients: ['string'],
+     *         type: 'email',
+     *       },
+     *       threshold_amount: 0,
+     *     },
+     *   );
+     * ```
+     */
+    create(projectID, body, options) {
+        return this._client.post(path_path `/organization/projects/${projectID}/spend_alerts`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves a project spend alert.
+     *
+     * @example
+     * ```ts
+     * const projectSpendAlert =
+     *   await client.admin.organization.projects.spendAlerts.retrieve(
+     *     'alert_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    retrieve(alertID, params, options) {
+        const { project_id } = params;
+        return this._client.get(path_path `/organization/projects/${project_id}/spend_alerts/${alertID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Updates a project spend alert.
+     *
+     * @example
+     * ```ts
+     * const projectSpendAlert =
+     *   await client.admin.organization.projects.spendAlerts.update(
+     *     'alert_id',
+     *     {
+     *       project_id: 'project_id',
+     *       currency: 'USD',
+     *       interval: 'month',
+     *       notification_channel: {
+     *         recipients: ['string'],
+     *         type: 'email',
+     *       },
+     *       threshold_amount: 0,
+     *     },
+     *   );
+     * ```
+     */
+    update(alertID, params, options) {
+        const { project_id, ...body } = params;
+        return this._client.post(path_path `/organization/projects/${project_id}/spend_alerts/${alertID}`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Lists project spend alerts.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const projectSpendAlert of client.admin.organization.projects.spendAlerts.list(
+     *   'project_id',
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(projectID, query = {}, options) {
+        return this._client.getAPIList(path_path `/organization/projects/${projectID}/spend_alerts`, (ConversationCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Deletes a project spend alert.
+     *
+     * @example
+     * ```ts
+     * const projectSpendAlertDeleted =
+     *   await client.admin.organization.projects.spendAlerts.delete(
+     *     'alert_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    delete(alertID, params, options) {
+        const { project_id } = params;
+        return this._client.delete(path_path `/organization/projects/${project_id}/spend_alerts/${alertID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=spend-alerts.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/spend-limit.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+class spend_limit_SpendLimit extends APIResource {
+    /**
+     * Get a project's hard spend limit.
+     *
+     * @example
+     * ```ts
+     * const projectSpendLimit =
+     *   await client.admin.organization.projects.spendLimit.retrieve(
+     *     'proj_123',
+     *   );
+     * ```
+     */
+    retrieve(projectID, options) {
+        return this._client.get(path_path `/organization/projects/${projectID}/spend_limit`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Create or replace a project's hard spend limit.
+     *
+     * @example
+     * ```ts
+     * const projectSpendLimit =
+     *   await client.admin.organization.projects.spendLimit.update(
+     *     'proj_123',
+     *     {
+     *       currency: 'USD',
+     *       interval: 'month',
+     *       threshold_amount: 1,
+     *     },
+     *   );
+     * ```
+     */
+    update(projectID, body, options) {
+        return this._client.post(path_path `/organization/projects/${projectID}/spend_limit`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Delete a project's hard spend limit.
+     *
+     * @example
+     * ```ts
+     * const projectSpendLimitDeleted =
+     *   await client.admin.organization.projects.spendLimit.delete(
+     *     'proj_123',
+     *   );
+     * ```
+     */
+    delete(projectID, options) {
+        return this._client.delete(path_path `/organization/projects/${projectID}/spend_limit`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=spend-limit.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/groups/roles.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class groups_roles_Roles extends APIResource {
+    /**
+     * Assigns a project role to a group within a project.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.projects.groups.roles.create(
+     *     'group_id',
+     *     { project_id: 'project_id', role_id: 'role_id' },
+     *   );
+     * ```
+     */
+    create(groupID, params, options) {
+        const { project_id, ...body } = params;
+        return this._client.post(path_path `/projects/${project_id}/groups/${groupID}/roles`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves a project role assigned to a group.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.projects.groups.roles.retrieve(
+     *     'role_id',
+     *     { project_id: 'project_id', group_id: 'group_id' },
+     *   );
+     * ```
+     */
+    retrieve(roleID, params, options) {
+        const { project_id, group_id } = params;
+        return this._client.get(path_path `/projects/${project_id}/groups/${group_id}/roles/${roleID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Lists the project roles assigned to a group within a project.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const roleListResponse of client.admin.organization.projects.groups.roles.list(
+     *   'group_id',
+     *   { project_id: 'project_id' },
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(groupID, params, options) {
+        const { project_id, ...query } = params;
+        return this._client.getAPIList(path_path `/projects/${project_id}/groups/${groupID}/roles`, (NextCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Unassigns a project role from a group within a project.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.projects.groups.roles.delete(
+     *     'role_id',
+     *     { project_id: 'project_id', group_id: 'group_id' },
+     *   );
+     * ```
+     */
+    delete(roleID, params, options) {
+        const { project_id, group_id } = params;
+        return this._client.delete(path_path `/projects/${project_id}/groups/${group_id}/roles/${roleID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=roles.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/groups/groups.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+
+
+class groups_Groups extends APIResource {
+    constructor() {
+        super(...arguments);
+        this.roles = new groups_roles_Roles(this._client);
+    }
+    /**
+     * Grants a group access to a project.
+     *
+     * @example
+     * ```ts
+     * const projectGroup =
+     *   await client.admin.organization.projects.groups.create(
+     *     'project_id',
+     *     { group_id: 'group_id', role: 'role' },
+     *   );
+     * ```
+     */
+    create(projectID, body, options) {
+        return this._client.post(path_path `/organization/projects/${projectID}/groups`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves a project's group.
+     *
+     * @example
+     * ```ts
+     * const projectGroup =
+     *   await client.admin.organization.projects.groups.retrieve(
+     *     'group_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    retrieve(groupID, params, options) {
+        const { project_id, ...query } = params;
+        return this._client.get(path_path `/organization/projects/${project_id}/groups/${groupID}`, {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Lists the groups that have access to a project.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const projectGroup of client.admin.organization.projects.groups.list(
+     *   'project_id',
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(projectID, query = {}, options) {
+        return this._client.getAPIList(path_path `/organization/projects/${projectID}/groups`, (NextCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Revokes a group's access to a project.
+     *
+     * @example
+     * ```ts
+     * const group =
+     *   await client.admin.organization.projects.groups.delete(
+     *     'group_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    delete(groupID, params, options) {
+        const { project_id } = params;
+        return this._client.delete(path_path `/organization/projects/${project_id}/groups/${groupID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+groups_Groups.Roles = groups_roles_Roles;
+//# sourceMappingURL=groups.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/service-accounts/api-keys.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+class api_keys_APIKeys extends APIResource {
+    /**
+     * Creates an API key for a service account in the project.
+     *
+     * @example
+     * ```ts
+     * const apiKey =
+     *   await client.admin.organization.projects.serviceAccounts.apiKeys.create(
+     *     'service_account_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    create(serviceAccountID, params, options) {
+        const { project_id, ...body } = params;
+        return this._client.post(path_path `/organization/projects/${project_id}/service_accounts/${serviceAccountID}/api_keys`, { body, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+}
+//# sourceMappingURL=api-keys.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/service-accounts/service-accounts.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+
+
+class ServiceAccounts extends APIResource {
+    constructor() {
+        super(...arguments);
+        this.apiKeys = new api_keys_APIKeys(this._client);
+    }
+    /**
+     * Creates a new service account in the project. By default, this also returns an
+     * unredacted API key for the service account.
+     *
+     * @example
+     * ```ts
+     * const serviceAccount =
+     *   await client.admin.organization.projects.serviceAccounts.create(
+     *     'project_id',
+     *     { name: 'name' },
+     *   );
+     * ```
+     */
+    create(projectID, body, options) {
+        return this._client.post(path_path `/organization/projects/${projectID}/service_accounts`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves a service account in the project.
+     *
+     * @example
+     * ```ts
+     * const projectServiceAccount =
+     *   await client.admin.organization.projects.serviceAccounts.retrieve(
+     *     'service_account_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    retrieve(serviceAccountID, params, options) {
+        const { project_id } = params;
+        return this._client.get(path_path `/organization/projects/${project_id}/service_accounts/${serviceAccountID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Updates a service account in the project.
+     *
+     * @example
+     * ```ts
+     * const projectServiceAccount =
+     *   await client.admin.organization.projects.serviceAccounts.update(
+     *     'service_account_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    update(serviceAccountID, params, options) {
+        const { project_id, ...body } = params;
+        return this._client.post(path_path `/organization/projects/${project_id}/service_accounts/${serviceAccountID}`, { body, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Returns a list of service accounts in the project.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const projectServiceAccount of client.admin.organization.projects.serviceAccounts.list(
+     *   'project_id',
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(projectID, query = {}, options) {
+        return this._client.getAPIList(path_path `/organization/projects/${projectID}/service_accounts`, (ConversationCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Deletes a service account from the project.
+     *
+     * Returns confirmation of service account deletion, or an error if the project is
+     * archived (archived projects have no service accounts).
+     *
+     * @example
+     * ```ts
+     * const serviceAccount =
+     *   await client.admin.organization.projects.serviceAccounts.delete(
+     *     'service_account_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    delete(serviceAccountID, params, options) {
+        const { project_id } = params;
+        return this._client.delete(path_path `/organization/projects/${project_id}/service_accounts/${serviceAccountID}`, { ...options, __security: { adminAPIKeyAuth: true } });
+    }
+}
+ServiceAccounts.APIKeys = api_keys_APIKeys;
+//# sourceMappingURL=service-accounts.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/users/roles.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class users_roles_Roles extends APIResource {
+    /**
+     * Assigns a project role to a user within a project.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.projects.users.roles.create(
+     *     'user_id',
+     *     { project_id: 'project_id', role_id: 'role_id' },
+     *   );
+     * ```
+     */
+    create(userID, params, options) {
+        const { project_id, ...body } = params;
+        return this._client.post(path_path `/projects/${project_id}/users/${userID}/roles`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves a project role assigned to a user.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.projects.users.roles.retrieve(
+     *     'role_id',
+     *     { project_id: 'project_id', user_id: 'user_id' },
+     *   );
+     * ```
+     */
+    retrieve(roleID, params, options) {
+        const { project_id, user_id } = params;
+        return this._client.get(path_path `/projects/${project_id}/users/${user_id}/roles/${roleID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Lists the project roles assigned to a user within a project.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const roleListResponse of client.admin.organization.projects.users.roles.list(
+     *   'user_id',
+     *   { project_id: 'project_id' },
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(userID, params, options) {
+        const { project_id, ...query } = params;
+        return this._client.getAPIList(path_path `/projects/${project_id}/users/${userID}/roles`, (NextCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Unassigns a project role from a user within a project.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.projects.users.roles.delete(
+     *     'role_id',
+     *     { project_id: 'project_id', user_id: 'user_id' },
+     *   );
+     * ```
+     */
+    delete(roleID, params, options) {
+        const { project_id, user_id } = params;
+        return this._client.delete(path_path `/projects/${project_id}/users/${user_id}/roles/${roleID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=roles.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/users/users.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+
+
+class users_Users extends APIResource {
+    constructor() {
+        super(...arguments);
+        this.roles = new users_roles_Roles(this._client);
+    }
+    /**
+     * Adds a user to the project. Users must already be members of the organization to
+     * be added to a project.
+     *
+     * @example
+     * ```ts
+     * const projectUser =
+     *   await client.admin.organization.projects.users.create(
+     *     'project_id',
+     *     { role: 'role' },
+     *   );
+     * ```
+     */
+    create(projectID, body, options) {
+        return this._client.post(path_path `/organization/projects/${projectID}/users`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves a user in the project.
+     *
+     * @example
+     * ```ts
+     * const projectUser =
+     *   await client.admin.organization.projects.users.retrieve(
+     *     'user_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    retrieve(userID, params, options) {
+        const { project_id } = params;
+        return this._client.get(path_path `/organization/projects/${project_id}/users/${userID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Modifies a user's role in the project.
+     *
+     * @example
+     * ```ts
+     * const projectUser =
+     *   await client.admin.organization.projects.users.update(
+     *     'user_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    update(userID, params, options) {
+        const { project_id, ...body } = params;
+        return this._client.post(path_path `/organization/projects/${project_id}/users/${userID}`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Returns a list of users in the project.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const projectUser of client.admin.organization.projects.users.list(
+     *   'project_id',
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(projectID, query = {}, options) {
+        return this._client.getAPIList(path_path `/organization/projects/${projectID}/users`, (ConversationCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Deletes a user from the project.
+     *
+     * Returns confirmation of project user deletion, or an error if the project is
+     * archived (archived projects have no users).
+     *
+     * @example
+     * ```ts
+     * const user =
+     *   await client.admin.organization.projects.users.delete(
+     *     'user_id',
+     *     { project_id: 'project_id' },
+     *   );
+     * ```
+     */
+    delete(userID, params, options) {
+        const { project_id } = params;
+        return this._client.delete(path_path `/organization/projects/${project_id}/users/${userID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+users_Users.Roles = users_roles_Roles;
+//# sourceMappingURL=users.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/projects/projects.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Projects extends APIResource {
+    constructor() {
+        super(...arguments);
+        this.users = new users_Users(this._client);
+        this.serviceAccounts = new ServiceAccounts(this._client);
+        this.apiKeys = new APIKeys(this._client);
+        this.rateLimits = new RateLimits(this._client);
+        this.modelPermissions = new ModelPermissions(this._client);
+        this.hostedToolPermissions = new HostedToolPermissions(this._client);
+        this.groups = new groups_Groups(this._client);
+        this.roles = new projects_roles_Roles(this._client);
+        this.dataRetention = new data_retention_DataRetention(this._client);
+        this.spendLimit = new spend_limit_SpendLimit(this._client);
+        this.spendAlerts = new spend_alerts_SpendAlerts(this._client);
+        this.certificates = new certificates_Certificates(this._client);
+    }
+    /**
+     * Create a new project in the organization. Projects can be created and archived,
+     * but cannot be deleted.
+     *
+     * @example
+     * ```ts
+     * const project =
+     *   await client.admin.organization.projects.create({
+     *     name: 'name',
+     *   });
+     * ```
+     */
+    create(body, options) {
+        return this._client.post('/organization/projects', {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves a project.
+     *
+     * @example
+     * ```ts
+     * const project =
+     *   await client.admin.organization.projects.retrieve(
+     *     'project_id',
+     *   );
+     * ```
+     */
+    retrieve(projectID, options) {
+        return this._client.get(path_path `/organization/projects/${projectID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Modifies a project in the organization.
+     *
+     * @example
+     * ```ts
+     * const project =
+     *   await client.admin.organization.projects.update(
+     *     'project_id',
+     *   );
+     * ```
+     */
+    update(projectID, body, options) {
+        return this._client.post(path_path `/organization/projects/${projectID}`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Returns a list of projects.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const project of client.admin.organization.projects.list()) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(query = {}, options) {
+        return this._client.getAPIList('/organization/projects', (ConversationCursorPage), {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Archives a project in the organization. Archived projects cannot be used or
+     * updated.
+     *
+     * @example
+     * ```ts
+     * const project =
+     *   await client.admin.organization.projects.archive(
+     *     'project_id',
+     *   );
+     * ```
+     */
+    archive(projectID, options) {
+        return this._client.post(path_path `/organization/projects/${projectID}/archive`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+Projects.Users = users_Users;
+Projects.ServiceAccounts = ServiceAccounts;
+Projects.APIKeys = APIKeys;
+Projects.RateLimits = RateLimits;
+Projects.ModelPermissions = ModelPermissions;
+Projects.HostedToolPermissions = HostedToolPermissions;
+Projects.Groups = groups_Groups;
+Projects.Roles = projects_roles_Roles;
+Projects.DataRetention = data_retention_DataRetention;
+Projects.SpendLimit = spend_limit_SpendLimit;
+Projects.SpendAlerts = spend_alerts_SpendAlerts;
+Projects.Certificates = certificates_Certificates;
+//# sourceMappingURL=projects.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/users/roles.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class organization_users_roles_Roles extends APIResource {
+    /**
+     * Assigns an organization role to a user within the organization.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.users.roles.create(
+     *     'user_id',
+     *     { role_id: 'role_id' },
+     *   );
+     * ```
+     */
+    create(userID, body, options) {
+        return this._client.post(path_path `/organization/users/${userID}/roles`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Retrieves an organization role assigned to a user.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.users.roles.retrieve(
+     *     'role_id',
+     *     { user_id: 'user_id' },
+     *   );
+     * ```
+     */
+    retrieve(roleID, params, options) {
+        const { user_id } = params;
+        return this._client.get(path_path `/organization/users/${user_id}/roles/${roleID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Lists the organization roles assigned to a user within the organization.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const roleListResponse of client.admin.organization.users.roles.list(
+     *   'user_id',
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(userID, query = {}, options) {
+        return this._client.getAPIList(path_path `/organization/users/${userID}/roles`, (NextCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * Unassigns an organization role from a user within the organization.
+     *
+     * @example
+     * ```ts
+     * const role =
+     *   await client.admin.organization.users.roles.delete(
+     *     'role_id',
+     *     { user_id: 'user_id' },
+     *   );
+     * ```
+     */
+    delete(roleID, params, options) {
+        const { user_id } = params;
+        return this._client.delete(path_path `/organization/users/${user_id}/roles/${roleID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=roles.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/users/users.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+
+
+class users_users_Users extends APIResource {
+    constructor() {
+        super(...arguments);
+        this.roles = new organization_users_roles_Roles(this._client);
+    }
+    /**
+     * Retrieves a user by their identifier.
+     *
+     * @example
+     * ```ts
+     * const organizationUser =
+     *   await client.admin.organization.users.retrieve('user_id');
+     * ```
+     */
+    retrieve(userID, options) {
+        return this._client.get(path_path `/organization/users/${userID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Modifies a user's role in the organization.
+     *
+     * @example
+     * ```ts
+     * const organizationUser =
+     *   await client.admin.organization.users.update('user_id');
+     * ```
+     */
+    update(userID, body, options) {
+        return this._client.post(path_path `/organization/users/${userID}`, {
+            body,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Lists all of the users in the organization.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const organizationUser of client.admin.organization.users.list()) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(query = {}, options) {
+        return this._client.getAPIList('/organization/users', (ConversationCursorPage), {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+    /**
+     * Deletes a user from the organization.
+     *
+     * @example
+     * ```ts
+     * const user = await client.admin.organization.users.delete(
+     *   'user_id',
+     * );
+     * ```
+     */
+    delete(userID, options) {
+        return this._client.delete(path_path `/organization/users/${userID}`, {
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
+    }
+}
+users_users_Users.Roles = organization_users_roles_Roles;
+//# sourceMappingURL=users.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/organization/organization.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Organization extends APIResource {
+    constructor() {
+        super(...arguments);
+        this.auditLogs = new AuditLogs(this._client);
+        this.adminAPIKeys = new AdminAPIKeys(this._client);
+        this.usage = new Usage(this._client);
+        this.invites = new Invites(this._client);
+        this.users = new users_users_Users(this._client);
+        this.groups = new Groups(this._client);
+        this.roles = new Roles(this._client);
+        this.dataRetention = new DataRetention(this._client);
+        this.spendLimit = new SpendLimit(this._client);
+        this.spendAlerts = new SpendAlerts(this._client);
+        this.certificates = new Certificates(this._client);
+        this.projects = new Projects(this._client);
+    }
+}
+Organization.AuditLogs = AuditLogs;
+Organization.AdminAPIKeys = AdminAPIKeys;
+Organization.Usage = Usage;
+Organization.Invites = Invites;
+Organization.Users = users_users_Users;
+Organization.Groups = Groups;
+Organization.Roles = Roles;
+Organization.DataRetention = DataRetention;
+Organization.SpendLimit = SpendLimit;
+Organization.SpendAlerts = SpendAlerts;
+Organization.Certificates = Certificates;
+Organization.Projects = Projects;
+//# sourceMappingURL=organization.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/admin/admin.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+class Admin extends APIResource {
+    constructor() {
+        super(...arguments);
+        this.organization = new Organization(this._client);
+    }
+}
+Admin.Organization = Organization;
+//# sourceMappingURL=admin.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/audio/speech.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+/**
+ * Turn audio into text or text into audio.
+ */
 class Speech extends APIResource {
     /**
      * Generates audio from the input text.
+     *
+     * Returns the audio file content, or a stream of audio events.
      *
      * @example
      * ```ts
      * const speech = await client.audio.speech.create({
      *   input: 'input',
-     *   model: 'string',
-     *   voice: 'ash',
+     *   model: 'tts-1',
+     *   voice: 'alloy',
      * });
      *
      * const content = await speech.blob();
@@ -71765,15 +75427,19 @@ class Speech extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ Accept: 'application/octet-stream' }, options?.headers]),
+            __security: { bearerAuth: true },
             __binaryResponse: true,
         });
     }
 }
 //# sourceMappingURL=speech.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/audio/transcriptions.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/audio/transcriptions.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
+/**
+ * Turn audio into text or text into audio.
+ */
 class Transcriptions extends APIResource {
     create(body, options) {
         return this._client.post('/audio/transcriptions', multipartFormRequestOptions({
@@ -71781,21 +75447,25 @@ class Transcriptions extends APIResource {
             ...options,
             stream: body.stream ?? false,
             __metadata: { model: body.model },
+            __security: { bearerAuth: true },
         }, this._client));
     }
 }
 //# sourceMappingURL=transcriptions.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/audio/translations.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/audio/translations.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
+/**
+ * Turn audio into text or text into audio.
+ */
 class Translations extends APIResource {
     create(body, options) {
-        return this._client.post('/audio/translations', multipartFormRequestOptions({ body, ...options, __metadata: { model: body.model } }, this._client));
+        return this._client.post('/audio/translations', multipartFormRequestOptions({ body, ...options, __metadata: { model: body.model }, __security: { bearerAuth: true } }, this._client));
     }
 }
 //# sourceMappingURL=translations.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/audio/audio.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/audio/audio.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -71816,29 +75486,36 @@ Audio.Transcriptions = Transcriptions;
 Audio.Translations = Translations;
 Audio.Speech = Speech;
 //# sourceMappingURL=audio.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/batches.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/batches.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
+/**
+ * Create large batches of API requests to run asynchronously.
+ */
 class Batches extends APIResource {
     /**
      * Creates and executes a batch from an uploaded file of requests
      */
     create(body, options) {
-        return this._client.post('/batches', { body, ...options });
+        return this._client.post('/batches', { body, ...options, __security: { bearerAuth: true } });
     }
     /**
      * Retrieves a batch.
      */
     retrieve(batchID, options) {
-        return this._client.get(path_path `/batches/${batchID}`, options);
+        return this._client.get(path_path `/batches/${batchID}`, { ...options, __security: { bearerAuth: true } });
     }
     /**
      * List your organization's batches.
      */
     list(query = {}, options) {
-        return this._client.getAPIList('/batches', (CursorPage), { query, ...options });
+        return this._client.getAPIList('/batches', (CursorPage), {
+            query,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Cancels an in-progress batch. The batch will be in status `cancelling` for up to
@@ -71846,16 +75523,22 @@ class Batches extends APIResource {
      * (if any) available in the output file.
      */
     cancel(batchID, options) {
-        return this._client.post(path_path `/batches/${batchID}/cancel`, options);
+        return this._client.post(path_path `/batches/${batchID}/cancel`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
 }
 //# sourceMappingURL=batches.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/beta/assistants.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/assistants.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
 
+/**
+ * Build Assistants that can call models and use tools.
+ */
 class Assistants extends APIResource {
     /**
      * Create an assistant with a model and instructions.
@@ -71867,6 +75550,7 @@ class Assistants extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -71878,6 +75562,7 @@ class Assistants extends APIResource {
         return this._client.get(path_path `/assistants/${assistantID}`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -71890,6 +75575,7 @@ class Assistants extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -71902,6 +75588,7 @@ class Assistants extends APIResource {
             query,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -71913,11 +75600,12 @@ class Assistants extends APIResource {
         return this._client.delete(path_path `/assistants/${assistantID}`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
 }
 //# sourceMappingURL=assistants.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/beta/realtime/sessions.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/realtime/sessions.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -71942,11 +75630,12 @@ class Sessions extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
 }
 //# sourceMappingURL=sessions.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/beta/realtime/transcription-sessions.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/realtime/transcription-sessions.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -71971,11 +75660,12 @@ class TranscriptionSessions extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
 }
 //# sourceMappingURL=transcription-sessions.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/beta/realtime/realtime.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/realtime/realtime.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -71995,14 +75685,14 @@ class Realtime extends APIResource {
 Realtime.Sessions = Sessions;
 Realtime.TranscriptionSessions = TranscriptionSessions;
 //# sourceMappingURL=realtime.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/beta/chatkit/sessions.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/chatkit/sessions.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
 class sessions_Sessions extends APIResource {
     /**
-     * Create a ChatKit session
+     * Create a ChatKit session.
      *
      * @example
      * ```ts
@@ -72018,10 +75708,13 @@ class sessions_Sessions extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'chatkit_beta=v1' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
-     * Cancel a ChatKit session
+     * Cancel an active ChatKit session and return its most recent metadata.
+     *
+     * Cancelling prevents new requests from using the issued client secret.
      *
      * @example
      * ```ts
@@ -72033,11 +75726,12 @@ class sessions_Sessions extends APIResource {
         return this._client.post(path_path `/chatkit/sessions/${sessionID}/cancel`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'chatkit_beta=v1' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
 }
 //# sourceMappingURL=sessions.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/beta/chatkit/threads.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/chatkit/threads.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -72045,7 +75739,7 @@ class sessions_Sessions extends APIResource {
 
 class Threads extends APIResource {
     /**
-     * Retrieve a ChatKit thread
+     * Retrieve a ChatKit thread by its identifier.
      *
      * @example
      * ```ts
@@ -72057,10 +75751,11 @@ class Threads extends APIResource {
         return this._client.get(path_path `/chatkit/threads/${threadID}`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'chatkit_beta=v1' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
-     * List ChatKit threads
+     * List ChatKit threads with optional pagination and user filters.
      *
      * @example
      * ```ts
@@ -72075,10 +75770,11 @@ class Threads extends APIResource {
             query,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'chatkit_beta=v1' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
-     * Delete a ChatKit thread
+     * Delete a ChatKit thread along with its items and stored attachments.
      *
      * @example
      * ```ts
@@ -72091,10 +75787,11 @@ class Threads extends APIResource {
         return this._client.delete(path_path `/chatkit/threads/${threadID}`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'chatkit_beta=v1' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
-     * List ChatKit thread items
+     * List items that belong to a ChatKit thread.
      *
      * @example
      * ```ts
@@ -72107,11 +75804,16 @@ class Threads extends APIResource {
      * ```
      */
     listItems(threadID, query = {}, options) {
-        return this._client.getAPIList(path_path `/chatkit/threads/${threadID}/items`, (ConversationCursorPage), { query, ...options, headers: buildHeaders([{ 'OpenAI-Beta': 'chatkit_beta=v1' }, options?.headers]) });
+        return this._client.getAPIList(path_path `/chatkit/threads/${threadID}/items`, (ConversationCursorPage), {
+            query,
+            ...options,
+            headers: buildHeaders([{ 'OpenAI-Beta': 'chatkit_beta=v1' }, options?.headers]),
+            __security: { bearerAuth: true },
+        });
     }
 }
 //# sourceMappingURL=threads.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/beta/chatkit/chatkit.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/chatkit/chatkit.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -72128,13 +75830,197 @@ class ChatKit extends APIResource {
 ChatKit.Sessions = sessions_Sessions;
 ChatKit.Threads = Threads;
 //# sourceMappingURL=chatkit.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/beta/threads/messages.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/responses/input-items.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+
+class InputItems extends APIResource {
+    /**
+     * Returns a list of input items for a given response.
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const betaResponseItem of client.beta.responses.inputItems.list(
+     *   'response_id',
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(responseID, params = {}, options) {
+        const { betas, ...query } = params ?? {};
+        return this._client.getAPIList(path_path `/responses/${responseID}/input_items?beta=true`, (CursorPage), {
+            query,
+            ...options,
+            headers: buildHeaders([
+                { ...(betas?.toString() != null ? { 'openai-beta': betas?.toString() } : undefined) },
+                options?.headers,
+            ]),
+            __security: { bearerAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=input-items.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/responses/input-tokens.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+class InputTokens extends APIResource {
+    /**
+     * Returns input token counts of the request.
+     *
+     * Returns an object with `object` set to `response.input_tokens` and an
+     * `input_tokens` count.
+     *
+     * @example
+     * ```ts
+     * const response =
+     *   await client.beta.responses.inputTokens.count();
+     * ```
+     */
+    count(params = {}, options) {
+        const { betas, ...body } = params ?? {};
+        return this._client.post('/responses/input_tokens?beta=true', {
+            body,
+            ...options,
+            headers: buildHeaders([
+                { ...(betas?.toString() != null ? { 'openai-beta': betas?.toString() } : undefined) },
+                options?.headers,
+            ]),
+            __security: { bearerAuth: true },
+        });
+    }
+}
+//# sourceMappingURL=input-tokens.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/responses/responses.mjs
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+
+
+
+
+
+class Responses extends APIResource {
+    constructor() {
+        super(...arguments);
+        this.inputItems = new InputItems(this._client);
+        this.inputTokens = new InputTokens(this._client);
+    }
+    create(params, options) {
+        const { betas, ...body } = params;
+        return this._client.post('/responses?beta=true', {
+            body,
+            ...options,
+            headers: buildHeaders([
+                { ...(betas?.toString() != null ? { 'openai-beta': betas?.toString() } : undefined) },
+                options?.headers,
+            ]),
+            stream: params.stream ?? false,
+            __security: { bearerAuth: true },
+        });
+    }
+    retrieve(responseID, params = {}, options) {
+        const { betas, ...query } = params ?? {};
+        return this._client.get(path_path `/responses/${responseID}?beta=true`, {
+            query,
+            ...options,
+            headers: buildHeaders([
+                { ...(betas?.toString() != null ? { 'openai-beta': betas?.toString() } : undefined) },
+                options?.headers,
+            ]),
+            stream: params?.stream ?? false,
+            __security: { bearerAuth: true },
+        });
+    }
+    /**
+     * Deletes a model response with the given ID.
+     *
+     * @example
+     * ```ts
+     * await client.beta.responses.delete(
+     *   'resp_677efb5139a88190b512bc3fef8e535d',
+     * );
+     * ```
+     */
+    delete(responseID, params = {}, options) {
+        const { betas } = params ?? {};
+        return this._client.delete(path_path `/responses/${responseID}?beta=true`, {
+            ...options,
+            headers: buildHeaders([
+                { Accept: '*/*', ...(betas?.toString() != null ? { 'openai-beta': betas?.toString() } : undefined) },
+                options?.headers,
+            ]),
+            __security: { bearerAuth: true },
+        });
+    }
+    /**
+     * Cancels a model response with the given ID. Only responses created with the
+     * `background` parameter set to `true` can be cancelled.
+     * [Learn more](https://platform.openai.com/docs/guides/background).
+     *
+     * @example
+     * ```ts
+     * const betaResponse = await client.beta.responses.cancel(
+     *   'resp_677efb5139a88190b512bc3fef8e535d',
+     * );
+     * ```
+     */
+    cancel(responseID, params = {}, options) {
+        const { betas } = params ?? {};
+        return this._client.post(path_path `/responses/${responseID}/cancel?beta=true`, {
+            ...options,
+            headers: buildHeaders([
+                { ...(betas?.toString() != null ? { 'openai-beta': betas?.toString() } : undefined) },
+                options?.headers,
+            ]),
+            __security: { bearerAuth: true },
+        });
+    }
+    /**
+     * Compact a conversation. Returns a compacted response object.
+     *
+     * Learn when and how to compact long-running conversations in the
+     * [conversation state guide](https://platform.openai.com/docs/guides/conversation-state#managing-the-context-window).
+     * For ZDR-compatible compaction details, see
+     * [Compaction (advanced)](https://platform.openai.com/docs/guides/conversation-state#compaction-advanced).
+     *
+     * @example
+     * ```ts
+     * const betaCompactedResponse =
+     *   await client.beta.responses.compact({
+     *     model: 'gpt-5.6-sol',
+     *   });
+     * ```
+     */
+    compact(params, options) {
+        const { betas, ...body } = params;
+        return this._client.post('/responses/compact?beta=true', {
+            body,
+            ...options,
+            headers: buildHeaders([
+                { ...(betas?.toString() != null ? { 'openai-beta': betas?.toString() } : undefined) },
+                options?.headers,
+            ]),
+            __security: { bearerAuth: true },
+        });
+    }
+}
+Responses.InputItems = InputItems;
+Responses.InputTokens = InputTokens;
+//# sourceMappingURL=responses.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/threads/messages.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
 
 /**
+ * Build Assistants that can call models and use tools.
+ *
  * @deprecated The Assistants API is deprecated in favor of the Responses API
  */
 class messages_Messages extends APIResource {
@@ -72148,6 +76034,7 @@ class messages_Messages extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -72160,6 +76047,7 @@ class messages_Messages extends APIResource {
         return this._client.get(path_path `/threads/${thread_id}/messages/${messageID}`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -72173,6 +76061,7 @@ class messages_Messages extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -72185,6 +76074,7 @@ class messages_Messages extends APIResource {
             query,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -72197,17 +76087,20 @@ class messages_Messages extends APIResource {
         return this._client.delete(path_path `/threads/${thread_id}/messages/${messageID}`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
 }
 //# sourceMappingURL=messages.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/beta/threads/runs/steps.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/threads/runs/steps.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
 
 /**
+ * Build Assistants that can call models and use tools.
+ *
  * @deprecated The Assistants API is deprecated in favor of the Responses API
  */
 class Steps extends APIResource {
@@ -72222,6 +76115,7 @@ class Steps extends APIResource {
             query,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -72235,11 +76129,12 @@ class Steps extends APIResource {
             query,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
 }
 //# sourceMappingURL=steps.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/utils/base64.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/utils/base64.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -72295,7 +76190,7 @@ const toFloat32Array = (base64Str) => {
     }
 };
 //# sourceMappingURL=base64.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/utils/env.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/utils/env.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 /**
  * Read an environment variable.
@@ -72306,15 +76201,15 @@ const toFloat32Array = (base64Str) => {
  */
 const readEnv = (env) => {
     if (typeof globalThis.process !== 'undefined') {
-        return globalThis.process.env?.[env]?.trim() ?? undefined;
+        return globalThis.process.env?.[env]?.trim() || undefined;
     }
     if (typeof globalThis.Deno !== 'undefined') {
-        return globalThis.Deno.env?.get?.(env)?.trim();
+        return globalThis.Deno.env?.get?.(env)?.trim() || undefined;
     }
     return undefined;
 };
 //# sourceMappingURL=env.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/internal/utils.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/utils.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -72322,8 +76217,9 @@ const readEnv = (env) => {
 
 
 
+
 //# sourceMappingURL=utils.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/lib/AssistantStream.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/lib/AssistantStream.mjs
 var _AssistantStream_instances, _a, _AssistantStream_events, _AssistantStream_runStepSnapshots, _AssistantStream_messageSnapshots, _AssistantStream_messageSnapshot, _AssistantStream_finalRun, _AssistantStream_currentContentIndex, _AssistantStream_currentContent, _AssistantStream_currentToolCallIndex, _AssistantStream_currentToolCall, _AssistantStream_currentEvent, _AssistantStream_currentRunSnapshot, _AssistantStream_currentRunStepSnapshot, _AssistantStream_addEvent, _AssistantStream_endRequest, _AssistantStream_handleMessage, _AssistantStream_handleRunStep, _AssistantStream_handleEvent, _AssistantStream_accumulateRunStep, _AssistantStream_accumulateMessage, _AssistantStream_accumulateContent, _AssistantStream_handleRun;
 
 
@@ -72357,12 +76253,13 @@ class AssistantStream extends EventStream {
         let done = false;
         //Catch all for passing along all events
         this.on('event', (event) => {
+            const eventCopy = structuredClone(event);
             const reader = readQueue.shift();
             if (reader) {
-                reader.resolve(event);
+                reader.resolve(eventCopy);
             }
             else {
-                pushQueue.push(event);
+                pushQueue.push(eventCopy);
             }
         });
         this.on('end', () => {
@@ -72409,12 +76306,7 @@ class AssistantStream extends EventStream {
         return runner;
     }
     async _fromReadableStream(readableStream, options) {
-        const signal = options?.signal;
-        if (signal) {
-            if (signal.aborted)
-                this.controller.abort();
-            signal.addEventListener('abort', () => this.controller.abort());
-        }
+        this._listenForAbort(options?.signal);
         this._connected();
         const stream = Stream.fromReadableStream(readableStream, this.controller);
         for await (const event of stream) {
@@ -72438,12 +76330,7 @@ class AssistantStream extends EventStream {
         return runner;
     }
     async _createToolAssistantStream(run, runId, params, options) {
-        const signal = options?.signal;
-        if (signal) {
-            if (signal.aborted)
-                this.controller.abort();
-            signal.addEventListener('abort', () => this.controller.abort());
-        }
+        this._listenForAbort(options?.signal);
         const body = { ...params, stream: true };
         const stream = await run.submitToolOutputs(runId, body, {
             ...options,
@@ -72501,12 +76388,7 @@ class AssistantStream extends EventStream {
         return __classPrivateFieldGet(this, _AssistantStream_finalRun, "f");
     }
     async _createThreadAssistantStream(thread, params, options) {
-        const signal = options?.signal;
-        if (signal) {
-            if (signal.aborted)
-                this.controller.abort();
-            signal.addEventListener('abort', () => this.controller.abort());
-        }
+        this._listenForAbort(options?.signal);
         const body = { ...params, stream: true };
         const stream = await thread.createAndRun(body, { ...options, signal: this.controller.signal });
         this._connected();
@@ -72519,12 +76401,7 @@ class AssistantStream extends EventStream {
         return this._addRun(__classPrivateFieldGet(this, _AssistantStream_instances, "m", _AssistantStream_endRequest).call(this));
     }
     async _createAssistantStream(run, threadId, params, options) {
-        const signal = options?.signal;
-        if (signal) {
-            if (signal.aborted)
-                this.controller.abort();
-            signal.addEventListener('abort', () => this.controller.abort());
-        }
+        this._listenForAbort(options?.signal);
         const body = { ...params, stream: true };
         const stream = await run.create(threadId, body, { ...options, signal: this.controller.signal });
         this._connected();
@@ -72581,7 +76458,7 @@ class AssistantStream extends EventStream {
                     }
                     const accEntry = accValue[index];
                     if (accEntry == null) {
-                        accValue.push(deltaEntry);
+                        accValue[index] = deltaEntry;
                     }
                     else {
                         accValue[index] = this.accumulateDelta(accEntry, deltaEntry);
@@ -72873,7 +76750,7 @@ _a = AssistantStream, _AssistantStream_addEvent = function _AssistantStream_addE
 };
 function AssistantStream_assertNever(_x) { }
 //# sourceMappingURL=AssistantStream.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/beta/threads/runs/runs.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/threads/runs/runs.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -72884,6 +76761,8 @@ function AssistantStream_assertNever(_x) { }
 
 
 /**
+ * Build Assistants that can call models and use tools.
+ *
  * @deprecated The Assistants API is deprecated in favor of the Responses API
  */
 class Runs extends APIResource {
@@ -72899,6 +76778,8 @@ class Runs extends APIResource {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
             stream: params.stream ?? false,
+            __synthesizeEventData: true,
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -72911,6 +76792,7 @@ class Runs extends APIResource {
         return this._client.get(path_path `/threads/${thread_id}/runs/${runID}`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -72924,6 +76806,7 @@ class Runs extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -72936,6 +76819,7 @@ class Runs extends APIResource {
             query,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -72948,6 +76832,7 @@ class Runs extends APIResource {
         return this._client.post(path_path `/threads/${thread_id}/runs/${runID}/cancel`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -73029,6 +76914,8 @@ class Runs extends APIResource {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
             stream: params.stream ?? false,
+            __synthesizeEventData: true,
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -73051,7 +76938,7 @@ class Runs extends APIResource {
 }
 Runs.Steps = Steps;
 //# sourceMappingURL=runs.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/beta/threads/threads.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/threads/threads.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -73062,6 +76949,8 @@ Runs.Steps = Steps;
 
 
 /**
+ * Build Assistants that can call models and use tools.
+ *
  * @deprecated The Assistants API is deprecated in favor of the Responses API
  */
 class threads_Threads extends APIResource {
@@ -73080,6 +76969,7 @@ class threads_Threads extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -73091,6 +76981,7 @@ class threads_Threads extends APIResource {
         return this._client.get(path_path `/threads/${threadID}`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -73103,6 +76994,7 @@ class threads_Threads extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -73114,6 +77006,7 @@ class threads_Threads extends APIResource {
         return this._client.delete(path_path `/threads/${threadID}`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     createAndRun(body, options) {
@@ -73122,6 +77015,8 @@ class threads_Threads extends APIResource {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
             stream: body.stream ?? false,
+            __synthesizeEventData: true,
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -73143,8 +77038,10 @@ class threads_Threads extends APIResource {
 threads_Threads.Runs = Runs;
 threads_Threads.Messages = messages_Messages;
 //# sourceMappingURL=threads.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/beta/beta.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/beta/beta.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
 
 
 
@@ -73158,26 +77055,36 @@ class Beta extends APIResource {
     constructor() {
         super(...arguments);
         this.realtime = new Realtime(this._client);
+        this.responses = new Responses(this._client);
         this.chatkit = new ChatKit(this._client);
         this.assistants = new Assistants(this._client);
         this.threads = new threads_Threads(this._client);
     }
 }
 Beta.Realtime = Realtime;
+Beta.Responses = Responses;
 Beta.ChatKit = ChatKit;
 Beta.Assistants = Assistants;
 Beta.Threads = threads_Threads;
 //# sourceMappingURL=beta.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/completions.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/completions.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+/**
+ * Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of alternative tokens at each position.
+ */
 class completions_Completions extends APIResource {
     create(body, options) {
-        return this._client.post('/completions', { body, ...options, stream: body.stream ?? false });
+        return this._client.post('/completions', {
+            body,
+            ...options,
+            stream: body.stream ?? false,
+            __security: { bearerAuth: true },
+        });
     }
 }
 //# sourceMappingURL=completions.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/containers/files/content.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/containers/files/content.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -73191,12 +77098,13 @@ class Content extends APIResource {
         return this._client.get(path_path `/containers/${container_id}/files/${fileID}/content`, {
             ...options,
             headers: buildHeaders([{ Accept: 'application/binary' }, options?.headers]),
+            __security: { bearerAuth: true },
             __binaryResponse: true,
         });
     }
 }
 //# sourceMappingURL=content.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/containers/files/files.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/containers/files/files.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -73217,14 +77125,17 @@ class Files extends APIResource {
      * a JSON request with a file ID.
      */
     create(containerID, body, options) {
-        return this._client.post(path_path `/containers/${containerID}/files`, maybeMultipartFormRequestOptions({ body, ...options }, this._client));
+        return this._client.post(path_path `/containers/${containerID}/files`, maybeMultipartFormRequestOptions({ body, ...options, __security: { bearerAuth: true } }, this._client));
     }
     /**
      * Retrieve Container File
      */
     retrieve(fileID, params, options) {
         const { container_id } = params;
-        return this._client.get(path_path `/containers/${container_id}/files/${fileID}`, options);
+        return this._client.get(path_path `/containers/${container_id}/files/${fileID}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * List Container files
@@ -73233,6 +77144,7 @@ class Files extends APIResource {
         return this._client.getAPIList(path_path `/containers/${containerID}/files`, (CursorPage), {
             query,
             ...options,
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -73243,12 +77155,13 @@ class Files extends APIResource {
         return this._client.delete(path_path `/containers/${container_id}/files/${fileID}`, {
             ...options,
             headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
 }
 Files.Content = Content;
 //# sourceMappingURL=files.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/containers/containers.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/containers/containers.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -73265,19 +77178,26 @@ class Containers extends APIResource {
      * Create Container
      */
     create(body, options) {
-        return this._client.post('/containers', { body, ...options });
+        return this._client.post('/containers', { body, ...options, __security: { bearerAuth: true } });
     }
     /**
      * Retrieve Container
      */
     retrieve(containerID, options) {
-        return this._client.get(path_path `/containers/${containerID}`, options);
+        return this._client.get(path_path `/containers/${containerID}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * List Containers
      */
     list(query = {}, options) {
-        return this._client.getAPIList('/containers', (CursorPage), { query, ...options });
+        return this._client.getAPIList('/containers', (CursorPage), {
+            query,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Delete Container
@@ -73286,16 +77206,20 @@ class Containers extends APIResource {
         return this._client.delete(path_path `/containers/${containerID}`, {
             ...options,
             headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
 }
 Containers.Files = Files;
 //# sourceMappingURL=containers.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/conversations/items.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/conversations/items.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
+/**
+ * Manage conversations and conversation items.
+ */
 class Items extends APIResource {
     /**
      * Create items in a conversation with the given ID.
@@ -73306,6 +77230,7 @@ class Items extends APIResource {
             query: { include },
             body,
             ...options,
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -73313,29 +77238,39 @@ class Items extends APIResource {
      */
     retrieve(itemID, params, options) {
         const { conversation_id, ...query } = params;
-        return this._client.get(path_path `/conversations/${conversation_id}/items/${itemID}`, { query, ...options });
+        return this._client.get(path_path `/conversations/${conversation_id}/items/${itemID}`, {
+            query,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * List all items for a conversation with the given ID.
      */
     list(conversationID, query = {}, options) {
-        return this._client.getAPIList(path_path `/conversations/${conversationID}/items`, (ConversationCursorPage), { query, ...options });
+        return this._client.getAPIList(path_path `/conversations/${conversationID}/items`, (ConversationCursorPage), { query, ...options, __security: { bearerAuth: true } });
     }
     /**
      * Delete an item from a conversation with the given IDs.
      */
     delete(itemID, params, options) {
         const { conversation_id } = params;
-        return this._client.delete(path_path `/conversations/${conversation_id}/items/${itemID}`, options);
+        return this._client.delete(path_path `/conversations/${conversation_id}/items/${itemID}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
 }
 //# sourceMappingURL=items.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/conversations/conversations.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/conversations/conversations.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
 
+/**
+ * Manage conversations and conversation items.
+ */
 class Conversations extends APIResource {
     constructor() {
         super(...arguments);
@@ -73345,33 +77280,46 @@ class Conversations extends APIResource {
      * Create a conversation.
      */
     create(body = {}, options) {
-        return this._client.post('/conversations', { body, ...options });
+        return this._client.post('/conversations', { body, ...options, __security: { bearerAuth: true } });
     }
     /**
      * Get a conversation
      */
     retrieve(conversationID, options) {
-        return this._client.get(path_path `/conversations/${conversationID}`, options);
+        return this._client.get(path_path `/conversations/${conversationID}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Update a conversation
      */
     update(conversationID, body, options) {
-        return this._client.post(path_path `/conversations/${conversationID}`, { body, ...options });
+        return this._client.post(path_path `/conversations/${conversationID}`, {
+            body,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Delete a conversation. Items in the conversation will not be deleted.
      */
     delete(conversationID, options) {
-        return this._client.delete(path_path `/conversations/${conversationID}`, options);
+        return this._client.delete(path_path `/conversations/${conversationID}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
 }
 Conversations.Items = Items;
 //# sourceMappingURL=conversations.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/embeddings.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/embeddings.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
+/**
+ * Get a vector representation of a given input that can be easily consumed by machine learning models and algorithms.
+ */
 class Embeddings extends APIResource {
     /**
      * Creates an embedding vector representing the input text.
@@ -73399,6 +77347,7 @@ class Embeddings extends APIResource {
                 encoding_format: encoding_format,
             },
             ...options,
+            __security: { bearerAuth: true },
         });
         // if the user specified an encoding_format, return the response as-is
         if (hasUserProvidedEncodingFormat) {
@@ -73421,35 +77370,44 @@ class Embeddings extends APIResource {
     }
 }
 //# sourceMappingURL=embeddings.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/evals/runs/output-items.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/evals/runs/output-items.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
+/**
+ * Manage and run evals in the OpenAI platform.
+ */
 class OutputItems extends APIResource {
     /**
      * Get an evaluation run output item by ID.
      */
     retrieve(outputItemID, params, options) {
         const { eval_id, run_id } = params;
-        return this._client.get(path_path `/evals/${eval_id}/runs/${run_id}/output_items/${outputItemID}`, options);
+        return this._client.get(path_path `/evals/${eval_id}/runs/${run_id}/output_items/${outputItemID}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Get a list of output items for an evaluation run.
      */
     list(runID, params, options) {
         const { eval_id, ...query } = params;
-        return this._client.getAPIList(path_path `/evals/${eval_id}/runs/${runID}/output_items`, (CursorPage), { query, ...options });
+        return this._client.getAPIList(path_path `/evals/${eval_id}/runs/${runID}/output_items`, (CursorPage), { query, ...options, __security: { bearerAuth: true } });
     }
 }
 //# sourceMappingURL=output-items.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/evals/runs/runs.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/evals/runs/runs.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
 
 
+/**
+ * Manage and run evals in the OpenAI platform.
+ */
 class runs_Runs extends APIResource {
     constructor() {
         super(...arguments);
@@ -73461,14 +77419,21 @@ class runs_Runs extends APIResource {
      * schema specified in the config of the evaluation.
      */
     create(evalID, body, options) {
-        return this._client.post(path_path `/evals/${evalID}/runs`, { body, ...options });
+        return this._client.post(path_path `/evals/${evalID}/runs`, {
+            body,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Get an evaluation run by ID.
      */
     retrieve(runID, params, options) {
         const { eval_id } = params;
-        return this._client.get(path_path `/evals/${eval_id}/runs/${runID}`, options);
+        return this._client.get(path_path `/evals/${eval_id}/runs/${runID}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Get a list of runs for an evaluation.
@@ -73477,6 +77442,7 @@ class runs_Runs extends APIResource {
         return this._client.getAPIList(path_path `/evals/${evalID}/runs`, (CursorPage), {
             query,
             ...options,
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -73484,25 +77450,34 @@ class runs_Runs extends APIResource {
      */
     delete(runID, params, options) {
         const { eval_id } = params;
-        return this._client.delete(path_path `/evals/${eval_id}/runs/${runID}`, options);
+        return this._client.delete(path_path `/evals/${eval_id}/runs/${runID}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Cancel an ongoing evaluation run.
      */
     cancel(runID, params, options) {
         const { eval_id } = params;
-        return this._client.post(path_path `/evals/${eval_id}/runs/${runID}`, options);
+        return this._client.post(path_path `/evals/${eval_id}/runs/${runID}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
 }
 runs_Runs.OutputItems = OutputItems;
 //# sourceMappingURL=runs.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/evals/evals.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/evals/evals.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
 
 
+/**
+ * Manage and run evals in the OpenAI platform.
+ */
 class Evals extends APIResource {
     constructor() {
         super(...arguments);
@@ -73517,36 +77492,40 @@ class Evals extends APIResource {
      * the [Evals guide](https://platform.openai.com/docs/guides/evals).
      */
     create(body, options) {
-        return this._client.post('/evals', { body, ...options });
+        return this._client.post('/evals', { body, ...options, __security: { bearerAuth: true } });
     }
     /**
      * Get an evaluation by ID.
      */
     retrieve(evalID, options) {
-        return this._client.get(path_path `/evals/${evalID}`, options);
+        return this._client.get(path_path `/evals/${evalID}`, { ...options, __security: { bearerAuth: true } });
     }
     /**
      * Update certain properties of an evaluation.
      */
     update(evalID, body, options) {
-        return this._client.post(path_path `/evals/${evalID}`, { body, ...options });
+        return this._client.post(path_path `/evals/${evalID}`, { body, ...options, __security: { bearerAuth: true } });
     }
     /**
      * List evaluations for a project.
      */
     list(query = {}, options) {
-        return this._client.getAPIList('/evals', (CursorPage), { query, ...options });
+        return this._client.getAPIList('/evals', (CursorPage), {
+            query,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Delete an evaluation.
      */
     delete(evalID, options) {
-        return this._client.delete(path_path `/evals/${evalID}`, options);
+        return this._client.delete(path_path `/evals/${evalID}`, { ...options, __security: { bearerAuth: true } });
     }
 }
 Evals.Runs = runs_Runs;
 //# sourceMappingURL=evals.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/files.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/files.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -73555,11 +77534,15 @@ Evals.Runs = runs_Runs;
 
 
 
+/**
+ * Files are used to upload documents that can be used with features like Assistants and Fine-tuning.
+ */
 class files_Files extends APIResource {
     /**
      * Upload a file that can be used across various endpoints. Individual files can be
      * up to 512 MB, and each project can store up to 2.5 TB of files in total. There
-     * is no organization-wide storage limit.
+     * is no organization-wide storage limit. Uploads to this endpoint are rate-limited
+     * to 1,000 requests per minute per authenticated user.
      *
      * - The Assistants API supports files up to 2 million tokens and of specific file
      *   types. See the
@@ -73574,30 +77557,40 @@ class files_Files extends APIResource {
      * - The Batch API only supports `.jsonl` files up to 200 MB in size. The input
      *   also has a specific required
      *   [format](https://platform.openai.com/docs/api-reference/batch/request-input).
+     * - For Retrieval or `file_search` ingestion, upload files here first. If you need
+     *   to attach multiple uploaded files to the same vector store, use
+     *   [`/vector_stores/{vector_store_id}/file_batches`](https://platform.openai.com/docs/api-reference/vector-stores-file-batches/createBatch)
+     *   instead of attaching them one by one. Vector store attachment has separate
+     *   limits from file upload, including 2,000 attached files per minute per
+     *   organization.
      *
      * Please [contact us](https://help.openai.com/) if you need to increase these
      * storage limits.
      */
     create(body, options) {
-        return this._client.post('/files', multipartFormRequestOptions({ body, ...options }, this._client));
+        return this._client.post('/files', multipartFormRequestOptions({ body, ...options, __security: { bearerAuth: true } }, this._client));
     }
     /**
      * Returns information about a specific file.
      */
     retrieve(fileID, options) {
-        return this._client.get(path_path `/files/${fileID}`, options);
+        return this._client.get(path_path `/files/${fileID}`, { ...options, __security: { bearerAuth: true } });
     }
     /**
      * Returns a list of files.
      */
     list(query = {}, options) {
-        return this._client.getAPIList('/files', (CursorPage), { query, ...options });
+        return this._client.getAPIList('/files', (CursorPage), {
+            query,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Delete a file and remove it from all vector stores.
      */
     delete(fileID, options) {
-        return this._client.delete(path_path `/files/${fileID}`, options);
+        return this._client.delete(path_path `/files/${fileID}`, { ...options, __security: { bearerAuth: true } });
     }
     /**
      * Returns the contents of the specified file.
@@ -73606,6 +77599,7 @@ class files_Files extends APIResource {
         return this._client.get(path_path `/files/${fileID}/content`, {
             ...options,
             headers: buildHeaders([{ Accept: 'application/binary' }, options?.headers]),
+            __security: { bearerAuth: true },
             __binaryResponse: true,
         });
     }
@@ -73629,15 +77623,18 @@ class files_Files extends APIResource {
     }
 }
 //# sourceMappingURL=files.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/fine-tuning/methods.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/fine-tuning/methods.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 class Methods extends APIResource {
 }
 //# sourceMappingURL=methods.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/fine-tuning/alpha/graders.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/fine-tuning/alpha/graders.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+/**
+ * Manage fine-tuning jobs to tailor a model to your specific training data.
+ */
 class Graders extends APIResource {
     /**
      * Run a grader.
@@ -73657,7 +77654,11 @@ class Graders extends APIResource {
      * ```
      */
     run(body, options) {
-        return this._client.post('/fine_tuning/alpha/graders/run', { body, ...options });
+        return this._client.post('/fine_tuning/alpha/graders/run', {
+            body,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Validate a grader.
@@ -73677,11 +77678,15 @@ class Graders extends APIResource {
      * ```
      */
     validate(body, options) {
-        return this._client.post('/fine_tuning/alpha/graders/validate', { body, ...options });
+        return this._client.post('/fine_tuning/alpha/graders/validate', {
+            body,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
 }
 //# sourceMappingURL=graders.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/fine-tuning/alpha/alpha.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/fine-tuning/alpha/alpha.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -73694,11 +77699,14 @@ class Alpha extends APIResource {
 }
 Alpha.Graders = Graders;
 //# sourceMappingURL=alpha.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/fine-tuning/checkpoints/permissions.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/fine-tuning/checkpoints/permissions.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
+/**
+ * Manage fine-tuning jobs to tailor a model to your specific training data.
+ */
 class Permissions extends APIResource {
     /**
      * **NOTE:** Calling this endpoint requires an [admin API key](../admin-api-keys).
@@ -73718,7 +77726,22 @@ class Permissions extends APIResource {
      * ```
      */
     create(fineTunedModelCheckpoint, body, options) {
-        return this._client.getAPIList(path_path `/fine_tuning/checkpoints/${fineTunedModelCheckpoint}/permissions`, (Page), { body, method: 'post', ...options });
+        return this._client.getAPIList(path_path `/fine_tuning/checkpoints/${fineTunedModelCheckpoint}/permissions`, (Page), { body, method: 'post', ...options, __security: { adminAPIKeyAuth: true } });
+    }
+    /**
+     * **NOTE:** This endpoint requires an [admin API key](../admin-api-keys).
+     *
+     * Organization owners can use this endpoint to view all permissions for a
+     * fine-tuned model checkpoint.
+     *
+     * @deprecated Retrieve is deprecated. Please swap to the paginated list method instead.
+     */
+    retrieve(fineTunedModelCheckpoint, query = {}, options) {
+        return this._client.get(path_path `/fine_tuning/checkpoints/${fineTunedModelCheckpoint}/permissions`, {
+            query,
+            ...options,
+            __security: { adminAPIKeyAuth: true },
+        });
     }
     /**
      * **NOTE:** This endpoint requires an [admin API key](../admin-api-keys).
@@ -73728,17 +77751,16 @@ class Permissions extends APIResource {
      *
      * @example
      * ```ts
-     * const permission =
-     *   await client.fineTuning.checkpoints.permissions.retrieve(
-     *     'ft-AF1WoRqd3aJAHsqc9NY7iL8F',
-     *   );
+     * // Automatically fetches more pages as needed.
+     * for await (const permissionListResponse of client.fineTuning.checkpoints.permissions.list(
+     *   'ft-AF1WoRqd3aJAHsqc9NY7iL8F',
+     * )) {
+     *   // ...
+     * }
      * ```
      */
-    retrieve(fineTunedModelCheckpoint, query = {}, options) {
-        return this._client.get(path_path `/fine_tuning/checkpoints/${fineTunedModelCheckpoint}/permissions`, {
-            query,
-            ...options,
-        });
+    list(fineTunedModelCheckpoint, query = {}, options) {
+        return this._client.getAPIList(path_path `/fine_tuning/checkpoints/${fineTunedModelCheckpoint}/permissions`, (ConversationCursorPage), { query, ...options, __security: { adminAPIKeyAuth: true } });
     }
     /**
      * **NOTE:** This endpoint requires an [admin API key](../admin-api-keys).
@@ -73760,11 +77782,11 @@ class Permissions extends APIResource {
      */
     delete(permissionID, params, options) {
         const { fine_tuned_model_checkpoint } = params;
-        return this._client.delete(path_path `/fine_tuning/checkpoints/${fine_tuned_model_checkpoint}/permissions/${permissionID}`, options);
+        return this._client.delete(path_path `/fine_tuning/checkpoints/${fine_tuned_model_checkpoint}/permissions/${permissionID}`, { ...options, __security: { adminAPIKeyAuth: true } });
     }
 }
 //# sourceMappingURL=permissions.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/fine-tuning/checkpoints/checkpoints.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/fine-tuning/checkpoints/checkpoints.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -73777,11 +77799,14 @@ class Checkpoints extends APIResource {
 }
 Checkpoints.Permissions = Permissions;
 //# sourceMappingURL=checkpoints.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/fine-tuning/jobs/checkpoints.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/fine-tuning/jobs/checkpoints.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
+/**
+ * Manage fine-tuning jobs to tailor a model to your specific training data.
+ */
 class checkpoints_Checkpoints extends APIResource {
     /**
      * List checkpoints for a fine-tuning job.
@@ -73797,17 +77822,20 @@ class checkpoints_Checkpoints extends APIResource {
      * ```
      */
     list(fineTuningJobID, query = {}, options) {
-        return this._client.getAPIList(path_path `/fine_tuning/jobs/${fineTuningJobID}/checkpoints`, (CursorPage), { query, ...options });
+        return this._client.getAPIList(path_path `/fine_tuning/jobs/${fineTuningJobID}/checkpoints`, (CursorPage), { query, ...options, __security: { bearerAuth: true } });
     }
 }
 //# sourceMappingURL=checkpoints.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/fine-tuning/jobs/jobs.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/fine-tuning/jobs/jobs.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
 
 
+/**
+ * Manage fine-tuning jobs to tailor a model to your specific training data.
+ */
 class Jobs extends APIResource {
     constructor() {
         super(...arguments);
@@ -73831,7 +77859,7 @@ class Jobs extends APIResource {
      * ```
      */
     create(body, options) {
-        return this._client.post('/fine_tuning/jobs', { body, ...options });
+        return this._client.post('/fine_tuning/jobs', { body, ...options, __security: { bearerAuth: true } });
     }
     /**
      * Get info about a fine-tuning job.
@@ -73846,7 +77874,10 @@ class Jobs extends APIResource {
      * ```
      */
     retrieve(fineTuningJobID, options) {
-        return this._client.get(path_path `/fine_tuning/jobs/${fineTuningJobID}`, options);
+        return this._client.get(path_path `/fine_tuning/jobs/${fineTuningJobID}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * List your organization's fine-tuning jobs
@@ -73860,7 +77891,11 @@ class Jobs extends APIResource {
      * ```
      */
     list(query = {}, options) {
-        return this._client.getAPIList('/fine_tuning/jobs', (CursorPage), { query, ...options });
+        return this._client.getAPIList('/fine_tuning/jobs', (CursorPage), {
+            query,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Immediately cancel a fine-tune job.
@@ -73873,7 +77908,10 @@ class Jobs extends APIResource {
      * ```
      */
     cancel(fineTuningJobID, options) {
-        return this._client.post(path_path `/fine_tuning/jobs/${fineTuningJobID}/cancel`, options);
+        return this._client.post(path_path `/fine_tuning/jobs/${fineTuningJobID}/cancel`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Get status updates for a fine-tuning job.
@@ -73889,7 +77927,7 @@ class Jobs extends APIResource {
      * ```
      */
     listEvents(fineTuningJobID, query = {}, options) {
-        return this._client.getAPIList(path_path `/fine_tuning/jobs/${fineTuningJobID}/events`, (CursorPage), { query, ...options });
+        return this._client.getAPIList(path_path `/fine_tuning/jobs/${fineTuningJobID}/events`, (CursorPage), { query, ...options, __security: { bearerAuth: true } });
     }
     /**
      * Pause a fine-tune job.
@@ -73902,7 +77940,10 @@ class Jobs extends APIResource {
      * ```
      */
     pause(fineTuningJobID, options) {
-        return this._client.post(path_path `/fine_tuning/jobs/${fineTuningJobID}/pause`, options);
+        return this._client.post(path_path `/fine_tuning/jobs/${fineTuningJobID}/pause`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Resume a fine-tune job.
@@ -73915,12 +77956,15 @@ class Jobs extends APIResource {
      * ```
      */
     resume(fineTuningJobID, options) {
-        return this._client.post(path_path `/fine_tuning/jobs/${fineTuningJobID}/resume`, options);
+        return this._client.post(path_path `/fine_tuning/jobs/${fineTuningJobID}/resume`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
 }
 Jobs.Checkpoints = checkpoints_Checkpoints;
 //# sourceMappingURL=jobs.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/fine-tuning/fine-tuning.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/fine-tuning/fine-tuning.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -73945,13 +77989,13 @@ FineTuning.Jobs = Jobs;
 FineTuning.Checkpoints = Checkpoints;
 FineTuning.Alpha = Alpha;
 //# sourceMappingURL=fine-tuning.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/graders/grader-models.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/graders/grader-models.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 class GraderModels extends APIResource {
 }
 //# sourceMappingURL=grader-models.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/graders/graders.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/graders/graders.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -73964,10 +78008,13 @@ class graders_Graders extends APIResource {
 }
 graders_Graders.GraderModels = GraderModels;
 //# sourceMappingURL=graders.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/images.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/images.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
+/**
+ * Given a prompt and/or an input image, the model will generate a new image.
+ */
 class Images extends APIResource {
     /**
      * Creates a variation of a given image. This endpoint only supports `dall-e-2`.
@@ -73980,59 +78027,70 @@ class Images extends APIResource {
      * ```
      */
     createVariation(body, options) {
-        return this._client.post('/images/variations', multipartFormRequestOptions({ body, ...options }, this._client));
+        return this._client.post('/images/variations', multipartFormRequestOptions({ body, ...options, __security: { bearerAuth: true } }, this._client));
     }
     edit(body, options) {
-        return this._client.post('/images/edits', multipartFormRequestOptions({ body, ...options, stream: body.stream ?? false }, this._client));
+        return this._client.post('/images/edits', multipartFormRequestOptions({ body, ...options, stream: body.stream ?? false, __security: { bearerAuth: true } }, this._client));
     }
     generate(body, options) {
-        return this._client.post('/images/generations', { body, ...options, stream: body.stream ?? false });
+        return this._client.post('/images/generations', {
+            body,
+            ...options,
+            stream: body.stream ?? false,
+            __security: { bearerAuth: true },
+        });
     }
 }
 //# sourceMappingURL=images.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/models.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/models.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
+/**
+ * List and describe the various models available in the API.
+ */
 class Models extends APIResource {
     /**
      * Retrieves a model instance, providing basic information about the model such as
      * the owner and permissioning.
      */
     retrieve(model, options) {
-        return this._client.get(path_path `/models/${model}`, options);
+        return this._client.get(path_path `/models/${model}`, { ...options, __security: { bearerAuth: true } });
     }
     /**
      * Lists the currently available models, and provides basic information about each
      * one such as the owner and availability.
      */
     list(options) {
-        return this._client.getAPIList('/models', (Page), options);
+        return this._client.getAPIList('/models', (Page), { ...options, __security: { bearerAuth: true } });
     }
     /**
      * Delete a fine-tuned model. You must have the Owner role in your organization to
      * delete a model.
      */
     delete(model, options) {
-        return this._client.delete(path_path `/models/${model}`, options);
+        return this._client.delete(path_path `/models/${model}`, { ...options, __security: { bearerAuth: true } });
     }
 }
 //# sourceMappingURL=models.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/moderations.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/moderations.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+/**
+ * Given text and/or image inputs, classifies if those inputs are potentially harmful.
+ */
 class Moderations extends APIResource {
     /**
      * Classifies if text and/or image inputs are potentially harmful. Learn more in
      * the [moderation guide](https://platform.openai.com/docs/guides/moderation).
      */
     create(body, options) {
-        return this._client.post('/moderations', { body, ...options });
+        return this._client.post('/moderations', { body, ...options, __security: { bearerAuth: true } });
     }
 }
 //# sourceMappingURL=moderations.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/realtime/calls.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/realtime/calls.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -74054,6 +78112,7 @@ class Calls extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -74068,6 +78127,7 @@ class Calls extends APIResource {
         return this._client.post(path_path `/realtime/calls/${callID}/hangup`, {
             ...options,
             headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -74085,6 +78145,7 @@ class Calls extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -74100,16 +78161,31 @@ class Calls extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
 }
 //# sourceMappingURL=calls.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/realtime/client-secrets.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/realtime/client-secrets.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 class ClientSecrets extends APIResource {
     /**
      * Create a Realtime client secret with an associated session configuration.
+     *
+     * Client secrets are short-lived tokens that can be passed to a client app, such
+     * as a web frontend or mobile client, which grants access to the Realtime API
+     * without leaking your main API key. You can configure a custom TTL for each
+     * client secret.
+     *
+     * You can also attach session configuration options to the client secret, which
+     * will be applied to any sessions created using that client secret, but these can
+     * also be overridden by the client connection.
+     *
+     * [Learn more about authentication with client secrets over WebRTC](https://platform.openai.com/docs/guides/realtime-webrtc).
+     *
+     * Returns the created client secret and the effective session object. The client
+     * secret is a string that looks like `ek_1234`.
      *
      * @example
      * ```ts
@@ -74118,11 +78194,15 @@ class ClientSecrets extends APIResource {
      * ```
      */
     create(body, options) {
-        return this._client.post('/realtime/client_secrets', { body, ...options });
+        return this._client.post('/realtime/client_secrets', {
+            body,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
 }
 //# sourceMappingURL=client-secrets.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/realtime/realtime.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/realtime/realtime.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -74139,12 +78219,12 @@ class realtime_Realtime extends APIResource {
 realtime_Realtime.ClientSecrets = ClientSecrets;
 realtime_Realtime.Calls = Calls;
 //# sourceMappingURL=realtime.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/lib/ResponsesParser.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/lib/ResponsesParser.mjs
 
 
 function maybeParseResponse(response, params) {
     if (!params || !ResponsesParser_hasAutoParseableInput(params)) {
-        return {
+        const parsed = {
             ...response,
             output_parsed: null,
             output: response.output.map((item) => {
@@ -74168,23 +78248,25 @@ function maybeParseResponse(response, params) {
                 }
             }),
         };
+        if (needsOutputText(response, parsed)) {
+            addOutputText(parsed);
+        }
+        return parsed;
     }
     return parseResponse(response, params);
 }
 function parseResponse(response, params) {
+    const shouldParse = !response.status || response.status === 'completed';
     const output = response.output.map((item) => {
         if (item.type === 'function_call') {
-            return {
-                ...item,
-                parsed_arguments: ResponsesParser_parseToolCall(params, item),
-            };
+            return shouldParse ? ResponsesParser_parseToolCall(params, item) : { ...item, parsed_arguments: null };
         }
         if (item.type === 'message') {
             const content = item.content.map((content) => {
                 if (content.type === 'output_text') {
                     return {
                         ...content,
-                        parsed: parseTextFormat(params, content.text),
+                        parsed: shouldParse ? parseTextFormat(params, content.text) : null,
                     };
                 }
                 return content;
@@ -74197,7 +78279,7 @@ function parseResponse(response, params) {
         return item;
     });
     const parsed = Object.assign({}, response, { output });
-    if (!Object.getOwnPropertyDescriptor(response, 'output_text')) {
+    if (needsOutputText(response, parsed)) {
         addOutputText(parsed);
     }
     Object.defineProperty(parsed, 'output_parsed', {
@@ -74232,7 +78314,8 @@ function ResponsesParser_hasAutoParseableInput(params) {
     if (isAutoParsableResponseFormat(params.text?.format)) {
         return true;
     }
-    return false;
+    return (Array.isArray(params.tools) &&
+        params.tools.some((tool) => ResponsesParser_isAutoParsableTool(tool) || (tool.type === 'function' && tool.strict === true)));
 }
 function makeParseableResponseTool(tool, { parser, callback, }) {
     const obj = { ...tool };
@@ -74285,6 +78368,9 @@ function ResponsesParser_validateInputTools(tools) {
         }
     }
 }
+function needsOutputText(response, target) {
+    return !Object.getOwnPropertyDescriptor(response, 'output_text') || target.output_text == null;
+}
 function addOutputText(rsp) {
     const texts = [];
     for (const output of rsp.output) {
@@ -74300,8 +78386,411 @@ function addOutputText(rsp) {
     rsp.output_text = texts.join('');
 }
 //# sourceMappingURL=ResponsesParser.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/lib/responses/ResponseStream.mjs
-var _ResponseStream_instances, _ResponseStream_params, _ResponseStream_currentResponseSnapshot, _ResponseStream_finalResponse, _ResponseStream_beginRequest, _ResponseStream_addEvent, _ResponseStream_endRequest, _ResponseStream_accumulateResponse;
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/lib/responses/ResponseAccumulator.mjs
+
+
+/**
+ * Applies a streaming event to a response snapshot.
+ *
+ * Always use the returned snapshot. Incremental events update the supplied snapshot
+ * in place, while response lifecycle events return a detached replacement. Event
+ * payloads are cloned, so retaining or replaying the raw events is safe.
+ */
+function accumulateResponse(event, snapshot) {
+    if (!snapshot) {
+        if (event.type !== 'response.created') {
+            throw new error_OpenAIError(`When snapshot hasn't been set yet, expected 'response.created' event, got ${event.type}`);
+        }
+        return cloneResponse(event.response);
+    }
+    switch (event.type) {
+        case 'response.output_item.added': {
+            snapshot.output.push(structuredClone(event.item));
+            if (event.item.type === 'message') {
+                addOutputText(snapshot);
+            }
+            break;
+        }
+        case 'response.output_item.done': {
+            getOutput(snapshot, event.output_index);
+            snapshot.output[event.output_index] = structuredClone(event.item);
+            if (event.item.type === 'message') {
+                addOutputText(snapshot);
+            }
+            break;
+        }
+        case 'response.content_part.added': {
+            const output = getOutput(snapshot, event.output_index);
+            const type = output.type;
+            const part = event.part;
+            if (type === 'message' && part.type !== 'reasoning_text') {
+                output.content.push(structuredClone(part));
+                if (part.type === 'output_text') {
+                    addOutputText(snapshot);
+                }
+            }
+            else if (type === 'reasoning' && part.type === 'reasoning_text') {
+                if (!output.content) {
+                    output.content = [];
+                }
+                output.content.push(structuredClone(part));
+            }
+            break;
+        }
+        case 'response.content_part.done': {
+            const output = getOutput(snapshot, event.output_index);
+            const part = event.part;
+            if (output.type === 'message' && part.type !== 'reasoning_text') {
+                getContent(output.content, event.content_index);
+                output.content[event.content_index] = structuredClone(part);
+                if (part.type === 'output_text') {
+                    addOutputText(snapshot);
+                }
+            }
+            else if (output.type === 'reasoning' && part.type === 'reasoning_text') {
+                const content = output.content;
+                if (!content) {
+                    throw new error_OpenAIError(`missing content at index ${event.content_index}`);
+                }
+                getContent(content, event.content_index);
+                content[event.content_index] = structuredClone(part);
+            }
+            break;
+        }
+        case 'response.output_text.delta': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'message') {
+                const content = getContent(output.content, event.content_index);
+                if (content.type !== 'output_text') {
+                    throw new error_OpenAIError(`expected content to be 'output_text', got ${content.type}`);
+                }
+                content.text += event.delta;
+                snapshot.output_text += event.delta;
+            }
+            break;
+        }
+        case 'response.output_text.done': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'message') {
+                const content = getContent(output.content, event.content_index);
+                if (content.type !== 'output_text') {
+                    throw new error_OpenAIError(`expected content to be 'output_text', got ${content.type}`);
+                }
+                content.text = event.text;
+                addOutputText(snapshot);
+            }
+            break;
+        }
+        case 'response.output_text.annotation.added': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'message') {
+                const content = getContent(output.content, event.content_index);
+                if (content.type !== 'output_text') {
+                    throw new error_OpenAIError(`expected content to be 'output_text', got ${content.type}`);
+                }
+                content.annotations[event.annotation_index] = structuredClone(event.annotation);
+            }
+            break;
+        }
+        case 'response.refusal.delta': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'message') {
+                const content = getContent(output.content, event.content_index);
+                if (content.type !== 'refusal') {
+                    throw new error_OpenAIError(`expected content to be 'refusal', got ${content.type}`);
+                }
+                content.refusal += event.delta;
+            }
+            break;
+        }
+        case 'response.refusal.done': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'message') {
+                const content = getContent(output.content, event.content_index);
+                if (content.type !== 'refusal') {
+                    throw new error_OpenAIError(`expected content to be 'refusal', got ${content.type}`);
+                }
+                content.refusal = event.refusal;
+            }
+            break;
+        }
+        case 'response.function_call_arguments.delta': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'function_call') {
+                output.arguments += event.delta;
+            }
+            break;
+        }
+        case 'response.function_call_arguments.done': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'function_call') {
+                output.arguments = event.arguments;
+            }
+            break;
+        }
+        case 'response.reasoning_text.delta': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'reasoning') {
+                if (!output.content) {
+                    throw new error_OpenAIError(`missing content at index ${event.content_index}`);
+                }
+                const content = getContent(output.content, event.content_index);
+                if (content.type !== 'reasoning_text') {
+                    throw new error_OpenAIError(`expected content to be 'reasoning_text', got ${content.type}`);
+                }
+                content.text += event.delta;
+            }
+            break;
+        }
+        case 'response.reasoning_text.done': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'reasoning') {
+                if (!output.content) {
+                    throw new error_OpenAIError(`missing content at index ${event.content_index}`);
+                }
+                const content = getContent(output.content, event.content_index);
+                if (content.type !== 'reasoning_text') {
+                    throw new error_OpenAIError(`expected content to be 'reasoning_text', got ${content.type}`);
+                }
+                content.text = event.text;
+            }
+            break;
+        }
+        case 'response.reasoning_summary_part.added': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'reasoning') {
+                output.summary.push(structuredClone(event.part));
+            }
+            break;
+        }
+        case 'response.reasoning_summary_part.done': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'reasoning') {
+                getContent(output.summary, event.summary_index);
+                output.summary[event.summary_index] = structuredClone(event.part);
+            }
+            break;
+        }
+        case 'response.reasoning_summary_text.delta': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'reasoning') {
+                const part = getContent(output.summary, event.summary_index);
+                part.text += event.delta;
+            }
+            break;
+        }
+        case 'response.reasoning_summary_text.done': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'reasoning') {
+                const part = getContent(output.summary, event.summary_index);
+                part.text = event.text;
+            }
+            break;
+        }
+        case 'response.custom_tool_call_input.delta': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'custom_tool_call') {
+                output.input += event.delta;
+            }
+            break;
+        }
+        case 'response.custom_tool_call_input.done': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'custom_tool_call') {
+                output.input = event.input;
+            }
+            break;
+        }
+        case 'response.mcp_call_arguments.delta': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'mcp_call') {
+                output.arguments += event.delta;
+            }
+            break;
+        }
+        case 'response.mcp_call_arguments.done': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'mcp_call') {
+                output.arguments = event.arguments;
+            }
+            break;
+        }
+        case 'response.code_interpreter_call_code.delta': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'code_interpreter_call') {
+                output.code = (output.code ?? '') + event.delta;
+            }
+            break;
+        }
+        case 'response.code_interpreter_call_code.done': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'code_interpreter_call') {
+                output.code = event.code;
+            }
+            break;
+        }
+        case 'response.code_interpreter_call.in_progress': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'code_interpreter_call') {
+                output.status = 'in_progress';
+            }
+            break;
+        }
+        case 'response.code_interpreter_call.interpreting': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'code_interpreter_call') {
+                output.status = 'interpreting';
+            }
+            break;
+        }
+        case 'response.code_interpreter_call.completed': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'code_interpreter_call') {
+                output.status = 'completed';
+            }
+            break;
+        }
+        case 'response.file_search_call.in_progress': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'file_search_call') {
+                output.status = 'in_progress';
+            }
+            break;
+        }
+        case 'response.file_search_call.searching': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'file_search_call') {
+                output.status = 'searching';
+            }
+            break;
+        }
+        case 'response.file_search_call.completed': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'file_search_call') {
+                output.status = 'completed';
+            }
+            break;
+        }
+        case 'response.web_search_call.in_progress': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'web_search_call') {
+                output.status = 'in_progress';
+            }
+            break;
+        }
+        case 'response.web_search_call.searching': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'web_search_call') {
+                output.status = 'searching';
+            }
+            break;
+        }
+        case 'response.web_search_call.completed': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'web_search_call') {
+                output.status = 'completed';
+            }
+            break;
+        }
+        case 'response.image_generation_call.in_progress': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'image_generation_call') {
+                output.status = 'in_progress';
+            }
+            break;
+        }
+        case 'response.image_generation_call.generating': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'image_generation_call') {
+                output.status = 'generating';
+            }
+            break;
+        }
+        case 'response.image_generation_call.completed': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'image_generation_call') {
+                output.status = 'completed';
+            }
+            break;
+        }
+        case 'response.mcp_call.in_progress': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'mcp_call') {
+                output.status = 'in_progress';
+            }
+            break;
+        }
+        case 'response.mcp_call.completed': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'mcp_call') {
+                output.status = 'completed';
+            }
+            break;
+        }
+        case 'response.mcp_call.failed': {
+            const output = getOutput(snapshot, event.output_index);
+            if (output.type === 'mcp_call') {
+                output.status = 'failed';
+            }
+            break;
+        }
+        case 'response.created':
+        case 'response.queued':
+        case 'response.in_progress':
+        case 'response.completed':
+        case 'response.failed':
+        case 'response.incomplete': {
+            snapshot = cloneResponse(event.response);
+            break;
+        }
+        case 'response.audio.delta':
+        case 'response.audio.done':
+        case 'response.audio.transcript.delta':
+        case 'response.audio.transcript.done':
+        case 'response.image_generation_call.partial_image':
+        case 'response.mcp_list_tools.in_progress':
+        case 'response.mcp_list_tools.completed':
+        case 'response.mcp_list_tools.failed':
+        case 'keepalive':
+        case 'error': {
+            // These events do not contain state represented by the Response object.
+            break;
+        }
+        default: {
+            ResponseAccumulator_assertNever(event);
+        }
+    }
+    return snapshot;
+}
+function cloneResponse(response) {
+    const snapshot = structuredClone(response);
+    if (!Object.getOwnPropertyDescriptor(snapshot, 'output_text') || snapshot.output_text == null) {
+        addOutputText(snapshot);
+    }
+    return snapshot;
+}
+function getOutput(snapshot, outputIndex) {
+    const output = snapshot.output[outputIndex];
+    if (!output) {
+        throw new error_OpenAIError(`missing output at index ${outputIndex}`);
+    }
+    return output;
+}
+function getContent(content, contentIndex) {
+    const part = content[contentIndex];
+    if (!part) {
+        throw new error_OpenAIError(`missing content at index ${contentIndex}`);
+    }
+    return part;
+}
+function ResponseAccumulator_assertNever(value) {
+    throw new error_OpenAIError(`Unhandled response stream event: ${JSON.stringify(value)}`);
+}
+//# sourceMappingURL=ResponseAccumulator.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/lib/responses/ResponseStream.mjs
+var _ResponseStream_instances, _ResponseStream_params, _ResponseStream_currentResponseSnapshot, _ResponseStream_finalResponse, _ResponseStream_beginRequest, _ResponseStream_addEvent, _ResponseStream_endRequest;
+
+
 
 
 
@@ -74323,17 +78812,19 @@ class ResponseStream extends EventStream {
         }));
         return runner;
     }
+    static fromReadableStream(stream) {
+        const runner = new ResponseStream(null);
+        runner._run(() => runner._fromReadableStream(stream));
+        return runner;
+    }
     async _createOrRetrieveResponse(client, params, options) {
-        const signal = options?.signal;
-        if (signal) {
-            if (signal.aborted)
-                this.controller.abort();
-            signal.addEventListener('abort', () => this.controller.abort());
-        }
+        this._listenForAbort(options?.signal);
         __classPrivateFieldGet(this, _ResponseStream_instances, "m", _ResponseStream_beginRequest).call(this);
         let stream;
         let starting_after = null;
         if ('response_id' in params) {
+            // Keep the full replay so that `accumulateResponse()` sees `response.created` and can build
+            // complete snapshots before locally filtering events at `starting_after`.
             stream = await client.responses.retrieve(params.response_id, { stream: true }, { ...options, signal: this.controller.signal, stream: true });
             starting_after = params.starting_after ?? null;
         }
@@ -74343,6 +78834,19 @@ class ResponseStream extends EventStream {
         this._connected();
         for await (const event of stream) {
             __classPrivateFieldGet(this, _ResponseStream_instances, "m", _ResponseStream_addEvent).call(this, event, starting_after);
+        }
+        if (stream.controller.signal?.aborted) {
+            throw new APIUserAbortError();
+        }
+        return __classPrivateFieldGet(this, _ResponseStream_instances, "m", _ResponseStream_endRequest).call(this);
+    }
+    async _fromReadableStream(readableStream, options) {
+        this._listenForAbort(options?.signal);
+        __classPrivateFieldGet(this, _ResponseStream_instances, "m", _ResponseStream_beginRequest).call(this);
+        this._connected();
+        const stream = Stream.fromReadableStream(readableStream, this.controller);
+        for await (const event of stream) {
+            __classPrivateFieldGet(this, _ResponseStream_instances, "m", _ResponseStream_addEvent).call(this, event, null);
         }
         if (stream.controller.signal?.aborted) {
             throw new APIUserAbortError();
@@ -74361,7 +78865,8 @@ class ResponseStream extends EventStream {
                 this._emit(name, event);
             }
         };
-        const response = __classPrivateFieldGet(this, _ResponseStream_instances, "m", _ResponseStream_accumulateResponse).call(this, event);
+        const response = accumulateResponse(event, __classPrivateFieldGet(this, _ResponseStream_currentResponseSnapshot, "f"));
+        __classPrivateFieldSet(this, _ResponseStream_currentResponseSnapshot, response, "f");
         maybeEmit('event', event);
         switch (event.type) {
             case 'response.output_text.delta': {
@@ -74413,88 +78918,6 @@ class ResponseStream extends EventStream {
         const parsedResponse = finalizeResponse(snapshot, __classPrivateFieldGet(this, _ResponseStream_params, "f"));
         __classPrivateFieldSet(this, _ResponseStream_finalResponse, parsedResponse, "f");
         return parsedResponse;
-    }, _ResponseStream_accumulateResponse = function _ResponseStream_accumulateResponse(event) {
-        let snapshot = __classPrivateFieldGet(this, _ResponseStream_currentResponseSnapshot, "f");
-        if (!snapshot) {
-            if (event.type !== 'response.created') {
-                throw new error_OpenAIError(`When snapshot hasn't been set yet, expected 'response.created' event, got ${event.type}`);
-            }
-            snapshot = __classPrivateFieldSet(this, _ResponseStream_currentResponseSnapshot, event.response, "f");
-            return snapshot;
-        }
-        switch (event.type) {
-            case 'response.output_item.added': {
-                snapshot.output.push(event.item);
-                break;
-            }
-            case 'response.content_part.added': {
-                const output = snapshot.output[event.output_index];
-                if (!output) {
-                    throw new error_OpenAIError(`missing output at index ${event.output_index}`);
-                }
-                const type = output.type;
-                const part = event.part;
-                if (type === 'message' && part.type !== 'reasoning_text') {
-                    output.content.push(part);
-                }
-                else if (type === 'reasoning' && part.type === 'reasoning_text') {
-                    if (!output.content) {
-                        output.content = [];
-                    }
-                    output.content.push(part);
-                }
-                break;
-            }
-            case 'response.output_text.delta': {
-                const output = snapshot.output[event.output_index];
-                if (!output) {
-                    throw new error_OpenAIError(`missing output at index ${event.output_index}`);
-                }
-                if (output.type === 'message') {
-                    const content = output.content[event.content_index];
-                    if (!content) {
-                        throw new error_OpenAIError(`missing content at index ${event.content_index}`);
-                    }
-                    if (content.type !== 'output_text') {
-                        throw new error_OpenAIError(`expected content to be 'output_text', got ${content.type}`);
-                    }
-                    content.text += event.delta;
-                }
-                break;
-            }
-            case 'response.function_call_arguments.delta': {
-                const output = snapshot.output[event.output_index];
-                if (!output) {
-                    throw new error_OpenAIError(`missing output at index ${event.output_index}`);
-                }
-                if (output.type === 'function_call') {
-                    output.arguments += event.delta;
-                }
-                break;
-            }
-            case 'response.reasoning_text.delta': {
-                const output = snapshot.output[event.output_index];
-                if (!output) {
-                    throw new error_OpenAIError(`missing output at index ${event.output_index}`);
-                }
-                if (output.type === 'reasoning') {
-                    const content = output.content?.[event.content_index];
-                    if (!content) {
-                        throw new error_OpenAIError(`missing content at index ${event.content_index}`);
-                    }
-                    if (content.type !== 'reasoning_text') {
-                        throw new error_OpenAIError(`expected content to be 'reasoning_text', got ${content.type}`);
-                    }
-                    content.text += event.delta;
-                }
-                break;
-            }
-            case 'response.completed': {
-                __classPrivateFieldSet(this, _ResponseStream_currentResponseSnapshot, event.response, "f");
-                break;
-            }
-        }
-        return snapshot;
     }, Symbol.asyncIterator)]() {
         const pushQueue = [];
         const readQueue = [];
@@ -74562,12 +78985,12 @@ function finalizeResponse(snapshot, params) {
     return maybeParseResponse(snapshot, params);
 }
 //# sourceMappingURL=ResponseStream.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/responses/input-items.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/responses/input-items.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
-class InputItems extends APIResource {
+class input_items_InputItems extends APIResource {
     /**
      * Returns a list of input items for a given response.
      *
@@ -74582,16 +79005,19 @@ class InputItems extends APIResource {
      * ```
      */
     list(responseID, query = {}, options) {
-        return this._client.getAPIList(path_path `/responses/${responseID}/input_items`, (CursorPage), { query, ...options });
+        return this._client.getAPIList(path_path `/responses/${responseID}/input_items`, (CursorPage), { query, ...options, __security: { bearerAuth: true } });
     }
 }
 //# sourceMappingURL=input-items.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/responses/input-tokens.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/responses/input-tokens.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-class InputTokens extends APIResource {
+class input_tokens_InputTokens extends APIResource {
     /**
-     * Get input token counts
+     * Returns input token counts of the request.
+     *
+     * Returns an object with `object` set to `response.input_tokens` and an
+     * `input_tokens` count.
      *
      * @example
      * ```ts
@@ -74599,11 +79025,15 @@ class InputTokens extends APIResource {
      * ```
      */
     count(body = {}, options) {
-        return this._client.post('/responses/input_tokens', { body, ...options });
+        return this._client.post('/responses/input_tokens', {
+            body,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
 }
 //# sourceMappingURL=input-tokens.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/responses/responses.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/responses/responses.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -74614,14 +79044,19 @@ class InputTokens extends APIResource {
 
 
 
-class Responses extends APIResource {
+class responses_Responses extends APIResource {
     constructor() {
         super(...arguments);
-        this.inputItems = new InputItems(this._client);
-        this.inputTokens = new InputTokens(this._client);
+        this.inputItems = new input_items_InputItems(this._client);
+        this.inputTokens = new input_tokens_InputTokens(this._client);
     }
     create(body, options) {
-        return this._client.post('/responses', { body, ...options, stream: body.stream ?? false })._thenUnwrap((rsp) => {
+        return this._client.post('/responses', {
+            body,
+            ...options,
+            stream: body.stream ?? false,
+            __security: { bearerAuth: true },
+        })._thenUnwrap((rsp) => {
             if ('object' in rsp && rsp.object === 'response') {
                 addOutputText(rsp);
             }
@@ -74633,6 +79068,7 @@ class Responses extends APIResource {
             query,
             ...options,
             stream: query?.stream ?? false,
+            __security: { bearerAuth: true },
         })._thenUnwrap((rsp) => {
             if ('object' in rsp && rsp.object === 'response') {
                 addOutputText(rsp);
@@ -74654,6 +79090,7 @@ class Responses extends APIResource {
         return this._client.delete(path_path `/responses/${responseID}`, {
             ...options,
             headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     parse(body, options) {
@@ -74680,63 +79117,73 @@ class Responses extends APIResource {
      * ```
      */
     cancel(responseID, options) {
-        return this._client.post(path_path `/responses/${responseID}/cancel`, options);
+        return this._client.post(path_path `/responses/${responseID}/cancel`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
-     * Compact conversation
+     * Compact a conversation. Returns a compacted response object.
+     *
+     * Learn when and how to compact long-running conversations in the
+     * [conversation state guide](https://platform.openai.com/docs/guides/conversation-state#managing-the-context-window).
+     * For ZDR-compatible compaction details, see
+     * [Compaction (advanced)](https://platform.openai.com/docs/guides/conversation-state#compaction-advanced).
      *
      * @example
      * ```ts
      * const compactedResponse = await client.responses.compact({
-     *   model: 'gpt-5.2',
+     *   model: 'gpt-5.6-sol',
      * });
      * ```
      */
     compact(body, options) {
-        return this._client.post('/responses/compact', { body, ...options });
+        return this._client.post('/responses/compact', { body, ...options, __security: { bearerAuth: true } });
     }
 }
-Responses.InputItems = InputItems;
-Responses.InputTokens = InputTokens;
+responses_Responses.InputItems = input_items_InputItems;
+responses_Responses.InputTokens = input_tokens_InputTokens;
 //# sourceMappingURL=responses.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/skills/content.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/skills/content.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
 class content_Content extends APIResource {
     /**
-     * Get Skill Content
+     * Download a skill zip bundle by its ID.
      */
     retrieve(skillID, options) {
         return this._client.get(path_path `/skills/${skillID}/content`, {
             ...options,
             headers: buildHeaders([{ Accept: 'application/binary' }, options?.headers]),
+            __security: { bearerAuth: true },
             __binaryResponse: true,
         });
     }
 }
 //# sourceMappingURL=content.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/skills/versions/content.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/skills/versions/content.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
 class versions_content_Content extends APIResource {
     /**
-     * Get Skill Version Content
+     * Download a skill version zip bundle.
      */
     retrieve(version, params, options) {
         const { skill_id } = params;
         return this._client.get(path_path `/skills/${skill_id}/versions/${version}/content`, {
             ...options,
             headers: buildHeaders([{ Accept: 'application/binary' }, options?.headers]),
+            __security: { bearerAuth: true },
             __binaryResponse: true,
         });
     }
 }
 //# sourceMappingURL=content.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/skills/versions/versions.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/skills/versions/versions.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -74750,38 +79197,45 @@ class Versions extends APIResource {
         this.content = new versions_content_Content(this._client);
     }
     /**
-     * Create Skill Version
+     * Create a new immutable skill version.
      */
     create(skillID, body = {}, options) {
-        return this._client.post(path_path `/skills/${skillID}/versions`, maybeMultipartFormRequestOptions({ body, ...options }, this._client));
+        return this._client.post(path_path `/skills/${skillID}/versions`, maybeMultipartFormRequestOptions({ body, ...options, __security: { bearerAuth: true } }, this._client));
     }
     /**
-     * Get Skill Version
+     * Get a specific skill version.
      */
     retrieve(version, params, options) {
         const { skill_id } = params;
-        return this._client.get(path_path `/skills/${skill_id}/versions/${version}`, options);
+        return this._client.get(path_path `/skills/${skill_id}/versions/${version}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
-     * List Skill Versions
+     * List skill versions for a skill.
      */
     list(skillID, query = {}, options) {
         return this._client.getAPIList(path_path `/skills/${skillID}/versions`, (CursorPage), {
             query,
             ...options,
+            __security: { bearerAuth: true },
         });
     }
     /**
-     * Delete Skill Version
+     * Delete a skill version.
      */
     delete(version, params, options) {
         const { skill_id } = params;
-        return this._client.delete(path_path `/skills/${skill_id}/versions/${version}`, options);
+        return this._client.delete(path_path `/skills/${skill_id}/versions/${version}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
 }
 Versions.Content = versions_content_Content;
 //# sourceMappingURL=versions.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/skills/skills.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/skills/skills.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -74798,44 +79252,55 @@ class Skills extends APIResource {
         this.versions = new Versions(this._client);
     }
     /**
-     * Create Skill
+     * Create a new skill.
      */
     create(body = {}, options) {
-        return this._client.post('/skills', maybeMultipartFormRequestOptions({ body, ...options }, this._client));
+        return this._client.post('/skills', maybeMultipartFormRequestOptions({ body, ...options, __security: { bearerAuth: true } }, this._client));
     }
     /**
-     * Get Skill
+     * Get a skill by its ID.
      */
     retrieve(skillID, options) {
-        return this._client.get(path_path `/skills/${skillID}`, options);
+        return this._client.get(path_path `/skills/${skillID}`, { ...options, __security: { bearerAuth: true } });
     }
     /**
-     * Update Skill Default Version
+     * Update the default version pointer for a skill.
      */
     update(skillID, body, options) {
-        return this._client.post(path_path `/skills/${skillID}`, { body, ...options });
+        return this._client.post(path_path `/skills/${skillID}`, {
+            body,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
-     * List Skills
+     * List all skills for the current project.
      */
     list(query = {}, options) {
-        return this._client.getAPIList('/skills', (CursorPage), { query, ...options });
+        return this._client.getAPIList('/skills', (CursorPage), {
+            query,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
-     * Delete Skill
+     * Delete a skill by its ID.
      */
     delete(skillID, options) {
-        return this._client.delete(path_path `/skills/${skillID}`, options);
+        return this._client.delete(path_path `/skills/${skillID}`, { ...options, __security: { bearerAuth: true } });
     }
 }
 Skills.Content = content_Content;
 Skills.Versions = Versions;
 //# sourceMappingURL=skills.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/uploads/parts.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/uploads/parts.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
+/**
+ * Use Uploads to upload large files in multiple parts.
+ */
 class Parts extends APIResource {
     /**
      * Adds a
@@ -74851,16 +79316,19 @@ class Parts extends APIResource {
      * [complete the Upload](https://platform.openai.com/docs/api-reference/uploads/complete).
      */
     create(uploadID, body, options) {
-        return this._client.post(path_path `/uploads/${uploadID}/parts`, multipartFormRequestOptions({ body, ...options }, this._client));
+        return this._client.post(path_path `/uploads/${uploadID}/parts`, multipartFormRequestOptions({ body, ...options, __security: { bearerAuth: true } }, this._client));
     }
 }
 //# sourceMappingURL=parts.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/uploads/uploads.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/uploads/uploads.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
 
 
+/**
+ * Use Uploads to upload large files in multiple parts.
+ */
 class Uploads extends APIResource {
     constructor() {
         super(...arguments);
@@ -74886,15 +79354,22 @@ class Uploads extends APIResource {
      * For guidance on the proper filename extensions for each purpose, please follow
      * the documentation on
      * [creating a File](https://platform.openai.com/docs/api-reference/files/create).
+     *
+     * Returns the Upload object with status `pending`.
      */
     create(body, options) {
-        return this._client.post('/uploads', { body, ...options });
+        return this._client.post('/uploads', { body, ...options, __security: { bearerAuth: true } });
     }
     /**
      * Cancels the Upload. No Parts may be added after an Upload is cancelled.
+     *
+     * Returns the Upload object with status `cancelled`.
      */
     cancel(uploadID, options) {
-        return this._client.post(path_path `/uploads/${uploadID}/cancel`, options);
+        return this._client.post(path_path `/uploads/${uploadID}/cancel`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Completes the
@@ -74909,15 +79384,21 @@ class Uploads extends APIResource {
      *
      * The number of bytes uploaded upon completion must match the number of bytes
      * initially specified when creating the Upload object. No Parts may be added after
-     * an Upload is completed.
+     * an Upload is completed. Returns the Upload object with status `completed`,
+     * including an additional `file` property containing the created usable File
+     * object.
      */
     complete(uploadID, body, options) {
-        return this._client.post(path_path `/uploads/${uploadID}/complete`, { body, ...options });
+        return this._client.post(path_path `/uploads/${uploadID}/complete`, {
+            body,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
 }
 Uploads.Parts = Parts;
 //# sourceMappingURL=uploads.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/lib/Util.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/lib/Util.mjs
 /**
  * Like `Promise.allSettled()` but throws an error if any promises are rejected.
  */
@@ -74940,7 +79421,7 @@ const allSettledWithThrow = async (promises) => {
     return values;
 };
 //# sourceMappingURL=Util.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/vector-stores/file-batches.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/vector-stores/file-batches.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -74957,6 +79438,7 @@ class FileBatches extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -74967,6 +79449,7 @@ class FileBatches extends APIResource {
         return this._client.get(path_path `/vector_stores/${vector_store_id}/file_batches/${batchID}`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -74978,6 +79461,7 @@ class FileBatches extends APIResource {
         return this._client.post(path_path `/vector_stores/${vector_store_id}/file_batches/${batchID}/cancel`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -74992,7 +79476,12 @@ class FileBatches extends APIResource {
      */
     listFiles(batchID, params, options) {
         const { vector_store_id, ...query } = params;
-        return this._client.getAPIList(path_path `/vector_stores/${vector_store_id}/file_batches/${batchID}/files`, (CursorPage), { query, ...options, headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]) });
+        return this._client.getAPIList(path_path `/vector_stores/${vector_store_id}/file_batches/${batchID}/files`, (CursorPage), {
+            query,
+            ...options,
+            headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
+        });
     }
     /**
      * Wait for the given file batch to be processed.
@@ -75070,7 +79559,7 @@ class FileBatches extends APIResource {
     }
 }
 //# sourceMappingURL=file-batches.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/vector-stores/files.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/vector-stores/files.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -75088,6 +79577,7 @@ class vector_stores_files_Files extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -75098,6 +79588,7 @@ class vector_stores_files_Files extends APIResource {
         return this._client.get(path_path `/vector_stores/${vector_store_id}/files/${fileID}`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -75109,6 +79600,7 @@ class vector_stores_files_Files extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -75119,6 +79611,7 @@ class vector_stores_files_Files extends APIResource {
             query,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -75132,6 +79625,7 @@ class vector_stores_files_Files extends APIResource {
         return this._client.delete(path_path `/vector_stores/${vector_store_id}/files/${fileID}`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -75205,11 +79699,15 @@ class vector_stores_files_Files extends APIResource {
      */
     content(fileID, params, options) {
         const { vector_store_id } = params;
-        return this._client.getAPIList(path_path `/vector_stores/${vector_store_id}/files/${fileID}/content`, (Page), { ...options, headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]) });
+        return this._client.getAPIList(path_path `/vector_stores/${vector_store_id}/files/${fileID}/content`, (Page), {
+            ...options,
+            headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
+        });
     }
 }
 //# sourceMappingURL=files.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/vector-stores/vector-stores.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/vector-stores/vector-stores.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -75233,6 +79731,7 @@ class VectorStores extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -75242,6 +79741,7 @@ class VectorStores extends APIResource {
         return this._client.get(path_path `/vector_stores/${vectorStoreID}`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -75252,6 +79752,7 @@ class VectorStores extends APIResource {
             body,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -75262,6 +79763,7 @@ class VectorStores extends APIResource {
             query,
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -75271,6 +79773,7 @@ class VectorStores extends APIResource {
         return this._client.delete(path_path `/vector_stores/${vectorStoreID}`, {
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
     /**
@@ -75283,13 +79786,14 @@ class VectorStores extends APIResource {
             method: 'post',
             ...options,
             headers: buildHeaders([{ 'OpenAI-Beta': 'assistants=v2' }, options?.headers]),
+            __security: { bearerAuth: true },
         });
     }
 }
 VectorStores.Files = vector_stores_files_Files;
 VectorStores.FileBatches = FileBatches;
 //# sourceMappingURL=vector-stores.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/videos.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/videos.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -75298,49 +79802,84 @@ VectorStores.FileBatches = FileBatches;
 
 class Videos extends APIResource {
     /**
-     * Create a video
+     * Create a new video generation job from a prompt and optional reference assets.
      */
     create(body, options) {
-        return this._client.post('/videos', maybeMultipartFormRequestOptions({ body, ...options }, this._client));
+        return this._client.post('/videos', multipartFormRequestOptions({ body, ...options, __security: { bearerAuth: true } }, this._client));
     }
     /**
-     * Retrieve a video
+     * Fetch the latest metadata for a generated video.
      */
     retrieve(videoID, options) {
-        return this._client.get(path_path `/videos/${videoID}`, options);
+        return this._client.get(path_path `/videos/${videoID}`, { ...options, __security: { bearerAuth: true } });
     }
     /**
-     * List videos
+     * List recently generated videos for the current project.
      */
     list(query = {}, options) {
-        return this._client.getAPIList('/videos', (ConversationCursorPage), { query, ...options });
+        return this._client.getAPIList('/videos', (ConversationCursorPage), {
+            query,
+            ...options,
+            __security: { bearerAuth: true },
+        });
     }
     /**
-     * Delete a video
+     * Permanently delete a completed or failed video and its stored assets.
      */
     delete(videoID, options) {
-        return this._client.delete(path_path `/videos/${videoID}`, options);
+        return this._client.delete(path_path `/videos/${videoID}`, { ...options, __security: { bearerAuth: true } });
     }
     /**
-     * Download video content
+     * Create a character from an uploaded video.
+     */
+    createCharacter(body, options) {
+        return this._client.post('/videos/characters', multipartFormRequestOptions({ body, ...options, __security: { bearerAuth: true } }, this._client));
+    }
+    /**
+     * Download the generated video bytes or a derived preview asset.
+     *
+     * Streams the rendered video content for the specified video job.
      */
     downloadContent(videoID, query = {}, options) {
         return this._client.get(path_path `/videos/${videoID}/content`, {
             query,
             ...options,
             headers: buildHeaders([{ Accept: 'application/binary' }, options?.headers]),
+            __security: { bearerAuth: true },
             __binaryResponse: true,
         });
     }
     /**
-     * Create a video remix
+     * Create a new video generation job by editing a source video or existing
+     * generated video.
+     */
+    edit(body, options) {
+        return this._client.post('/videos/edits', multipartFormRequestOptions({ body, ...options, __security: { bearerAuth: true } }, this._client));
+    }
+    /**
+     * Create an extension of a completed video.
+     */
+    extend(body, options) {
+        return this._client.post('/videos/extensions', multipartFormRequestOptions({ body, ...options, __security: { bearerAuth: true } }, this._client));
+    }
+    /**
+     * Fetch a character.
+     */
+    getCharacter(characterID, options) {
+        return this._client.get(path_path `/videos/characters/${characterID}`, {
+            ...options,
+            __security: { bearerAuth: true },
+        });
+    }
+    /**
+     * Create a remix of a completed video using a refreshed prompt.
      */
     remix(videoID, body, options) {
-        return this._client.post(path_path `/videos/${videoID}/remix`, maybeMultipartFormRequestOptions({ body, ...options }, this._client));
+        return this._client.post(path_path `/videos/${videoID}/remix`, maybeMultipartFormRequestOptions({ body, ...options, __security: { bearerAuth: true } }, this._client));
     }
 }
 //# sourceMappingURL=videos.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/webhooks/webhooks.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/webhooks/webhooks.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 var _Webhooks_instances, _Webhooks_validateSecret, _Webhooks_getRequiredHeader;
 
@@ -75438,15 +79977,15 @@ _Webhooks_instances = new WeakSet(), _Webhooks_validateSecret = function _Webhoo
     return value;
 };
 //# sourceMappingURL=webhooks.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/webhooks/index.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/webhooks/index.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 //# sourceMappingURL=index.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/webhooks.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/webhooks.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 //# sourceMappingURL=webhooks.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/resources/index.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/resources/index.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 
@@ -75471,8 +80010,42 @@ _Webhooks_instances = new WeakSet(), _Webhooks_validateSecret = function _Webhoo
 
 
 
+
 //# sourceMappingURL=index.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/client.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/internal/provider.mjs
+/**
+ * A provider factory such as `bedrock(options)` captures configuration in a
+ * definition, while every OpenAI client receives a fresh runtime from
+ * `definition.configure()`. Keeping definitions out of the provider object
+ * makes providers opaque and prevents arbitrary objects from imitating one.
+ * It also leaves provider-specific dependencies outside the core SDK.
+ *
+ * The registry lives on `globalThis` under a global symbol so a provider made
+ * by one copy of the package still works with another copy, including mixed
+ * CommonJS and ESM installations. The WeakMap avoids retaining discarded
+ * provider configurations.
+ */
+const providerDefinitionsKey = Symbol.for('openai.node.providerDefinitions.v1');
+const providerGlobal = globalThis;
+const existingProviderDefinitions = providerGlobal[providerDefinitionsKey];
+const providerDefinitions = existingProviderDefinitions ?? new WeakMap();
+if (!existingProviderDefinitions) {
+    Object.defineProperty(providerGlobal, providerDefinitionsKey, { value: providerDefinitions });
+}
+function createProvider(definition) {
+    const provider = Object.freeze({});
+    providerDefinitions.set(provider, definition);
+    return provider;
+}
+function configureProvider(provider) {
+    const definition = providerDefinitions.get(provider);
+    if (!definition) {
+        throw new Error('Invalid provider. Providers must be created with createProvider().');
+    }
+    return definition.configure();
+}
+//# sourceMappingURL=provider.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/client.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 var _OpenAI_instances, client_a, _OpenAI_encoder, _OpenAI_baseURLOverridden;
 
@@ -75517,6 +80090,11 @@ var _OpenAI_instances, client_a, _OpenAI_encoder, _OpenAI_baseURLOverridden;
 
 
 
+
+
+
+
+const WORKLOAD_IDENTITY_API_KEY_PLACEHOLDER = 'workload-identity-auth';
 /**
  * API Client for interfacing with the OpenAI API.
  */
@@ -75524,11 +80102,13 @@ class client_OpenAI {
     /**
      * API Client for interfacing with the OpenAI API.
      *
-     * @param {string | undefined} [opts.apiKey=process.env['OPENAI_API_KEY'] ?? undefined]
+     * @param {string | null | undefined} [opts.apiKey=process.env['OPENAI_API_KEY'] ?? null]
+     * @param {string | null | undefined} [opts.adminAPIKey=process.env['OPENAI_ADMIN_KEY'] ?? null]
      * @param {string | null | undefined} [opts.organization=process.env['OPENAI_ORG_ID'] ?? null]
      * @param {string | null | undefined} [opts.project=process.env['OPENAI_PROJECT_ID'] ?? null]
      * @param {string | null | undefined} [opts.webhookSecret=process.env['OPENAI_WEBHOOK_SECRET'] ?? null]
      * @param {string} [opts.baseURL=process.env['OPENAI_BASE_URL'] ?? https://api.openai.com/v1] - Override the default base URL for the API.
+     * @param {Provider} [opts.provider] - Configure a third-party API provider. Mutually exclusive with top-level authentication and base URL options.
      * @param {number} [opts.timeout=10 minutes] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
      * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
      * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -75537,42 +80117,90 @@ class client_OpenAI {
      * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
      * @param {boolean} [opts.dangerouslyAllowBrowser=false] - By default, client-side use of this library is not allowed, as it risks exposing your secret API credentials to attackers.
      */
-    constructor({ baseURL = readEnv('OPENAI_BASE_URL'), apiKey = readEnv('OPENAI_API_KEY'), organization = readEnv('OPENAI_ORG_ID') ?? null, project = readEnv('OPENAI_PROJECT_ID') ?? null, webhookSecret = readEnv('OPENAI_WEBHOOK_SECRET') ?? null, ...opts } = {}) {
+    constructor(clientOptions = {}) {
         _OpenAI_instances.add(this);
         _OpenAI_encoder.set(this, void 0);
+        /**
+         * Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of alternative tokens at each position.
+         */
         this.completions = new completions_Completions(this);
         this.chat = new Chat(this);
+        /**
+         * Get a vector representation of a given input that can be easily consumed by machine learning models and algorithms.
+         */
         this.embeddings = new Embeddings(this);
+        /**
+         * Files are used to upload documents that can be used with features like Assistants and Fine-tuning.
+         */
         this.files = new files_Files(this);
+        /**
+         * Given a prompt and/or an input image, the model will generate a new image.
+         */
         this.images = new Images(this);
         this.audio = new Audio(this);
+        /**
+         * Given text and/or image inputs, classifies if those inputs are potentially harmful.
+         */
         this.moderations = new Moderations(this);
+        /**
+         * List and describe the various models available in the API.
+         */
         this.models = new Models(this);
         this.fineTuning = new FineTuning(this);
         this.graders = new graders_Graders(this);
         this.vectorStores = new VectorStores(this);
         this.webhooks = new Webhooks(this);
         this.beta = new Beta(this);
+        /**
+         * Create large batches of API requests to run asynchronously.
+         */
         this.batches = new Batches(this);
+        /**
+         * Use Uploads to upload large files in multiple parts.
+         */
         this.uploads = new Uploads(this);
-        this.responses = new Responses(this);
+        this.admin = new Admin(this);
+        this.responses = new responses_Responses(this);
         this.realtime = new realtime_Realtime(this);
+        /**
+         * Manage conversations and conversation items.
+         */
         this.conversations = new Conversations(this);
+        /**
+         * Manage and run evals in the OpenAI platform.
+         */
         this.evals = new Evals(this);
         this.containers = new Containers(this);
         this.skills = new Skills(this);
         this.videos = new Videos(this);
-        if (apiKey === undefined) {
-            throw new error_OpenAIError('Missing credentials. Please pass an `apiKey`, or set the `OPENAI_API_KEY` environment variable.');
+        const provider = clientOptions.provider;
+        if (provider) {
+            const conflictingOptions = ['apiKey', 'adminAPIKey', 'workloadIdentity', 'baseURL'].filter((key) => clientOptions[key] != null);
+            if (conflictingOptions.length) {
+                throw new error_OpenAIError(`The \`provider\` option cannot be used with ${conflictingOptions
+                    .map((key) => `\`${key}\``)
+                    .join(', ')}. Configure authentication and the base URL through the provider instead.`);
+            }
         }
+        const { baseURL = provider ? null : readEnv('OPENAI_BASE_URL'), apiKey = provider ? null : readEnv('OPENAI_API_KEY') ?? null, adminAPIKey = provider ? null : readEnv('OPENAI_ADMIN_KEY') ?? null, organization = provider ? null : readEnv('OPENAI_ORG_ID') ?? null, project = provider ? null : readEnv('OPENAI_PROJECT_ID') ?? null, webhookSecret = readEnv('OPENAI_WEBHOOK_SECRET') ?? null, workloadIdentity, ...opts } = clientOptions;
+        const providerRuntime = provider ? configureProvider(provider) : undefined;
         const options = {
             apiKey,
+            adminAPIKey,
             organization,
             project,
             webhookSecret,
+            workloadIdentity,
+            provider,
             ...opts,
-            baseURL: baseURL || `https://api.openai.com/v1`,
+            baseURL: providerRuntime?.baseURL ?? (baseURL || `https://api.openai.com/v1`),
         };
+        if (apiKey && workloadIdentity) {
+            throw new error_OpenAIError('The `apiKey` and `workloadIdentity` options are mutually exclusive');
+        }
+        if (!providerRuntime && !apiKey && !adminAPIKey && !workloadIdentity) {
+            throw new error_OpenAIError('Missing credentials. Please pass an `apiKey`, `workloadIdentity`, `adminAPIKey`, or set the `OPENAI_API_KEY` or `OPENAI_ADMIN_KEY` environment variable.');
+        }
         if (!options.dangerouslyAllowBrowser && isRunningInBrowser()) {
             throw new error_OpenAIError("It looks like you're running in a browser-like environment.\n\nThis is disabled by default, as it risks exposing your secret API credentials to attackers.\nIf you understand the risks and have appropriate mitigations in place,\nyou can set the `dangerouslyAllowBrowser` option to `true`, e.g.,\n\nnew OpenAI({ apiKey, dangerouslyAllowBrowser: true });\n\nhttps://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety\n");
         }
@@ -75590,8 +80218,24 @@ class client_OpenAI {
         this.maxRetries = options.maxRetries ?? 2;
         this.fetch = options.fetch ?? getDefaultFetch();
         __classPrivateFieldSet(this, _OpenAI_encoder, FallbackEncoder, "f");
+        const customHeadersEnv = provider ? undefined : readEnv('OPENAI_CUSTOM_HEADERS');
+        if (customHeadersEnv) {
+            const parsed = {};
+            for (const line of customHeadersEnv.split('\n')) {
+                const colon = line.indexOf(':');
+                if (colon >= 0) {
+                    parsed[line.substring(0, colon).trim()] = line.substring(colon + 1).trim();
+                }
+            }
+            options.defaultHeaders = buildHeaders([parsed, options.defaultHeaders]);
+        }
         this._options = options;
-        this.apiKey = typeof apiKey === 'string' ? apiKey : 'Missing Key';
+        this._provider = providerRuntime;
+        if (workloadIdentity) {
+            this._workloadIdentityAuth = new WorkloadIdentityAuth(workloadIdentity, this.fetch);
+        }
+        this.apiKey = typeof apiKey === 'string' ? apiKey : null;
+        this.adminAPIKey = adminAPIKey;
         this.organization = organization;
         this.project = project;
         this.webhookSecret = webhookSecret;
@@ -75600,7 +80244,9 @@ class client_OpenAI {
      * Create a new client instance re-using the same options given to the current client with optional overriding.
      */
     withOptions(options) {
-        const client = new this.constructor({
+        const inheritedProvider = this._options.provider;
+        const provider = options.provider ?? inheritedProvider;
+        const inheritedOptions = {
             ...this._options,
             baseURL: this.baseURL,
             maxRetries: this.maxRetries,
@@ -75609,25 +80255,75 @@ class client_OpenAI {
             logLevel: this.logLevel,
             fetch: this.fetch,
             fetchOptions: this.fetchOptions,
-            apiKey: this.apiKey,
+            apiKey: this._options.apiKey,
+            adminAPIKey: this.adminAPIKey,
+            workloadIdentity: this._options.workloadIdentity,
             organization: this.organization,
             project: this.project,
             webhookSecret: this.webhookSecret,
+        };
+        if (provider) {
+            delete inheritedOptions.apiKey;
+            delete inheritedOptions.adminAPIKey;
+            delete inheritedOptions.workloadIdentity;
+            delete inheritedOptions.baseURL;
+            if (provider !== inheritedProvider) {
+                delete inheritedOptions.organization;
+                delete inheritedOptions.project;
+                delete inheritedOptions.defaultHeaders;
+            }
+        }
+        const client = new this.constructor({
+            ...inheritedOptions,
             ...options,
+            provider,
         });
         return client;
     }
     defaultQuery() {
         return this._options.defaultQuery;
     }
-    validateHeaders({ values, nulls }) {
-        return;
+    validateHeaders({ values, nulls }, schemes = {
+        bearerAuth: true,
+        adminAPIKeyAuth: true,
+    }) {
+        if (values.get('authorization') || values.get('api-key')) {
+            return;
+        }
+        if (nulls.has('authorization') || nulls.has('api-key')) {
+            return;
+        }
+        if (this._workloadIdentityAuth && schemes.bearerAuth) {
+            return;
+        }
+        throw new Error('Could not resolve authentication method. Expected either apiKey or adminAPIKey to be set. Or for one of the "Authorization" or "api-key" headers to be explicitly omitted');
     }
-    async authHeaders(opts) {
+    async authHeaders(opts, schemes = {
+        bearerAuth: true,
+        adminAPIKeyAuth: true,
+    }) {
+        return buildHeaders([
+            schemes.bearerAuth ? await this.bearerAuth(opts) : null,
+            schemes.adminAPIKeyAuth ? await this.adminAPIKeyAuth(opts) : null,
+        ]);
+    }
+    async bearerAuth(opts) {
+        if (this._workloadIdentityAuth) {
+            return buildHeaders([{ Authorization: `Bearer ${await this._workloadIdentityAuth.getToken()}` }]);
+        }
+        if (this.apiKey == null) {
+            return undefined;
+        }
         return buildHeaders([{ Authorization: `Bearer ${this.apiKey}` }]);
     }
+    async adminAPIKeyAuth(opts) {
+        if (this.adminAPIKey == null) {
+            return undefined;
+        }
+        return buildHeaders([{ Authorization: `Bearer ${this.adminAPIKey}` }]);
+    }
     stringifyQuery(query) {
-        return stringify(query, { arrayFormat: 'brackets' });
+        return stringifyQuery(query);
     }
     getUserAgent() {
         return `${this.constructor.name}/JS ${openai_version_VERSION}`;
@@ -75639,6 +80335,8 @@ class client_OpenAI {
         return APIError.generate(status, error, message, headers);
     }
     async _callApiKey() {
+        if (this._provider)
+            return false;
         const apiKey = this._options.apiKey;
         if (typeof apiKey !== 'function')
             return false;
@@ -75665,8 +80363,9 @@ class client_OpenAI {
             new URL(path)
             : new URL(baseURL + (baseURL.endsWith('/') && path.startsWith('/') ? path.slice(1) : path));
         const defaultQuery = this.defaultQuery();
-        if (!isEmptyObj(defaultQuery)) {
-            query = { ...defaultQuery, ...query };
+        const pathQuery = Object.fromEntries(url.searchParams);
+        if (!isEmptyObj(defaultQuery) || !isEmptyObj(pathQuery)) {
+            query = { ...pathQuery, ...defaultQuery, ...query };
         }
         if (typeof query === 'object' && query && !Array.isArray(query)) {
             url.search = this.stringifyQuery(query);
@@ -75677,7 +80376,12 @@ class client_OpenAI {
      * Used as a callback for mutating the given `FinalRequestOptions` object.
      */
     async prepareOptions(options) {
-        await this._callApiKey();
+        if (this._provider)
+            return;
+        const security = options.__security ?? { bearerAuth: true };
+        if (security.bearerAuth) {
+            await this._callApiKey();
+        }
     }
     /**
      * Used as a callback for mutating the given `RequestInit` object.
@@ -75719,7 +80423,9 @@ class client_OpenAI {
         const { req, url, timeout } = await this.buildRequest(options, {
             retryCount: maxRetries - retriesRemaining,
         });
+        const hasStreamingBody = options.__metadata?.['hasStreamingBody'] === true;
         await this.prepareRequest(req, { url, options });
+        await this._provider?.prepareRequest?.(req, { url, options });
         /** Not an API request ID, just for correlating local log entries. */
         const requestLogID = 'log_' + ((Math.random() * (1 << 24)) | 0).toString(16).padStart(6, '0');
         const retryLogStr = retryOfRequestLogID === undefined ? '' : `, retryOf: ${retryOfRequestLogID}`;
@@ -75734,8 +80440,9 @@ class client_OpenAI {
         if (options.signal?.aborted) {
             throw new APIUserAbortError();
         }
+        const security = options.__security ?? { bearerAuth: true };
         const controller = new AbortController();
-        const response = await this.fetchWithTimeout(url, req, timeout, controller).catch(castToError);
+        const response = await this.fetchWithAuth(url, req, timeout, controller, security).catch(castToError);
         const headersTime = Date.now();
         if (response instanceof globalThis.Error) {
             const retryMessage = `retrying, ${retriesRemaining} attempts remaining`;
@@ -75748,7 +80455,7 @@ class client_OpenAI {
             // others do not provide enough information to distinguish timeouts from other connection errors
             const isTimeout = isAbortError(response) ||
                 /timed? ?out/i.test(String(response) + ('cause' in response ? String(response.cause) : ''));
-            if (retriesRemaining) {
+            if (retriesRemaining && !hasStreamingBody) {
                 loggerFor(this).info(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - ${retryMessage}`);
                 loggerFor(this).debug(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (${retryMessage})`, formatRequestDetails({
                     retryOfRequestLogID,
@@ -75758,17 +80465,24 @@ class client_OpenAI {
                 }));
                 return this.retryRequest(options, retriesRemaining, retryOfRequestLogID ?? requestLogID);
             }
-            loggerFor(this).info(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - error; no more retries left`);
-            loggerFor(this).debug(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (error; no more retries left)`, formatRequestDetails({
+            const terminalMessage = hasStreamingBody ? 'error; streaming body cannot be retried' : 'error; no more retries left';
+            loggerFor(this).info(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - ${terminalMessage}`);
+            loggerFor(this).debug(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (${terminalMessage})`, formatRequestDetails({
                 retryOfRequestLogID,
                 url,
                 durationMs: headersTime - startTime,
                 message: response.message,
             }));
+            if (response instanceof OAuthError || response instanceof SubjectTokenProviderError) {
+                throw response;
+            }
             if (isTimeout) {
                 throw new APIConnectionTimeoutError();
             }
-            throw new APIConnectionError({ cause: response });
+            throw new APIConnectionError({
+                message: getConnectionErrorMessage(response),
+                cause: response,
+            });
         }
         const specialHeaders = [...response.headers.entries()]
             .filter(([name]) => name === 'x-request-id')
@@ -75776,8 +80490,23 @@ class client_OpenAI {
             .join('');
         const responseInfo = `[${requestLogID}${retryLogStr}${specialHeaders}] ${req.method} ${url} ${response.ok ? 'succeeded' : 'failed'} with status ${response.status} in ${headersTime - startTime}ms`;
         if (!response.ok) {
+            if (response.status === 401 &&
+                this._workloadIdentityAuth &&
+                security.bearerAuth &&
+                !options.__metadata?.['hasStreamingBody'] &&
+                !options.__metadata?.['workloadIdentityTokenRefreshed']) {
+                await CancelReadableStream(response.body);
+                this._workloadIdentityAuth.invalidateToken();
+                return this.makeRequest({
+                    ...options,
+                    __metadata: {
+                        ...options.__metadata,
+                        workloadIdentityTokenRefreshed: true,
+                    },
+                }, retriesRemaining, retryOfRequestLogID ?? requestLogID);
+            }
             const shouldRetry = await this.shouldRetry(response);
-            if (retriesRemaining && shouldRetry) {
+            if (retriesRemaining && shouldRetry && !hasStreamingBody) {
                 const retryMessage = `retrying, ${retriesRemaining} attempts remaining`;
                 // We don't need the body of this response.
                 await CancelReadableStream(response.body);
@@ -75791,7 +80520,10 @@ class client_OpenAI {
                 }));
                 return this.retryRequest(options, retriesRemaining, retryOfRequestLogID ?? requestLogID, response.headers);
             }
-            const retryMessage = shouldRetry ? `error; no more retries left` : `error; not retryable`;
+            const retryMessage = shouldRetry ?
+                hasStreamingBody ? `error; streaming body cannot be retried`
+                    : `error; no more retries left`
+                : `error; not retryable`;
             loggerFor(this).info(`${responseInfo} - ${retryMessage}`);
             const errText = await response.text().catch((err) => castToError(err).message);
             const errJSON = safeJSON(errText);
@@ -75825,6 +80557,21 @@ class client_OpenAI {
     requestAPIList(Page, options) {
         const request = this.makeRequest(options, null, undefined);
         return new PagePromise(this, request, Page);
+    }
+    async fetchWithAuth(url, init, timeout, controller, schemes = {
+        bearerAuth: true,
+        adminAPIKeyAuth: true,
+    }) {
+        if (this._workloadIdentityAuth && schemes.bearerAuth) {
+            const headers = init.headers;
+            const authHeader = headers.get('Authorization');
+            if (!authHeader || authHeader === `Bearer ${WORKLOAD_IDENTITY_API_KEY_PLACEHOLDER}`) {
+                const token = await this._workloadIdentityAuth.getToken();
+                headers.set('Authorization', `Bearer ${token}`);
+            }
+        }
+        const response = await this.fetchWithTimeout(url, init, timeout, controller);
+        return response;
     }
     async fetchWithTimeout(url, init, ms, controller) {
         const { signal, method, ...options } = init || {};
@@ -75896,9 +80643,9 @@ class client_OpenAI {
                 timeoutMillis = Date.parse(retryAfterHeader) - Date.now();
             }
         }
-        // If the API asks us to wait a certain amount of time (and it's a reasonable amount),
-        // just do what it says, but otherwise calculate a default
-        if (!(timeoutMillis && 0 <= timeoutMillis && timeoutMillis < 60 * 1000)) {
+        // If the API asks us to wait a certain amount of time, just do what it
+        // says, but otherwise calculate a default
+        if (timeoutMillis === undefined) {
             const maxRetries = options.maxRetries ?? this.maxRetries;
             timeoutMillis = this.calculateDefaultRetryTimeoutMillis(retriesRemaining, maxRetries);
         }
@@ -75922,7 +80669,13 @@ class client_OpenAI {
         if ('timeout' in options)
             validatePositiveInteger('timeout', options.timeout);
         options.timeout = options.timeout ?? this.timeout;
-        const { bodyHeaders, body } = this.buildBody({ options });
+        const { bodyHeaders, body, isStreamingBody } = this.buildBody({ options });
+        if (isStreamingBody) {
+            inputOptions.__metadata = {
+                ...inputOptions.__metadata,
+                hasStreamingBody: true,
+            };
+        }
         const reqHeaders = await this.buildHeaders({ options: inputOptions, method, bodyHeaders, retryCount });
         const req = {
             method,
@@ -75954,12 +80707,14 @@ class client_OpenAI {
                 'OpenAI-Organization': this.organization,
                 'OpenAI-Project': this.project,
             },
-            await this.authHeaders(options),
+            this._provider ? undefined : (await this.authHeaders(options, options.__security ?? { bearerAuth: true })),
             this._options.defaultHeaders,
             bodyHeaders,
             options.headers,
         ]);
-        this.validateHeaders(headers);
+        if (!this._provider) {
+            this.validateHeaders(headers, options.__security ?? { bearerAuth: true });
+        }
         return headers.values;
     }
     _makeAbort(controller) {
@@ -75967,11 +80722,28 @@ class client_OpenAI {
         //       would capture all request options, and cause a memory leak.
         return () => controller.abort();
     }
-    buildBody({ options: { body, headers: rawHeaders } }) {
+    buildBody({ options }) {
+        const { body, headers: rawHeaders } = options;
         if (!body) {
-            return { bodyHeaders: undefined, body: undefined };
+            // A resource method always passes a `body` key when its operation defines a
+            // request body, even if the caller omitted an optional body param. Keep the
+            // content-type for those, and only elide it for operations with no body at
+            // all (e.g. GET/DELETE).
+            if (body === undefined && 'body' in options) {
+                return { ...__classPrivateFieldGet(this, _OpenAI_encoder, "f").call(this, { body, headers: buildHeaders([rawHeaders]) }), isStreamingBody: false };
+            }
+            return { bodyHeaders: undefined, body: undefined, isStreamingBody: false };
         }
         const headers = buildHeaders([rawHeaders]);
+        const isReadableStream = typeof globalThis.ReadableStream !== 'undefined' &&
+            body instanceof globalThis.ReadableStream;
+        const isRetryableBody = !isReadableStream &&
+            (typeof body === 'string' ||
+                body instanceof ArrayBuffer ||
+                ArrayBuffer.isView(body) ||
+                (typeof globalThis.Blob !== 'undefined' && body instanceof globalThis.Blob) ||
+                body instanceof URLSearchParams ||
+                body instanceof FormData);
         if (
         // Pass raw type verbatim
         ArrayBuffer.isView(body) ||
@@ -75987,21 +80759,33 @@ class client_OpenAI {
             // `URLSearchParams` -> `application/x-www-form-urlencoded`
             body instanceof URLSearchParams ||
             // Send chunked stream (each chunk has own `length`)
-            (globalThis.ReadableStream && body instanceof globalThis.ReadableStream)) {
-            return { bodyHeaders: undefined, body: body };
+            isReadableStream) {
+            return { bodyHeaders: undefined, body: body, isStreamingBody: !isRetryableBody };
         }
         else if (typeof body === 'object' &&
             (Symbol.asyncIterator in body ||
                 (Symbol.iterator in body && 'next' in body && typeof body.next === 'function'))) {
-            return { bodyHeaders: undefined, body: ReadableStreamFrom(body) };
+            return {
+                bodyHeaders: undefined,
+                body: ReadableStreamFrom(body),
+                isStreamingBody: true,
+            };
+        }
+        else if (typeof body === 'object' &&
+            headers.values.get('content-type') === 'application/x-www-form-urlencoded') {
+            return {
+                bodyHeaders: { 'content-type': 'application/x-www-form-urlencoded' },
+                body: this.stringifyQuery(body),
+                isStreamingBody: false,
+            };
         }
         else {
-            return __classPrivateFieldGet(this, _OpenAI_encoder, "f").call(this, { body, headers });
+            return { ...__classPrivateFieldGet(this, _OpenAI_encoder, "f").call(this, { body, headers }), isStreamingBody: false };
         }
     }
 }
 client_a = client_OpenAI, _OpenAI_encoder = new WeakMap(), _OpenAI_instances = new WeakSet(), _OpenAI_baseURLOverridden = function _OpenAI_baseURLOverridden() {
-    return this.baseURL !== 'https://api.openai.com/v1';
+    return this._provider !== undefined || this.baseURL !== 'https://api.openai.com/v1';
 };
 client_OpenAI.OpenAI = client_a;
 client_OpenAI.DEFAULT_TIMEOUT = 600000; // 10 minutes
@@ -76020,6 +80804,7 @@ client_OpenAI.PermissionDeniedError = PermissionDeniedError;
 client_OpenAI.UnprocessableEntityError = UnprocessableEntityError;
 client_OpenAI.InvalidWebhookSignatureError = InvalidWebhookSignatureError;
 client_OpenAI.toFile = toFile;
+client_OpenAI.toStreamingFile = toStreamingFile;
 client_OpenAI.Completions = completions_Completions;
 client_OpenAI.Chat = Chat;
 client_OpenAI.Embeddings = Embeddings;
@@ -76035,15 +80820,35 @@ client_OpenAI.Webhooks = Webhooks;
 client_OpenAI.Beta = Beta;
 client_OpenAI.Batches = Batches;
 client_OpenAI.Uploads = Uploads;
-client_OpenAI.Responses = Responses;
+client_OpenAI.Admin = Admin;
+client_OpenAI.Responses = responses_Responses;
 client_OpenAI.Realtime = realtime_Realtime;
 client_OpenAI.Conversations = Conversations;
 client_OpenAI.Evals = Evals;
 client_OpenAI.Containers = Containers;
 client_OpenAI.Skills = Skills;
 client_OpenAI.Videos = Videos;
+function getConnectionErrorMessage(error) {
+    if (isUndiciDispatcherVersionMismatchError(error)) {
+        return `Connection error. This may be caused by passing an undici dispatcher, such as ProxyAgent, that is incompatible with the fetch implementation. If you are using undici's ProxyAgent, pass the fetch implementation from the same undici package: import { fetch, ProxyAgent } from 'undici'; new OpenAI({ fetch, fetchOptions: { dispatcher: new ProxyAgent(...) } });`;
+    }
+    return undefined;
+}
+function isUndiciDispatcherVersionMismatchError(error) {
+    let current = error;
+    for (let i = 0; i < 8 && current && typeof current === 'object'; i++) {
+        const err = current;
+        if (err.code === 'UND_ERR_INVALID_ARG' &&
+            typeof err.message === 'string' &&
+            err.message.includes('invalid onRequestStart method')) {
+            return true;
+        }
+        current = err.cause;
+    }
+    return false;
+}
 //# sourceMappingURL=client.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/azure.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/azure.mjs
 
 
 
@@ -76088,7 +80893,11 @@ class AzureOpenAI extends client_OpenAI {
             if (!endpoint) {
                 throw new error_OpenAIError('Must provide one of the `baseURL` or `endpoint` arguments, or the `AZURE_OPENAI_ENDPOINT` environment variable');
             }
-            baseURL = `${endpoint}/openai`;
+            let endpointEnd = endpoint.length;
+            while (endpointEnd > 0 && endpoint[endpointEnd - 1] === '/') {
+                endpointEnd--;
+            }
+            baseURL = `${endpoint.slice(0, endpointEnd)}/openai`;
         }
         else {
             if (endpoint) {
@@ -76117,11 +80926,12 @@ class AzureOpenAI extends client_OpenAI {
         }
         return super.buildRequest(options, props);
     }
-    async authHeaders(opts) {
-        if (typeof this._options.apiKey === 'string') {
+    async authHeaders(opts, schemes) {
+        const security = schemes ?? { bearerAuth: true, adminAPIKeyAuth: true };
+        if (security.bearerAuth && typeof this._options.apiKey === 'string') {
             return buildHeaders([{ 'api-key': this.apiKey }]);
         }
-        return super.authHeaders(opts);
+        return super.authHeaders(opts, security);
     }
 }
 const _deployments_endpoints = new Set([
@@ -76136,8 +80946,110 @@ const _deployments_endpoints = new Set([
     '/images/edits',
 ]);
 //# sourceMappingURL=azure.mjs.map
-;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.22.0/node_modules/openai/index.mjs
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/bedrock.mjs
+
+
+
+
+
+
+/** Resolve the default Bedrock Mantle API root from the configured AWS region. */
+function deriveBedrockBaseURL(awsRegion) {
+    const region = awsRegion?.trim();
+    if (!region) {
+        throw new error_OpenAIError('Must provide one of the `baseURL` or `awsRegion` arguments, or set the `AWS_BEDROCK_BASE_URL`, `AWS_REGION`, or `AWS_DEFAULT_REGION` environment variable.');
+    }
+    return `https://bedrock-mantle.${region}.api.aws/openai/v1`;
+}
+/** Normalize a Bedrock Responses URL variant back to the provider API root. */
+function normalizeBedrockBaseURL(baseURL) {
+    const url = new URL(baseURL);
+    const responsesMatch = url.pathname.match(/\/responses(?:\/.*)?$/);
+    if (responsesMatch?.index !== undefined) {
+        url.pathname = url.pathname.slice(0, responsesMatch.index) || '/';
+    }
+    return url.toString().replace(/\/$/, '');
+}
+/** Restore the SDK convenience property when Bedrock omits it from a streamed final response. */
+function addBedrockOutputText(response) {
+    if (!Object.getOwnPropertyDescriptor(response, 'output_text')) {
+        addOutputText(response);
+    }
+    return response;
+}
+/** Keep the standard Responses surface while repairing Bedrock streamed final responses. */
+function restoreBedrockStreamOutputText(responses) {
+    const stream = responses.stream.bind(responses);
+    responses.stream = ((body, options) => {
+        const responseStream = stream(body, options);
+        const finalResponse = responseStream.finalResponse.bind(responseStream);
+        responseStream.finalResponse = async () => addBedrockOutputText(await finalResponse());
+        return responseStream;
+    });
+    return responses;
+}
+/** API Client for interfacing with Amazon Bedrock's OpenAI-compatible endpoint. */
+class BedrockOpenAI extends client_OpenAI {
+    /**
+     * API Client for interfacing with Amazon Bedrock's OpenAI-compatible endpoint.
+     *
+     * @param {string | null | undefined} [opts.apiKey=process.env['AWS_BEARER_TOKEN_BEDROCK'] ?? null]
+     * @param {string | null | undefined} [opts.baseURL=process.env['AWS_BEDROCK_BASE_URL'] ?? derived from opts.awsRegion or AWS_REGION/AWS_DEFAULT_REGION]
+     * @param {string | undefined} [opts.awsRegion=process.env['AWS_REGION'] ?? process.env['AWS_DEFAULT_REGION'] ?? undefined]
+     * @param {ApiKeySetter | undefined} opts.bedrockTokenProvider - A function that returns a Bedrock bearer token and is invoked before each request.
+     */
+    constructor({ baseURL = readEnv('AWS_BEDROCK_BASE_URL'), apiKey, awsRegion = readEnv('AWS_REGION') ?? readEnv('AWS_DEFAULT_REGION'), bedrockTokenProvider, adminAPIKey, workloadIdentity, ...opts } = {}) {
+        if (adminAPIKey || workloadIdentity) {
+            throw new error_OpenAIError('BedrockOpenAI only supports Bedrock bearer token authentication.');
+        }
+        if (apiKey === undefined && !bedrockTokenProvider) {
+            apiKey = readEnv('AWS_BEARER_TOKEN_BEDROCK') ?? null;
+        }
+        if (typeof apiKey === 'function') {
+            throw new error_OpenAIError('Pass refreshable Bedrock credentials via `bedrockTokenProvider`, not `apiKey`.');
+        }
+        if (apiKey && bedrockTokenProvider) {
+            throw new error_OpenAIError('The `apiKey` and `bedrockTokenProvider` arguments are mutually exclusive; only one can be passed at a time.');
+        }
+        if (!apiKey && !bedrockTokenProvider) {
+            throw new error_OpenAIError('Missing credentials. Please pass an `apiKey` or `bedrockTokenProvider`, or set the `AWS_BEARER_TOKEN_BEDROCK` environment variable.');
+        }
+        const configuredBaseURL = baseURL?.trim() ? baseURL : deriveBedrockBaseURL(awsRegion);
+        super({
+            apiKey: bedrockTokenProvider ?? apiKey,
+            adminAPIKey: null,
+            baseURL: normalizeBedrockBaseURL(configuredBaseURL),
+            ...opts,
+        });
+        this.bedrockTokenProvider = bedrockTokenProvider;
+        this.responses = restoreBedrockStreamOutputText(new responses_Responses(this));
+    }
+    async prepareOptions(options) {
+        const security = options.__security ?? { bearerAuth: true };
+        if (security.adminAPIKeyAuth && !security.bearerAuth) {
+            await this._callApiKey();
+        }
+        await super.prepareOptions(options);
+    }
+    async authHeaders(opts, schemes) {
+        const security = schemes ?? { bearerAuth: true, adminAPIKeyAuth: true };
+        if ((security.bearerAuth || security.adminAPIKeyAuth) && this.apiKey !== null) {
+            return buildHeaders([{ Authorization: `Bearer ${this.apiKey}` }]);
+        }
+        return super.authHeaders(opts, security);
+    }
+    withOptions(options) {
+        const bedrockTokenProvider = options.apiKey !== undefined ? undefined : options.bedrockTokenProvider ?? this.bedrockTokenProvider;
+        return super.withOptions({
+            ...options,
+            ...(bedrockTokenProvider ? { apiKey: undefined, bedrockTokenProvider } : {}),
+        });
+    }
+}
+//# sourceMappingURL=bedrock.mjs.map
+;// CONCATENATED MODULE: ../../node_modules/.pnpm/openai@6.49.0/node_modules/openai/index.mjs
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
 
 
 
@@ -80542,6 +85454,8 @@ var RECIPES = {
   jekyll: null,
   eleventy: null,
   pelican: null,
+  sphinx: null,
+  docusaurus: null,
   // Unknown
   unknown: null
 };
@@ -80577,12 +85491,13 @@ async function loadRecipe(framework) {
   }
   return null;
 }
-async function getFrameworkIssues(frameworkInfo, html, url) {
+async function getFrameworkIssues(frameworkInfo, html, url, options = {}) {
   const recipe = await loadRecipe(frameworkInfo.framework);
   if (!recipe) return [];
   const issues = [];
+  const indexable = options.indexable ?? true;
   for (const check of recipe.checks) {
-    const matched = evaluateCheck(check, html, frameworkInfo);
+    const matched = evaluateCheck(check, html, frameworkInfo, indexable);
     if (matched) {
       issues.push({
         code: check.code,
@@ -80603,7 +85518,10 @@ async function getFrameworkIssues(frameworkInfo, html, url) {
   }
   return issues;
 }
-function evaluateCheck(check, html, frameworkInfo) {
+function evaluateCheck(check, html, frameworkInfo, indexable = true) {
+  if (check.indexable_only && !indexable) {
+    return false;
+  }
   if (check.app_router_only && html.includes("__next")) {
     return false;
   }
@@ -80717,6 +85635,7 @@ seo_challenges:
 
 checks:
   - code: ANGULAR_NO_UNIVERSAL
+    indexable_only: true
     severity: error
     title: "Angular app without Universal (SSR)"
     description: "Client-side Angular apps send empty HTML to crawlers."
@@ -80735,6 +85654,7 @@ checks:
       missing_content: true
 
   - code: ANGULAR_NO_TITLE_SERVICE
+    indexable_only: true
     severity: error
     title: "Not using Title/Meta services"
     description: "Angular has built-in services for managing title and meta tags."
@@ -80783,6 +85703,7 @@ checks:
       \`\`\`
 
   - code: ANGULAR_PRERENDER_MISSING
+    indexable_only: true
     severity: warning
     title: "Static routes not prerendered"
     description: "Static pages should be prerendered at build time."
@@ -81141,6 +86062,7 @@ checks:
       \`\`\`
 
   - code: DJANGO_NO_META_FRAMEWORK
+    indexable_only: true
     severity: warning
     title: "No SEO meta framework detected"
     description: "Use django-meta for consistent meta tag management."
@@ -81288,6 +86210,7 @@ seo_strengths:
 
 checks:
   - code: LARAVEL_NO_META_PACKAGE
+    indexable_only: true
     severity: warning
     title: "No SEO package detected"
     description: "Laravel benefits from an SEO package like artesaos/seotools."
@@ -81339,6 +86262,7 @@ checks:
       \`\`\`
 
   - code: LARAVEL_INERTIA_NO_SSR
+    indexable_only: true
     severity: error
     title: "Inertia.js without SSR"
     description: "Inertia apps are client-rendered by default, losing SEO benefits."
@@ -81433,6 +86357,7 @@ seo_strengths:
 checks:
   # App Router specific
   - code: NEXTJS_NO_METADATA_API
+    indexable_only: true
     severity: warning
     title: "Not using Next.js Metadata API"
     description: "Next.js 13+ has a built-in Metadata API that's better than react-helmet."
@@ -81705,6 +86630,7 @@ seo_strengths:
 
 checks:
   - code: NUXT_NO_USESEOMETA
+    indexable_only: true
     severity: warning
     title: "Not using useSeoMeta composable"
     description: "Nuxt 3 has built-in SEO meta composables that are cleaner than useHead."
@@ -81814,6 +86740,7 @@ checks:
       \`\`\`
 
   - code: NUXT_SPA_MODE
+    indexable_only: true
     severity: error
     title: "Nuxt running in SPA mode"
     description: "SPA mode disables SSR, losing SEO benefits."
@@ -81839,6 +86766,7 @@ checks:
       missing_content: true
 
   - code: NUXT_NO_PRERENDER
+    indexable_only: true
     severity: notice
     title: "Static pages not pre-rendered"
     description: "Static pages could be pre-rendered for better performance."
@@ -81882,6 +86810,7 @@ seo_strengths:
 
 checks:
   - code: RAILS_NO_META_TAGS_GEM
+    indexable_only: true
     severity: warning
     title: "Not using meta-tags gem"
     description: "The meta-tags gem provides a clean API for SEO tags."
@@ -81954,6 +86883,7 @@ checks:
       \`\`\`
 
   - code: RAILS_TURBO_BREAKS_CRAWLERS
+    indexable_only: true
     severity: notice
     title: "Turbo may affect JavaScript-dependent crawlers"
     description: "Turbo Drive updates pages via JavaScript, which some crawlers may miss."
@@ -82076,6 +87006,7 @@ seo_challenges:
 checks:
   # Critical - these will severely hurt SEO
   - code: REACT_CSR_DETECTED
+    indexable_only: true
     severity: error
     title: "Client-side rendered React app detected"
     description: "React apps without SSR send empty HTML to crawlers. Search engines may not index your content."
@@ -82091,6 +87022,7 @@ checks:
       missing_content: true  # Body has minimal text content
 
   - code: REACT_NO_SSR_META
+    indexable_only: true
     severity: error
     title: "Meta tags not server-rendered"
     description: "Title and meta description are set client-side and won't be seen by crawlers."
@@ -82157,6 +87089,7 @@ checks:
       \`\`\`
 
   - code: REACT_ROUTER_NO_SSR
+    indexable_only: true
     severity: warning
     title: "React Router without server-side support"
     description: "Client-side routing breaks when crawlers access URLs directly."
@@ -82175,6 +87108,7 @@ checks:
       \`\`\`
 
   - code: REACT_NO_PRERENDER
+    indexable_only: true
     severity: warning
     title: "No prerendering configured"
     description: "Static pages could be prerendered for better SEO and performance."
@@ -82331,6 +87265,7 @@ checks:
         - 'name="description"'
 
   - code: SVELTEKIT_NO_PRERENDER
+    indexable_only: true
     severity: notice
     title: "Static pages not prerendered"
     description: "Static pages should be prerendered for best performance."
@@ -82436,6 +87371,7 @@ seo_challenges:
 
 checks:
   - code: VUE_CSR_DETECTED
+    indexable_only: true
     severity: error
     title: "Client-side rendered Vue app detected"
     description: "Vue apps without SSR send empty HTML to crawlers."
@@ -82452,6 +87388,7 @@ checks:
       missing_content: true
 
   - code: VUE_NO_META_MANAGEMENT
+    indexable_only: true
     severity: error
     title: "No meta tag management library"
     description: "Title and meta description are not dynamically managed."
@@ -83247,7 +88184,7 @@ var ISSUE_DEFINITIONS = {
     severity: "warning",
     category: "performance",
     title: "HTML document too large",
-    description: "HTML size exceeds 100KB.",
+    description: "HTML size exceeds 300KB.",
     impact: "Increases load time and memory usage.",
     howToFix: "Reduce inline CSS/JS, remove unnecessary HTML."
   },
@@ -84658,224 +89595,6193 @@ var ISSUE_DEFINITIONS = {
   }
 };
 
-// src/frameworks/detector.ts
-var HTML_SIGNATURES = [
-  // ============ JavaScript/TypeScript Frameworks ============
-  // Next.js
+// src/audit/checks/featured-snippet.ts
+
+function detectDefinitionFormat(html) {
+  const $ = esm/* load */.Hh(html);
+  const definitions = [];
+  $("dfn").each((_, el) => {
+    const term = $(el).text().trim();
+    const parent = $(el).parent().text().trim();
+    if (term && parent) {
+      definitions.push({ term, definition: parent });
+    }
+  });
+  $("h2, h3").each((_, el) => {
+    const heading = $(el).text().trim();
+    const nextP = $(el).next("p").text().trim();
+    const definitionPattern = /^([\w\s]+)\s+is\s+(?:a|an|the)\s+[\w\s]+(?:that|which|who)/i;
+    const match = nextP.match(definitionPattern);
+    if (match) {
+      definitions.push({ term: match[1].trim(), definition: nextP.substring(0, 200) });
+    }
+  });
+  return { found: definitions.length > 0, definitions };
+}
+function detectListFormat(html) {
+  const $ = esm/* load */.Hh(html);
+  const lists = [];
+  $("h2, h3").each((_, el) => {
+    const heading = $(el).text().trim();
+    const nextEl = $(el).next();
+    if (nextEl.is("ol")) {
+      const items = nextEl.find("li").length;
+      if (items >= 3 && items <= 10) {
+        lists.push({ type: "ol", itemCount: items, context: heading });
+      }
+    } else if (nextEl.is("ul")) {
+      const items = nextEl.find("li").length;
+      if (items >= 3 && items <= 10) {
+        lists.push({ type: "ul", itemCount: items, context: heading });
+      }
+    }
+  });
+  return { found: lists.length > 0, lists };
+}
+function detectTableFormat(html) {
+  const $ = esm/* load */.Hh(html);
+  const tables = [];
+  $("table").each((_, el) => {
+    const $table = $(el);
+    const hasHeaders = $table.find("th").length > 0 || $table.find("thead").length > 0;
+    const rows = $table.find("tr").length;
+    const cols = $table.find("tr").first().find("td, th").length;
+    if (cols >= 2 && cols <= 6 && rows >= 3 && rows <= 15) {
+      tables.push({ hasHeaders, rows, cols });
+    }
+  });
+  return { found: tables.length > 0, tables };
+}
+function detectQAFormat(html) {
+  const $ = esm/* load */.Hh(html);
+  const questions = [];
+  const questionPatterns = [
+    /^what\s+/i,
+    /^how\s+/i,
+    /^why\s+/i,
+    /^when\s+/i,
+    /^where\s+/i,
+    /^who\s+/i,
+    /^which\s+/i,
+    /^can\s+/i,
+    /^does\s+/i,
+    /^is\s+/i,
+    /^are\s+/i,
+    /^should\s+/i,
+    /\?$/
+  ];
+  $("h2, h3, h4").each((_, el) => {
+    const text = $(el).text().trim();
+    for (const pattern of questionPatterns) {
+      if (pattern.test(text)) {
+        questions.push(text);
+        break;
+      }
+    }
+  });
+  const hasFaqSection = $("section.faq, div.faq, #faq, .faqs, [data-faq]").length > 0 || $("h2, h3").text().toLowerCase().includes("faq") || $("h2, h3").text().toLowerCase().includes("frequently asked");
+  $("details summary").each((_, el) => {
+    const text = $(el).text().trim();
+    if (text.endsWith("?") || questionPatterns.some((p) => p.test(text))) {
+      questions.push(text);
+    }
+  });
+  return { found: questions.length > 0 || hasFaqSection, qaCount: questions.length, questions };
+}
+function detectInvertedPyramid(html) {
+  const $ = esm/* load */.Hh(html);
+  $("script, style, nav, header, footer, aside").remove();
+  const h1 = $("h1").first();
+  const firstContent = h1.nextAll("p").first().text().trim();
+  if (!firstContent) {
+    return { found: false, score: 0 };
+  }
+  const answerPatterns = [
+    /^the\s+answer\s+is/i,
+    /^yes[,\s]/i,
+    /^no[,\s]/i,
+    /^in\s+short/i,
+    /^to\s+summarize/i,
+    /^([\w\s]+)\s+is\s+/i,
+    // Definition pattern
+    /^\d+/i,
+    // Starts with number
+    /^the\s+best\s+/i,
+    /^you\s+(can|should|need)/i
+  ];
+  let score = 0;
+  for (const pattern of answerPatterns) {
+    if (pattern.test(firstContent)) {
+      score += 30;
+      break;
+    }
+  }
+  const wordCount = firstContent.split(/\s+/).length;
+  if (wordCount >= 40 && wordCount <= 100) {
+    score += 30;
+  } else if (wordCount > 0 && wordCount < 40) {
+    score += 15;
+  }
+  const title = $("title").text().toLowerCase();
+  const titleWords = title.replace(/[^a-z0-9\s]/g, "").split(/\s+/).filter((w) => w.length > 3);
+  const firstParaLower = firstContent.toLowerCase();
+  const matchingWords = titleWords.filter((w) => firstParaLower.includes(w));
+  const titleMatchRatio = titleWords.length > 0 ? matchingWords.length / titleWords.length : 0;
+  if (titleMatchRatio > 0.5) {
+    score += 40;
+  } else if (titleMatchRatio > 0.25) {
+    score += 20;
+  }
+  return { found: score >= 50, score: Math.min(score, 100) };
+}
+function detectSnippetSchema(html) {
+  const $ = esm/* load */.Hh(html);
+  let hasFaqSchema = false;
+  let hasHowToSchema = false;
+  let hasQASchema = false;
+  $('script[type="application/ld+json"]').each((_, el) => {
+    try {
+      const data = JSON.parse($(el).html() || "");
+      const types = Array.isArray(data) ? data.map((d) => d["@type"]) : [data["@type"]];
+      if (types.includes("FAQPage") || types.some((t) => t?.includes?.("FAQPage"))) {
+        hasFaqSchema = true;
+      }
+      if (types.includes("HowTo") || types.some((t) => t?.includes?.("HowTo"))) {
+        hasHowToSchema = true;
+      }
+      if (types.includes("QAPage") || types.some((t) => t?.includes?.("QAPage"))) {
+        hasQASchema = true;
+      }
+    } catch {
+    }
+  });
+  return { hasFaqSchema, hasHowToSchema, hasQASchema };
+}
+function analyzeSnippetBaitHeaders(html) {
+  const $ = esm/* load */.Hh(html);
+  const snippetBaitHeaders = [];
+  const triggerPatterns = [
+    /^what\s+is\s+/i,
+    /^how\s+to\s+/i,
+    /^how\s+do\s+/i,
+    /^how\s+does\s+/i,
+    /^why\s+is\s+/i,
+    /^why\s+do\s+/i,
+    /^why\s+does\s+/i,
+    /^when\s+to\s+/i,
+    /^where\s+to\s+/i,
+    /^\d+\s+(ways|tips|steps|reasons|benefits|examples)/i,
+    /^(best|top)\s+\d+/i,
+    /^(guide|tutorial):/i,
+    /\s+vs\s+/i,
+    /^definition\s+of/i
+  ];
+  $("h2, h3").each((_, el) => {
+    const text = $(el).text().trim();
+    for (const pattern of triggerPatterns) {
+      if (pattern.test(text)) {
+        snippetBaitHeaders.push(text);
+        break;
+      }
+    }
+  });
+  return snippetBaitHeaders;
+}
+function analyzeFeaturedSnippet(html, url) {
+  const issues = [];
+  const definitions = detectDefinitionFormat(html);
+  const lists = detectListFormat(html);
+  const tables = detectTableFormat(html);
+  const qa = detectQAFormat(html);
+  const invertedPyramid = detectInvertedPyramid(html);
+  const schema = detectSnippetSchema(html);
+  const snippetBaitHeaders = analyzeSnippetBaitHeaders(html);
+  const opportunities = [];
+  if (!definitions.found) {
+    opportunities.push({
+      type: "definition",
+      heading: "Missing definition format",
+      score: 0,
+      issues: ["No clear definition patterns found"],
+      suggestions: [
+        'Add a paragraph starting with "[Topic] is a [noun] that..." after your main heading',
+        "Use <dfn> tags for key term definitions",
+        "Keep definitions concise (40-60 words)"
+      ]
+    });
+  }
+  if (lists.found) {
+    for (const list of lists.lists) {
+      if (!list.context.toLowerCase().match(/^\d+|^(how|steps|tips|ways)/)) {
+        opportunities.push({
+          type: "list",
+          heading: list.context,
+          score: 70,
+          issues: ["List heading could be more snippet-friendly"],
+          suggestions: [
+            'Consider rephrasing to "X Steps to..." or "Top X Tips for..."',
+            "Ensure list items are parallel in structure"
+          ]
+        });
+      }
+    }
+  } else {
+    opportunities.push({
+      type: "list",
+      heading: "Missing list content",
+      score: 0,
+      issues: ["No optimized lists found for snippet targeting"],
+      suggestions: [
+        "Add numbered or bulleted lists with 4-8 items",
+        'Use headers like "Steps to...", "Ways to...", or "Top X..."',
+        "Keep list items concise and parallel in structure"
+      ]
+    });
+  }
+  if (!tables.found) {
+    opportunities.push({
+      type: "table",
+      heading: "No comparison tables",
+      score: 0,
+      issues: ["No tables optimized for comparison snippets"],
+      suggestions: [
+        "Add comparison tables with clear headers",
+        "Use 3-5 columns and 4-10 rows for optimal snippet display",
+        "Include thead with th elements for proper table structure"
+      ]
+    });
+  }
+  if (qa.found && qa.qaCount > 0) {
+    if (!schema.hasFaqSchema && qa.qaCount >= 3) {
+      issues.push({
+        code: "FAQ_SCHEMA_MISSING",
+        severity: "warning",
+        category: "structured-data",
+        title: "FAQ content without FAQPage schema",
+        description: `Found ${qa.qaCount} question-format headings but no FAQPage schema markup.`,
+        impact: "Missing out on FAQ rich results and PAA box opportunities.",
+        howToFix: "Add FAQPage structured data for your Q&A content.",
+        affectedUrls: [url],
+        details: { questions: qa.questions.slice(0, 5) }
+      });
+    }
+  } else {
+    opportunities.push({
+      type: "qa",
+      heading: "Missing Q&A content",
+      score: 0,
+      issues: ["No question-format headers found"],
+      suggestions: [
+        "Add H2/H3 headings in question format (What is..., How to..., Why does...)",
+        "Follow each question heading with a direct answer paragraph",
+        "Consider adding a FAQ section with 3-5 common questions"
+      ]
+    });
+  }
+  if (!invertedPyramid.found) {
+    issues.push({
+      code: "INVERTED_PYRAMID_MISSING",
+      severity: "notice",
+      category: "content",
+      title: "Content not structured for featured snippets",
+      description: "First paragraph does not contain a direct answer or summary.",
+      impact: "Featured snippets pull from early content; burying answers reduces snippet capture rate.",
+      howToFix: "Start with a concise answer (40-80 words) that directly addresses the page topic.",
+      affectedUrls: [url],
+      details: { invertedPyramidScore: invertedPyramid.score }
+    });
+  }
+  if (snippetBaitHeaders.length === 0) {
+    issues.push({
+      code: "NO_SNIPPET_BAIT_HEADERS",
+      severity: "notice",
+      category: "on-page",
+      title: "No snippet-targeting headers found",
+      description: "Headings do not use patterns that commonly trigger featured snippets.",
+      impact: "Missing opportunities for high-visibility snippet placements.",
+      howToFix: 'Use headers like "What is [topic]?", "How to [action]", or "X Ways to [achieve goal]".',
+      affectedUrls: [url],
+      details: { suggestedPatterns: ["What is X?", "How to X", "X Steps to Y", "Best X for Y"] }
+    });
+  }
+  return {
+    issues,
+    data: {
+      hasDefinitionFormat: definitions.found,
+      hasListFormat: lists.found,
+      hasTableFormat: tables.found,
+      hasQAFormat: qa.found,
+      hasInvertedPyramid: invertedPyramid.found,
+      opportunities,
+      faqSchemaPresent: schema.hasFaqSchema,
+      howToSchemaPresent: schema.hasHowToSchema,
+      questionHeadingsCount: qa.qaCount
+    }
+  };
+}
+
+// src/audit/checks/internal-link-graph.ts
+
+function extractInternalLinks(html, pageUrl) {
+  const $ = esm/* load */.Hh(html);
+  const links = [];
+  const baseUrl = new URL(pageUrl);
+  $("a[href]").each((_, el) => {
+    const $el = $(el);
+    const href = $el.attr("href") || "";
+    const anchor = $el.text().trim();
+    if (!href || href.startsWith("javascript:") || href.startsWith("#")) {
+      return;
+    }
+    let targetUrl;
+    try {
+      targetUrl = new URL(href, pageUrl);
+    } catch {
+      return;
+    }
+    if (targetUrl.hostname !== baseUrl.hostname) {
+      return;
+    }
+    let context = "content";
+    const parents = $el.parents();
+    for (let i = 0; i < parents.length; i++) {
+      const parent = parents.eq(i);
+      const tagName = parent.prop("tagName")?.toLowerCase() || "";
+      const className = parent.attr("class")?.toLowerCase() || "";
+      const id = parent.attr("id")?.toLowerCase() || "";
+      if (tagName === "nav" || className.includes("nav") || className.includes("menu") || id.includes("nav") || id.includes("menu")) {
+        context = "navigation";
+        break;
+      }
+      if (tagName === "footer" || className.includes("footer") || id.includes("footer")) {
+        context = "footer";
+        break;
+      }
+      if (tagName === "aside" || className.includes("sidebar") || className.includes("widget") || id.includes("sidebar")) {
+        context = "sidebar";
+        break;
+      }
+    }
+    let isEditorial = context === "content";
+    if (isEditorial) {
+      const parent = $el.parent();
+      const parentText = parent.text().trim();
+      isEditorial = parentText.length > anchor.length + 10;
+    }
+    links.push({
+      source: pageUrl,
+      target: targetUrl.href.split("#")[0],
+      // Remove fragment
+      anchor,
+      context,
+      isEditorial
+    });
+  });
+  return links;
+}
+function analyzeFirstLinkPriority(links) {
+  const firstLinks = /* @__PURE__ */ new Map();
+  for (const link of links) {
+    if (!firstLinks.has(link.target)) {
+      firstLinks.set(link.target, {
+        anchor: link.anchor,
+        context: link.context
+      });
+    }
+  }
+  return firstLinks;
+}
+function analyzeInternalLinkGraph(html, url) {
+  const issues = [];
+  const links = extractInternalLinks(html, url);
+  const navigationLinks = links.filter((l) => l.context === "navigation").length;
+  const contentLinks = links.filter((l) => l.context === "content").length;
+  const footerLinks = links.filter((l) => l.context === "footer").length;
+  const editorialLinks = links.filter((l) => l.isEditorial).length;
+  const totalLinks = links.length;
+  const contextualLinkRatio = totalLinks > 0 ? contentLinks / totalLinks : 0;
+  const navigationVsContentRatio = contentLinks > 0 ? navigationLinks / contentLinks : 0;
+  if (contentLinks === 0 && totalLinks > 0) {
+    issues.push({
+      code: "NO_CONTEXTUAL_INTERNAL_LINKS",
+      severity: "warning",
+      category: "links",
+      title: "No contextual internal links",
+      description: "All internal links are in navigation/footer. No editorial links in content.",
+      impact: "Editorial links in content pass more SEO value than navigational links.",
+      howToFix: "Add relevant internal links within your main content to related pages.",
+      affectedUrls: [url],
+      details: { navigationLinks, contentLinks, footerLinks }
+    });
+  }
+  if (editorialLinks < 2 && contentLinks > 0) {
+    issues.push({
+      code: "LOW_EDITORIAL_LINKS",
+      severity: "notice",
+      category: "links",
+      title: "Few editorial internal links",
+      description: `Only ${editorialLinks} editorial (in-content) internal links found.`,
+      impact: "Editorial links with surrounding context provide stronger topical signals.",
+      howToFix: "Add 2-5 relevant internal links within your body content.",
+      affectedUrls: [url]
+    });
+  }
+  const firstLinks = analyzeFirstLinkPriority(links);
+  const genericAnchors = ["click here", "read more", "learn more", "here", "this"];
+  for (const [target, linkInfo] of firstLinks) {
+    if (genericAnchors.some((g) => linkInfo.anchor.toLowerCase().includes(g))) {
+      issues.push({
+        code: "FIRST_LINK_GENERIC_ANCHOR",
+        severity: "notice",
+        category: "links",
+        title: "First link uses generic anchor text",
+        description: `First link to ${target} uses generic anchor "${linkInfo.anchor}".`,
+        impact: "Google may prioritize first link anchor for topic signals.",
+        howToFix: "Use descriptive, keyword-relevant anchor text for internal links.",
+        affectedUrls: [url],
+        details: { target, anchor: linkInfo.anchor }
+      });
+    }
+  }
+  if (totalLinks > 100) {
+    issues.push({
+      code: "TOO_MANY_INTERNAL_LINKS",
+      severity: "warning",
+      category: "links",
+      title: "Excessive internal links",
+      description: `Page has ${totalLinks} internal links, which may dilute PageRank distribution.`,
+      impact: "Too many links reduce the value passed to each linked page.",
+      howToFix: "Reduce internal links to the most important and relevant pages.",
+      affectedUrls: [url],
+      details: { totalLinks, navigationLinks, contentLinks, footerLinks }
+    });
+  }
+  if (totalLinks === 0) {
+    issues.push({
+      code: "NO_INTERNAL_LINKS",
+      severity: "error",
+      category: "links",
+      title: "No internal links found",
+      description: "Page has no internal links to other pages on the site.",
+      impact: "Creates a dead end for users and search engine crawlers.",
+      howToFix: "Add relevant internal links to related content.",
+      affectedUrls: [url]
+    });
+  }
+  return {
+    issues,
+    data: {
+      totalInternalLinks: totalLinks,
+      contextualLinkRatio,
+      navigationVsContentRatio,
+      firstLinkAnchors: new Map(
+        [...firstLinks.entries()].map(([k, v]) => [k, v.anchor])
+      ),
+      linkDistribution: [{ url, links: totalLinks }]
+    }
+  };
+}
+
+// src/audit/checks/eeat-signals.ts
+
+var CREDENTIAL_PATTERNS = [
+  /\b(MD|M\.D\.|Dr\.|Doctor)\b/i,
+  /\b(PhD|Ph\.D\.|Doctorate)\b/i,
+  /\b(JD|J\.D\.|Attorney|Lawyer|Esq\.)\b/i,
+  /\b(CPA|Certified Public Accountant)\b/i,
+  /\b(CFP|Certified Financial Planner)\b/i,
+  /\b(RN|Registered Nurse)\b/i,
+  /\b(PE|Professional Engineer)\b/i,
+  /\b(MBA|Master of Business)\b/i,
+  /\b(Professor|Prof\.)\b/i,
+  /\b(Licensed|Certified|Accredited)\b/i,
+  /\b(\d+\+?\s*years?\s*(of\s+)?experience)\b/i
+];
+var TRUST_BADGE_PATTERNS = [
+  /BBB\s*(Accredited|A\+|Rating)/i,
+  /Norton\s*Secure/i,
+  /McAfee\s*Secure/i,
+  /TRUSTe/i,
+  /SSL\s*(Secure|Certified)/i,
+  /Verified\s*(by|Business)/i,
+  /Award[\-\s]*(Winning|Winner)/i,
+  /ISO\s*\d+/i,
+  /HIPAA\s*Compliant/i,
+  /GDPR\s*Compliant/i,
+  /PCI[\-\s]*(DSS|Compliant)/i,
+  /SOC\s*2/i
+];
+var AUTHORITATIVE_DOMAINS = [
+  "wikipedia.org",
+  "gov",
+  "edu",
+  "nytimes.com",
+  "wsj.com",
+  "bbc.com",
+  "reuters.com",
+  "nature.com",
+  "science.org",
+  "pubmed.ncbi.nlm.nih.gov",
+  "who.int",
+  "cdc.gov",
+  "nih.gov",
+  "harvard.edu",
+  "stanford.edu",
+  "mit.edu"
+];
+var YMYL_TOPICS = [
+  /\b(medical|medicine|diseases?|treatments?|symptoms?|diagnos(?:is|ed|e)|medications?|prescriptions?|doctors?|patients?|therapy|clinical|mental health|nutrition|pregnan(?:cy|t))\b/gi,
+  /\b(invest(?:ing|ments?)?|stocks?|taxes|tax (?:return|advice|filing)|insurance|mortgages?|loans?|credit (?:cards?|scores?)|retirement|pensions?|banking|cryptocurrenc(?:y|ies)|financial advice)\b/gi,
+  /\b(attorneys?|lawyers?|lawsuits?|legal advice|divorce|custody|immigration|court cases?)\b/gi,
+  /\b(first aid|poison(?:ing)?|suicide|overdose|crisis (?:line|hotline))\b/gi,
+  /\b(voting|voter registration|elections?|ballots?)\b/gi
+];
+var YMYL_FALSE_FRIENDS = /\b(?:site |seo |system |api )?health (?:scores?|checks?|status|endpoints?|reports?)\b|\bsite health\b/gi;
+var YMYL_PATH = /\/(health|medical|finance|financial|legal|money|insurance|taxes|invest(?:ing|ment)?)(\/|$)/i;
+function extractAuthorInfo(html) {
+  const $ = esm/* load */.Hh(html);
+  const info = {
+    name: null,
+    bio: null,
+    credentials: [],
+    socialLinks: [],
+    hasSchema: false,
+    photoPresent: false
+  };
+  $('script[type="application/ld+json"]').each((_, el) => {
+    try {
+      const data = JSON.parse($(el).html() || "");
+      const checkAuthor = (obj) => {
+        if (obj["@type"] === "Person" || obj.author) {
+          info.hasSchema = true;
+          const author = obj.author || obj;
+          if (typeof author === "object" && author !== null) {
+            info.name = author.name || info.name;
+          }
+        }
+      };
+      if (Array.isArray(data)) {
+        data.forEach(checkAuthor);
+      } else {
+        checkAuthor(data);
+      }
+    } catch {
+    }
+  });
+  const authorMeta = $('meta[name="author"]').attr("content");
+  if (authorMeta) {
+    info.name = info.name || authorMeta;
+  }
+  const authorLink = $('link[rel="author"]').attr("href");
+  if (authorLink) {
+    info.socialLinks.push(authorLink);
+  }
+  const bylineSelectors = [
+    ".author",
+    ".byline",
+    '[rel="author"]',
+    ".post-author",
+    ".article-author",
+    ".author-name",
+    ".written-by",
+    '[itemprop="author"]'
+  ];
+  for (const selector of bylineSelectors) {
+    const el = $(selector).first();
+    if (el.length) {
+      const text = el.text().trim();
+      if (text && text.length < 100) {
+        info.name = info.name || text.replace(/^(by|written by|author:)\s*/i, "");
+      }
+      break;
+    }
+  }
+  const bioSelectors = [".author-bio", ".author-description", ".about-author", '[itemprop="description"]'];
+  for (const selector of bioSelectors) {
+    const el = $(selector).first();
+    if (el.length) {
+      info.bio = el.text().trim().substring(0, 500);
+      break;
+    }
+  }
+  info.photoPresent = $('img.author-photo, img.author-image, .author img, [itemprop="image"]').length > 0 || $('img[alt*="author"], img[alt*="Author"]').length > 0;
+  const textToCheck = `${info.name || ""} ${info.bio || ""}`;
+  for (const pattern of CREDENTIAL_PATTERNS) {
+    const match = textToCheck.match(pattern);
+    if (match) {
+      info.credentials.push(match[0]);
+    }
+  }
+  $(".author a, .byline a, .author-social a").each((_, el) => {
+    const href = $(el).attr("href");
+    if (href && (href.includes("linkedin.com") || href.includes("twitter.com") || href.includes("github.com") || href.includes("medium.com"))) {
+      info.socialLinks.push(href);
+    }
+  });
+  return info;
+}
+function extractOrganizationInfo(html) {
+  const $ = esm/* load */.Hh(html);
+  const info = {
+    name: null,
+    type: null,
+    hasSchema: false,
+    hasContactInfo: false,
+    hasSocialProfiles: false,
+    trustBadges: []
+  };
+  $('script[type="application/ld+json"]').each((_, el) => {
+    try {
+      const data = JSON.parse($(el).html() || "");
+      const checkOrg = (obj) => {
+        const type = obj["@type"];
+        if (type === "Organization" || type === "LocalBusiness" || type === "Corporation") {
+          info.hasSchema = true;
+          info.name = obj.name || info.name;
+          info.type = type;
+          if (obj.contactPoint || obj.telephone || obj.email) {
+            info.hasContactInfo = true;
+          }
+          if (obj.sameAs && Array.isArray(obj.sameAs) && obj.sameAs.length > 0) {
+            info.hasSocialProfiles = true;
+          }
+        }
+      };
+      if (Array.isArray(data)) {
+        data.forEach(checkOrg);
+      } else {
+        checkOrg(data);
+      }
+    } catch {
+    }
+  });
+  const hasContact = $('a[href^="tel:"]').length > 0 || $('a[href^="mailto:"]').length > 0 || $('.contact, #contact, [class*="contact"]').length > 0;
+  info.hasContactInfo = info.hasContactInfo || hasContact;
+  const socialLinks = $('a[href*="facebook.com"], a[href*="twitter.com"], a[href*="linkedin.com"], a[href*="instagram.com"]');
+  info.hasSocialProfiles = info.hasSocialProfiles || socialLinks.length > 0;
+  const pageText = $.text();
+  for (const pattern of TRUST_BADGE_PATTERNS) {
+    const match = pageText.match(pattern);
+    if (match) {
+      info.trustBadges.push(match[0]);
+    }
+  }
+  return info;
+}
+function detectExperienceSignals(html) {
+  const $ = esm/* load */.Hh(html);
+  $("script, style").remove();
+  const text = $("body").text();
+  const signals = [];
+  const experiencePatterns = [
+    /\bI (tested|tried|used|reviewed|experienced|personally)\b/i,
+    /\bin my experience\b/i,
+    /\bwe (tested|tried|used|reviewed|found)\b/i,
+    /\bfirst-hand\b/i,
+    /\bhands-on\b/i,
+    /\bI've been (using|doing|working)\b/i,
+    /\bfor (\d+) years? I've\b/i,
+    /\bour team (tested|reviewed|evaluated)\b/i
+  ];
+  for (const pattern of experiencePatterns) {
+    if (pattern.test(text)) {
+      const match = text.match(pattern);
+      if (match) {
+        signals.push(match[0]);
+      }
+    }
+  }
+  const hasOriginalImages = $('img[src*="author"], img[src*="team"], img[src*="review"], img[src*="test"]').length > 0;
+  if (hasOriginalImages) {
+    signals.push("Original images present");
+  }
+  const hasReviews = $('[class*="review"], [class*="testimonial"], [itemtype*="Review"]').length > 0;
+  if (hasReviews) {
+    signals.push("User reviews/testimonials present");
+  }
+  return signals;
+}
+function detectExpertiseSignals(html) {
+  const $ = esm/* load */.Hh(html);
+  const text = $("body").text();
+  const signals = [];
+  const technicalPatterns = [
+    /\b(methodology|analysis|research|study|data)\b/i,
+    /\b(according to|based on|supported by)\b/i,
+    /\b(statistics|metrics|measurements)\b/i
+  ];
+  for (const pattern of technicalPatterns) {
+    if (pattern.test(text)) {
+      signals.push("Technical/research depth");
+      break;
+    }
+  }
+  for (const pattern of CREDENTIAL_PATTERNS) {
+    if (pattern.test(text)) {
+      const match = text.match(pattern);
+      if (match) {
+        signals.push(`Credential: ${match[0]}`);
+      }
+    }
+  }
+  if (/\b(reviewed by|fact-checked by|medically reviewed|expert reviewed)\b/i.test(text)) {
+    signals.push("Expert review indicated");
+  }
+  return signals;
+}
+function analyzeCitations(html) {
+  const $ = esm/* load */.Hh(html);
+  const authoritativeSources = [];
+  let citationCount = 0;
+  $('a[href^="http"]').each((_, el) => {
+    const href = $(el).attr("href") || "";
+    try {
+      const url = new URL(href);
+      const hostname = url.hostname.toLowerCase();
+      for (const domain of AUTHORITATIVE_DOMAINS) {
+        if (hostname.includes(domain) || hostname.endsWith(`.${domain}`)) {
+          authoritativeSources.push(hostname);
+          citationCount++;
+          break;
+        }
+      }
+    } catch {
+    }
+  });
+  return { count: citationCount, authoritativeSources: [...new Set(authoritativeSources)] };
+}
+function extractReviewerInfo(html) {
+  const $ = esm/* load */.Hh(html);
+  const text = $("body").text();
+  const info = {
+    hasReviewer: false,
+    reviewerName: null,
+    reviewerCredentials: [],
+    reviewDate: null,
+    nextReviewDate: null,
+    reviewType: null
+  };
+  const reviewPatterns = [
+    /medically reviewed by\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)/i,
+    /reviewed by\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)/i,
+    /fact[- ]checked by\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)/i,
+    /verified by\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)/i,
+    /expert reviewed by\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)/i
+  ];
+  for (const pattern of reviewPatterns) {
+    const match = text.match(pattern);
+    if (match) {
+      info.hasReviewer = true;
+      info.reviewerName = match[1];
+      if (/medical/i.test(match[0])) {
+        info.reviewType = "medical";
+      } else if (/fact[- ]check/i.test(match[0])) {
+        info.reviewType = "fact-check";
+      } else if (/expert/i.test(match[0])) {
+        info.reviewType = "expert";
+      } else {
+        info.reviewType = "editorial";
+      }
+      for (const credPattern of CREDENTIAL_PATTERNS) {
+        const credMatch = text.substring(match.index || 0, (match.index || 0) + 200).match(credPattern);
+        if (credMatch) {
+          info.reviewerCredentials.push(credMatch[0]);
+        }
+      }
+      break;
+    }
+  }
+  const reviewDatePatterns = [
+    /last reviewed[:\s]+(\w+\s+\d{1,2},?\s+\d{4})/i,
+    /reviewed on[:\s]+(\w+\s+\d{1,2},?\s+\d{4})/i,
+    /review date[:\s]+(\d{4}-\d{2}-\d{2})/i
+  ];
+  for (const pattern of reviewDatePatterns) {
+    const match = text.match(pattern);
+    if (match) {
+      info.reviewDate = match[1];
+      break;
+    }
+  }
+  const nextReviewPatterns = [
+    /next review[:\s]+(\w+\s+\d{4})/i,
+    /due for review[:\s]+(\w+\s+\d{4})/i,
+    /review due[:\s]+(\w+\s+\d{4})/i
+  ];
+  for (const pattern of nextReviewPatterns) {
+    const match = text.match(pattern);
+    if (match) {
+      info.nextReviewDate = match[1];
+      break;
+    }
+  }
+  const reviewerSelectors = [
+    ".reviewed-by",
+    ".fact-checker",
+    ".medical-reviewer",
+    '[class*="reviewer"]',
+    '[class*="fact-check"]'
+  ];
+  for (const selector of reviewerSelectors) {
+    const el = $(selector).first();
+    if (el.length) {
+      info.hasReviewer = true;
+      const elText = el.text().trim();
+      if (elText.length < 100 && !info.reviewerName) {
+        info.reviewerName = elText.replace(/^(reviewed by|fact-checked by|verified by)\s*/i, "");
+      }
+      break;
+    }
+  }
+  return info;
+}
+function extractTrustBadges(html) {
+  const $ = esm/* load */.Hh(html);
+  const text = $("body").text().toLowerCase();
+  const htmlLower = html.toLowerCase();
+  const info = {
+    pressFeatures: [],
+    certifications: [],
+    awards: [],
+    partnerships: []
+  };
+  const pressPatterns = [
+    /as seen (?:in|on)\s+([^.]+)/gi,
+    /featured (?:in|on)\s+([^.]+)/gi,
+    /covered by\s+([^.]+)/gi,
+    /mentioned (?:in|by)\s+([^.]+)/gi
+  ];
+  for (const pattern of pressPatterns) {
+    let match;
+    while ((match = pattern.exec(text)) !== null) {
+      const publications = match[1].split(/,|\band\b/).map((p) => p.trim()).filter((p) => p.length > 2 && p.length < 50);
+      info.pressFeatures.push(...publications);
+    }
+  }
+  const pressSelectors = [
+    ".as-seen-in",
+    ".featured-in",
+    ".press-logos",
+    ".media-logos",
+    '[class*="press"]',
+    '[class*="featured"]',
+    ".trust-badges"
+  ];
+  for (const selector of pressSelectors) {
+    if ($(selector).length > 0) {
+      $(`${selector} img`).each((_, el) => {
+        const alt = $(el).attr("alt") || "";
+        const src = $(el).attr("src") || "";
+        const combined = (alt + src).toLowerCase();
+        const outlets = ["forbes", "nytimes", "wsj", "bbc", "cnn", "techcrunch", "wired", "bloomberg"];
+        for (const outlet of outlets) {
+          if (combined.includes(outlet) && !info.pressFeatures.includes(outlet)) {
+            info.pressFeatures.push(outlet);
+          }
+        }
+      });
+    }
+  }
+  const certPatterns = [
+    { pattern: /clinically (?:studied|proven|tested)/gi, type: "Clinically studied" },
+    { pattern: /fda[- ](?:approved|cleared|registered)/gi, type: "FDA approved" },
+    { pattern: /dermatologist[- ](?:tested|recommended)/gi, type: "Dermatologist tested" },
+    { pattern: /doctor[- ](?:recommended|approved)/gi, type: "Doctor recommended" },
+    { pattern: /lab[- ]tested/gi, type: "Lab tested" },
+    { pattern: /third[- ]party[- ]tested/gi, type: "Third-party tested" },
+    { pattern: /scientifically[- ](?:proven|backed)/gi, type: "Scientifically proven" },
+    { pattern: /peer[- ]reviewed/gi, type: "Peer reviewed" },
+    { pattern: /iso[- ]\d+[- ]certified/gi, type: "ISO certified" },
+    { pattern: /organic[- ]certified/gi, type: "Organic certified" },
+    { pattern: /usda[- ]organic/gi, type: "USDA Organic" }
+  ];
+  for (const { pattern, type } of certPatterns) {
+    if (pattern.test(text)) {
+      info.certifications.push(type);
+    }
+  }
+  const awardPatterns = [
+    /(?:won|received|awarded)\s+(?:the\s+)?([^.]+award)/gi,
+    /award[- ]winning/gi,
+    /best (?:of|in) \d{4}/gi,
+    /editor'?s? choice/gi,
+    /top[- ]rated/gi,
+    /#1 (?:rated|ranked|best)/gi
+  ];
+  for (const pattern of awardPatterns) {
+    const match = text.match(pattern);
+    if (match) {
+      info.awards.push(match[0]);
+    }
+  }
+  const partnerPatterns = [
+    /trusted by\s+([^.]+)/gi,
+    /used by\s+([^.]+)/gi,
+    /partnered? with\s+([^.]+)/gi,
+    /official partner/gi
+  ];
+  for (const pattern of partnerPatterns) {
+    const match = text.match(pattern);
+    if (match) {
+      info.partnerships.push(match[0].substring(0, 100));
+    }
+  }
+  info.pressFeatures = [...new Set(info.pressFeatures)].slice(0, 10);
+  info.certifications = [...new Set(info.certifications)];
+  info.awards = [...new Set(info.awards)].slice(0, 5);
+  info.partnerships = [...new Set(info.partnerships)].slice(0, 5);
+  return info;
+}
+function detectVideoExperienceSignals(html) {
+  const $ = esm/* load */.Hh(html);
+  const signals = [];
+  const hasVideoElement = $("video").length > 0;
+  const hasYouTubeEmbed = $('iframe[src*="youtube"], iframe[src*="youtu.be"]').length > 0;
+  const hasVimeoEmbed = $('iframe[src*="vimeo"]').length > 0;
+  const hasWistiaEmbed = $('script[src*="wistia"], [class*="wistia"]').length > 0;
+  const hasVideoSchema = html.includes('"@type":"VideoObject"') || html.includes('"@type": "VideoObject"');
+  const hasVideo = hasVideoElement || hasYouTubeEmbed || hasVimeoEmbed || hasWistiaEmbed;
+  if (hasVideo) {
+    signals.push("Video content present");
+    if (hasVideoSchema) {
+      signals.push("VideoObject schema present");
+    }
+    const videoContextSelectors = [
+      ".video-demo",
+      ".product-video",
+      ".review-video",
+      ".tutorial-video",
+      '[class*="demo"]',
+      '[class*="walkthrough"]',
+      '[class*="how-to"]'
+    ];
+    for (const selector of videoContextSelectors) {
+      if ($(selector).length > 0) {
+        signals.push("Demonstration/tutorial video present");
+        break;
+      }
+    }
+    const videoTitles = $("video, iframe").map((_, el) => {
+      return $(el).attr("title") || $(el).attr("aria-label") || "";
+    }).get().join(" ").toLowerCase();
+    if (/review|test|demo|hands-on|unboxing|how-to|tutorial/.test(videoTitles)) {
+      signals.push("Experience-based video content");
+    }
+  }
+  if ($('[class*="video-testimonial"], [class*="video-review"]').length > 0) {
+    signals.push("Video testimonials present");
+  }
+  return { hasVideo, signals };
+}
+function extractContentDates(html) {
+  const $ = esm/* load */.Hh(html);
+  let published = null;
+  let modified = null;
+  $('script[type="application/ld+json"]').each((_, el) => {
+    try {
+      const data = JSON.parse($(el).html() || "");
+      const checkDates = (obj) => {
+        published = published || obj.datePublished || null;
+        modified = modified || obj.dateModified || null;
+      };
+      if (Array.isArray(data)) {
+        data.forEach(checkDates);
+      } else {
+        checkDates(data);
+      }
+    } catch {
+    }
+  });
+  published = published || $('meta[property="article:published_time"]').attr("content") || null;
+  modified = modified || $('meta[property="article:modified_time"]').attr("content") || null;
+  if (!published) {
+    const timeEl = $("time[datetime]").first();
+    published = timeEl.attr("datetime") || null;
+  }
+  return { published, modified };
+}
+function detectYMYL(html, url) {
+  const $ = esm/* load */.Hh(html);
+  const heading = `${$("title").text()} ${$("h1").text()}`.replace(YMYL_FALSE_FRIENDS, " ");
+  const body = $("body").text().replace(YMYL_FALSE_FRIENDS, " ");
+  const words = Math.max(1, body.split(/\s+/).filter(Boolean).length);
+  for (const topic of YMYL_TOPICS) {
+    if ((heading.match(topic) ?? []).length > 0) return true;
+    const hits = (body.match(topic) ?? []).length;
+    if (hits >= 5 && hits / words * 1e3 >= 4) return true;
+  }
+  try {
+    return YMYL_PATH.test(new URL(url).pathname);
+  } catch {
+    return false;
+  }
+}
+function analyzeEEATSignals(html, url) {
+  const issues = [];
+  const author = extractAuthorInfo(html);
+  const organization = extractOrganizationInfo(html);
+  const reviewer = extractReviewerInfo(html);
+  const trustBadges = extractTrustBadges(html);
+  const experienceSignals = detectExperienceSignals(html);
+  const expertiseSignals = detectExpertiseSignals(html);
+  const citations = analyzeCitations(html);
+  const contentDate = extractContentDates(html);
+  const videoExperience = detectVideoExperienceSignals(html);
+  const isYMYL = detectYMYL(html, url);
+  const authoritySignals = [];
+  if (organization.hasSchema) authoritySignals.push("Organization schema present");
+  if (author.hasSchema) authoritySignals.push("Author schema present");
+  if (citations.authoritativeSources.length > 0) {
+    authoritySignals.push(`Citations to ${citations.authoritativeSources.length} authoritative sources`);
+  }
+  const trustSignals = [];
+  if (organization.hasContactInfo) trustSignals.push("Contact information present");
+  if (organization.trustBadges.length > 0) {
+    trustSignals.push(`Trust badges: ${organization.trustBadges.join(", ")}`);
+  }
+  if (url.startsWith("https://")) trustSignals.push("HTTPS enabled");
+  if (isYMYL) {
+    if (!author.name && !author.hasSchema) {
+      issues.push({
+        code: "YMYL_NO_AUTHOR",
+        severity: "warning",
+        category: "content",
+        title: "YMYL content without author information",
+        description: "This appears to be YMYL (Your Money Your Life) content but has no visible author.",
+        impact: "Google prioritizes E-E-A-T signals heavily for YMYL topics.",
+        howToFix: "Add author byline with credentials, bio, and author schema.",
+        affectedUrls: [url]
+      });
+    }
+    if (author.credentials.length === 0 && expertiseSignals.length === 0) {
+      issues.push({
+        code: "YMYL_NO_EXPERTISE",
+        severity: "warning",
+        category: "content",
+        title: "YMYL content without expertise signals",
+        description: "YMYL content lacks visible expertise indicators (credentials, qualifications).",
+        impact: "Expertise is crucial for YMYL content ranking.",
+        howToFix: 'Include author credentials, "reviewed by" statements, or cite expert sources.',
+        affectedUrls: [url]
+      });
+    }
+    if (citations.authoritativeSources.length === 0) {
+      issues.push({
+        code: "YMYL_NO_CITATIONS",
+        severity: "warning",
+        category: "content",
+        title: "YMYL content without authoritative citations",
+        description: "YMYL content has no links to authoritative sources (.gov, .edu, etc.).",
+        impact: "Citing authoritative sources builds trust for sensitive topics.",
+        howToFix: "Add citations to government, academic, or recognized industry sources.",
+        affectedUrls: [url]
+      });
+    }
+  }
+  if (!author.name && !organization.name) {
+    issues.push({
+      code: "NO_ENTITY_IDENTIFIED",
+      severity: "notice",
+      category: "content",
+      title: "No author or organization identified",
+      description: "Page lacks clear attribution to an author or organization.",
+      impact: "Anonymous content may be seen as less trustworthy.",
+      howToFix: "Add author byline or organization information with structured data.",
+      affectedUrls: [url]
+    });
+  }
+  if (!organization.hasSchema) {
+    issues.push({
+      code: "NO_ORGANIZATION_SCHEMA",
+      severity: "notice",
+      category: "structured-data",
+      title: "Missing Organization schema",
+      description: "No Organization structured data found.",
+      impact: "Missed opportunity to establish organizational identity for E-E-A-T.",
+      howToFix: "Add Organization schema with name, logo, contact, and social profiles.",
+      affectedUrls: [url]
+    });
+  }
+  if (!author.hasSchema && author.name) {
+    issues.push({
+      code: "AUTHOR_NO_SCHEMA",
+      severity: "notice",
+      category: "structured-data",
+      title: "Author without Person schema",
+      description: "Author name is present but no Person structured data.",
+      impact: "Person schema helps Google understand author entity relationships.",
+      howToFix: "Add Person schema with sameAs links to author profiles.",
+      affectedUrls: [url]
+    });
+  }
+  if (!contentDate.modified && contentDate.published) {
+    issues.push({
+      code: "NO_MODIFIED_DATE",
+      severity: "notice",
+      category: "content",
+      title: "No content modification date",
+      description: "Content has published date but no last-modified date.",
+      impact: "Modified dates signal content freshness to search engines.",
+      howToFix: "Add article:modified_time meta tag or dateModified in schema.",
+      affectedUrls: [url]
+    });
+  }
+  if (experienceSignals.length === 0 && !isYMYL) {
+    issues.push({
+      code: "NO_EXPERIENCE_SIGNALS",
+      severity: "notice",
+      category: "content",
+      title: "No first-hand experience signals detected",
+      description: "Content lacks indicators of personal/first-hand experience.",
+      impact: 'The "Experience" in E-E-A-T values authentic, first-hand knowledge.',
+      howToFix: "Add personal insights, original photos, or hands-on testing details.",
+      affectedUrls: [url]
+    });
+  }
+  if (isYMYL && !reviewer.hasReviewer) {
+    const $ = esm/* load */.Hh(html);
+    const isHealthContent = /health|medical|disease|symptom|treatment/i.test($("title").text() + $("h1").text());
+    if (isHealthContent) {
+      issues.push({
+        code: "YMYL_NO_MEDICAL_REVIEWER",
+        severity: "warning",
+        category: "content",
+        title: "Health content without medical reviewer",
+        description: 'Health-related content lacks "medically reviewed by" or expert reviewer information.',
+        impact: "Google strongly prefers health content reviewed by qualified medical professionals.",
+        howToFix: 'Add "Medically reviewed by [Name, Credentials]" with reviewer bio and review date.',
+        affectedUrls: [url]
+      });
+    }
+  }
+  if (reviewer.hasReviewer && !reviewer.reviewDate) {
+    issues.push({
+      code: "REVIEWER_NO_DATE",
+      severity: "notice",
+      category: "content",
+      title: "Reviewer present but no review date",
+      description: "Content shows a reviewer but does not display when the review was conducted.",
+      impact: "Review dates help establish content freshness and credibility.",
+      howToFix: 'Add "Last reviewed: [Date]" near the reviewer attribution.',
+      affectedUrls: [url]
+    });
+  }
+  const $$ = esm/* load */.Hh(html);
+  const headline = `${$$("title").text()} ${$$("h1").text()}`.toLowerCase();
+  const bodyText = $$("body").text();
+  const isCommercial = /\b(add to cart|buy now|checkout|order now|pricing)\b/i.test(bodyText) || /[$€£]\s?\d/.test(bodyText);
+  if (isCommercial && trustBadges.pressFeatures.length === 0 && trustBadges.certifications.length === 0) {
+    issues.push({
+      code: "COMMERCIAL_NO_TRUST_BADGES",
+      severity: "notice",
+      category: "content",
+      title: "Commercial content without trust signals",
+      description: 'Product/service page lacks "As seen in", certifications, or trust badges.',
+      impact: "Trust badges and press features build credibility and influence AI recommendations.",
+      howToFix: 'Add "As seen in [Press]" logos, certifications, or customer testimonials with ratings.',
+      affectedUrls: [url]
+    });
+  }
+  const isReviewContent = /\b(review|reviews|reviewed|comparison|compared|vs\.?|best \w+|top \d+)\b/.test(headline);
+  if (isReviewContent && !videoExperience.hasVideo) {
+    issues.push({
+      code: "REVIEW_NO_VIDEO",
+      severity: "notice",
+      category: "content",
+      title: "Review content without video",
+      description: "Product review or comparison content lacks video demonstrations.",
+      impact: "Video content signals first-hand experience, highly valued by Google and AI tools.",
+      howToFix: "Add hands-on video reviews showing actual product testing and demonstration.",
+      affectedUrls: [url]
+    });
+  }
+  return {
+    issues,
+    data: {
+      author,
+      organization,
+      reviewer,
+      trustBadges,
+      experienceSignals: [...experienceSignals, ...videoExperience.signals],
+      expertiseSignals,
+      authoritySignals,
+      trustSignals,
+      citationCount: citations.count,
+      authoritativeSources: citations.authoritativeSources,
+      contentDate,
+      hasVideoContent: videoExperience.hasVideo,
+      videoExperienceSignals: videoExperience.signals,
+      isYMYL
+    }
+  };
+}
+
+// src/audit/checks/content-science.ts
+
+function analyzeZipfDistribution(html) {
+  const $ = esm/* load */.Hh(html);
+  $("script, style, nav, footer, header").remove();
+  const text = $("body").text().toLowerCase();
+  const words = text.match(/\b[a-z]{3,}\b/g) || [];
+  if (words.length < 100) {
+    return {
+      alpha: 1,
+      isNatural: true,
+      rSquared: 0,
+      stuffedKeywords: [],
+      missingMidTail: []
+    };
+  }
+  const freq = /* @__PURE__ */ new Map();
+  for (const word of words) {
+    freq.set(word, (freq.get(word) || 0) + 1);
+  }
+  const sorted = [...freq.entries()].sort((a, b) => b[1] - a[1]);
+  const topWords = sorted.slice(0, Math.min(100, sorted.length));
+  const logRanks = topWords.map((_, i) => Math.log(i + 1));
+  const logFreqs = topWords.map(([_, f]) => Math.log(f));
+  const { slope, intercept, rSquared } = linearRegression(logRanks, logFreqs);
+  const alpha = -slope;
+  const stuffedKeywords = [];
+  const expectedC = Math.exp(intercept);
+  for (let i = 0; i < topWords.length; i++) {
+    const [word, actualFreq] = topWords[i];
+    const expectedFreq = expectedC * Math.pow(i + 1, -alpha);
+    const deviation = (actualFreq - expectedFreq) / expectedFreq;
+    if (deviation > 0.5 && word.length > 4 && i > 5) {
+      stuffedKeywords.push({ word, deviation: Math.round(deviation * 100) });
+    }
+  }
+  const missingMidTail = [];
+  for (let i = 20; i < Math.min(50, topWords.length); i++) {
+    const [word, actualFreq] = topWords[i];
+    const expectedFreq = expectedC * Math.pow(i + 1, -alpha);
+    const deviation = (actualFreq - expectedFreq) / expectedFreq;
+    if (deviation < -0.3) {
+      missingMidTail.push(word);
+    }
+  }
+  return {
+    alpha,
+    isNatural: alpha >= 0.8 && alpha <= 1.2 && rSquared > 0.85,
+    rSquared,
+    stuffedKeywords: stuffedKeywords.slice(0, 10),
+    missingMidTail: missingMidTail.slice(0, 5)
+  };
+}
+function analyzeEntropy(html) {
+  const $ = esm/* load */.Hh(html);
+  $("script, style, nav, footer, header").remove();
+  const text = $("body").text().toLowerCase();
+  const words = text.match(/\b[a-z]{2,}\b/g) || [];
+  if (words.length < 50) {
+    return {
+      wordEntropy: 0,
+      normalizedEntropy: 0,
+      vocabularyRichness: 0,
+      repetitionScore: 1,
+      bigramEntropy: 0,
+      qualityIndicator: "poor"
+    };
+  }
+  const wordFreq = /* @__PURE__ */ new Map();
+  for (const word of words) {
+    wordFreq.set(word, (wordFreq.get(word) || 0) + 1);
+  }
+  const bigramFreq = /* @__PURE__ */ new Map();
+  for (let i = 0; i < words.length - 1; i++) {
+    const bigram = `${words[i]} ${words[i + 1]}`;
+    bigramFreq.set(bigram, (bigramFreq.get(bigram) || 0) + 1);
+  }
+  const wordEntropy = calculateShannonEntropy(wordFreq, words.length);
+  const bigramEntropy = calculateShannonEntropy(bigramFreq, words.length - 1);
+  const maxEntropy = Math.log2(wordFreq.size);
+  const normalizedEntropy = maxEntropy > 0 ? wordEntropy / maxEntropy : 0;
+  const vocabularyRichness = wordFreq.size / words.length;
+  const repetitionScore = 1 - normalizedEntropy;
+  let qualityIndicator;
+  if (normalizedEntropy > 0.85 && vocabularyRichness > 0.4) {
+    qualityIndicator = "excellent";
+  } else if (normalizedEntropy > 0.75 && vocabularyRichness > 0.3) {
+    qualityIndicator = "good";
+  } else if (normalizedEntropy > 0.6 && vocabularyRichness > 0.2) {
+    qualityIndicator = "average";
+  } else {
+    qualityIndicator = "poor";
+  }
+  return {
+    wordEntropy,
+    normalizedEntropy,
+    vocabularyRichness,
+    repetitionScore,
+    bigramEntropy,
+    qualityIndicator
+  };
+}
+function calculateShannonEntropy(freq, total) {
+  let entropy = 0;
+  for (const count of freq.values()) {
+    const p = count / total;
+    if (p > 0) {
+      entropy -= p * Math.log2(p);
+    }
+  }
+  return entropy;
+}
+function calculateBM25(html, keywords, avgDocLength = 1500, k1 = 1.5, b = 0.75) {
+  const $ = esm/* load */.Hh(html);
+  $("script, style").remove();
+  const text = $("body").text().toLowerCase();
+  const words = text.match(/\b[a-z]+\b/g) || [];
+  const docLength = words.length;
+  const results = [];
+  for (const keyword of keywords) {
+    const keywordLower = keyword.toLowerCase();
+    const keywordWords = keywordLower.split(/\s+/);
+    let tf;
+    if (keywordWords.length > 1) {
+      const regex = new RegExp(keywordLower.replace(/\s+/g, "\\s+"), "gi");
+      tf = (text.match(regex) || []).length;
+    } else {
+      tf = words.filter((w) => w === keywordLower).length;
+    }
+    const numerator = tf * (k1 + 1);
+    const denominator = tf + k1 * (1 - b + b * (docLength / avgDocLength));
+    const score = numerator / denominator;
+    const nextTF = tf + 1;
+    const nextScore = nextTF * (k1 + 1) / (nextTF + k1 * (1 - b + b * (docLength / avgDocLength)));
+    const marginalGain = (nextScore - score) / (score || 1);
+    const saturationPoint = marginalGain < 0.1;
+    const lengthPenalty = b * (docLength / avgDocLength - 1);
+    let recommendation;
+    if (tf === 0) {
+      recommendation = `Add "${keyword}" to your content`;
+    } else if (saturationPoint) {
+      recommendation = `Keyword "${keyword}" is saturated (${tf} occurrences). Focus on semantic variations.`;
+    } else if (lengthPenalty > 0.3) {
+      recommendation = `Content is ${Math.round(lengthPenalty * 100)}% longer than average. Consider tightening.`;
+    } else if (tf < 3) {
+      recommendation = `Consider adding 1-2 more natural mentions of "${keyword}"`;
+    } else {
+      recommendation = `Good keyword presence for "${keyword}"`;
+    }
+    results.push({
+      keyword,
+      score: Math.round(score * 100) / 100,
+      termFrequency: tf,
+      saturationPoint,
+      lengthPenalty: Math.round(lengthPenalty * 100) / 100,
+      recommendation
+    });
+  }
+  return results;
+}
+function linearRegression(x, y) {
+  const n = x.length;
+  let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0, sumYY = 0;
+  for (let i = 0; i < n; i++) {
+    sumX += x[i];
+    sumY += y[i];
+    sumXY += x[i] * y[i];
+    sumXX += x[i] * x[i];
+    sumYY += y[i] * y[i];
+  }
+  const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+  const intercept = (sumY - slope * sumX) / n;
+  const yMean = sumY / n;
+  let ssRes = 0, ssTot = 0;
+  for (let i = 0; i < n; i++) {
+    const predicted = slope * x[i] + intercept;
+    ssRes += (y[i] - predicted) ** 2;
+    ssTot += (y[i] - yMean) ** 2;
+  }
+  const rSquared = ssTot > 0 ? 1 - ssRes / ssTot : 0;
+  return { slope, intercept, rSquared };
+}
+function analyzeContentScience(html, url, targetKeywords = []) {
+  const issues = [];
+  const zipf = analyzeZipfDistribution(html);
+  if (!zipf.isNatural && zipf.stuffedKeywords.length > 0) {
+    issues.push({
+      code: "ZIPF_KEYWORD_STUFFING",
+      severity: "warning",
+      category: "content",
+      title: "Unnatural keyword distribution detected",
+      description: `Content deviates from natural language patterns (Zipf \u03B1=${zipf.alpha.toFixed(2)}, expected ~1.0). Possible keyword stuffing detected.`,
+      impact: "Search engines can detect unnatural text patterns, potentially triggering spam filters.",
+      howToFix: `Reduce repetition of: ${zipf.stuffedKeywords.map((k) => `"${k.word}" (+${k.deviation}%)`).join(", ")}`,
+      affectedUrls: [url],
+      details: {
+        alpha: zipf.alpha,
+        rSquared: zipf.rSquared,
+        stuffedKeywords: zipf.stuffedKeywords
+      }
+    });
+  }
+  const entropy = analyzeEntropy(html);
+  if (entropy.qualityIndicator === "poor") {
+    issues.push({
+      code: "LOW_CONTENT_ENTROPY",
+      severity: "warning",
+      category: "content",
+      title: "Low vocabulary diversity (thin content signal)",
+      description: `Content entropy is low (${entropy.normalizedEntropy.toFixed(2)}). This indicates repetitive or thin content.`,
+      impact: "Low diversity content may be seen as low-quality by search engines.",
+      howToFix: "Expand vocabulary, add more unique insights, and reduce repetitive phrases.",
+      affectedUrls: [url],
+      details: {
+        normalizedEntropy: entropy.normalizedEntropy,
+        vocabularyRichness: entropy.vocabularyRichness,
+        repetitionScore: entropy.repetitionScore
+      }
+    });
+  }
+  if (entropy.repetitionScore > 0.7) {
+    issues.push({
+      code: "HIGH_CONTENT_REPETITION",
+      severity: "notice",
+      category: "content",
+      title: "High content repetition detected",
+      description: `Content shows ${Math.round(entropy.repetitionScore * 100)}% repetition pattern.`,
+      impact: "Highly repetitive content provides less value and may hurt engagement.",
+      howToFix: "Vary your vocabulary and sentence structures. Avoid repeating the same phrases.",
+      affectedUrls: [url]
+    });
+  }
+  const bm25 = targetKeywords.length > 0 ? calculateBM25(html, targetKeywords) : [];
+  for (const result of bm25) {
+    if (result.termFrequency === 0) {
+      issues.push({
+        code: "BM25_KEYWORD_MISSING",
+        severity: "warning",
+        category: "on-page",
+        title: `Target keyword "${result.keyword}" not found`,
+        description: "This keyword is not present in your content at all.",
+        impact: "Page unlikely to rank for this keyword without any mention of it.",
+        howToFix: `Add natural mentions of "${result.keyword}" in your content.`,
+        affectedUrls: [url],
+        details: { keyword: result.keyword, bm25Score: 0 }
+      });
+    } else if (result.saturationPoint && result.termFrequency > 10) {
+      issues.push({
+        code: "BM25_KEYWORD_SATURATED",
+        severity: "notice",
+        category: "on-page",
+        title: `Keyword "${result.keyword}" over-optimized`,
+        description: `Found ${result.termFrequency} times. Additional mentions provide diminishing returns.`,
+        impact: "Over-optimization can trigger spam signals.",
+        howToFix: "Use semantic variations and related terms instead of exact repetition.",
+        affectedUrls: [url],
+        details: { keyword: result.keyword, termFrequency: result.termFrequency }
+      });
+    }
+  }
+  let overallQuality;
+  const qualityScore = (zipf.isNatural ? 30 : 0) + (entropy.qualityIndicator === "excellent" ? 40 : entropy.qualityIndicator === "good" ? 30 : entropy.qualityIndicator === "average" ? 20 : 0) + bm25.filter((b) => b.termFrequency > 0 && !b.saturationPoint).length / Math.max(bm25.length, 1) * 30;
+  if (qualityScore >= 80) {
+    overallQuality = "excellent";
+  } else if (qualityScore >= 60) {
+    overallQuality = "good";
+  } else if (qualityScore >= 40) {
+    overallQuality = "needs-work";
+  } else {
+    overallQuality = "poor";
+  }
+  return {
+    issues,
+    data: {
+      zipf,
+      entropy,
+      bm25,
+      overallQuality
+    }
+  };
+}
+
+// src/audit/checks/keyword-cannibalization.ts
+
+function extractPageKeywords(html, url) {
+  const $ = esm/* load */.Hh(html);
+  const title = $("title").text().trim() || "";
+  const h1s = [];
+  $("h1").each((_, el) => {
+    h1s.push($(el).text().trim());
+  });
+  const metaDescription = $('meta[name="description"]').attr("content")?.trim() || "";
+  $("script, style, nav, footer, header").remove();
+  const bodyText = $("body").text().toLowerCase();
+  const words = bodyText.replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter((w) => w.length > 3);
+  const wordCount = /* @__PURE__ */ new Map();
+  for (const word of words) {
+    wordCount.set(word, (wordCount.get(word) || 0) + 1);
+  }
+  const totalWords = words.length;
+  const keywordDensity = /* @__PURE__ */ new Map();
+  for (const [word, count] of wordCount) {
+    keywordDensity.set(word, count / totalWords);
+  }
+  const titleWords = title.toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter((w) => w.length > 3);
+  const h1Words = h1s.join(" ").toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter((w) => w.length > 3);
+  const primaryKeywords = [];
+  const seen = /* @__PURE__ */ new Set();
+  for (const word of titleWords) {
+    if (h1Words.includes(word) && !seen.has(word)) {
+      primaryKeywords.push(word);
+      seen.add(word);
+    }
+  }
+  for (const word of titleWords) {
+    const density = keywordDensity.get(word) || 0;
+    if (density > 0.01 && !seen.has(word)) {
+      primaryKeywords.push(word);
+      seen.add(word);
+    }
+  }
+  return {
+    url,
+    title,
+    h1: h1s,
+    metaDescription,
+    primaryKeywords,
+    keywordDensity
+  };
+}
+function analyzeKeywordCannibalizationSinglePage(html, url) {
+  const issues = [];
+  const pageData = extractPageKeywords(html, url);
+  if (pageData.h1.length > 1) {
+    const h1Texts = pageData.h1.map((h) => h.toLowerCase().trim());
+    const uniqueH1s = new Set(h1Texts);
+    if (uniqueH1s.size < h1Texts.length) {
+      issues.push({
+        code: "INTERNAL_CANNIBALIZATION_SIGNAL",
+        severity: "warning",
+        category: "content",
+        title: "Duplicate H1 tags on page",
+        description: `Page has ${h1Texts.length} H1 tags with duplicates, which can dilute keyword focus.`,
+        impact: "Multiple similar H1s can confuse search engines about page topic.",
+        howToFix: "Use a single, unique H1 that clearly defines the page topic.",
+        affectedUrls: [url],
+        details: { h1s: pageData.h1 }
+      });
+    }
+  }
+  const titleKeywords = new Set(
+    pageData.title.toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter((w) => w.length > 3)
+  );
+  const h1Keywords = new Set(
+    pageData.h1.join(" ").toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter((w) => w.length > 3)
+  );
+  const intersection = new Set([...titleKeywords].filter((x) => h1Keywords.has(x)));
+  if (titleKeywords.size > 0 && h1Keywords.size > 0 && intersection.size === 0) {
+    issues.push({
+      code: "TITLE_H1_KEYWORD_MISMATCH",
+      severity: "warning",
+      category: "on-page",
+      title: "Title and H1 target different keywords",
+      description: "The title tag and H1 heading have no overlapping keywords.",
+      impact: "Search engines may be confused about the primary topic of the page.",
+      howToFix: "Align title and H1 to target the same primary keyword or topic.",
+      affectedUrls: [url],
+      details: {
+        titleKeywords: [...titleKeywords],
+        h1Keywords: [...h1Keywords]
+      }
+    });
+  }
+  return { issues, data: pageData };
+}
+
+// src/audit/checks/conversion-elements.ts
+
+var CTA_PATTERNS = [
+  /get (started|quote|help|access|now)/i,
+  /start (now|free|today|here)/i,
+  /sign up/i,
+  /subscribe/i,
+  /contact us/i,
+  /book (a |now|today|call|demo|meeting)/i,
+  /schedule/i,
+  /request (a |quote|demo|call)/i,
+  /free (trial|quote|consultation|estimate)/i,
+  /buy now/i,
+  /add to cart/i,
+  /shop now/i,
+  /learn more/i,
+  /download/i,
+  /try (it |now|free)/i,
+  /call (us|now|today)/i,
+  /chat (with us|now)/i
+];
+var TESTIMONIAL_SELECTORS = [
+  ".testimonial",
+  ".testimonials",
+  '[class*="testimonial"]',
+  ".review",
+  ".reviews",
+  '[class*="review"]',
+  ".quote",
+  '[class*="customer-quote"]',
+  ".client-feedback",
+  '[class*="feedback"]',
+  'blockquote[class*="testimonial"]'
+];
+var CLIENT_LOGO_SELECTORS = [
+  ".client-logos",
+  ".clients",
+  '[class*="client-logo"]',
+  ".partner-logos",
+  ".partners",
+  '[class*="partner"]',
+  ".trusted-by",
+  '[class*="trusted"]',
+  ".as-seen-in",
+  '[class*="featured-in"]',
+  ".logo-wall",
+  ".logo-carousel"
+];
+function analyzeAboveFold(html) {
+  const $ = esm/* load */.Hh(html);
+  const header = $("header").first();
+  const hero = $('.hero, [class*="hero"], .banner, [class*="banner"], .jumbotron, [class*="landing"]').first();
+  const firstSection = $("main > section, main > div, body > section").first();
+  const headerHtml = header.html() || "";
+  const heroOrSectionHtml = hero.length ? hero.html() || "" : firstSection.html() || "";
+  const aboveFoldHtml = headerHtml + heroOrSectionHtml;
+  const $above = esm/* load */.Hh(aboveFoldHtml);
+  const h1 = $("h1").first();
+  const hasHeadline = h1.length > 0;
+  const headlineText = h1.text().trim() || null;
+  const ctaTexts = [];
+  $("a, button").each((_, el) => {
+    const text = $(el).text().trim();
+    for (const pattern of CTA_PATTERNS) {
+      if (pattern.test(text)) {
+        ctaTexts.push(text);
+        break;
+      }
+    }
+  });
+  const forms = $("form");
+  let formType = null;
+  if (forms.length > 0) {
+    const formHtml = forms.first().html()?.toLowerCase() || "";
+    if (formHtml.includes("calculator") || formHtml.includes("estimate")) {
+      formType = "calculator";
+    } else if (formHtml.includes("search") || formHtml.includes("query")) {
+      formType = "search";
+    } else if (formHtml.includes("email") && formHtml.includes("subscribe")) {
+      formType = "signup";
+    } else if (formHtml.includes("phone") || formHtml.includes("contact") || formHtml.includes("message")) {
+      formType = "contact";
+    } else {
+      formType = "other";
+    }
+  }
+  const hasSocialProofAbove = $('[class*="testimonial"], [class*="review"], [class*="rating"], [class*="trust"]').length > 0;
+  const socialProofTypes = [];
+  if ($('[class*="rating"], [class*="star"]').length > 0) socialProofTypes.push("ratings");
+  if ($('[class*="testimonial"]').length > 0) socialProofTypes.push("testimonials");
+  if ($('[class*="client-logo"], [class*="trusted"]').length > 0) socialProofTypes.push("client-logos");
+  const hasHeroImage = hero.find("img").length > 0 || $("header img").length > 0;
+  const hasVideo = $('video, iframe[src*="youtube"], iframe[src*="vimeo"]').length > 0;
+  let score = 0;
+  if (hasHeadline) score += 25;
+  if (ctaTexts.length > 0) score += 25;
+  if (forms.length > 0) score += 20;
+  if (hasSocialProofAbove) score += 15;
+  if (hasHeroImage || hasVideo) score += 15;
+  return {
+    hasHeadline,
+    headlineText,
+    hasCTA: ctaTexts.length > 0,
+    ctaCount: ctaTexts.length,
+    ctaTexts: [...new Set(ctaTexts)].slice(0, 5),
+    hasForm: forms.length > 0,
+    formType,
+    hasSocialProof: hasSocialProofAbove,
+    socialProofTypes,
+    hasHeroImage,
+    hasVideo,
+    estimatedAboveFoldScore: score
+  };
+}
+function analyzeSocialProof(html) {
+  const $ = esm/* load */.Hh(html);
+  const text = $("body").text().toLowerCase();
+  let testimonialCount = 0;
+  for (const selector of TESTIMONIAL_SELECTORS) {
+    testimonialCount += $(selector).length;
+  }
+  const hasTestimonials = testimonialCount > 0;
+  const reviewElements = $('[class*="review"], [itemtype*="Review"]');
+  const hasReviews = reviewElements.length > 0;
+  const reviewCount = reviewElements.length;
+  const ratingElements = $('[class*="rating"], [class*="star"], [itemprop="ratingValue"]');
+  const hasRatings = ratingElements.length > 0;
+  let averageRating = null;
+  const ratingValue = $('[itemprop="ratingValue"]').first().text();
+  if (ratingValue) {
+    const parsed = parseFloat(ratingValue);
+    if (!isNaN(parsed)) averageRating = parsed;
+  }
+  let clientLogoCount = 0;
+  for (const selector of CLIENT_LOGO_SELECTORS) {
+    const container = $(selector);
+    if (container.length > 0) {
+      clientLogoCount = container.find("img").length || 1;
+      break;
+    }
+  }
+  const hasClientLogos = clientLogoCount > 0;
+  const hasCaseStudies = $('a[href*="case-stud"], [class*="case-study"]').length > 0 || text.includes("case study") || text.includes("case studies");
+  const hasAwards = $('[class*="award"]').length > 0 || text.includes("award-winning") || text.includes("winner");
+  const hasCertifications = $('[class*="certif"], [class*="accredit"]').length > 0 || /certified|accredited|licensed/i.test(text);
+  const hasTrustBadges = $('[class*="trust-badge"], [class*="security-badge"], [class*="guarantee"]').length > 0;
+  const statisticsFound = [];
+  const statPatterns = [
+    /(\d+(?:,\d{3})*\+?)\s*(customers?|clients?|users?|businesses?)/gi,
+    /(\d+(?:,\d{3})*\+?)\s*(years?)\s*(of experience|in business)/gi,
+    /(\d+)%\s*(satisfaction|success|increase|growth)/gi,
+    /\$(\d+(?:,\d{3})*(?:\.\d+)?[MBK]?)\s*(saved|recovered|generated)/gi
+  ];
+  for (const pattern of statPatterns) {
+    const matches = text.match(pattern);
+    if (matches) {
+      statisticsFound.push(...matches.slice(0, 3));
+    }
+  }
+  const hasStatistics = statisticsFound.length > 0;
+  let score = 0;
+  if (hasTestimonials) score += 20;
+  if (hasReviews) score += 15;
+  if (hasRatings) score += 10;
+  if (hasClientLogos) score += 15;
+  if (hasCaseStudies) score += 15;
+  if (hasAwards || hasCertifications) score += 10;
+  if (hasTrustBadges) score += 5;
+  if (hasStatistics) score += 10;
+  return {
+    hasTestimonials,
+    testimonialCount,
+    hasReviews,
+    reviewCount,
+    hasRatings,
+    averageRating,
+    hasClientLogos,
+    clientLogoCount,
+    hasCaseStudies,
+    hasAwards,
+    hasCertifications,
+    hasTrustBadges,
+    hasStatistics,
+    statisticsFound: [...new Set(statisticsFound)].slice(0, 5),
+    socialProofScore: Math.min(100, score)
+  };
+}
+function detectEngagementTriggers(html) {
+  const $ = esm/* load */.Hh(html);
+  const htmlLower = html.toLowerCase();
+  const calculatorTypes = [];
+  const calcPatterns = [
+    { pattern: /calculator/i, type: "calculator" },
+    { pattern: /estimator/i, type: "estimator" },
+    { pattern: /roi.*calculator|calculator.*roi/i, type: "ROI calculator" },
+    { pattern: /price.*calculator|cost.*calculator/i, type: "price calculator" },
+    { pattern: /mortgage.*calculator/i, type: "mortgage calculator" },
+    { pattern: /loan.*calculator/i, type: "loan calculator" },
+    { pattern: /bmi.*calculator/i, type: "BMI calculator" },
+    { pattern: /quote.*tool|instant.*quote/i, type: "quote tool" }
+  ];
+  for (const { pattern, type } of calcPatterns) {
+    if (pattern.test(htmlLower)) {
+      calculatorTypes.push(type);
+    }
+  }
+  const hasCalculator = calculatorTypes.length > 0;
+  const hasQuiz = $('[class*="quiz"], [id*="quiz"]').length > 0 || /quiz|assessment|self-test/i.test(htmlLower);
+  const interactiveTypes = [];
+  if ($('input[type="range"], .slider, [class*="slider"]').length > 0) interactiveTypes.push("slider");
+  if ($('[class*="configurator"], [class*="customizer"]').length > 0) interactiveTypes.push("configurator");
+  if ($('canvas, [class*="chart"], [class*="graph"]').length > 0) interactiveTypes.push("charts/graphs");
+  if ($('[class*="map"], #map, .map').length > 0) interactiveTypes.push("interactive map");
+  if ($('[class*="filter"], [class*="sort"]').length > 0) interactiveTypes.push("filters");
+  const hasInteractiveElement = interactiveTypes.length > 0;
+  const videos = $('video, iframe[src*="youtube"], iframe[src*="vimeo"], iframe[src*="wistia"], [class*="video-embed"]');
+  const hasEmbeddedVideo = videos.length > 0;
+  const videoCount = videos.length;
+  const hasExpandableContent = $('details, [class*="accordion"], [class*="collapsible"], [class*="expandable"]').length > 0;
+  const hasTabsOrAccordion = $('[role="tablist"], [class*="tabs"], [class*="tab-content"]').length > 0;
+  const hasChatWidget = $('[class*="chat-widget"], [class*="live-chat"], [id*="chat"]').length > 0 || /intercom|drift|crisp|zendesk|livechat|tidio/i.test(html);
+  let score = 0;
+  if (hasCalculator) score += 25;
+  if (hasQuiz) score += 20;
+  if (hasInteractiveElement) score += 15;
+  if (hasEmbeddedVideo) score += 20;
+  if (hasExpandableContent || hasTabsOrAccordion) score += 10;
+  if (hasChatWidget) score += 10;
+  return {
+    hasCalculator,
+    calculatorTypes,
+    hasQuiz,
+    hasInteractiveElement,
+    interactiveTypes,
+    hasEmbeddedVideo,
+    videoCount,
+    hasExpandableContent,
+    hasTabsOrAccordion,
+    hasChatWidget,
+    engagementScore: Math.min(100, score)
+  };
+}
+function detectPageType(html, url) {
+  const $ = esm/* load */.Hh(html);
+  const text = $("body").text().toLowerCase();
+  const urlLower = url.toLowerCase();
+  let commercialSignals = 0;
+  let informationalSignals = 0;
+  if (/\/product|\/service|\/pricing|\/buy|\/shop|\/contact/i.test(urlLower)) commercialSignals += 2;
+  if (/\/blog|\/article|\/guide|\/how-to|\/what-is|\/learn/i.test(urlLower)) informationalSignals += 2;
+  if (/buy now|add to cart|get quote|contact us|free consultation/i.test(text)) commercialSignals += 2;
+  if ($("form").length > 0) commercialSignals += 1;
+  if (/pricing|price|\$\d+/i.test(text)) commercialSignals += 1;
+  if (/table of contents|in this article|what you.ll learn/i.test(text)) informationalSignals += 2;
+  if ($("article").length > 0) informationalSignals += 1;
+  if (text.length > 3e3) informationalSignals += 1;
+  if (commercialSignals > informationalSignals + 1) return "commercial";
+  if (informationalSignals > commercialSignals + 1) return "informational";
+  if (commercialSignals > 0 && informationalSignals > 0) return "mixed";
+  return "unknown";
+}
+function analyzeConversionElements(html, url) {
+  const issues = [];
+  const aboveFold = analyzeAboveFold(html);
+  const socialProof = analyzeSocialProof(html);
+  const engagementTriggers = detectEngagementTriggers(html);
+  const pageType = detectPageType(html, url);
+  const recommendations = [];
+  if (pageType === "commercial" || pageType === "mixed") {
+    if (!aboveFold.hasCTA) {
+      issues.push({
+        code: "COMMERCIAL_NO_CTA",
+        severity: "warning",
+        category: "content",
+        title: "Commercial page without clear CTA",
+        description: "This appears to be a commercial page but has no clear call-to-action.",
+        impact: "Without a CTA, visitors have no clear next step. 80% of users only see above-the-fold content.",
+        howToFix: 'Add a prominent CTA button above the fold (e.g., "Get Free Quote", "Contact Us", "Start Free Trial").',
+        affectedUrls: [url],
+        details: { pageType }
+      });
+      recommendations.push("Add prominent CTA button above the fold");
+    }
+    if (!aboveFold.hasForm && pageType === "commercial") {
+      issues.push({
+        code: "COMMERCIAL_NO_FORM",
+        severity: "notice",
+        category: "content",
+        title: "Commercial page without lead capture form",
+        description: "This commercial page lacks a visible form for lead capture.",
+        impact: "Forms above the fold significantly increase conversion rates.",
+        howToFix: "Add a contact form, quote request, or signup form visible without scrolling.",
+        affectedUrls: [url]
+      });
+      recommendations.push("Add lead capture form above the fold");
+    }
+    if (!socialProof.hasTestimonials && !socialProof.hasReviews) {
+      issues.push({
+        code: "NO_SOCIAL_PROOF",
+        // A notice: a conversion-rate suggestion, not a search defect.
+        severity: "notice",
+        category: "content",
+        title: "No testimonials or reviews found",
+        description: "Page lacks testimonials, reviews, or other social proof.",
+        impact: "97% of consumers look at reviews. Testimonials can increase conversions by 34%.",
+        howToFix: "Add customer testimonials, reviews, ratings, or case studies to build trust.",
+        affectedUrls: [url],
+        details: { socialProofScore: socialProof.socialProofScore }
+      });
+      recommendations.push("Add customer testimonials or reviews");
+    }
+    if (!socialProof.hasClientLogos && pageType === "commercial") {
+      recommendations.push('Add client/partner logos for credibility ("Trusted by...")');
+    }
+  }
+  if (!engagementTriggers.hasEmbeddedVideo && !engagementTriggers.hasInteractiveElement) {
+    issues.push({
+      code: "NO_ENGAGEMENT_TRIGGERS",
+      severity: "notice",
+      category: "content",
+      title: "No engagement triggers found",
+      description: "Page lacks interactive elements, videos, or calculators.",
+      impact: "Interactive content increases dwell time, a user signal that influences rankings.",
+      howToFix: "Add video content, calculators, interactive tools, or expandable sections.",
+      affectedUrls: [url],
+      details: { engagementScore: engagementTriggers.engagementScore }
+    });
+    recommendations.push("Add video or interactive elements to increase engagement");
+  }
+  if (pageType === "commercial" && !engagementTriggers.hasCalculator) {
+    const isServicePage = /service|pricing|quote|cost|estimate/i.test(url + html);
+    if (isServicePage) {
+      recommendations.push("Consider adding a calculator or instant quote tool");
+    }
+  }
+  if (!aboveFold.hasHeadline) {
+    issues.push({
+      code: "NO_VISIBLE_HEADLINE",
+      severity: "warning",
+      category: "on-page",
+      title: "No H1 headline visible",
+      description: "Page appears to lack a visible H1 headline above the fold.",
+      impact: "80% of visitors only read headlines. A strong headline is critical for engagement.",
+      howToFix: "Add a clear, compelling H1 headline that communicates the page value proposition.",
+      affectedUrls: [url]
+    });
+  }
+  return {
+    issues,
+    data: {
+      aboveFold,
+      socialProof,
+      engagementTriggers,
+      pageType,
+      recommendations
+    }
+  };
+}
+
+// src/audit/checks/keyword-placement.ts
+
+function inferTargetKeywords(html, url) {
+  const $ = esm/* load */.Hh(html);
+  const keywords = [];
+  const title = $("title").text().trim();
+  if (title) {
+    const cleanTitle = title.split(/[|\-–—]/)[0]?.trim() || title;
+    if (cleanTitle.length > 3 && cleanTitle.length < 100) {
+      keywords.push(cleanTitle.toLowerCase());
+    }
+  }
+  const h1 = $("h1").first().text().trim();
+  if (h1 && h1.length > 3 && h1.length < 100) {
+    keywords.push(h1.toLowerCase());
+  }
+  try {
+    const urlPath = new URL(url).pathname;
+    const slug = urlPath.split("/").filter((p) => p.length > 0).pop();
+    if (slug) {
+      const cleanSlug = slug.replace(/[-_]/g, " ").replace(/\.(html?|php|aspx?)$/i, "");
+      if (cleanSlug.length > 3) {
+        keywords.push(cleanSlug.toLowerCase());
+      }
+    }
+  } catch {
+  }
+  const wordCounts = /* @__PURE__ */ new Map();
+  for (const kw of keywords) {
+    const words = kw.split(/\s+/).filter((w) => w.length > 2);
+    for (const word of words) {
+      wordCounts.set(word, (wordCounts.get(word) || 0) + 1);
+    }
+  }
+  return [...new Set(keywords)].slice(0, 3);
+}
+function analyzeUrlKeyword(url, keywords) {
+  try {
+    const parsedUrl = new URL(url);
+    const urlSlug = parsedUrl.pathname.toLowerCase();
+    const slugWords = urlSlug.replace(/[-_/]/g, " ").trim();
+    let containsKeyword = false;
+    let keywordInUrl = null;
+    for (const keyword of keywords) {
+      const kwWords = keyword.toLowerCase().split(/\s+/);
+      const significantWords = kwWords.filter((w) => w.length > 2);
+      const matchCount = significantWords.filter((w) => slugWords.includes(w)).length;
+      if (matchCount >= Math.ceil(significantWords.length * 0.7)) {
+        containsKeyword = true;
+        keywordInUrl = keyword;
+        break;
+      }
+    }
+    const isCleanUrl = !urlSlug.includes("?") && !urlSlug.includes("=") && !/\d{5,}/.test(urlSlug) && // No long ID numbers
+    urlSlug.length < 100;
+    const hasDynamicParams = parsedUrl.search.length > 0;
+    return {
+      containsKeyword,
+      keywordInUrl,
+      urlSlug,
+      isCleanUrl,
+      hasDynamicParams
+    };
+  } catch {
+    return {
+      containsKeyword: false,
+      keywordInUrl: null,
+      urlSlug: "",
+      isCleanUrl: false,
+      hasDynamicParams: false
+    };
+  }
+}
+function analyzeTitleKeyword(html, keywords) {
+  const $ = esm/* load */.Hh(html);
+  const title = $("title").text().trim().toLowerCase();
+  if (!title) {
+    return {
+      hasExactMatch: false,
+      hasPartialMatch: false,
+      titleMatchScore: 0,
+      position: "none"
+    };
+  }
+  let hasExactMatch = false;
+  let hasPartialMatch = false;
+  let position = "none";
+  for (const keyword of keywords) {
+    const kwLower = keyword.toLowerCase();
+    if (title.includes(kwLower)) {
+      hasExactMatch = true;
+      const index = title.indexOf(kwLower);
+      if (index === 0 || index < 5) {
+        position = "start";
+      } else if (index > title.length - kwLower.length - 10) {
+        position = "end";
+      } else {
+        position = "middle";
+      }
+      break;
+    }
+    const kwWords = kwLower.split(/\s+/).filter((w) => w.length > 2);
+    const matchCount = kwWords.filter((w) => title.includes(w)).length;
+    if (matchCount >= Math.ceil(kwWords.length * 0.6)) {
+      hasPartialMatch = true;
+      position = "middle";
+    }
+  }
+  let titleMatchScore = 0;
+  if (hasExactMatch) {
+    titleMatchScore = position === "start" ? 100 : position === "middle" ? 80 : 60;
+  } else if (hasPartialMatch) {
+    titleMatchScore = 40;
+  }
+  return {
+    hasExactMatch,
+    hasPartialMatch,
+    titleMatchScore,
+    position
+  };
+}
+function analyzeH1Keyword(html, keywords) {
+  const $ = esm/* load */.Hh(html);
+  const h1 = $("h1").first().text().trim();
+  const h1Lower = h1.toLowerCase();
+  let hasExactMatch = false;
+  let hasPartialMatch = false;
+  for (const keyword of keywords) {
+    const kwLower = keyword.toLowerCase();
+    if (h1Lower.includes(kwLower)) {
+      hasExactMatch = true;
+      break;
+    }
+    const kwWords = kwLower.split(/\s+/).filter((w) => w.length > 2);
+    const matchCount = kwWords.filter((w) => h1Lower.includes(w)).length;
+    if (matchCount >= Math.ceil(kwWords.length * 0.6)) {
+      hasPartialMatch = true;
+    }
+  }
+  return {
+    hasExactMatch,
+    hasPartialMatch,
+    h1Text: h1 || null
+  };
+}
+function analyzeFirstParagraph(html, keywords) {
+  const $ = esm/* load */.Hh(html);
+  const paragraphs = $("main p, article p, .content p, #content p, body > div p").toArray();
+  let firstParagraph = "";
+  for (const p of paragraphs) {
+    const text = $(p).text().trim();
+    if (text.length > 50) {
+      firstParagraph = text;
+      break;
+    }
+  }
+  if (!firstParagraph) {
+    firstParagraph = $("p").first().text().trim();
+  }
+  const firstParagraphLower = firstParagraph.toLowerCase();
+  const words = firstParagraphLower.split(/\s+/);
+  let hasKeyword = false;
+  let keywordPosition = null;
+  for (const keyword of keywords) {
+    const kwLower = keyword.toLowerCase();
+    const kwWords = kwLower.split(/\s+/);
+    for (let i = 0; i < words.length; i++) {
+      if (kwWords.some((kw) => words[i].includes(kw))) {
+        hasKeyword = true;
+        keywordPosition = i;
+        break;
+      }
+    }
+    if (hasKeyword) break;
+  }
+  return {
+    hasKeyword,
+    keywordPosition,
+    firstParagraphPreview: firstParagraph.substring(0, 200) + (firstParagraph.length > 200 ? "..." : ""),
+    isWithinFirst100Words: hasKeyword && keywordPosition !== null && keywordPosition < 100
+  };
+}
+function analyzeMetaDescription(html, keywords) {
+  const $ = esm/* load */.Hh(html);
+  const metaDesc = $('meta[name="description"]').attr("content")?.trim().toLowerCase() || "";
+  if (!metaDesc) {
+    return { hasKeyword: false, position: "none" };
+  }
+  let hasKeyword = false;
+  let position = "none";
+  for (const keyword of keywords) {
+    const kwLower = keyword.toLowerCase();
+    const kwWords = kwLower.split(/\s+/).filter((w) => w.length > 2);
+    const matchCount = kwWords.filter((w) => metaDesc.includes(w)).length;
+    if (matchCount >= Math.ceil(kwWords.length * 0.5)) {
+      hasKeyword = true;
+      const firstMatch = kwWords.find((w) => metaDesc.includes(w));
+      if (firstMatch) {
+        const index = metaDesc.indexOf(firstMatch);
+        if (index < 30) {
+          position = "start";
+        } else if (index > metaDesc.length - 50) {
+          position = "end";
+        } else {
+          position = "middle";
+        }
+      }
+      break;
+    }
+  }
+  return { hasKeyword, position };
+}
+function analyzeKeywordPlacement(html, url) {
+  const issues = [];
+  const detectedKeywords = inferTargetKeywords(html, url);
+  const urlAnalysis = analyzeUrlKeyword(url, detectedKeywords);
+  const titleAnalysis = analyzeTitleKeyword(html, detectedKeywords);
+  const h1Analysis = analyzeH1Keyword(html, detectedKeywords);
+  const firstParagraphAnalysis = analyzeFirstParagraph(html, detectedKeywords);
+  const metaDescriptionAnalysis = analyzeMetaDescription(html, detectedKeywords);
+  let overallPlacementScore = 0;
+  if (urlAnalysis.containsKeyword) overallPlacementScore += 20;
+  if (titleAnalysis.hasExactMatch) overallPlacementScore += 25;
+  else if (titleAnalysis.hasPartialMatch) overallPlacementScore += 10;
+  if (h1Analysis.hasExactMatch) overallPlacementScore += 20;
+  else if (h1Analysis.hasPartialMatch) overallPlacementScore += 10;
+  if (firstParagraphAnalysis.isWithinFirst100Words) overallPlacementScore += 20;
+  else if (firstParagraphAnalysis.hasKeyword) overallPlacementScore += 10;
+  if (metaDescriptionAnalysis.hasKeyword) overallPlacementScore += 15;
+  if (!urlAnalysis.containsKeyword && urlAnalysis.urlSlug.length > 1) {
+    issues.push({
+      code: "URL_MISSING_KEYWORD",
+      severity: "warning",
+      category: "on-page",
+      title: "URL does not contain target keyword",
+      description: `The URL slug "${urlAnalysis.urlSlug}" doesn't include the apparent target keyword.`,
+      impact: "URLs with keywords help Google understand page relevance. This is a ranking signal.",
+      howToFix: "Include the primary keyword phrase in the URL (e.g., /keyword-phrase/ instead of /page123/).",
+      affectedUrls: [url],
+      details: {
+        currentSlug: urlAnalysis.urlSlug,
+        inferredKeywords: detectedKeywords
+      }
+    });
+  }
+  if (urlAnalysis.hasDynamicParams) {
+    issues.push({
+      code: "URL_HAS_PARAMS",
+      severity: "notice",
+      category: "on-page",
+      title: "URL contains query parameters",
+      description: "The URL has query parameters which create a less clean URL structure.",
+      impact: "Clean, keyword-rich URLs are preferred by search engines and users.",
+      howToFix: "Use URL rewriting to create clean, parameter-free URLs where possible.",
+      affectedUrls: [url]
+    });
+  }
+  if (!titleAnalysis.hasExactMatch && detectedKeywords.length > 0) {
+    issues.push({
+      code: "TITLE_KEYWORD_MISMATCH",
+      severity: "warning",
+      category: "on-page",
+      title: "Title tag missing exact keyword match",
+      description: "The title tag doesn't contain the exact target keyword phrase.",
+      impact: `Google's leaked documents reveal a "title match score" that measures keyword alignment.`,
+      howToFix: "Include the exact target keyword phrase in the title, preferably near the beginning.",
+      affectedUrls: [url],
+      details: {
+        titleMatchScore: titleAnalysis.titleMatchScore,
+        position: titleAnalysis.position
+      }
+    });
+  }
+  if (!firstParagraphAnalysis.hasKeyword) {
+    issues.push({
+      code: "FIRST_PARA_NO_KEYWORD",
+      severity: "warning",
+      category: "on-page",
+      title: "Primary keyword not in first paragraph",
+      description: "The target keyword doesn't appear in the opening paragraph.",
+      impact: "Including keywords early in content signals relevance to search engines.",
+      howToFix: "Add the primary keyword naturally within the first 100 words of your content.",
+      affectedUrls: [url],
+      details: {
+        preview: firstParagraphAnalysis.firstParagraphPreview
+      }
+    });
+  } else if (!firstParagraphAnalysis.isWithinFirst100Words) {
+    issues.push({
+      code: "KEYWORD_TOO_FAR",
+      severity: "notice",
+      category: "on-page",
+      title: "Keyword appears late in first paragraph",
+      description: `Keyword found at word position ${firstParagraphAnalysis.keywordPosition}, ideally should be in first 100 words.`,
+      impact: "Earlier keyword placement may slightly improve relevance signals.",
+      howToFix: "Move the keyword mention closer to the beginning of your content.",
+      affectedUrls: [url]
+    });
+  }
+  if (!h1Analysis.hasExactMatch && !h1Analysis.hasPartialMatch && h1Analysis.h1Text) {
+    issues.push({
+      code: "H1_MISSING_KEYWORD",
+      severity: "notice",
+      category: "on-page",
+      title: "H1 doesn't contain target keyword",
+      description: `The H1 "${h1Analysis.h1Text}" doesn't include the target keyword.`,
+      impact: "H1 is a strong on-page signal for topic relevance.",
+      howToFix: "Include the primary keyword in your H1 headline.",
+      affectedUrls: [url]
+    });
+  }
+  return {
+    issues,
+    data: {
+      detectedKeywords,
+      urlAnalysis,
+      titleAnalysis,
+      h1Analysis,
+      firstParagraphAnalysis,
+      metaDescriptionAnalysis,
+      overallPlacementScore
+    }
+  };
+}
+
+// src/audit/checks/topical-clusters.ts
+
+function getLinkContext($, link) {
+  const parents = link.parents().toArray();
+  for (const parent of parents) {
+    const tagName = parent.tagName?.toLowerCase();
+    const className = ($(parent).attr("class") || "").toLowerCase();
+    const id = ($(parent).attr("id") || "").toLowerCase();
+    if (tagName === "nav" || className.includes("nav") || className.includes("menu") || id.includes("nav") || id.includes("menu")) {
+      return "navigation";
+    }
+    if (tagName === "footer" || className.includes("footer") || id.includes("footer")) {
+      return "footer";
+    }
+    if (tagName === "aside" || className.includes("sidebar") || className.includes("widget") || id.includes("sidebar")) {
+      return "sidebar";
+    }
+    if (tagName === "main" || tagName === "article" || className.includes("content") || className.includes("post") || className.includes("entry") || id.includes("content")) {
+      return "content";
+    }
+  }
+  return "content";
+}
+function getLinkDestination(href, baseUrl) {
+  if (!href || href.startsWith("#")) {
+    return "anchor";
+  }
+  try {
+    const linkUrl = new URL(href, baseUrl);
+    const currentUrl = new URL(baseUrl);
+    if (linkUrl.hostname === currentUrl.hostname) {
+      return "internal";
+    }
+    return "external";
+  } catch {
+    if (href.startsWith("/") || href.startsWith("./") || href.startsWith("../")) {
+      return "internal";
+    }
+    return "external";
+  }
+}
+function isDoFollow(rel) {
+  if (!rel) return true;
+  const relValues = rel.toLowerCase().split(/\s+/);
+  return !relValues.includes("nofollow") && !relValues.includes("sponsored") && !relValues.includes("ugc");
+}
+function extractLinks2(html, url) {
+  const $ = esm/* load */.Hh(html);
+  const internalLinks = [];
+  const externalLinks = [];
+  const anchorLinks = [];
+  $("a[href]").each((_, element) => {
+    const $link = $(element);
+    const href = $link.attr("href") || "";
+    const anchorText = $link.text().trim();
+    const rel = $link.attr("rel");
+    const destination = getLinkDestination(href, url);
+    const context = getLinkContext($, $link);
+    const doFollow = isDoFollow(rel);
+    const link = {
+      href,
+      anchorText,
+      context,
+      isDoFollow: doFollow,
+      destination
+    };
+    if (destination === "internal") {
+      internalLinks.push(link);
+    } else if (destination === "external") {
+      externalLinks.push(link);
+    } else {
+      anchorLinks.push(link);
+    }
+  });
+  return { internalLinks, externalLinks, anchorLinks };
+}
+function detectClusterSignals($) {
+  const hasBreadcrumbs = $(
+    '[class*="breadcrumb"], [id*="breadcrumb"], nav[aria-label*="breadcrumb"], [itemtype*="BreadcrumbList"], .breadcrumbs'
+  ).length > 0;
+  const hasRelatedPosts = $(
+    '[class*="related"], [class*="similar"], [class*="recommended"], [id*="related"], h2:contains("Related"), h3:contains("Related"), h2:contains("You might also"), h2:contains("Similar")'
+  ).length > 0;
+  const hasCategoryLinks = $(
+    '[class*="categor"], [class*="tag-"], [rel="tag"], a[href*="/category/"], a[href*="/tag/"], a[href*="/topic/"]'
+  ).length > 0;
+  return {
+    hasHubStructure: false,
+    // Calculated later
+    hasSpokeLinks: false,
+    // Calculated later
+    hasBreadcrumbs,
+    hasRelatedPosts,
+    hasCategoryLinks,
+    internalToExternalRatio: 0
+    // Calculated later
+  };
+}
+function calculateOrphanRisk(contentLinks, uniqueDestinations, clusterSignals) {
+  let score = 0;
+  if (contentLinks >= 5) score += 3;
+  else if (contentLinks >= 2) score += 2;
+  else if (contentLinks >= 1) score += 1;
+  if (uniqueDestinations >= 5) score += 2;
+  else if (uniqueDestinations >= 2) score += 1;
+  if (clusterSignals.hasBreadcrumbs) score += 1;
+  if (clusterSignals.hasRelatedPosts) score += 2;
+  if (clusterSignals.hasCategoryLinks) score += 1;
+  if (score >= 6) return "low";
+  if (score >= 3) return "medium";
+  return "high";
+}
+function analyzeTopicalClusters(html, url) {
+  const $ = esm/* load */.Hh(html);
+  const issues = [];
+  const { internalLinks, externalLinks, anchorLinks } = extractLinks2(html, url);
+  const contentInternalLinks = internalLinks.filter((l) => l.context === "content");
+  const contentExternalLinks = externalLinks.filter((l) => l.context === "content");
+  const uniqueInternalHrefs = new Set(
+    internalLinks.map((l) => {
+      try {
+        return new URL(l.href, url).pathname;
+      } catch {
+        return l.href;
+      }
+    })
+  );
+  const anchorTexts = internalLinks.filter((l) => l.anchorText.length > 0);
+  const avgAnchorTextLength = anchorTexts.length > 0 ? anchorTexts.reduce((sum, l) => sum + l.anchorText.length, 0) / anchorTexts.length : 0;
+  const hasExactMatchAnchors = internalLinks.some((l) => {
+    const text = l.anchorText.toLowerCase();
+    return text.split(" ").length >= 3 && l.context === "content";
+  });
+  const clusterSignals = detectClusterSignals($);
+  const totalContentLinks = contentInternalLinks.length + contentExternalLinks.length;
+  clusterSignals.internalToExternalRatio = totalContentLinks > 0 ? contentInternalLinks.length / totalContentLinks : 1;
+  clusterSignals.hasHubStructure = contentInternalLinks.length >= 5;
+  clusterSignals.hasSpokeLinks = clusterSignals.hasRelatedPosts || clusterSignals.hasCategoryLinks;
+  const orphanPageRisk = calculateOrphanRisk(
+    contentInternalLinks.length,
+    uniqueInternalHrefs.size,
+    clusterSignals
+  );
+  const recommendations = [];
+  if (contentInternalLinks.length < 3) {
+    recommendations.push("Add more contextual internal links within your content");
+  }
+  if (!clusterSignals.hasBreadcrumbs) {
+    recommendations.push("Add breadcrumb navigation for better site structure");
+  }
+  if (!clusterSignals.hasRelatedPosts) {
+    recommendations.push('Add a "Related Posts" or "Similar Articles" section');
+  }
+  if (!clusterSignals.hasCategoryLinks) {
+    recommendations.push("Link to category or topic pages to strengthen clusters");
+  }
+  if (clusterSignals.internalToExternalRatio < 0.5) {
+    recommendations.push("Balance your link profile - add more internal links");
+  }
+  if (contentInternalLinks.length === 0) {
+    issues.push({
+      code: "NO_CONTENT_INTERNAL_LINKS",
+      severity: "warning",
+      category: "on-page",
+      title: "No internal links in page content",
+      description: "The main content area has no links to other pages on your site.",
+      impact: "Internal links help search engines discover pages and understand site structure. They also pass PageRank.",
+      howToFix: "Add 3-5 contextual internal links within your content to related pages.",
+      affectedUrls: [url]
+    });
+  } else if (contentInternalLinks.length < 3) {
+    issues.push({
+      code: "FEW_CONTENT_INTERNAL_LINKS",
+      severity: "notice",
+      category: "on-page",
+      title: "Few internal links in content",
+      description: `Only ${contentInternalLinks.length} internal link(s) in the main content area.`,
+      impact: "More contextual internal links strengthen topical clusters and help users discover content.",
+      howToFix: "Add relevant internal links where they naturally fit in your content.",
+      affectedUrls: [url],
+      details: {
+        currentCount: contentInternalLinks.length,
+        recommended: "3-5 minimum"
+      }
+    });
+  }
+  if (!clusterSignals.hasBreadcrumbs) {
+    issues.push({
+      code: "NO_BREADCRUMBS",
+      severity: "notice",
+      category: "on-page",
+      title: "No breadcrumb navigation detected",
+      description: "Page lacks breadcrumb navigation for hierarchical context.",
+      impact: "Breadcrumbs improve UX, help search engines understand site structure, and can appear in SERPs.",
+      howToFix: "Add breadcrumb navigation with Schema.org BreadcrumbList markup.",
+      affectedUrls: [url]
+    });
+  }
+  if (!clusterSignals.hasRelatedPosts && !clusterSignals.hasCategoryLinks) {
+    issues.push({
+      code: "NO_RELATED_CONTENT",
+      severity: "notice",
+      category: "on-page",
+      title: "No related content section",
+      description: 'Page has no "Related Posts" or similar content discovery section.',
+      impact: "Related content sections reduce bounce rate, increase pageviews, and strengthen topic clusters.",
+      howToFix: "Add a section linking to related articles, products, or category pages.",
+      affectedUrls: [url]
+    });
+  }
+  if (orphanPageRisk === "high") {
+    issues.push({
+      code: "HIGH_ORPHAN_RISK",
+      severity: "warning",
+      category: "on-page",
+      title: "Page may be an orphan page",
+      description: "This page has very few internal links, making it hard to discover.",
+      impact: "Orphan pages are difficult for search engines to find and may not get indexed.",
+      howToFix: "Ensure this page is linked from navigation, category pages, or related content.",
+      affectedUrls: [url],
+      details: {
+        contentLinks: contentInternalLinks.length,
+        uniqueDestinations: uniqueInternalHrefs.size
+      }
+    });
+  }
+  if (contentExternalLinks.length > contentInternalLinks.length * 2 && contentExternalLinks.length >= 5) {
+    issues.push({
+      code: "EXTERNAL_LINK_HEAVY",
+      severity: "notice",
+      category: "on-page",
+      title: "More external links than internal links",
+      description: `${contentExternalLinks.length} external links vs ${contentInternalLinks.length} internal links in content.`,
+      impact: "While citing sources is good, heavy external linking may dilute PageRank passed to your own pages.",
+      howToFix: "Balance external citations with internal links to your own related content.",
+      affectedUrls: [url],
+      details: {
+        externalLinks: contentExternalLinks.length,
+        internalLinks: contentInternalLinks.length,
+        ratio: clusterSignals.internalToExternalRatio.toFixed(2)
+      }
+    });
+  }
+  return {
+    issues,
+    data: {
+      currentUrl: url,
+      internalLinks,
+      externalLinks,
+      anchorLinks,
+      linkMetrics: {
+        totalLinks: internalLinks.length + externalLinks.length + anchorLinks.length,
+        internalLinkCount: internalLinks.length,
+        externalLinkCount: externalLinks.length,
+        contentLinks: contentInternalLinks.length,
+        uniqueInternalDestinations: uniqueInternalHrefs.size,
+        avgAnchorTextLength: Math.round(avgAnchorTextLength),
+        hasExactMatchAnchors
+      },
+      clusterSignals,
+      orphanPageRisk,
+      recommendations
+    }
+  };
+}
+
+// src/audit/checks/platform-presence.ts
+
+var PLATFORM_PATTERNS = [
   {
-    framework: "nextjs",
-    language: "typescript",
-    patterns: [/__next/, /_next\//, /data-nscript/, /__NEXT_DATA__/, /next\/script/],
-    confidence: "high"
+    name: "YouTube",
+    urlPatterns: [/youtube\.com/, /youtu\.be/],
+    embedPatterns: [/youtube\.com\/embed/, /youtube-nocookie\.com/],
+    priority: "high"
   },
-  // Nuxt
   {
-    framework: "nuxt",
-    language: "typescript",
-    patterns: [/__nuxt/, /_nuxt\//, /data-n-head/, /nuxt-link/, /__NUXT__/],
-    confidence: "high"
+    name: "TikTok",
+    urlPatterns: [/tiktok\.com/],
+    embedPatterns: [/tiktok\.com\/embed/],
+    priority: "high"
   },
-  // Gatsby
   {
-    framework: "gatsby",
-    language: "javascript",
-    patterns: [/___gatsby/, /gatsby-/, /gatsby-image/, /data-gatsby/],
-    confidence: "high"
+    name: "Twitter/X",
+    urlPatterns: [/twitter\.com/, /x\.com/],
+    embedPatterns: [/platform\.twitter\.com/],
+    priority: "high"
   },
-  // Astro
   {
-    framework: "astro",
-    language: "typescript",
-    patterns: [/astro-/, /data-astro/, /_astro\//],
-    confidence: "high"
+    name: "LinkedIn",
+    urlPatterns: [/linkedin\.com/],
+    priority: "high"
   },
-  // SvelteKit
   {
-    framework: "sveltekit",
-    language: "typescript",
-    patterns: [/__sveltekit/, /_app\/immutable/, /svelte-kit/],
-    confidence: "high"
+    name: "Reddit",
+    urlPatterns: [/reddit\.com/, /redd\.it/],
+    priority: "high"
   },
-  // Svelte (standalone)
   {
-    framework: "svelte",
-    language: "javascript",
-    patterns: [/svelte-\w+/, /__svelte/],
-    confidence: "medium"
+    name: "Facebook",
+    urlPatterns: [/facebook\.com/, /fb\.com/, /fb\.me/],
+    embedPatterns: [/facebook\.com\/plugins/],
+    priority: "medium"
   },
-  // Remix
   {
-    framework: "remix",
-    language: "typescript",
-    patterns: [/__remix/, /remix-/, /data-remix/],
-    confidence: "high"
+    name: "Instagram",
+    urlPatterns: [/instagram\.com/, /instagr\.am/],
+    embedPatterns: [/instagram\.com\/embed/],
+    priority: "medium"
   },
-  // Solid.js
   {
-    framework: "solidjs",
-    language: "typescript",
-    patterns: [/solid-/, /data-solid/, /_solid/],
-    confidence: "high"
+    name: "Pinterest",
+    urlPatterns: [/pinterest\.com/, /pin\.it/],
+    priority: "medium"
   },
-  // Qwik
   {
-    framework: "qwik",
-    language: "typescript",
-    patterns: [/q:/, /qwik/, /q-/],
-    confidence: "high"
+    name: "GitHub",
+    urlPatterns: [/github\.com/],
+    priority: "medium"
   },
-  // Fresh (Deno)
+  // Where developer and open-source brands actually are in 2026. A dev-tool site
+  // that links Bluesky and Dev.to has a social presence, whatever it thinks of Facebook.
   {
-    framework: "fresh",
-    language: "typescript",
-    patterns: [/fresh-/, /_frsh\//, /data-fresh/],
-    confidence: "high"
+    name: "Bluesky",
+    urlPatterns: [/bsky\.app/],
+    priority: "medium"
   },
-  // React (generic - lower priority)
+  {
+    name: "Mastodon",
+    urlPatterns: [/mastodon\.(social|online|world)/, /fosstodon\.org/, /hachyderm\.io/, /mstdn\./, /infosec\.exchange/],
+    priority: "low"
+  },
+  {
+    name: "Threads",
+    urlPatterns: [/threads\.net/, /threads\.com/],
+    priority: "medium"
+  },
+  {
+    name: "Dev.to",
+    urlPatterns: [/dev\.to/],
+    priority: "low"
+  },
+  {
+    name: "Medium",
+    urlPatterns: [/medium\.com/],
+    priority: "low"
+  },
+  {
+    name: "Spotify",
+    urlPatterns: [/spotify\.com/, /open\.spotify\.com/],
+    embedPatterns: [/open\.spotify\.com\/embed/],
+    priority: "medium"
+  },
+  {
+    name: "Apple Podcasts",
+    urlPatterns: [/podcasts\.apple\.com/],
+    priority: "medium"
+  },
+  {
+    name: "Discord",
+    urlPatterns: [/discord\.gg/, /discord\.com/],
+    priority: "low"
+  },
+  {
+    name: "Twitch",
+    urlPatterns: [/twitch\.tv/],
+    embedPatterns: [/player\.twitch\.tv/],
+    priority: "low"
+  },
+  {
+    name: "Vimeo",
+    urlPatterns: [/vimeo\.com/],
+    embedPatterns: [/player\.vimeo\.com/],
+    priority: "low"
+  },
+  {
+    name: "ProductHunt",
+    urlPatterns: [/producthunt\.com/],
+    priority: "medium"
+  },
+  {
+    name: "Substack",
+    urlPatterns: [/substack\.com/],
+    priority: "low"
+  },
+  {
+    name: "Amazon",
+    urlPatterns: [/amazon\.com/, /amzn\.to/],
+    priority: "medium"
+  }
+];
+function getLinkLocation($, element) {
+  const parents = element.parents().toArray();
+  for (const parent of parents) {
+    const tagName = parent.tagName?.toLowerCase();
+    const className = ($(parent).attr("class") || "").toLowerCase();
+    if (tagName === "header" || className.includes("header")) return "header";
+    if (tagName === "footer" || className.includes("footer")) return "footer";
+    if (tagName === "aside" || className.includes("sidebar")) return "sidebar";
+    if (tagName === "main" || tagName === "article" || className.includes("content")) return "content";
+  }
+  return "content";
+}
+function detectPlatform(url) {
+  const urlLower = url.toLowerCase();
+  for (const platform of PLATFORM_PATTERNS) {
+    if (platform.urlPatterns.some((p) => p.test(urlLower))) {
+      return platform.name;
+    }
+  }
+  return null;
+}
+function getLinkType(url, platform) {
+  const urlLower = url.toLowerCase();
+  const profilePatterns = [
+    /youtube\.com\/@/,
+    /youtube\.com\/c\//,
+    /youtube\.com\/channel\//,
+    /twitter\.com\/[^/]+$/,
+    /x\.com\/[^/]+$/,
+    /linkedin\.com\/company\//,
+    /linkedin\.com\/in\//,
+    /instagram\.com\/[^/]+\/?$/,
+    /tiktok\.com\/@/,
+    /facebook\.com\/[^/]+\/?$/,
+    /github\.com\/[^/]+\/?$/,
+    /reddit\.com\/user\//,
+    /reddit\.com\/r\/[^/]+\/?$/,
+    /pinterest\.com\/[^/]+\/?$/,
+    /bsky\.app\/profile\//,
+    /threads\.(net|com)\/@/,
+    /dev\.to\/[^/]+\/?$/
+  ];
+  if (profilePatterns.some((p) => p.test(urlLower))) {
+    return "profile";
+  }
+  if (platform === "Mastodon" && /\/@[^/]+\/?$/.test(urlLower)) {
+    return "profile";
+  }
+  const embedPatterns = [
+    /embed/,
+    /player\./,
+    /plugins/
+  ];
+  if (embedPatterns.some((p) => p.test(urlLower))) {
+    return "embed";
+  }
+  return "content";
+}
+function extractPlatformLinks(html) {
+  const $ = esm/* load */.Hh(html);
+  const links = [];
+  $("a[href]").each((_, element) => {
+    const $el = $(element);
+    const href = $el.attr("href") || "";
+    const platform = detectPlatform(href);
+    if (platform) {
+      links.push({
+        platform,
+        url: href,
+        type: getLinkType(href, platform),
+        location: getLinkLocation($, $el)
+      });
+    }
+  });
+  return links;
+}
+function detectEmbeddedContent(html) {
+  const $ = esm/* load */.Hh(html);
+  const embeds = /* @__PURE__ */ new Map();
+  $("iframe[src]").each((_, element) => {
+    const src = $(element).attr("src") || "";
+    const platform = detectPlatform(src);
+    if (platform) {
+      embeds.set(platform, (embeds.get(platform) || 0) + 1);
+    }
+  });
+  $("embed[src]").each((_, element) => {
+    const src = $(element).attr("src") || "";
+    const platform = detectPlatform(src);
+    if (platform) {
+      embeds.set(platform, (embeds.get(platform) || 0) + 1);
+    }
+  });
+  if (html.includes("twitter-tweet") || html.includes("twitter-timeline")) {
+    embeds.set("Twitter/X", (embeds.get("Twitter/X") || 0) + 1);
+  }
+  if (html.includes("tiktok-embed")) {
+    embeds.set("TikTok", (embeds.get("TikTok") || 0) + 1);
+  }
+  return Array.from(embeds.entries()).map(([platform, count]) => ({ platform, count }));
+}
+function extractSchemaProfiles(html) {
+  const $ = esm/* load */.Hh(html);
+  const sameAsUrls = [];
+  let hasOrganizationSchema = false;
+  let hasPersonSchema = false;
+  $('script[type="application/ld+json"]').each((_, element) => {
+    try {
+      const content = $(element).html() || "";
+      const jsonData = JSON.parse(content);
+      const processSchema = (schema) => {
+        if (schema["@type"] === "Organization") {
+          hasOrganizationSchema = true;
+        }
+        if (schema["@type"] === "Person") {
+          hasPersonSchema = true;
+        }
+        if (schema.sameAs) {
+          if (Array.isArray(schema.sameAs)) {
+            sameAsUrls.push(...schema.sameAs);
+          } else if (typeof schema.sameAs === "string") {
+            sameAsUrls.push(schema.sameAs);
+          }
+        }
+      };
+      if (Array.isArray(jsonData)) {
+        jsonData.forEach((item) => {
+          if (typeof item === "object" && item !== null) {
+            processSchema(item);
+          }
+        });
+      } else if (typeof jsonData === "object" && jsonData !== null) {
+        processSchema(jsonData);
+        if (Array.isArray(jsonData["@graph"])) {
+          jsonData["@graph"].forEach((item) => {
+            if (typeof item === "object" && item !== null) {
+              processSchema(item);
+            }
+          });
+        }
+      }
+    } catch {
+    }
+  });
+  return { sameAsUrls, hasOrganizationSchema, hasPersonSchema };
+}
+function calculateCrossPlatformScore(platformCount, hasHighPriorityPlatforms, hasSchemaProfiles, hasEmbeddedContent) {
+  let score = 0;
+  score += Math.min(platformCount * 10, 50);
+  if (hasHighPriorityPlatforms) {
+    score += 30;
+  }
+  if (hasSchemaProfiles) {
+    score += 10;
+  }
+  if (hasEmbeddedContent) {
+    score += 10;
+  }
+  return Math.min(score, 100);
+}
+function analyzePlatformPresence(html, url) {
+  const issues = [];
+  const platformLinks = extractPlatformLinks(html);
+  const detectedPlatforms = [...new Set(platformLinks.map((l) => l.platform))];
+  const socialProfiles = platformLinks.filter((l) => l.type === "profile").map((l) => ({
+    platform: l.platform,
+    url: l.url,
+    hasSchemaMarkup: false
+    // Updated below
+  }));
+  const embeddedContent = detectEmbeddedContent(html);
+  const schemaData = extractSchemaProfiles(html);
+  socialProfiles.forEach((profile) => {
+    profile.hasSchemaMarkup = schemaData.sameAsUrls.some(
+      (schemaUrl) => schemaUrl.toLowerCase().includes(profile.platform.toLowerCase())
+    );
+  });
+  const hasHighPriority = (name) => detectedPlatforms.includes(name);
+  const metrics = {
+    totalPlatforms: detectedPlatforms.length,
+    hasYouTube: hasHighPriority("YouTube"),
+    hasTikTok: hasHighPriority("TikTok"),
+    hasTwitter: hasHighPriority("Twitter/X"),
+    hasLinkedIn: hasHighPriority("LinkedIn"),
+    hasReddit: hasHighPriority("Reddit"),
+    hasFacebook: hasHighPriority("Facebook"),
+    hasInstagram: hasHighPriority("Instagram"),
+    hasPinterest: hasHighPriority("Pinterest"),
+    hasPodcast: hasHighPriority("Spotify") || hasHighPriority("Apple Podcasts"),
+    hasGitHub: hasHighPriority("GitHub")
+  };
+  const highPriorityPlatforms = PLATFORM_PATTERNS.filter((p) => p.priority === "high").map((p) => p.name);
+  const hasHighPriorityPlatforms = highPriorityPlatforms.some((p) => detectedPlatforms.includes(p));
+  const crossPlatformScore = calculateCrossPlatformScore(
+    detectedPlatforms.length,
+    hasHighPriorityPlatforms,
+    schemaData.sameAsUrls.length > 0,
+    embeddedContent.length > 0
+  );
+  const recommendations = [];
+  if (!metrics.hasYouTube) {
+    recommendations.push("Add YouTube presence - video content ranks on both YouTube and Google");
+  }
+  if (!metrics.hasTikTok) {
+    recommendations.push("Consider TikTok for short-form video discovery (high reach for B2C)");
+  }
+  if (!metrics.hasTwitter) {
+    recommendations.push("Create Twitter/X presence for real-time engagement and brand visibility");
+  }
+  if (!metrics.hasLinkedIn) {
+    recommendations.push("LinkedIn is essential for B2B - add company page link");
+  }
+  if (schemaData.sameAsUrls.length === 0) {
+    recommendations.push("Add sameAs property to your Organization schema with social profile URLs");
+  }
+  if (socialProfiles.length === 0) {
+    issues.push({
+      code: "NO_SOCIAL_PROFILES",
+      severity: "warning",
+      category: "social",
+      title: "No social media profile links detected",
+      description: "Page has no visible links to social media profiles.",
+      impact: "Cross-platform presence builds brand trust and provides additional discovery channels.",
+      howToFix: "Add links to your social media profiles in the header, footer, or contact section.",
+      affectedUrls: [url]
+    });
+  }
+  if (!hasHighPriorityPlatforms && detectedPlatforms.length > 0) {
+    issues.push({
+      code: "NO_HIGH_PRIORITY_PLATFORMS",
+      severity: "notice",
+      category: "social",
+      title: "Missing high-priority platform links",
+      description: "No links to YouTube, TikTok, Twitter/X, LinkedIn, or Reddit detected.",
+      impact: "These platforms have the highest reach and impact for SEO diversification.",
+      howToFix: "Prioritize creating presence on YouTube, Twitter/X, and LinkedIn (using RICE framework).",
+      affectedUrls: [url],
+      details: {
+        currentPlatforms: detectedPlatforms,
+        recommendedPlatforms: highPriorityPlatforms
+      }
+    });
+  }
+  if (schemaData.sameAsUrls.length === 0 && socialProfiles.length > 0) {
+    issues.push({
+      code: "NO_SCHEMA_SAMEAS",
+      severity: "notice",
+      category: "social",
+      title: "Social profiles not in schema.org markup",
+      description: "Social media links found but not included in Organization/Person schema.",
+      impact: "Schema sameAs helps search engines understand your brand's official social presence.",
+      howToFix: "Add sameAs array to your Organization or Person schema with all social profile URLs.",
+      affectedUrls: [url],
+      details: {
+        profilesFound: socialProfiles.map((p) => p.platform),
+        schemaUrls: schemaData.sameAsUrls
+      }
+    });
+  }
+  return {
+    issues,
+    data: {
+      detectedPlatforms,
+      platformLinks,
+      socialProfiles,
+      embeddedContent,
+      metrics,
+      schemaPresence: {
+        hasSameAs: schemaData.sameAsUrls.length > 0,
+        sameAsUrls: schemaData.sameAsUrls,
+        hasOrganizationSchema: schemaData.hasOrganizationSchema,
+        hasPersonSchema: schemaData.hasPersonSchema
+      },
+      crossPlatformScore,
+      recommendations
+    }
+  };
+}
+
+// src/audit/checks/interactive-tools.ts
+
+var CALCULATOR_PATTERNS = [
+  /calculator/i,
+  /estimator/i,
+  /cost-calc/i,
+  /price-calc/i,
+  /roi-calc/i,
+  /savings/i,
+  /compute/i
+];
+var WIDGET_PATTERNS = [
+  /widget/i,
+  /tool/i,
+  /generator/i,
+  /builder/i,
+  /creator/i,
+  /converter/i,
+  /checker/i,
+  /analyzer/i,
+  /finder/i
+];
+var CONFIGURATOR_PATTERNS = [
+  /configurator/i,
+  /customizer/i,
+  /designer/i,
+  /planner/i,
+  /selector/i,
+  /picker/i
+];
+function detectCalculators($) {
+  const calculators = [];
+  const calcElements = $('[class*="calc"], [id*="calc"], [class*="estimat"], [id*="estimat"], [data-tool="calculator"]');
+  calcElements.each((_, el) => {
+    const $el = $(el);
+    const hasInputs = $el.find('input, select, [type="range"]').length > 0;
+    if (hasInputs) {
+      calculators.push({
+        type: "calculator",
+        description: $el.attr("aria-label") || $el.find("h2, h3, h4").first().text().trim() || "Calculator widget",
+        location: $el.attr("id") || $el.attr("class")?.split(" ")[0] || "unknown",
+        hasUserInput: true
+      });
+    }
+  });
+  $("form").each((_, form) => {
+    const $form = $(form);
+    const formText = ($form.attr("class") || "") + ($form.attr("id") || "") + $form.text();
+    if (CALCULATOR_PATTERNS.some((p) => p.test(formText))) {
+      const hasInputs = $form.find('input[type="number"], input[type="range"], select').length > 0;
+      if (hasInputs) {
+        calculators.push({
+          type: "calculator",
+          description: $form.attr("aria-label") || $form.find("h2, h3, h4").first().text().trim() || "Calculator form",
+          location: $form.attr("id") || "form",
+          hasUserInput: true
+        });
+      }
+    }
+  });
+  return calculators;
+}
+function detectQuizzes($) {
+  const quizzes = [];
+  const quizElements = $('[class*="quiz"], [id*="quiz"], [class*="assessment"], [data-component="quiz"]');
+  quizElements.each((_, el) => {
+    const $el = $(el);
+    quizzes.push({
+      type: "quiz",
+      description: $el.attr("aria-label") || $el.find("h2, h3").first().text().trim() || "Quiz/Assessment",
+      location: $el.attr("id") || $el.attr("class")?.split(" ")[0] || "unknown",
+      hasUserInput: true
+    });
+  });
+  const questionContainers = $('[class*="question"], [data-question]');
+  if (questionContainers.length >= 3) {
+    quizzes.push({
+      type: "quiz",
+      description: "Multi-question assessment",
+      location: "multiple-questions",
+      hasUserInput: true
+    });
+  }
+  return quizzes;
+}
+function detectWidgets($, html) {
+  const widgets = [];
+  WIDGET_PATTERNS.forEach((pattern) => {
+    const elements = $(`[class*="${pattern.source.replace(/\\i$/, "").toLowerCase()}"], [id*="${pattern.source.replace(/\\i$/, "").toLowerCase()}"]`);
+    elements.each((_, el) => {
+      const $el = $(el);
+      const hasInteraction = $el.find('input, button, select, [onclick], [role="button"]').length > 0;
+      if (hasInteraction) {
+        widgets.push({
+          type: "widget",
+          description: $el.attr("aria-label") || $el.attr("title") || pattern.source,
+          location: $el.attr("id") || $el.attr("class")?.split(" ")[0] || "unknown",
+          hasUserInput: hasInteraction
+        });
+      }
+    });
+  });
+  CONFIGURATOR_PATTERNS.forEach((pattern) => {
+    if (pattern.test(html)) {
+      const elements = $(`[class*="${pattern.source.replace(/\\i$/, "").toLowerCase()}"]`);
+      elements.each((_, el) => {
+        const $el = $(el);
+        widgets.push({
+          type: "tool",
+          description: "Product configurator/customizer",
+          location: $el.attr("id") || "configurator",
+          hasUserInput: true
+        });
+      });
+    }
+  });
+  return widgets;
+}
+function detectCodePlaygrounds($, html) {
+  const playgrounds = [];
+  const playgroundPatterns = [
+    { name: "CodePen", pattern: /codepen\.io\/.*\/embed/i },
+    { name: "CodeSandbox", pattern: /codesandbox\.io\/embed/i },
+    { name: "JSFiddle", pattern: /jsfiddle\.net.*\/embed/i },
+    { name: "Replit", pattern: /replit\.com.*embed/i },
+    { name: "StackBlitz", pattern: /stackblitz\.com\/edit/i }
+  ];
+  for (const { name, pattern } of playgroundPatterns) {
+    if (pattern.test(html)) {
+      playgrounds.push({
+        type: "interactive",
+        description: `${name} code playground`,
+        location: "embed",
+        hasUserInput: true
+      });
+    }
+  }
+  if (html.includes("monaco-editor") || html.includes("CodeMirror")) {
+    playgrounds.push({
+      type: "interactive",
+      description: "Code editor widget",
+      location: "embedded",
+      hasUserInput: true
+    });
+  }
+  return playgrounds;
+}
+function detectChatWidgets(html) {
+  const chatWidgets = [];
+  const chatPatterns = [
+    { name: "Intercom", pattern: /intercom\.com|intercomcdn/i },
+    { name: "Drift", pattern: /drift\.com|js\.driftt/i },
+    { name: "Zendesk", pattern: /zendesk\.com|zdassets/i },
+    { name: "Crisp", pattern: /crisp\.chat/i },
+    { name: "LiveChat", pattern: /livechat\.com|livechatinc/i },
+    { name: "Tawk.to", pattern: /tawk\.to/i },
+    { name: "HubSpot Chat", pattern: /hs-scripts\.com.*chat/i },
+    { name: "Freshdesk", pattern: /freshdesk\.com/i }
+  ];
+  for (const { name, pattern } of chatPatterns) {
+    if (pattern.test(html)) {
+      chatWidgets.push({
+        type: "widget",
+        description: `${name} chat widget`,
+        location: "global",
+        hasUserInput: true
+      });
+    }
+  }
+  return chatWidgets;
+}
+function detectVideoEmbeds($, html) {
+  const videos = [];
+  if (html.includes("youtube.com/embed") || html.includes("youtube-nocookie.com/embed")) {
+    const youtubeEmbeds = $('iframe[src*="youtube"]');
+    videos.push({
+      type: "embed",
+      description: `${youtubeEmbeds.length} YouTube video(s) embedded`,
+      location: "content",
+      hasUserInput: false
+    });
+  }
+  if (html.includes("player.vimeo.com")) {
+    videos.push({
+      type: "embed",
+      description: "Vimeo video embedded",
+      location: "content",
+      hasUserInput: false
+    });
+  }
+  if (html.includes("wistia.com") || html.includes("wistia.net")) {
+    videos.push({
+      type: "embed",
+      description: "Wistia video embedded",
+      location: "content",
+      hasUserInput: false
+    });
+  }
+  if (html.includes("loom.com/embed")) {
+    videos.push({
+      type: "embed",
+      description: "Loom video embedded",
+      location: "content",
+      hasUserInput: false
+    });
+  }
+  const html5Videos = $("video");
+  if (html5Videos.length > 0) {
+    videos.push({
+      type: "embed",
+      description: `${html5Videos.length} HTML5 video(s)`,
+      location: "content",
+      hasUserInput: false
+    });
+  }
+  return videos;
+}
+function calculateDwellTimeScore(data) {
+  let score = 0;
+  if (data.dwellTimeSignals.hasCalculator) score += 25;
+  if (data.dwellTimeSignals.hasQuiz) score += 20;
+  if (data.dwellTimeSignals.hasConfigurator) score += 25;
+  if (data.dwellTimeSignals.hasCodePlayground) score += 15;
+  if (data.dwellTimeSignals.hasVideoEmbed) score += 15;
+  if (data.dwellTimeSignals.hasInteractiveWidget) score += 10;
+  if (data.dwellTimeSignals.hasChatWidget) score += 5;
+  return Math.min(score, 100);
+}
+function analyzeInteractiveTools(html, url) {
+  const $ = esm/* load */.Hh(html);
+  const issues = [];
+  const calculators = detectCalculators($);
+  const quizzes = detectQuizzes($);
+  const widgets = detectWidgets($, html);
+  const codePlaygrounds = detectCodePlaygrounds($, html);
+  const chatWidgets = detectChatWidgets(html);
+  const videoEmbeds = detectVideoEmbeds($, html);
+  const allTools = [
+    ...calculators,
+    ...quizzes,
+    ...widgets,
+    ...codePlaygrounds,
+    ...chatWidgets,
+    ...videoEmbeds
+  ];
+  const uniqueTools = allTools.filter(
+    (tool, index, self) => index === self.findIndex((t) => t.location === tool.location && t.type === tool.type)
+  );
+  const dwellTimeSignals = {
+    hasCalculator: calculators.length > 0,
+    hasQuiz: quizzes.length > 0,
+    hasInteractiveWidget: widgets.length > 0,
+    hasVideoEmbed: videoEmbeds.length > 0,
+    hasCodePlayground: codePlaygrounds.length > 0,
+    hasConfigurator: widgets.some((w) => w.description.toLowerCase().includes("configurator")),
+    hasChatWidget: chatWidgets.length > 0
+  };
+  const partialData = {
+    hasInteractiveTools: uniqueTools.length > 0,
+    tools: uniqueTools,
+    dwellTimeSignals,
+    toolCount: uniqueTools.length
+  };
+  const dwellTimeScore = calculateDwellTimeScore(partialData);
+  const recommendations = [];
+  if (!dwellTimeSignals.hasCalculator && !dwellTimeSignals.hasQuiz) {
+    recommendations.push("Add an interactive calculator or quiz to boost dwell time and generate backlinks");
+  }
+  if (!dwellTimeSignals.hasVideoEmbed) {
+    recommendations.push("Embed a YouTube video to increase engagement and dwell time");
+  }
+  if (!dwellTimeSignals.hasInteractiveWidget && !dwellTimeSignals.hasConfigurator) {
+    recommendations.push("Consider adding a free tool (generator, checker, converter) as a link magnet");
+  }
+  const isServicePage = /services?|pricing|product/i.test(url) || $("h1").text().toLowerCase().match(/service|pricing|product/);
+  const isBlogPage = /blog|article|post/i.test(url);
+  if (isServicePage && uniqueTools.length === 0) {
+    issues.push({
+      code: "NO_INTERACTIVE_TOOLS",
+      severity: "notice",
+      category: "content",
+      title: "Service page lacks interactive tools",
+      description: "This service/product page has no interactive elements like calculators or configurators.",
+      impact: "Interactive tools increase dwell time by 2-3x and are powerful link magnets for backlink acquisition.",
+      howToFix: "Add a relevant calculator (ROI, cost estimator, savings) or product configurator to the page.",
+      affectedUrls: [url],
+      details: {
+        pageType: "service/product",
+        recommendation: "Consider adding a pricing calculator, ROI estimator, or product configurator"
+      }
+    });
+  }
+  if (isBlogPage && !dwellTimeSignals.hasVideoEmbed) {
+    issues.push({
+      code: "BLOG_NO_VIDEO",
+      severity: "notice",
+      category: "content",
+      title: "Blog post lacks video content",
+      description: "This blog post has no embedded video content.",
+      impact: "Embedded YouTube videos increase dwell time and can appear in video search results.",
+      howToFix: "Create and embed a YouTube video that summarizes or expands on the blog content.",
+      affectedUrls: [url]
+    });
+  }
+  if (dwellTimeScore < 20 && uniqueTools.length === 0) {
+    issues.push({
+      code: "LOW_DWELL_TIME_SIGNALS",
+      severity: "notice",
+      category: "content",
+      title: "Page lacks dwell time optimization",
+      description: "No interactive tools, calculators, quizzes, or video embeds detected.",
+      impact: "Interactive content significantly increases time on page, a user engagement signal.",
+      howToFix: "Add at least one interactive element: calculator, quiz, embedded video, or free tool.",
+      affectedUrls: [url]
+    });
+  }
+  return {
+    issues,
+    data: {
+      hasInteractiveTools: uniqueTools.length > 0,
+      tools: uniqueTools,
+      dwellTimeSignals,
+      toolCount: uniqueTools.length,
+      dwellTimeScore,
+      recommendations
+    }
+  };
+}
+
+// src/audit/checks/funnel-intent.ts
+
+var TOFU_PATTERNS = {
+  url: [
+    /\/blog\//i,
+    /\/article/i,
+    /\/guide/i,
+    /\/tutorial/i,
+    /\/how-to/i,
+    /\/what-is/i,
+    /\/learn/i,
+    /\/tips/i,
+    /\/explained/i,
+    /\/introduction/i,
+    /\/beginners?/i
+  ],
+  title: [
+    /^how to/i,
+    /^what is/i,
+    /^what are/i,
+    /^why /i,
+    /^when /i,
+    /^guide to/i,
+    /complete guide/i,
+    /beginner'?s? guide/i,
+    /ultimate guide/i,
+    /\d+ tips/i,
+    /\d+ ways/i,
+    /\d+ things/i,
+    /explained/i,
+    /introduction to/i,
+    /learn /i,
+    /understanding/i
+  ],
+  content: [
+    /in this article/i,
+    /in this guide/i,
+    /we'll explain/i,
+    /we'll cover/i,
+    /you'll learn/i,
+    /let's explore/i,
+    /let's dive/i,
+    /did you know/i,
+    /according to/i,
+    /research shows/i,
+    /studies show/i
+  ]
+};
+var MOFU_PATTERNS = {
+  url: [
+    /\/compare/i,
+    /\/comparison/i,
+    /\/vs/i,
+    /\/versus/i,
+    /\/alternative/i,
+    /\/review/i,
+    /\/pros-cons/i,
+    /\/features/i,
+    /\/solutions/i,
+    /\/case-stud/i
+  ],
+  title: [
+    /vs\.?$/i,
+    /versus/i,
+    /comparison/i,
+    /compared/i,
+    /alternative/i,
+    /review/i,
+    /pros and cons/i,
+    /which is better/i,
+    /best .* for/i,
+    /top \d+/i,
+    /\d+ best/i,
+    /how .* compares/i,
+    /should you/i
+  ],
+  content: [
+    /let'?s compare/i,
+    /in comparison/i,
+    /alternative to/i,
+    /pros:/i,
+    /cons:/i,
+    /advantages:/i,
+    /disadvantages:/i,
+    /key features/i,
+    /feature comparison/i,
+    /case study/i,
+    /our client/i,
+    /we helped/i
+  ]
+};
+var BOFU_PATTERNS = {
+  url: [
+    /\/pricing/i,
+    /\/buy/i,
+    /\/purchase/i,
+    /\/order/i,
+    /\/sign-?up/i,
+    /\/register/i,
+    /\/demo/i,
+    /\/trial/i,
+    /\/quote/i,
+    /\/contact/i,
+    /\/get-started/i,
+    /\/checkout/i,
+    /\/hire/i,
+    /\/services?$/i
+  ],
+  title: [
+    /pricing/i,
+    /buy /i,
+    /purchase/i,
+    /order /i,
+    /sign up/i,
+    /get started/i,
+    /free trial/i,
+    /request .* demo/i,
+    /book .* call/i,
+    /schedule/i,
+    /get .* quote/i,
+    /contact us/i,
+    /hire /i,
+    /\$\d+/,
+    /per month/i,
+    /\/mo\b/i
+  ],
+  content: [
+    /add to cart/i,
+    /buy now/i,
+    /purchase now/i,
+    /sign up now/i,
+    /get started/i,
+    /start.*trial/i,
+    /request.*demo/i,
+    /book.*call/i,
+    /schedule.*meeting/i,
+    /contact.*today/i,
+    /limited.*offer/i,
+    /special.*price/i,
+    /money.*back.*guarantee/i,
+    /free.*shipping/i,
+    /plans.*pricing/i,
+    /per user/i,
+    /per month/i,
+    /billed annually/i,
+    /\$\d+/
+  ],
+  elements: [
+    'form[action*="checkout"]',
+    'form[action*="purchase"]',
+    'form[action*="subscribe"]',
+    'button[data-action="buy"]',
+    '[class*="pricing-table"]',
+    '[class*="price-card"]',
+    '[class*="checkout"]',
+    '[class*="add-to-cart"]'
+  ]
+};
+function calculateStageScore(url, title, content, $, patterns) {
+  let score = 0;
+  const signals = [];
+  for (const pattern of patterns.url) {
+    if (pattern.test(url)) {
+      score += 15;
+      signals.push(`URL: ${pattern.source}`);
+    }
+  }
+  for (const pattern of patterns.title) {
+    if (pattern.test(title)) {
+      score += 12;
+      signals.push(`Title: ${pattern.source}`);
+    }
+  }
+  for (const pattern of patterns.content) {
+    if (pattern.test(content)) {
+      score += 5;
+      signals.push(`Content: ${pattern.source}`);
+    }
+  }
+  if (patterns.elements) {
+    for (const selector of patterns.elements) {
+      if ($(selector).length > 0) {
+        score += 10;
+        signals.push(`Element: ${selector}`);
+      }
+    }
+  }
+  return { score, signals: signals.slice(0, 5) };
+}
+function determinePageType($, url) {
+  if (/\/blog\//i.test(url)) return "blog-post";
+  if (/\/product/i.test(url)) return "product-page";
+  if (/\/services?/i.test(url)) return "service-page";
+  if (/\/pricing/i.test(url)) return "pricing-page";
+  if (/\/about/i.test(url)) return "about-page";
+  if (/\/contact/i.test(url)) return "contact-page";
+  if (/\/case-stud/i.test(url)) return "case-study";
+  if ($('[class*="pricing"]').length > 0) return "pricing-page";
+  if ($('[class*="product"]').length > 0) return "product-page";
+  if ($("article").length > 0) return "article";
+  if ($('[class*="blog"]').length > 0) return "blog-post";
+  if ($('[class*="cart"]').length > 0 || $('[class*="checkout"]').length > 0) return "e-commerce";
+  return "general";
+}
+function calculateAIOverviewRisk(stage, pageType) {
+  if (stage === "tofu") {
+    return "high";
+  }
+  if (pageType === "blog-post" || pageType === "article") {
+    return "high";
+  }
+  if (stage === "mofu") {
+    return "medium";
+  }
+  return "low";
+}
+function analyzeFunnelIntent(html, url) {
+  const $ = esm/* load */.Hh(html);
+  const issues = [];
+  const title = $("title").text().trim() + " " + $("h1").first().text().trim();
+  const bodyText = $("body").text().toLowerCase();
+  const tofuResult = calculateStageScore(url, title, bodyText, $, TOFU_PATTERNS);
+  const mofuResult = calculateStageScore(url, title, bodyText, $, MOFU_PATTERNS);
+  const bofuResult = calculateStageScore(url, title, bodyText, $, BOFU_PATTERNS);
+  const totalScore = tofuResult.score + mofuResult.score + bofuResult.score || 1;
+  const informationalScore = Math.round(tofuResult.score / totalScore * 100);
+  const considerationScore = Math.round(mofuResult.score / totalScore * 100);
+  const conversionScore = Math.round(bofuResult.score / totalScore * 100);
+  let detectedStage;
+  let confidence;
+  if (bofuResult.score > tofuResult.score && bofuResult.score > mofuResult.score) {
+    detectedStage = "bofu";
+    confidence = conversionScore;
+  } else if (mofuResult.score > tofuResult.score) {
+    detectedStage = "mofu";
+    confidence = considerationScore;
+  } else if (tofuResult.score > 0) {
+    detectedStage = "tofu";
+    confidence = informationalScore;
+  } else {
+    detectedStage = "mixed";
+    confidence = 50;
+  }
+  const pageType = determinePageType($, url);
+  const aiOverviewRisk = calculateAIOverviewRisk(detectedStage, pageType);
+  const recommendations = [];
+  if (detectedStage === "tofu") {
+    recommendations.push("Consider adding conversion elements (CTAs, forms) to capture leads");
+    recommendations.push("Link to MOFU/BOFU pages (comparisons, pricing) to guide users down the funnel");
+    if (aiOverviewRisk === "high") {
+      recommendations.push("Add unique data, case studies, or expert opinions that AI cannot replicate");
+    }
+  }
+  if (detectedStage === "mofu") {
+    recommendations.push("Add clear CTAs to BOFU pages (pricing, demos, trials)");
+    recommendations.push("Include social proof (testimonials, case studies) to build trust");
+  }
+  if (detectedStage === "mixed") {
+    recommendations.push("Clarify the page's primary intent - is this informational, comparison, or conversion focused?");
+    recommendations.push("Consider splitting into multiple focused pages for better SEO");
+  }
+  if (aiOverviewRisk === "high" && detectedStage === "tofu") {
+    issues.push({
+      code: "TOFU_AI_OVERVIEW_RISK",
+      severity: "notice",
+      category: "content",
+      title: "Content at risk of AI overview displacement",
+      description: "This informational content may be answered directly by AI overviews, reducing click-through.",
+      impact: "Google AI overviews are increasingly answering informational queries directly in SERPs.",
+      howToFix: "Add unique value: original data, expert opinions, case studies, or interactive tools that AI cannot replicate.",
+      affectedUrls: [url],
+      details: {
+        funnelStage: "tofu",
+        aiOverviewRisk,
+        recommendation: "Focus on MOFU/BOFU content or add unique differentiating content"
+      }
+    });
+  }
+  if (detectedStage === "tofu") {
+    const hasConversionLinks = $('a[href*="pricing"], a[href*="demo"], a[href*="trial"], a[href*="contact"], a[href*="buy"]').length > 0;
+    if (!hasConversionLinks) {
+      issues.push({
+        code: "TOFU_NO_FUNNEL_LINKS",
+        severity: "notice",
+        category: "content",
+        title: "Informational page lacks conversion path",
+        description: "This TOFU content has no links to pricing, demo, trial, or contact pages.",
+        impact: "Users may leave without entering the sales funnel. Missing revenue opportunity.",
+        howToFix: "Add contextual CTAs linking to MOFU/BOFU pages (comparisons, pricing, demos).",
+        affectedUrls: [url]
+      });
+    }
+  }
+  if (detectedStage === "bofu") {
+    const hasSocialProof = $('[class*="testimonial"], [class*="review"], [class*="case-study"], [class*="trust"]').length > 0 || bodyText.includes("testimonial") || bodyText.includes("customer said");
+    if (!hasSocialProof) {
+      issues.push({
+        code: "BOFU_NO_SOCIAL_PROOF",
+        severity: "warning",
+        category: "content",
+        title: "Conversion page lacks social proof",
+        description: "This pricing/sales page has no visible testimonials, reviews, or case studies.",
+        impact: "97% of consumers look at reviews before buying. Social proof can increase conversions by 34%.",
+        howToFix: "Add customer testimonials, case study results, trust badges, or review ratings.",
+        affectedUrls: [url],
+        details: {
+          funnelStage: "bofu",
+          pageType
+        }
+      });
+    }
+  }
+  if (detectedStage === "mixed" && confidence < 40) {
+    issues.push({
+      code: "MIXED_FUNNEL_INTENT",
+      severity: "notice",
+      category: "content",
+      title: "Unclear page intent",
+      description: "This page has mixed signals - unclear if informational, comparison, or conversion focused.",
+      impact: "Mixed intent pages may rank poorly because search engines cannot determine primary purpose.",
+      howToFix: "Focus on one primary intent per page. Create separate pages for different funnel stages.",
+      affectedUrls: [url],
+      details: {
+        scores: { tofu: informationalScore, mofu: considerationScore, bofu: conversionScore }
+      }
+    });
+  }
+  return {
+    issues,
+    data: {
+      detectedStage,
+      confidence,
+      signals: {
+        tofu: tofuResult.signals,
+        mofu: mofuResult.signals,
+        bofu: bofuResult.signals
+      },
+      metrics: {
+        informationalScore,
+        considerationScore,
+        conversionScore
+      },
+      pageType,
+      aiOverviewRisk,
+      recommendations
+    }
+  };
+}
+
+// src/audit/checks/navboost-signals.ts
+
+function analyzeClickOptimization($) {
+  const title = $("title").text().trim();
+  const metaDesc = $('meta[name="description"]').attr("content")?.trim() || "";
+  const hasClearTitle = title.length > 10 && title.length <= 60;
+  const titleTruncated = title.length > 60;
+  const hasCompellingMetaDesc = metaDesc.length >= 70 && metaDesc.length <= 160;
+  const metaDescTruncated = metaDesc.length > 160;
+  const hasPowerWords = /free|best|guide|how to|ultimate|proven|secret|new|exclusive/i.test(title + " " + metaDesc);
+  const hasNumbers = /\d+/.test(title);
+  const hasYear = /202[4-9]|203\d/.test(title + " " + metaDesc);
+  let ctrScore = 0;
+  if (hasClearTitle) ctrScore += 2;
+  if (hasCompellingMetaDesc) ctrScore += 2;
+  if (hasPowerWords) ctrScore += 1;
+  if (hasNumbers) ctrScore += 1;
+  if (hasYear) ctrScore += 1;
+  const estimatedCTRPotential = ctrScore >= 5 ? "high" : ctrScore >= 3 ? "medium" : "low";
+  return {
+    hasClearTitle,
+    hasCompellingMetaDesc,
+    titleTruncated,
+    metaDescTruncated,
+    estimatedCTRPotential
+  };
+}
+function analyzeEngagementSignals($, html) {
+  const hasTableOfContents = $('[class*="toc"], [id*="toc"], [class*="table-of-contents"], nav[aria-label*="content"]').length > 0 || $('a[href^="#"]').filter((_, el) => {
+    const text = $(el).text().toLowerCase();
+    return /^(\d+\.?\s*)?[a-z]/i.test(text) && text.length > 3;
+  }).length >= 3;
+  const hasJumpLinks = $('a[href^="#"]').length >= 3;
+  const contentSections = $("h2, h3").length;
+  const bodyText = $("body").text();
+  const wordCount = bodyText.split(/\s+/).filter((w) => w.length > 0).length;
+  const estimatedScrollDepth = wordCount > 2e3 ? "deep" : wordCount > 800 ? "medium" : "shallow";
+  const hasProgressIndicator = $('[class*="progress"], [class*="reading-progress"], [role="progressbar"]').length > 0;
+  const hasStickyNavigation = $('[class*="sticky"], [class*="fixed"], [style*="position: sticky"], [style*="position: fixed"]').filter((_, el) => {
+    return $(el).find("nav, a").length > 0;
+  }).length > 0;
+  return {
+    hasTableOfContents,
+    hasJumpLinks,
+    estimatedScrollDepth,
+    hasProgressIndicator,
+    hasStickyNavigation,
+    contentSections
+  };
+}
+function analyzeBounceRiskFactors($, html) {
+  const title = $("title").text().toLowerCase();
+  const h1 = $("h1").first().text().toLowerCase();
+  const firstParagraph = $("p").first().text().toLowerCase();
+  const hasAboveFoldContent = $("h1").length > 0 && ($("p").first().text().length > 50 || $("main, article, .content").first().text().length > 100);
+  const hasSlowLoadingIndicators = $('script[src*="bundle"], script[src*="vendor"]').length > 5 || $('img:not([loading="lazy"])').length > 10;
+  const hasPopupRisk = html.includes("modal") || html.includes("popup") || html.includes("newsletter-overlay") || $('[class*="popup"], [class*="modal"]').length > 0;
+  const hasIntrusiveAds = $('[class*="ad-"], [id*="ad-"], [class*="advertisement"]').length > 3 || html.includes("interstitial");
+  const titleWords = title.split(/\s+/).filter((w) => w.length > 3);
+  const matchingWords = titleWords.filter(
+    (w) => h1.includes(w) || firstParagraph.includes(w)
+  );
+  const contentMatchesTitle = matchingWords.length >= Math.ceil(titleWords.length * 0.5);
+  const hasImmediateValue = firstParagraph.length > 100 || $("main p, article p").first().text().length > 100;
+  return {
+    hasAboveFoldContent,
+    hasSlowLoadingIndicators,
+    hasPopupRisk,
+    hasIntrusiveAds,
+    contentMatchesTitle,
+    hasImmediateValue
+  };
+}
+function analyzeDwellTimeFactors($, html) {
+  const bodyText = $("main, article, .content, body").text();
+  const wordCount = bodyText.split(/\s+/).filter((w) => w.length > 0).length;
+  const estimatedReadTime = Math.ceil(wordCount / 200);
+  const hasVideo = $('video, iframe[src*="youtube"], iframe[src*="vimeo"], [class*="video"]').length > 0;
+  const hasInteractiveElements = $('form, [class*="calculator"], [class*="quiz"], [class*="interactive"], input, select').length > 0;
+  const contentDepth = wordCount > 2e3 ? "comprehensive" : wordCount > 800 ? "moderate" : "thin";
+  const hasRelatedContent = $('[class*="related"], [class*="recommended"], [class*="similar"]').length > 0 || $("a").filter((_, el) => {
+    const text = $(el).text().toLowerCase();
+    return text.includes("related") || text.includes("see also") || text.includes("read next");
+  }).length > 0;
+  return {
+    estimatedReadTime,
+    hasVideo,
+    hasInteractiveElements,
+    contentDepth,
+    hasRelatedContent
+  };
+}
+function calculateNavBoostScore(click, engagement, bounce, dwell) {
+  let score = 50;
+  if (click.estimatedCTRPotential === "high") score += 20;
+  else if (click.estimatedCTRPotential === "medium") score += 10;
+  if (click.titleTruncated) score -= 5;
+  if (click.metaDescTruncated) score -= 3;
+  if (engagement.hasTableOfContents) score += 10;
+  if (engagement.hasJumpLinks) score += 5;
+  if (engagement.contentSections >= 5) score += 5;
+  if (!bounce.hasAboveFoldContent) score -= 10;
+  if (bounce.hasPopupRisk) score -= 5;
+  if (bounce.hasIntrusiveAds) score -= 10;
+  if (!bounce.contentMatchesTitle) score -= 5;
+  if (bounce.hasImmediateValue) score += 5;
+  if (dwell.hasVideo) score += 10;
+  if (dwell.hasInteractiveElements) score += 5;
+  if (dwell.contentDepth === "comprehensive") score += 5;
+  else if (dwell.contentDepth === "thin") score -= 5;
+  if (dwell.hasRelatedContent) score += 5;
+  return Math.max(0, Math.min(100, score));
+}
+function analyzeNavBoostSignals(html, url) {
+  const $ = esm/* load */.Hh(html);
+  const issues = [];
+  const clickOptimization = analyzeClickOptimization($);
+  const engagementSignals = analyzeEngagementSignals($, html);
+  const bounceRiskFactors = analyzeBounceRiskFactors($, html);
+  const dwellTimeFactors = analyzeDwellTimeFactors($, html);
+  const overallNavBoostScore = calculateNavBoostScore(
+    clickOptimization,
+    engagementSignals,
+    bounceRiskFactors,
+    dwellTimeFactors
+  );
+  const recommendations = [];
+  if (clickOptimization.estimatedCTRPotential !== "high") {
+    recommendations.push("Optimize title/meta for higher CTR: use power words, numbers, or current year");
+  }
+  if (!engagementSignals.hasTableOfContents && engagementSignals.contentSections >= 5) {
+    recommendations.push("Add table of contents for long-form content to improve engagement");
+  }
+  if (bounceRiskFactors.hasPopupRisk) {
+    recommendations.push("Delay or remove popup modals to reduce bounce rate");
+  }
+  if (!dwellTimeFactors.hasRelatedContent) {
+    recommendations.push("Add related content section to increase session duration");
+  }
+  if (clickOptimization.estimatedCTRPotential === "low") {
+    issues.push({
+      code: "LOW_CTR_POTENTIAL",
+      severity: "warning",
+      category: "on-page",
+      title: "Title and meta description have low CTR potential",
+      description: "The title and meta description lack compelling elements that drive clicks.",
+      impact: "NavBoost uses click data as a ranking signal. Higher CTR improves rankings over time.",
+      howToFix: "Add power words (free, best, ultimate), numbers, or current year to increase CTR.",
+      affectedUrls: [url],
+      details: {
+        ctrPotential: clickOptimization.estimatedCTRPotential,
+        titleTruncated: clickOptimization.titleTruncated
+      }
+    });
+  }
+  if (!bounceRiskFactors.hasAboveFoldContent || !bounceRiskFactors.hasImmediateValue) {
+    issues.push({
+      code: "HIGH_BOUNCE_RISK",
+      // A notice: a heuristic score, not a defect a crawler can see, and it fired on most sites.
+      severity: "notice",
+      category: "content",
+      title: "Page has high bounce risk signals",
+      description: "The page lacks above-fold content or immediate value for visitors.",
+      impact: "NavBoost tracks bounce rate. >70% bounce with <30s sessions hurts rankings.",
+      howToFix: "Add compelling content above the fold that delivers immediate value to visitors.",
+      affectedUrls: [url],
+      details: {
+        hasAboveFoldContent: bounceRiskFactors.hasAboveFoldContent,
+        hasImmediateValue: bounceRiskFactors.hasImmediateValue
+      }
+    });
+  }
+  if (bounceRiskFactors.hasPopupRisk) {
+    issues.push({
+      code: "POPUP_BOUNCE_RISK",
+      severity: "notice",
+      category: "content",
+      title: "Popup/modal detected - potential bounce risk",
+      description: "Popups detected that may cause visitors to leave immediately.",
+      impact: "Intrusive interstitials increase bounce rate and hurt NavBoost signals.",
+      howToFix: "Delay popups by 30+ seconds, or use exit-intent only. Avoid fullscreen overlays.",
+      affectedUrls: [url]
+    });
+  }
+  if (dwellTimeFactors.contentDepth === "thin" && dwellTimeFactors.estimatedReadTime < 3) {
+    issues.push({
+      code: "LOW_DWELL_TIME_CONTENT",
+      severity: "notice",
+      category: "content",
+      title: "Thin content may result in low dwell time",
+      description: `Estimated read time is only ${dwellTimeFactors.estimatedReadTime} minute(s).`,
+      impact: 'Google tracks "lastLongestClicks" - longer sessions signal quality content.',
+      howToFix: "Add comprehensive content, videos, or interactive elements to increase time on page.",
+      affectedUrls: [url],
+      details: {
+        estimatedReadTime: dwellTimeFactors.estimatedReadTime,
+        contentDepth: dwellTimeFactors.contentDepth
+      }
+    });
+  }
+  if (engagementSignals.estimatedScrollDepth === "deep" && !engagementSignals.hasTableOfContents) {
+    issues.push({
+      code: "LONG_CONTENT_NO_TOC",
+      severity: "notice",
+      category: "content",
+      title: "Long content lacks table of contents",
+      description: "Long-form content without navigation aids may cause users to abandon the page.",
+      impact: "Table of contents improves engagement signals by helping users find relevant sections.",
+      howToFix: "Add a table of contents with jump links to major sections.",
+      affectedUrls: [url],
+      details: {
+        contentSections: engagementSignals.contentSections,
+        scrollDepth: engagementSignals.estimatedScrollDepth
+      }
+    });
+  }
+  return {
+    issues,
+    data: {
+      clickOptimization,
+      engagementSignals,
+      bounceRiskFactors,
+      dwellTimeFactors,
+      overallNavBoostScore,
+      recommendations
+    }
+  };
+}
+
+// src/audit/checks/entity-seo.ts
+
+function extractEntitySignals($, html) {
+  let hasOrganizationSchema = false;
+  let hasPersonSchema = false;
+  let hasProductSchema = false;
+  let hasSameAsReferences = false;
+  let hasMainEntityOfPage = false;
+  let hasAboutReference = false;
+  const sameAsUrls = [];
+  $('script[type="application/ld+json"]').each((_, el) => {
+    try {
+      const content = $(el).html() || "";
+      const data = JSON.parse(content);
+      const processSchema = (schema) => {
+        const type = schema["@type"];
+        if (type === "Organization" || type === "Corporation" || type === "LocalBusiness") {
+          hasOrganizationSchema = true;
+        }
+        if (type === "Person") {
+          hasPersonSchema = true;
+        }
+        if (type === "Product" || type === "SoftwareApplication") {
+          hasProductSchema = true;
+        }
+        if (schema.sameAs) {
+          hasSameAsReferences = true;
+          if (Array.isArray(schema.sameAs)) {
+            sameAsUrls.push(...schema.sameAs);
+          } else if (typeof schema.sameAs === "string") {
+            sameAsUrls.push(schema.sameAs);
+          }
+        }
+        if (schema.mainEntityOfPage) {
+          hasMainEntityOfPage = true;
+        }
+        if (schema.about) {
+          hasAboutReference = true;
+        }
+      };
+      if (Array.isArray(data)) {
+        data.forEach((item) => processSchema(item));
+      } else if (data["@graph"]) {
+        data["@graph"].forEach(processSchema);
+      } else {
+        processSchema(data);
+      }
+    } catch {
+    }
+  });
+  return {
+    hasOrganizationSchema,
+    hasPersonSchema,
+    hasProductSchema,
+    hasSameAsReferences,
+    sameAsUrls,
+    hasMainEntityOfPage,
+    hasAboutReference
+  };
+}
+function analyzeEntityClarity($, html) {
+  const title = $("title").text().trim();
+  const h1 = $("h1").first().text().trim();
+  const metaDesc = $('meta[name="description"]').attr("content") || "";
+  const firstParagraph = $("p").first().text().trim();
+  let primaryEntityType = null;
+  const bodyText = $("body").text().toLowerCase();
+  if (/company|corporation|business|agency|firm/i.test(bodyText)) {
+    primaryEntityType = "Organization";
+  } else if (/product|software|tool|app|service/i.test(h1 + " " + title)) {
+    primaryEntityType = "Product/Software";
+  } else if (/person|author|founder|ceo|expert/i.test(bodyText)) {
+    primaryEntityType = "Person";
+  }
+  const titleWords = title.split(/[\s|—-]+/).filter((w) => w.length > 3);
+  const h1Words = h1.split(/[\s|—-]+/).filter((w) => w.length > 3);
+  const properNouns = [...title.matchAll(/[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*/g)].map((m) => m[0]);
+  const entityNameConsistency = properNouns.length > 0 && properNouns.some((name) => h1.includes(name) || firstParagraph.includes(name));
+  const hasWikipediaStyleIntro = /is (a|an|the)\s+\w+/i.test(firstParagraph) || /\w+ is (a|an) (software|company|tool|platform|service|agency)/i.test(firstParagraph);
+  const hasEntityDefinition = hasWikipediaStyleIntro || firstParagraph.length > 100;
+  const brandName = properNouns[0] || title.split(/[|—-]/)[0].trim();
+  const entityMentionCount = brandName ? (bodyText.match(new RegExp(brandName.toLowerCase(), "g")) || []).length : 0;
+  return {
+    primaryEntityType,
+    entityNameConsistency,
+    hasEntityDefinition,
+    hasWikipediaStyleIntro,
+    entityMentionCount
+  };
+}
+function analyzeTopicalCoverage($, html) {
+  const bodyText = $("body").text();
+  const relationshipPatterns = [
+    /integrates? with/i,
+    /works? with/i,
+    /similar to/i,
+    /alternative to/i,
+    /compared to/i,
+    /partner(s|ship)? with/i,
+    /competitor/i,
+    /used by/i,
+    /trusted by/i
+  ];
+  const hasEntityRelationships = relationshipPatterns.some((p) => p.test(bodyText));
+  const allProperNouns = bodyText.match(/[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*/g) || [];
+  const uniqueEntities = [...new Set(allProperNouns)].filter((e) => e.length > 3);
+  const relatedEntityCount = Math.min(uniqueEntities.length, 50);
+  const hasRelatedEntities = relatedEntityCount > 5;
+  let topicalDepthScore = 0;
+  if (hasEntityRelationships) topicalDepthScore += 30;
+  if (relatedEntityCount >= 10) topicalDepthScore += 30;
+  else if (relatedEntityCount >= 5) topicalDepthScore += 15;
+  if ($("h2, h3").length >= 5) topicalDepthScore += 20;
+  if (bodyText.length > 5e3) topicalDepthScore += 20;
+  return {
+    hasRelatedEntities,
+    relatedEntityCount,
+    hasEntityRelationships,
+    topicalDepthScore: Math.min(topicalDepthScore, 100)
+  };
+}
+function analyzeKnowledgePanelSignals($, html) {
+  const bodyText = $("body").text().toLowerCase();
+  const schemaText = $('script[type="application/ld+json"]').text();
+  return {
+    hasCompanyInfo: /about us|about the company|our story|who we are/i.test(bodyText) || /Organization|Corporation/i.test(schemaText),
+    hasFounderInfo: /founder|founded by|ceo|chief executive/i.test(bodyText),
+    hasHeadquarters: /headquarters|based in|located in|office/i.test(bodyText) || /address/i.test(schemaText),
+    hasIndustryMention: /industry|sector|market|specializ/i.test(bodyText),
+    hasDateFounded: /founded in|established in|since \d{4}|founded \d{4}/i.test(bodyText) || /foundingDate/i.test(schemaText)
+  };
+}
+function calculateEntitySEOScore(signals, clarity, coverage, kpSignals) {
+  let score = 0;
+  if (signals.hasOrganizationSchema || signals.hasPersonSchema) score += 10;
+  if (signals.hasSameAsReferences) score += 10;
+  if (signals.hasMainEntityOfPage) score += 5;
+  if (signals.hasAboutReference) score += 5;
+  if (clarity.primaryEntityType) score += 10;
+  if (clarity.entityNameConsistency) score += 10;
+  if (clarity.hasWikipediaStyleIntro) score += 10;
+  score += Math.round(coverage.topicalDepthScore * 0.2);
+  const kpCount = Object.values(kpSignals).filter(Boolean).length;
+  score += kpCount * 4;
+  return Math.min(score, 100);
+}
+function analyzeEntitySEO(html, url) {
+  const $ = esm/* load */.Hh(html);
+  const issues = [];
+  const entitySignals = extractEntitySignals($, html);
+  const entityClarity = analyzeEntityClarity($, html);
+  const topicalCoverage = analyzeTopicalCoverage($, html);
+  const knowledgePanelSignals = analyzeKnowledgePanelSignals($, html);
+  const entitySEOScore = calculateEntitySEOScore(
+    entitySignals,
+    entityClarity,
+    topicalCoverage,
+    knowledgePanelSignals
+  );
+  const recommendations = [];
+  if (!entitySignals.hasOrganizationSchema && !entitySignals.hasPersonSchema) {
+    recommendations.push("Add Organization or Person schema to establish entity identity");
+  }
+  if (!entitySignals.hasSameAsReferences) {
+    recommendations.push("Add sameAs references to official social profiles and Wikipedia/Wikidata");
+  }
+  if (!entityClarity.hasWikipediaStyleIntro) {
+    recommendations.push("Add a Wikipedia-style definition in the first paragraph (Entity is a...)");
+  }
+  if (!entitySignals.hasMainEntityOfPage) {
+    recommendations.push("Specify mainEntityOfPage in schema to clarify what the page is about");
+  }
+  if (!entitySignals.hasOrganizationSchema && !entitySignals.hasPersonSchema && !entitySignals.hasProductSchema) {
+    issues.push({
+      code: "NO_ENTITY_SCHEMA",
+      severity: "warning",
+      category: "structured-data",
+      title: "Missing entity schema (Organization/Person/Product)",
+      description: "No schema markup defining the primary entity on this page.",
+      impact: "Entity schema helps Google understand what/who this page is about for Knowledge Graph.",
+      howToFix: "Add Organization, Person, or Product schema with complete properties.",
+      affectedUrls: [url]
+    });
+  }
+  if (!entitySignals.hasSameAsReferences && (entitySignals.hasOrganizationSchema || entitySignals.hasPersonSchema)) {
+    issues.push({
+      code: "NO_SAMEAS_REFERENCES",
+      severity: "notice",
+      category: "structured-data",
+      title: "Entity schema missing sameAs references",
+      description: "Entity schema found but no sameAs links to authoritative sources.",
+      impact: "sameAs helps Google connect your entity to Knowledge Graph entries (Wikipedia, social profiles).",
+      howToFix: "Add sameAs array with links to Wikipedia, Wikidata, LinkedIn, Twitter, Crunchbase, etc.",
+      affectedUrls: [url],
+      details: {
+        hasOrganization: entitySignals.hasOrganizationSchema,
+        hasPerson: entitySignals.hasPersonSchema
+      }
+    });
+  }
+  if (!entityClarity.hasWikipediaStyleIntro) {
+    issues.push({
+      code: "NO_ENTITY_DEFINITION",
+      severity: "notice",
+      category: "content",
+      title: "Missing entity definition in content",
+      description: "First paragraph lacks a clear definition of the primary entity.",
+      impact: "Clear entity definitions help AI systems extract and cite your content correctly.",
+      howToFix: 'Start content with "[Entity Name] is a [type] that [does what]" pattern.',
+      affectedUrls: [url]
+    });
+  }
+  if (!entityClarity.entityNameConsistency && entityClarity.entityMentionCount < 3) {
+    issues.push({
+      code: "LOW_ENTITY_CONSISTENCY",
+      severity: "notice",
+      category: "content",
+      title: "Entity name not consistently used",
+      description: "The primary entity name doesn't appear consistently across title, H1, and content.",
+      impact: "Consistent entity naming strengthens topical signals for Knowledge Graph.",
+      howToFix: "Ensure the exact entity name appears in title, H1, and first paragraph.",
+      affectedUrls: [url],
+      details: {
+        entityMentionCount: entityClarity.entityMentionCount
+      }
+    });
+  }
+  if (!entitySignals.hasMainEntityOfPage && entitySignals.hasOrganizationSchema) {
+    issues.push({
+      code: "NO_MAIN_ENTITY_OF_PAGE",
+      severity: "notice",
+      category: "structured-data",
+      title: "Schema missing mainEntityOfPage property",
+      description: "Entity schema doesn't specify what the page is primarily about.",
+      impact: "mainEntityOfPage helps Google understand the primary topic of each page.",
+      howToFix: "Add mainEntityOfPage property pointing to the current URL or a @id reference.",
+      affectedUrls: [url]
+    });
+  }
+  return {
+    issues,
+    data: {
+      entitySignals,
+      entityClarity,
+      topicalCoverage,
+      knowledgePanelSignals,
+      entitySEOScore,
+      recommendations
+    }
+  };
+}
+
+// src/audit/checks/freshness-signals.ts
+
+function extractDateSignals($, html) {
+  const now = /* @__PURE__ */ new Date();
+  let schemaDatePublished = null;
+  let schemaDateModified = null;
+  let hasSchemaDatePublished = false;
+  let hasSchemaDateModified = false;
+  $('script[type="application/ld+json"]').each((_, el) => {
+    try {
+      const content = $(el).html() || "";
+      const data = JSON.parse(content);
+      const processSchema = (schema) => {
+        if (schema.datePublished) {
+          hasSchemaDatePublished = true;
+          schemaDatePublished = schema.datePublished;
+        }
+        if (schema.dateModified) {
+          hasSchemaDateModified = true;
+          schemaDateModified = schema.dateModified;
+        }
+      };
+      if (Array.isArray(data)) {
+        data.forEach((item) => processSchema(item));
+      } else if (data["@graph"]) {
+        data["@graph"].forEach(processSchema);
+      } else {
+        processSchema(data);
+      }
+    } catch {
+    }
+  });
+  const metaDatePublished = $('meta[property="article:published_time"], meta[name="date"], meta[name="pubdate"]').attr("content");
+  const metaDateModified = $('meta[property="article:modified_time"], meta[name="lastmod"]').attr("content");
+  const datePatterns = [
+    /(?:published|posted|written|created)(?:\s+on)?:?\s*(\w+\s+\d{1,2},?\s+\d{4}|\d{4}-\d{2}-\d{2})/i,
+    /(?:updated|modified|last\s+updated|revised)(?:\s+on)?:?\s*(\w+\s+\d{1,2},?\s+\d{4}|\d{4}-\d{2}-\d{2})/i,
+    /(\w+\s+\d{1,2},?\s+\d{4})/,
+    /(\d{4}-\d{2}-\d{2})/
+  ];
+  const bodyText = $("body").text();
+  let visibleDateOnPage = null;
+  for (const pattern of datePatterns) {
+    const match = bodyText.match(pattern);
+    if (match) {
+      visibleDateOnPage = match[1] || match[0];
+      break;
+    }
+  }
+  let daysSincePublished = null;
+  let daysSinceModified = null;
+  const publishedDate = schemaDatePublished || metaDatePublished;
+  if (publishedDate) {
+    try {
+      const date = new Date(publishedDate);
+      daysSincePublished = Math.floor((now.getTime() - date.getTime()) / (1e3 * 60 * 60 * 24));
+    } catch {
+    }
+  }
+  const modifiedDate = schemaDateModified || metaDateModified;
+  if (modifiedDate) {
+    try {
+      const date = new Date(modifiedDate);
+      daysSinceModified = Math.floor((now.getTime() - date.getTime()) / (1e3 * 60 * 60 * 24));
+    } catch {
+    }
+  }
+  return {
+    hasDatePublished: !!(metaDatePublished || schemaDatePublished),
+    hasDateModified: !!(metaDateModified || schemaDateModified),
+    hasSchemaDatePublished,
+    hasSchemaDateModified,
+    visibleDateOnPage,
+    schemaDatePublished,
+    schemaDateModified,
+    daysSincePublished,
+    daysSinceModified
+  };
+}
+function analyzeFreshnessIndicators($, html) {
+  const bodyText = $("body").text();
+  const title = $("title").text();
+  const currentYear = (/* @__PURE__ */ new Date()).getFullYear();
+  const hasCurrentYearMention = bodyText.includes(currentYear.toString()) || title.includes(currentYear.toString());
+  const recentDatePatterns = [
+    new RegExp(`(${currentYear}|${currentYear - 1})`),
+    /this year|this month|recently|latest|newest|updated/i
+  ];
+  const hasRecentDateReferences = recentDatePatterns.some((p) => p.test(bodyText));
+  const hasUpdateNotice = /updated?:?\s*(on|in)?\s*\w+\s+\d{1,2},?\s+\d{4}/i.test(bodyText) || /last\s+(?:updated|modified|revised)/i.test(bodyText) || $('[class*="update"], [class*="modified"]').length > 0;
+  const hasChangeLog = /changelog|change\s+log|revision\s+history|update\s+history/i.test(bodyText) || $('[id*="changelog"], [class*="changelog"]').length > 0;
+  const hasVersionNumber = /v?\d+\.\d+(\.\d+)?|version\s+\d+/i.test(bodyText);
+  let contentFreshnessSignal = "unknown";
+  if (hasCurrentYearMention && hasRecentDateReferences) {
+    contentFreshnessSignal = "fresh";
+  } else if (/\d{4}/.test(title) && !new RegExp(`(${currentYear}|${currentYear - 1})`).test(title)) {
+    contentFreshnessSignal = "dated";
+  } else if (/guide|tutorial|how\s+to|tips|basics|fundamentals/i.test(title)) {
+    contentFreshnessSignal = "evergreen";
+  }
+  return {
+    hasCurrentYearMention,
+    hasRecentDateReferences,
+    hasUpdateNotice,
+    hasChangeLog,
+    hasVersionNumber,
+    contentFreshnessSignal
+  };
+}
+function analyzeQDFRelevance($, html) {
+  const title = $("title").text().toLowerCase();
+  const bodyText = $("body").text().toLowerCase();
+  const qdfIndicators = [];
+  let updateFrequency = "monthly";
+  if (/news|breaking|announcement|release|launch/i.test(title)) {
+    qdfIndicators.push("News/announcement topic");
+    updateFrequency = "daily";
+  }
+  if (/\d{4}|trends?|statistics?|data|report/i.test(title)) {
+    qdfIndicators.push("Year-specific or data content");
+    updateFrequency = "quarterly";
+  }
+  if (/review|comparison|vs\.?|alternative/i.test(title)) {
+    qdfIndicators.push("Review/comparison content");
+    updateFrequency = "monthly";
+  }
+  if (/price|pricing|cost/i.test(title)) {
+    qdfIndicators.push("Pricing information");
+    updateFrequency = "monthly";
+  }
+  if (/best|top\s+\d+/i.test(title)) {
+    qdfIndicators.push("Best-of list content");
+    updateFrequency = "quarterly";
+  }
+  if (/election|score|result|update/i.test(bodyText)) {
+    qdfIndicators.push("Time-sensitive topic signals");
+    updateFrequency = "weekly";
+  }
+  return {
+    isLikelyQDFTopic: qdfIndicators.length > 0,
+    qdfIndicators,
+    updateFrequencyRecommendation: updateFrequency
+  };
+}
+function analyzeAICitationOptimization(dateSignals, freshnessIndicators) {
+  const hasLastUpdatedMeta = dateSignals.hasSchemaDateModified || dateSignals.hasDateModified;
+  const hasClearDateFormat = !!(dateSignals.schemaDatePublished || dateSignals.schemaDateModified);
+  const freshnessSchemaComplete = dateSignals.hasSchemaDatePublished && dateSignals.hasSchemaDateModified;
+  let readinessScore = 0;
+  if (hasLastUpdatedMeta) readinessScore += 30;
+  if (hasClearDateFormat) readinessScore += 20;
+  if (freshnessSchemaComplete) readinessScore += 30;
+  if (freshnessIndicators.hasCurrentYearMention) readinessScore += 10;
+  if (freshnessIndicators.hasUpdateNotice) readinessScore += 10;
+  const aiCitationReadiness = readinessScore >= 70 ? "high" : readinessScore >= 40 ? "medium" : "low";
+  return {
+    hasLastUpdatedMeta,
+    hasClearDateFormat,
+    freshnessSchemaComplete,
+    aiCitationReadiness
+  };
+}
+function calculateFreshnessScore(dateSignals, freshnessIndicators, aiOptimization) {
+  let score = 50;
+  if (dateSignals.hasSchemaDatePublished) score += 10;
+  if (dateSignals.hasSchemaDateModified) score += 15;
+  if (dateSignals.visibleDateOnPage) score += 5;
+  if (freshnessIndicators.hasCurrentYearMention) score += 10;
+  if (freshnessIndicators.hasUpdateNotice) score += 10;
+  if (freshnessIndicators.contentFreshnessSignal === "fresh") score += 10;
+  else if (freshnessIndicators.contentFreshnessSignal === "dated") score -= 20;
+  if (dateSignals.daysSinceModified !== null) {
+    if (dateSignals.daysSinceModified < 30) score += 10;
+    else if (dateSignals.daysSinceModified < 90) score += 5;
+    else if (dateSignals.daysSinceModified > 365) score -= 10;
+  }
+  return Math.max(0, Math.min(100, score));
+}
+function analyzeFreshnessSignals(html, url) {
+  const $ = esm/* load */.Hh(html);
+  const issues = [];
+  const dateSignals = extractDateSignals($, html);
+  const freshnessIndicators = analyzeFreshnessIndicators($, html);
+  const qdfRelevance = analyzeQDFRelevance($, html);
+  const aiCitationOptimization = analyzeAICitationOptimization(dateSignals, freshnessIndicators);
+  const freshnessScore = calculateFreshnessScore(
+    dateSignals,
+    freshnessIndicators,
+    aiCitationOptimization
+  );
+  const recommendations = [];
+  if (!dateSignals.hasSchemaDateModified) {
+    recommendations.push("Add dateModified to schema - boosts AI citation odds by ~18%");
+  }
+  if (qdfRelevance.isLikelyQDFTopic && !freshnessIndicators.hasUpdateNotice) {
+    recommendations.push(`This QDF topic should be updated ${qdfRelevance.updateFrequencyRecommendation}`);
+  }
+  if (!freshnessIndicators.hasCurrentYearMention && /\d{4}/.test($("title").text())) {
+    recommendations.push("Update year references in title and content for freshness signals");
+  }
+  const isDatedContent = dateSignals.hasSchemaDatePublished || /"@type"\s*:\s*"(Article|BlogPosting|NewsArticle|TechArticle|ScholarlyArticle|Report)"/i.test(html) || $('meta[property="og:type"][content="article"]').length > 0;
+  if (isDatedContent && !dateSignals.hasSchemaDateModified) {
+    issues.push({
+      code: "NO_DATE_MODIFIED_SCHEMA",
+      severity: "warning",
+      category: "structured-data",
+      title: "Missing dateModified in schema",
+      description: "Schema markup lacks dateModified property.",
+      impact: "dateModified signals content freshness to search engines and AI assistants, boosting citation odds by ~18%.",
+      howToFix: "Add dateModified property to your Article/WebPage schema with ISO 8601 format.",
+      affectedUrls: [url],
+      details: {
+        hasDatePublished: dateSignals.hasSchemaDatePublished
+      }
+    });
+  }
+  if (qdfRelevance.isLikelyQDFTopic && dateSignals.daysSinceModified && dateSignals.daysSinceModified > 180) {
+    issues.push({
+      code: "STALE_QDF_CONTENT",
+      severity: "warning",
+      category: "content",
+      title: "Time-sensitive content may be stale",
+      description: `Content was last modified ${dateSignals.daysSinceModified} days ago on a topic that benefits from freshness.`,
+      impact: "Query Deserves Freshness (QDF) prioritizes fresh content for this topic type.",
+      howToFix: `Update this content ${qdfRelevance.updateFrequencyRecommendation}. Add new data, stats, or insights.`,
+      affectedUrls: [url],
+      details: {
+        daysSinceModified: dateSignals.daysSinceModified,
+        qdfIndicators: qdfRelevance.qdfIndicators,
+        updateFrequency: qdfRelevance.updateFrequencyRecommendation
+      }
+    });
+  }
+  const title = $("title").text();
+  const currentYear = (/* @__PURE__ */ new Date()).getFullYear();
+  const yearMatch = title.match(/20\d{2}/);
+  if (yearMatch && parseInt(yearMatch[0]) < currentYear - 1) {
+    issues.push({
+      code: "OUTDATED_YEAR_IN_TITLE",
+      severity: "warning",
+      category: "on-page",
+      title: "Title contains outdated year",
+      description: `Title mentions ${yearMatch[0]} but current year is ${currentYear}.`,
+      impact: "Outdated years in titles signal stale content and reduce CTR.",
+      howToFix: `Update title to ${currentYear} and refresh the content to match.`,
+      affectedUrls: [url],
+      details: {
+        yearInTitle: yearMatch[0],
+        currentYear
+      }
+    });
+  }
+  if (!dateSignals.visibleDateOnPage && /blog|article|post|news/i.test(url)) {
+    issues.push({
+      code: "NO_VISIBLE_DATE",
+      severity: "notice",
+      category: "content",
+      title: "No visible publish/update date",
+      description: "Content page lacks a visible date for users.",
+      impact: "Users prefer seeing when content was published/updated for credibility.",
+      howToFix: "Display publish date and last updated date on the page.",
+      affectedUrls: [url]
+    });
+  }
+  if (aiCitationOptimization.aiCitationReadiness === "low" && qdfRelevance.isLikelyQDFTopic) {
+    issues.push({
+      code: "LOW_AI_CITATION_READINESS",
+      severity: "notice",
+      category: "content",
+      title: "Low AI citation readiness for fresh content",
+      description: "This page lacks freshness signals that AI assistants prioritize.",
+      impact: "AI assistants cite content 25.7% fresher than organic results. Missing signals reduce citation odds.",
+      howToFix: "Add dateModified schema, visible update date, and current year mentions.",
+      affectedUrls: [url],
+      details: {
+        aiCitationReadiness: aiCitationOptimization.aiCitationReadiness,
+        missingSignals: [
+          !dateSignals.hasSchemaDateModified && "dateModified schema",
+          !freshnessIndicators.hasUpdateNotice && "visible update notice",
+          !freshnessIndicators.hasCurrentYearMention && "current year mention"
+        ].filter(Boolean)
+      }
+    });
+  }
+  return {
+    issues,
+    data: {
+      dateSignals,
+      freshnessIndicators,
+      qdfRelevance,
+      aiCitationOptimization,
+      freshnessScore,
+      recommendations
+    }
+  };
+}
+
+// src/audit/checks/ai-content-structure.ts
+
+function analyzeAIContentStructure(html, url) {
+  const issues = [];
+  const $ = esm/* load */.Hh(html);
+  $("nav, footer, aside, script, style, noscript, header").remove();
+  const tables = $("table");
+  const tableCount = tables.length;
+  let hasComparisonTable = false;
+  let hasDataTable = false;
+  tables.each((_, table) => {
+    const $table = $(table);
+    const headers = $table.find("th").length;
+    const rows = $table.find("tr").length;
+    const cells = $table.find("td").length;
+    if (headers >= 2 && rows >= 3) {
+      hasComparisonTable = true;
+    }
+    const cellTexts = $table.find("td").map((_2, td) => $(td).text()).get();
+    const hasNumbers = cellTexts.some((text) => /\d+/.test(text));
+    if (hasNumbers && cells >= 4) {
+      hasDataTable = true;
+    }
+  });
+  const orderedLists = $("ol").length;
+  const unorderedLists = $("ul").not("nav ul").length;
+  let hasStepByStep = false;
+  $("ol").each((_, ol) => {
+    const items = $(ol).find("> li").length;
+    if (items >= 3) {
+      hasStepByStep = true;
+    }
+  });
+  let hasBulletedFeatures = false;
+  $("ul").not("nav ul").each((_, ul) => {
+    const items = $(ul).find("> li").length;
+    if (items >= 3) {
+      hasBulletedFeatures = true;
+    }
+  });
+  const bodyText = $("body").text().toLowerCase();
+  const headings = $("h1, h2, h3, h4, h5, h6");
+  let questionCount = 0;
+  let hasDirectAnswers = false;
+  headings.each((_, heading) => {
+    const text = $(heading).text();
+    if (text.includes("?") || /^(what|how|why|when|where|who|which|can|does|is|are|should|will)\s/i.test(text)) {
+      questionCount++;
+      const nextP = $(heading).next("p");
+      if (nextP.length) {
+        const answerText = nextP.text();
+        if (answerText.length > 20 && answerText.length < 300) {
+          hasDirectAnswers = true;
+        }
+      }
+    }
+  });
+  const hasExplicitQA = $('[itemtype*="FAQPage"]').length > 0 || $('[itemtype*="Question"]').length > 0 || $('.faq, #faq, [class*="faq"], [id*="faq"]').length > 0 || $("details summary").length >= 2 || $("dt").length >= 2;
+  const paragraphs = $("p");
+  let shortParagraphCount = 0;
+  let totalParagraphs = 0;
+  let hasDefinitions = false;
+  let hasConciseStatements = false;
+  paragraphs.each((_, p) => {
+    const text = $(p).text().trim();
+    if (text.length < 20) return;
+    totalParagraphs++;
+    if (text.length < 150) {
+      shortParagraphCount++;
+    }
+    if (/^[A-Z][^.]+\s+(is|are|refers to|means|describes)\s+/i.test(text)) {
+      hasDefinitions = true;
+    }
+    if (text.length < 200 && (text.includes(":") || /^(The|A|An)\s+\w+/.test(text) || /^\d+\.?\s+/.test(text))) {
+      hasConciseStatements = true;
+    }
+  });
+  const shortParagraphRatio = totalParagraphs > 0 ? shortParagraphCount / totalParagraphs : 0;
+  let structureScore = 50;
+  if (hasComparisonTable) structureScore += 10;
+  if (hasDataTable) structureScore += 5;
+  if (hasStepByStep) structureScore += 10;
+  if (hasBulletedFeatures) structureScore += 5;
+  if (hasExplicitQA) structureScore += 10;
+  if (questionCount >= 3) structureScore += 5;
+  if (hasDirectAnswers) structureScore += 5;
+  if (hasDefinitions) structureScore += 5;
+  if (hasConciseStatements) structureScore += 5;
+  if (shortParagraphRatio > 0.3) structureScore += 5;
+  if (tableCount === 0 && orderedLists === 0 && unorderedLists === 0) {
+    structureScore -= 15;
+  }
+  if (questionCount === 0) {
+    structureScore -= 5;
+  }
+  structureScore = Math.max(0, Math.min(100, structureScore));
+  if (!hasComparisonTable && bodyText.includes("compar") || bodyText.includes("vs") || bodyText.includes("versus")) {
+    issues.push({
+      code: "AI_NO_COMPARISON_TABLE",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Comparison content without table format",
+      description: "Your content mentions comparisons but doesn't use a table format. AI systems can easily parse and quote table data.",
+      impact: "AI may not accurately extract comparison data, reducing chances of being cited in AI-generated comparisons.",
+      howToFix: "Convert comparison content to HTML tables with clear headers. Example: Feature | Option A | Option B",
+      affectedUrls: [url]
+    });
+  }
+  if (!hasStepByStep && (bodyText.includes("step") || bodyText.includes("how to") || bodyText.includes("guide"))) {
+    issues.push({
+      code: "AI_NO_NUMBERED_STEPS",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Procedural content without numbered steps",
+      description: "Your content appears to be a guide or how-to but doesn't use numbered lists. AI prefers numbered lists for step-by-step content.",
+      impact: "AI may not accurately quote your steps in order, or may skip your content for better-structured alternatives.",
+      howToFix: "Convert step-by-step instructions to <ol> (ordered list) format with clear, actionable items.",
+      affectedUrls: [url]
+    });
+  }
+  if (!hasExplicitQA && questionCount === 0) {
+    issues.push({
+      code: "AI_NO_QA_FORMAT",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "No question-and-answer format detected",
+      description: "Content lacks explicit Q&A structure. AI systems often look for clear question-answer pairs to provide direct responses.",
+      impact: "Lower chance of being featured in AI direct answers or FAQ-style responses.",
+      howToFix: "Add FAQ section with common questions as headings (H2/H3) followed by concise answers. Implement FAQ schema markup.",
+      affectedUrls: [url],
+      details: {
+        suggestions: [
+          "Use question words in headings (What, How, Why, etc.)",
+          "Follow questions with short, direct answer paragraphs",
+          "Add FAQ schema markup for structured data",
+          "Consider using <details>/<summary> for expandable Q&A"
+        ]
+      }
+    });
+  }
+  if (questionCount >= 2 && !hasDirectAnswers) {
+    issues.push({
+      code: "AI_QUESTIONS_NO_DIRECT_ANSWERS",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Questions in headings lack direct answers",
+      description: `Found ${questionCount} question-style headings but answers are too long or not immediately following. AI prefers concise answers right after questions.`,
+      impact: "AI may struggle to extract clear answers, reducing citation likelihood.",
+      howToFix: "Start each answer section with a 1-2 sentence direct answer, then expand with details. First sentence should standalone as a complete answer.",
+      affectedUrls: [url]
+    });
+  }
+  if (!hasDefinitions && (bodyText.includes("what is") || bodyText.includes("definition"))) {
+    issues.push({
+      code: "AI_NO_DEFINITIONS",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Missing clear definitions",
+      description: 'Content discusses concepts but lacks Wikipedia-style definitions. AI loves clear "X is a..." statements.',
+      impact: "Less likely to be cited for definitional queries in AI search.",
+      howToFix: 'Add clear definitions early in content: "[Term] is a [category] that [distinguishing features]." Make first paragraph a complete definition.',
+      affectedUrls: [url]
+    });
+  }
+  if (structureScore < 50) {
+    issues.push({
+      code: "AI_LOW_STRUCTURE_SCORE",
+      severity: "warning",
+      category: "ai-readiness",
+      title: "Content structure not optimized for AI parsing",
+      description: `AI structure score: ${structureScore}/100. Content lacks structured elements that AI can easily parse and quote.`,
+      impact: "Lower likelihood of being cited in AI-generated answers due to poor content structure.",
+      howToFix: "Improve content structure: add tables for data, numbered lists for steps, bullet points for features, Q&A sections for common questions.",
+      affectedUrls: [url],
+      details: {
+        structureScore,
+        hasTable: tableCount > 0,
+        hasOrderedList: orderedLists > 0,
+        hasUnorderedList: unorderedLists > 0,
+        hasQAFormat: hasExplicitQA || questionCount > 0
+      }
+    });
+  }
+  return {
+    issues,
+    data: {
+      tables: {
+        count: tableCount,
+        hasComparisonTable,
+        hasDataTable
+      },
+      lists: {
+        orderedLists,
+        unorderedLists,
+        hasStepByStep,
+        hasBulletedFeatures
+      },
+      qaFormat: {
+        hasExplicitQA,
+        questionCount,
+        hasDirectAnswers
+      },
+      quotability: {
+        hasDefinitions,
+        hasConciseStatements,
+        shortParagraphRatio
+      },
+      structureScore
+    }
+  };
+}
+
+// src/audit/checks/rag-chunk-readiness.ts
+
+var MIN_GOOD_WORDS = 150;
+var MAX_GOOD_WORDS = 450;
+var TOKENS_PER_WORD = 1.33;
+var DANGLING_OPENERS = /^(this|it|these|that|they|such|those|the former|the latter)\b/i;
+function classifySize(wordCount) {
+  if (wordCount < MIN_GOOD_WORDS) return "too-short";
+  if (wordCount > MAX_GOOD_WORDS) return "too-long";
+  return "good";
+}
+function extractSections($) {
+  const elements = $("h1, h2, h3, p, li, blockquote").toArray();
+  const sections = [];
+  let current = null;
+  for (const el of elements) {
+    const tag = el.tagName?.toLowerCase();
+    if (tag === "h1" || tag === "h2" || tag === "h3") {
+      if (current) sections.push(current);
+      current = { heading: $(el).text().trim(), headingLevel: parseInt(tag.slice(1), 10), text: "" };
+    } else if (current) {
+      current.text += " " + $(el).text();
+    }
+  }
+  if (current) sections.push(current);
+  return sections;
+}
+function analyzeRAGChunkReadiness(html, url) {
+  const issues = [];
+  const $ = esm/* load */.Hh(html);
+  $("nav, footer, aside, script, style, noscript, header").remove();
+  const rawSections = extractSections($);
+  const sections = rawSections.map((s) => {
+    const words = s.text.trim().split(/\s+/).filter(Boolean);
+    const wordCount = words.length;
+    const estimatedTokens = Math.round(wordCount * TOKENS_PER_WORD);
+    const firstSentence = s.text.trim().split(/[.!?]/)[0] || "";
+    return {
+      heading: s.heading,
+      headingLevel: s.headingLevel,
+      wordCount,
+      estimatedTokens,
+      sizeQuality: classifySize(wordCount),
+      startsWithDanglingReference: DANGLING_OPENERS.test(firstSentence.trim())
+    };
+  });
+  const totalSections = sections.length;
+  const wellSizedSectionCount = sections.filter((s) => s.sizeQuality === "good").length;
+  const danglingReferenceCount = sections.filter((s) => s.startsWithDanglingReference).length;
+  const chunkReadinessScore = totalSections === 0 ? 0 : Math.round(
+    (wellSizedSectionCount / totalSections * 0.7 + (totalSections - danglingReferenceCount) / totalSections * 0.3) * 100
+  );
+  if (totalSections >= 3 && wellSizedSectionCount / totalSections < 0.5) {
+    const tooLong = sections.filter((s) => s.sizeQuality === "too-long").length;
+    const tooShort = sections.filter((s) => s.sizeQuality === "too-short").length;
+    issues.push({
+      code: "RAG_CHUNK_SIZE_MISMATCH",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Most sections are poorly sized for AI retrieval chunking",
+      description: `${wellSizedSectionCount} of ${totalSections} sections fall in a well-sized range for RAG retrieval (roughly 150-450 words); ${tooLong} are too long and likely to get split mid-thought, ${tooShort} are too short and likely to get merged with unrelated neighbors.`,
+      impact: "When an AI answer engine retrieves a chunk of this page in response to a query, oversized sections risk being cut off mid-point and undersized ones risk losing standalone context \u2014 both reduce the odds the retrieved chunk reads coherently in an AI-generated answer.",
+      howToFix: "Break up long sections (450+ words) with an additional H2/H3 subheading roughly every 300-400 words. Merge very short sections (under 150 words) into a neighboring section or expand them with enough context to stand alone.",
+      affectedUrls: [url],
+      details: { wellSizedSectionCount, totalSections, tooLong, tooShort }
+    });
+  }
+  if (totalSections >= 3 && danglingReferenceCount / totalSections > 0.3) {
+    issues.push({
+      code: "RAG_CHUNK_DANGLING_REFERENCES",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Several sections open with a reference to prior context",
+      description: `${danglingReferenceCount} of ${totalSections} sections start with a pronoun or demonstrative ("This...", "It...", "These...") that depends on the previous section to make sense.`,
+      impact: "A RAG system that retrieves one of these sections on its own \u2014 which is exactly how retrieval works, one chunk at a time \u2014 surfaces a sentence whose subject is undefined, reading as broken or confusing in an AI-generated answer.",
+      howToFix: 'Open each section by naming its actual subject instead of referring back to the previous one \u2014 e.g. "This approach reduces cost" becomes "Caching reduces cost."',
+      affectedUrls: [url],
+      details: { danglingReferenceCount, totalSections }
+    });
+  }
+  return {
+    issues,
+    data: { sections, totalSections, wellSizedSectionCount, danglingReferenceCount, chunkReadinessScore }
+  };
+}
+
+// src/audit/checks/citation-quality.ts
+
+var REPUTABLE_SOURCES = {
+  academic: [
+    "scholar.google.com",
+    "pubmed.ncbi.nlm.nih.gov",
+    "ncbi.nlm.nih.gov",
+    "arxiv.org",
+    "jstor.org",
+    "researchgate.net",
+    "sciencedirect.com",
+    "nature.com",
+    "science.org",
+    "springer.com",
+    "wiley.com"
+  ],
+  government: [
+    "gov",
+    "gov.uk",
+    "europa.eu",
+    "un.org",
+    "who.int",
+    "cdc.gov",
+    "nih.gov",
+    "fda.gov",
+    "epa.gov",
+    "sec.gov",
+    "ftc.gov"
+  ],
+  educational: [
+    ".edu",
+    "mit.edu",
+    "stanford.edu",
+    "harvard.edu",
+    "oxford.ac.uk",
+    "cambridge.org",
+    "coursera.org",
+    "khanacademy.org"
+  ],
+  authoritative: [
+    "wikipedia.org",
+    "britannica.com",
+    "statista.com",
+    "pewresearch.org",
+    "gallup.com",
+    "mckinsey.com",
+    "hbr.org",
+    "forbes.com",
+    "reuters.com",
+    "apnews.com",
+    "bbc.com",
+    "nytimes.com",
+    "wsj.com",
+    "economist.com"
+  ],
+  technical: [
+    "github.com",
+    "stackoverflow.com",
+    "developer.mozilla.org",
+    "w3.org",
+    "ietf.org",
+    "rfc-editor.org",
+    "docs.google.com",
+    "developers.google.com"
+  ]
+};
+function analyzeCitationQuality(html, url) {
+  const issues = [];
+  const $ = esm/* load */.Hh(html);
+  const parsedUrl = new URL(url);
+  const currentDomain = parsedUrl.hostname;
+  const $content = $("body").clone();
+  $content.find("nav, footer, aside, script, style, noscript").remove();
+  const links = $content.find("a[href]");
+  let totalLinks = 0;
+  let externalLinks = 0;
+  let citationLinks = 0;
+  const reputableSources = {
+    academic: [],
+    government: [],
+    educational: [],
+    authoritative: [],
+    technical: []
+  };
+  links.each((_, link) => {
+    const href = $(link).attr("href");
+    if (!href) return;
+    totalLinks++;
+    try {
+      const linkUrl = new URL(href, url);
+      if (linkUrl.hostname === currentDomain || linkUrl.hostname.endsWith(`.${currentDomain}`)) {
+        return;
+      }
+      if (linkUrl.hostname.includes("facebook.com") || linkUrl.hostname.includes("twitter.com") || linkUrl.hostname.includes("instagram.com") || linkUrl.hostname.includes("linkedin.com/share") || linkUrl.hostname.includes("pinterest.com")) {
+        return;
+      }
+      externalLinks++;
+      const hostname = linkUrl.hostname.toLowerCase();
+      for (const source of REPUTABLE_SOURCES.academic) {
+        if (hostname.includes(source)) {
+          reputableSources.academic.push(hostname);
+          citationLinks++;
+          return;
+        }
+      }
+      for (const source of REPUTABLE_SOURCES.government) {
+        if (hostname.endsWith(source) || hostname.includes(`.${source}`)) {
+          reputableSources.government.push(hostname);
+          citationLinks++;
+          return;
+        }
+      }
+      for (const source of REPUTABLE_SOURCES.educational) {
+        if (hostname.endsWith(source) || hostname.includes(source)) {
+          reputableSources.educational.push(hostname);
+          citationLinks++;
+          return;
+        }
+      }
+      for (const source of REPUTABLE_SOURCES.authoritative) {
+        if (hostname.includes(source)) {
+          reputableSources.authoritative.push(hostname);
+          citationLinks++;
+          return;
+        }
+      }
+      for (const source of REPUTABLE_SOURCES.technical) {
+        if (hostname.includes(source)) {
+          reputableSources.technical.push(hostname);
+          citationLinks++;
+          return;
+        }
+      }
+    } catch {
+    }
+  });
+  const bodyText = $content.text();
+  const bodyHtml = $content.html() || "";
+  const hasInlineCitations = /\[\d+\]/.test(bodyText) || /\(Source:/i.test(bodyText) || /\(Citation:/i.test(bodyText) || /according to/i.test(bodyText) || /study (by|from|shows|found)/i.test(bodyText);
+  const hasReferencesSection = /(references|sources|citations|bibliography|works cited)/i.test(
+    $("h2, h3, h4, h5, h6").text()
+  ) || $("#references, .references, #sources, .sources, #citations").length > 0;
+  const statisticPatterns = [
+    /(\d+(?:\.\d+)?)\s*%/g,
+    // Percentages
+    /(\d+(?:,\d{3})*(?:\.\d+)?)\s*(million|billion|trillion)/gi,
+    // Large numbers
+    /\$(\d+(?:,\d{3})*(?:\.\d+)?)/g,
+    // Dollar amounts
+    /(\d+)\s*out of\s*(\d+)/gi,
+    // Ratios
+    /(\d+)x\s/gi
+    // Multipliers
+  ];
+  let statisticsWithSources = 0;
+  let statisticsWithoutSources = 0;
+  $content.find("p").each((_, p) => {
+    const pText = $(p).text();
+    const pHtml = $(p).html() || "";
+    let hasStatistic = false;
+    for (const pattern of statisticPatterns) {
+      if (pattern.test(pText)) {
+        hasStatistic = true;
+        pattern.lastIndex = 0;
+        break;
+      }
+    }
+    if (hasStatistic) {
+      const hasLink = $(p).find("a[href]").length > 0;
+      const hasCitationText = /\(.*\d{4}\)|according to|source:|study/i.test(pText);
+      if (hasLink || hasCitationText) {
+        statisticsWithSources++;
+      } else {
+        statisticsWithoutSources++;
+      }
+    }
+  });
+  const hasStatistics = statisticsWithSources + statisticsWithoutSources > 0;
+  let citationScore = 30;
+  if (reputableSources.academic.length > 0) citationScore += 15;
+  if (reputableSources.government.length > 0) citationScore += 15;
+  if (reputableSources.educational.length > 0) citationScore += 10;
+  if (reputableSources.authoritative.length > 0) citationScore += 10;
+  if (reputableSources.technical.length > 0) citationScore += 5;
+  if (hasInlineCitations) citationScore += 10;
+  if (hasReferencesSection) citationScore += 10;
+  if (hasStatistics) {
+    const citedRatio = statisticsWithSources / (statisticsWithSources + statisticsWithoutSources);
+    if (citedRatio >= 0.8) citationScore += 10;
+    else if (citedRatio >= 0.5) citationScore += 5;
+    else if (citedRatio < 0.3) citationScore -= 10;
+  }
+  if (externalLinks === 0) citationScore -= 20;
+  citationScore = Math.max(0, Math.min(100, citationScore));
+  const totalReputable = Object.values(reputableSources).flat().length;
+  if (totalReputable === 0 && externalLinks > 0) {
+    issues.push({
+      code: "AI_NO_REPUTABLE_CITATIONS",
+      severity: "warning",
+      category: "ai-readiness",
+      title: "No reputable sources cited",
+      description: "Content has external links but none to recognized authoritative sources. AI prioritizes content that cites reputable sources.",
+      impact: "Lower E-E-A-T signals and reduced likelihood of AI citing your content.",
+      howToFix: "Add citations to reputable sources: academic papers, government sites (.gov), educational institutions (.edu), or established publications.",
+      affectedUrls: [url],
+      details: {
+        externalLinks,
+        reputableLinks: 0,
+        suggestedSources: [
+          "Academic: scholar.google.com, pubmed.ncbi.nlm.nih.gov",
+          "Government: .gov, who.int, cdc.gov",
+          "Technical: developer.mozilla.org, w3.org"
+        ]
+      }
+    });
+  }
+  if (externalLinks === 0 && totalLinks > 0) {
+    issues.push({
+      code: "AI_NO_EXTERNAL_CITATIONS",
+      severity: "warning",
+      category: "ai-readiness",
+      title: "No external sources linked",
+      description: "Content has no external links. AI values content that references and links to authoritative sources.",
+      impact: "Appears self-contained without external validation, reducing trust signals for AI.",
+      howToFix: "Add relevant external links to support your claims. Link to studies, official documentation, or authoritative sources.",
+      affectedUrls: [url]
+    });
+  }
+  if (statisticsWithoutSources > 0) {
+    issues.push({
+      code: "AI_UNCITED_STATISTICS",
+      severity: "warning",
+      category: "ai-readiness",
+      title: "Statistics without source citations",
+      description: `Found ${statisticsWithoutSources} statistic(s) without linked sources. AI is trained to prefer claims backed by citations.`,
+      impact: "Uncited statistics reduce content credibility and E-E-A-T signals.",
+      howToFix: 'Add source links or citations for all statistics. Include the source name and year when possible (e.g., "according to [Source, 2024]").',
+      affectedUrls: [url],
+      details: {
+        statisticsWithSources,
+        statisticsWithoutSources,
+        citedRatio: statisticsWithSources / (statisticsWithSources + statisticsWithoutSources)
+      }
+    });
+  }
+  const wordCount = bodyText.split(/\s+/).length;
+  if (wordCount > 1e3 && !hasReferencesSection && citationLinks > 0) {
+    issues.push({
+      code: "AI_NO_REFERENCES_SECTION",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "No dedicated references section",
+      description: "Long-form content with citations but no dedicated references section. A references section signals academic rigor.",
+      impact: "Missing opportunity to demonstrate comprehensive research and boost E-E-A-T.",
+      howToFix: 'Add a "References" or "Sources" section at the end listing all cited sources with full attribution.',
+      affectedUrls: [url]
+    });
+  }
+  if (citationScore < 40) {
+    issues.push({
+      code: "AI_LOW_CITATION_QUALITY",
+      // A notice: a heuristic score, not a defect a crawler can see, and it fired on most sites.
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Content citation quality needs improvement",
+      description: `Citation quality score: ${citationScore}/100. Well-cited content ranks higher in AI search results.`,
+      impact: "Low citation quality signals reduce E-E-A-T and AI citation likelihood.",
+      howToFix: "Improve citations: 1) Link to reputable sources, 2) Cite statistics with sources, 3) Add a references section, 4) Use inline citations for claims.",
+      affectedUrls: [url],
+      details: {
+        citationScore,
+        externalLinks,
+        reputableSources: totalReputable,
+        statisticsWithSources,
+        statisticsWithoutSources
+      }
+    });
+  }
+  return {
+    issues,
+    data: {
+      totalLinks,
+      externalLinks,
+      citationLinks,
+      reputableSources,
+      citationPatterns: {
+        hasInlineCitations,
+        hasReferencesSection,
+        hasStatistics,
+        statisticsWithSources,
+        statisticsWithoutSources
+      },
+      citationScore
+    }
+  };
+}
+
+// src/audit/checks/answer-conciseness.ts
+
+var IDEAL_ANSWER_LENGTH = { min: 40, max: 150 };
+var MAX_FIRST_SENTENCE = 200;
+function analyzeAnswerConciseness(html, url) {
+  const issues = [];
+  const $ = esm/* load */.Hh(html);
+  $("nav, footer, aside, script, style, noscript, header").remove();
+  const headings = $("h1, h2, h3, h4, h5, h6");
+  let totalHeadings = 0;
+  let questionHeadings = 0;
+  let headingsWithDirectAnswers = 0;
+  const firstSentenceLengths = [];
+  let shortAnswersCount = 0;
+  let longAnswersCount = 0;
+  const quotableAnswers = [];
+  const questionPatterns = [
+    /\?$/,
+    /^(what|how|why|when|where|who|which|can|does|is|are|should|will|would|could)\s/i
+  ];
+  headings.each((_, heading) => {
+    const $heading = $(heading);
+    const headingText2 = $heading.text().trim();
+    totalHeadings++;
+    const isQuestion = questionPatterns.some((p) => p.test(headingText2));
+    if (isQuestion) {
+      questionHeadings++;
+      let $next = $heading.next();
+      let answerText = "";
+      while ($next.length && !$next.is("h1, h2, h3, h4, h5, h6")) {
+        if ($next.is("p")) {
+          answerText += $next.text().trim() + " ";
+        }
+        $next = $next.next();
+      }
+      if (answerText) {
+        const firstSentenceMatch = answerText.match(/^[^.!?]+[.!?]/);
+        const firstSentence = firstSentenceMatch ? firstSentenceMatch[0].trim() : "";
+        if (firstSentence) {
+          firstSentenceLengths.push(firstSentence.length);
+          const isDirectAnswer = firstSentence.length <= MAX_FIRST_SENTENCE && !firstSentence.toLowerCase().startsWith("well,") && !firstSentence.toLowerCase().startsWith("so,") && !firstSentence.toLowerCase().startsWith("basically,") && (/^(yes|no|the|a|an|it|they|this|there|you|we)/i.test(firstSentence) || /^[A-Z][a-z]+\s+(is|are|was|were|can|should|will)/i.test(firstSentence));
+          if (isDirectAnswer) {
+            headingsWithDirectAnswers++;
+            if (firstSentence.length >= IDEAL_ANSWER_LENGTH.min && firstSentence.length <= IDEAL_ANSWER_LENGTH.max) {
+              shortAnswersCount++;
+              quotableAnswers.push(firstSentence);
+            } else if (firstSentence.length > IDEAL_ANSWER_LENGTH.max) {
+              longAnswersCount++;
+            }
+          }
+        }
+      }
+    }
+  });
+  const definitions = [];
+  $("p").each((_, p) => {
+    const text = $(p).text().trim();
+    const defMatch = text.match(/^([A-Z][^.]{0,50})\s+(is|are|refers to|means|describes|represents)\s+([^.]+\.)/);
+    if (defMatch) {
+      definitions.push(defMatch[0]);
+    }
+  });
+  const bodyText = $("body").text().toLowerCase();
+  const headingText = headings.map((_, h) => $(h).text().toLowerCase()).get().join(" ");
+  const hasSummary = headingText.includes("summary") || headingText.includes("conclusion") || headingText.includes("key takeaways") || $('[class*="summary"], [id*="summary"]').length > 0;
+  const hasTLDR = bodyText.includes("tl;dr") || bodyText.includes("tldr") || bodyText.includes("in short") || bodyText.includes("in summary") || headingText.includes("tl;dr");
+  const hasKeyPoints = headingText.includes("key points") || headingText.includes("main points") || headingText.includes("highlights") || $('[class*="key-points"], [class*="highlights"]').length > 0;
+  const averageFirstSentenceLength = firstSentenceLengths.length > 0 ? firstSentenceLengths.reduce((a, b) => a + b, 0) / firstSentenceLengths.length : 0;
+  let concisenessScore = 50;
+  if (questionHeadings > 0) {
+    const answerRatio = headingsWithDirectAnswers / questionHeadings;
+    concisenessScore += answerRatio * 20;
+  }
+  if (shortAnswersCount >= 3) concisenessScore += 15;
+  else if (shortAnswersCount >= 1) concisenessScore += 10;
+  if (longAnswersCount > shortAnswersCount) concisenessScore -= 10;
+  if (definitions.length >= 2) concisenessScore += 10;
+  else if (definitions.length === 1) concisenessScore += 5;
+  if (hasSummary) concisenessScore += 5;
+  if (hasTLDR) concisenessScore += 5;
+  if (hasKeyPoints) concisenessScore += 5;
+  if (averageFirstSentenceLength > 0 && averageFirstSentenceLength <= 150) {
+    concisenessScore += 5;
+  } else if (averageFirstSentenceLength > 200) {
+    concisenessScore -= 10;
+  }
+  concisenessScore = Math.max(0, Math.min(100, concisenessScore));
+  if (questionHeadings > 0 && headingsWithDirectAnswers < questionHeadings * 0.5) {
+    issues.push({
+      code: "AI_INDIRECT_ANSWERS",
+      // A notice: a heuristic score, not a defect a crawler can see, and it fired on most sites.
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Questions lack direct, quotable answers",
+      description: `${questionHeadings} question headings found but only ${headingsWithDirectAnswers} have direct answers. AI prefers content that answers questions immediately.`,
+      impact: "AI may skip your content for sources with clearer, more direct answers.",
+      howToFix: 'Start answer paragraphs with a direct 1-2 sentence answer. Avoid filler words like "Well," "So," "Basically." Lead with the answer, then explain.',
+      affectedUrls: [url],
+      details: {
+        questionHeadings,
+        directAnswers: headingsWithDirectAnswers,
+        examples: quotableAnswers.slice(0, 3)
+      }
+    });
+  }
+  if (longAnswersCount > 0 && longAnswersCount > shortAnswersCount) {
+    issues.push({
+      code: "AI_VERBOSE_ANSWERS",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Answer opening sentences are too long",
+      description: `Found ${longAnswersCount} answers with opening sentences over 150 characters. AI quotes shorter, punchier statements.`,
+      impact: "Long opening sentences are less likely to be quoted verbatim by AI.",
+      howToFix: 'Keep first sentences under 150 characters. Move details to subsequent sentences. Think "tweet-length" for opening answers.',
+      affectedUrls: [url],
+      details: {
+        averageLength: Math.round(averageFirstSentenceLength),
+        idealLength: `${IDEAL_ANSWER_LENGTH.min}-${IDEAL_ANSWER_LENGTH.max} characters`
+      }
+    });
+  }
+  const hasDefinitionalQueries = bodyText.includes("what is") || bodyText.includes("what are") || bodyText.includes("definition") || bodyText.includes("meaning of");
+  if (hasDefinitionalQueries && definitions.length === 0) {
+    issues.push({
+      code: "AI_NO_CLEAR_DEFINITIONS",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Definitional content lacks clear definitions",
+      description: 'Content discusses "what is" topics but lacks Wikipedia-style definitions. AI heavily favors clear "[Term] is a [definition]" patterns.',
+      impact: "Missing out on definitional search citations and AI answer boxes.",
+      howToFix: 'Add clear definitions: "[Term] is a [category] that [key characteristics]." Place definitions early in content or in dedicated sections.',
+      affectedUrls: [url],
+      details: {
+        suggestion: 'Example: "SEO is the practice of optimizing websites to rank higher in search engine results."'
+      }
+    });
+  }
+  const wordCount = $("body").text().split(/\s+/).length;
+  if (wordCount > 1500 && !hasSummary && !hasTLDR && !hasKeyPoints) {
+    issues.push({
+      code: "AI_NO_SUMMARY",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Long content lacks summary or key takeaways",
+      description: "Content is over 1500 words but has no summary, TL;DR, or key points section. AI often pulls from summary sections.",
+      impact: "Harder for AI to extract key points; may cite competitors with better-structured summaries.",
+      howToFix: 'Add a "Key Takeaways" section at the top or a "Summary" at the bottom. Use bullet points for scannable key points.',
+      affectedUrls: [url]
+    });
+  }
+  if (concisenessScore < 50) {
+    issues.push({
+      code: "AI_LOW_CONCISENESS",
+      severity: "warning",
+      category: "ai-readiness",
+      title: "Content lacks concise, quotable answers",
+      description: `Conciseness score: ${concisenessScore}/100. AI prefers content with clear, succinct answers it can quote directly.`,
+      impact: "Reduced likelihood of AI citing your content in direct answers.",
+      howToFix: "Restructure content: lead with direct answers, add definitions, include TL;DR sections, keep opening sentences short.",
+      affectedUrls: [url],
+      details: {
+        concisenessScore,
+        quotableAnswers: quotableAnswers.length,
+        definitions: definitions.length,
+        hasSummary,
+        hasTLDR
+      }
+    });
+  }
+  return {
+    issues,
+    data: {
+      headings: {
+        total: totalHeadings,
+        questions: questionHeadings,
+        withDirectAnswers: headingsWithDirectAnswers
+      },
+      answers: {
+        averageFirstSentenceLength: Math.round(averageFirstSentenceLength),
+        shortAnswersCount,
+        longAnswersCount,
+        quotableAnswers: quotableAnswers.slice(0, 5)
+      },
+      definitions: {
+        count: definitions.length,
+        examples: definitions.slice(0, 3)
+      },
+      keyTakeaways: {
+        hasSummary,
+        hasTLDR,
+        hasKeyPoints
+      },
+      concisenessScore
+    }
+  };
+}
+
+// src/audit/checks/brand-mention-optimization.ts
+
+var BRAND_DEFINITION_PATTERNS = [
+  /(?:we are|we're|is a|is the|is an)\s+(?:leading|premier|top|best|trusted|innovative|professional)/i,
+  /(?:our mission|our vision|we help|we provide|we offer|we specialize)/i,
+  /(?:founded in|established in|since \d{4}|for over \d+)/i
+];
+var USP_PATTERNS = [
+  /(?:only|unique|exclusive|proprietary|patented|first|original)/i,
+  /(?:unlike|different from|better than|compared to)/i,
+  /(?:guarantee|warranty|promise|commitment)/i,
+  /(?:free|no cost|complimentary|included)/i,
+  /(?:\d+%|\d+x|\d+ times|faster|cheaper|easier)/i
+];
+var VALUE_PROP_PATTERNS = [
+  /(?:save|reduce|increase|improve|boost|grow|maximize|minimize)/i,
+  /(?:get|achieve|reach|attain|unlock|discover)/i,
+  /(?:without|no need|don't have to|eliminates|removes)/i
+];
+var REVIEW_PLATFORMS = [
+  "trustpilot.com",
+  "g2.com",
+  "capterra.com",
+  "yelp.com",
+  "bbb.org",
+  "glassdoor.com",
+  "indeed.com",
+  "tripadvisor.com",
+  "angi.com",
+  "homeadvisor.com",
+  "avvo.com",
+  "healthgrades.com",
+  "zocdoc.com",
+  "clutch.co",
+  "producthunt.com",
+  "getapp.com"
+];
+function analyzeBrandMentionOptimization(html, url) {
+  const issues = [];
+  const $ = esm/* load */.Hh(html);
+  const parsedUrl = new URL(url);
+  const $content = $("body").clone();
+  $content.find("nav, footer, script, style, noscript").remove();
+  const bodyText = $content.text();
+  const bodyHtml = $content.html() || "";
+  const domainParts = parsedUrl.hostname.replace("www.", "").split(".");
+  const potentialBrandName = domainParts[0];
+  const title = $("title").text();
+  const ogSiteName = $('meta[property="og:site_name"]').attr("content") || "";
+  const brandNameRegex = new RegExp(potentialBrandName, "gi");
+  const brandMentionCount = (bodyText.match(brandNameRegex) || []).length;
+  let hasBrandDefinition = false;
+  let hasUSP = false;
+  let hasValueProposition = false;
+  let hasBrandStatement = false;
+  const quotableBrandStatements = [];
+  const brandDefinition = new RegExp(
+    `\\b${potentialBrandName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s+(?:is|are)\\s+(?:a|an|the)\\b`,
+    "i"
+  );
+  $content.find("p, li, h1, h2, h3").each((_, el) => {
+    const text = $(el).text().trim();
+    if (text.length < 20 || text.length > 300) return;
+    for (const pattern of [brandDefinition, ...BRAND_DEFINITION_PATTERNS]) {
+      if (pattern.test(text)) {
+        hasBrandDefinition = true;
+        if (text.length <= 200 && quotableBrandStatements.length < 5) {
+          quotableBrandStatements.push(text);
+        }
+        break;
+      }
+    }
+    for (const pattern of USP_PATTERNS) {
+      if (pattern.test(text)) {
+        hasUSP = true;
+        break;
+      }
+    }
+    for (const pattern of VALUE_PROP_PATTERNS) {
+      if (pattern.test(text)) {
+        hasValueProposition = true;
+        break;
+      }
+    }
+  });
+  hasBrandStatement = $('[class*="hero"] p, [class*="about"] p, [id*="hero"] p, [id*="about"] p').length > 0 || $("main > section:first-child p").length > 0;
+  const headingText = $("h1, h2, h3, h4").map((_, h) => $(h).text().toLowerCase()).get().join(" ");
+  const linkText = $("a").map((_, a) => $(a).text().toLowerCase()).get().join(" ");
+  const allLinks = $("a[href]").map((_, a) => $(a).attr("href") || "").get();
+  const hasPricingInfo = headingText.includes("pricing") || headingText.includes("plans") || headingText.includes("cost") || linkText.includes("pricing") || allLinks.some((href) => href.includes("pricing") || href.includes("plans"));
+  const hasAboutSection = headingText.includes("about") || headingText.includes("who we are") || headingText.includes("our story") || allLinks.some((href) => href.includes("about"));
+  const hasFAQSection = headingText.includes("faq") || headingText.includes("frequently asked") || headingText.includes("questions") || $('[itemtype*="FAQPage"]').length > 0 || $("details summary").length >= 2;
+  const hasTestimonials = headingText.includes("testimonial") || headingText.includes("review") || headingText.includes("what our") || headingText.includes("customer") || $('[class*="testimonial"], [class*="review"], [id*="testimonial"]').length > 0 || $("blockquote").length >= 2;
+  const hasProofPoints = headingText.includes("case stud") || headingText.includes("success") || headingText.includes("results") || /\d+\+?\s*(customers|clients|users|companies|businesses)/i.test(bodyText) || /\d+%\s*(increase|decrease|improvement|growth)/i.test(bodyText);
+  const hasConsistentNaming = brandMentionCount >= 3 && ogSiteName.length > 0;
+  const hasContactInfo = $('a[href^="tel:"], a[href^="mailto:"]').length > 0 || /\d{3}[-.\s]?\d{3}[-.\s]?\d{4}/.test(bodyText) || bodyText.toLowerCase().includes("contact");
+  const socialLinks = $('a[href*="facebook.com"], a[href*="twitter.com"], a[href*="linkedin.com"], a[href*="instagram.com"]');
+  const hasSocialLinks = socialLinks.length >= 2;
+  const hasReviewLinks = allLinks.some((href) => {
+    const lowerHref = href.toLowerCase();
+    return REVIEW_PLATFORMS.some((platform) => lowerHref.includes(platform));
+  });
+  let brandScore = 30;
+  if (hasBrandDefinition) brandScore += 15;
+  if (hasUSP) brandScore += 10;
+  if (hasValueProposition) brandScore += 10;
+  if (brandMentionCount >= 5) brandScore += 5;
+  if (hasPricingInfo) brandScore += 5;
+  if (hasAboutSection) brandScore += 5;
+  if (hasFAQSection) brandScore += 5;
+  if (hasTestimonials) brandScore += 10;
+  if (hasProofPoints) brandScore += 10;
+  if (hasConsistentNaming) brandScore += 5;
+  if (hasContactInfo) brandScore += 3;
+  if (hasSocialLinks) brandScore += 3;
+  if (hasReviewLinks) brandScore += 5;
+  brandScore = Math.min(100, Math.max(0, brandScore));
+  if (!hasBrandDefinition) {
+    issues.push({
+      code: "AI_NO_BRAND_DEFINITION",
+      severity: "warning",
+      category: "ai-readiness",
+      title: "No clear brand definition for AI to extract",
+      description: 'AI systems look for clear "Brand X is..." statements to quote when recommending brands. Your page lacks quotable brand definitions.',
+      impact: "AI cannot accurately describe your brand, reducing recommendation likelihood.",
+      howToFix: 'Add a clear brand definition early in your content: "[Brand] is a [category] that [key benefit]." Make it quotable (under 200 characters).',
+      affectedUrls: [url],
+      details: {
+        suggestion: `Example: "${potentialBrandName.charAt(0).toUpperCase() + potentialBrandName.slice(1)} is a [category] that helps [audience] [achieve benefit]."`
+      }
+    });
+  }
+  if (!hasUSP) {
+    issues.push({
+      code: "AI_NO_USP",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "No unique selling proposition (USP) detected",
+      description: "AI needs clear differentiators to recommend your brand over competitors. No USP patterns found.",
+      impact: "AI may not distinguish your brand from competitors when making recommendations.",
+      howToFix: 'Add clear differentiators: "The only...", "Unlike competitors...", "Guaranteed...", specific numbers (e.g., "50% faster").',
+      affectedUrls: [url]
+    });
+  }
+  const missingTopics = [];
+  if (!hasPricingInfo) missingTopics.push("pricing");
+  if (!hasFAQSection) missingTopics.push("FAQ");
+  if (!hasTestimonials) missingTopics.push("testimonials/reviews");
+  if (!hasProofPoints) missingTopics.push("proof points/case studies");
+  if (missingTopics.length >= 2) {
+    issues.push({
+      code: "AI_INCOMPLETE_BRAND_COVERAGE",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Incomplete brand topic coverage",
+      description: `Missing key brand topics that AI uses to answer queries: ${missingTopics.join(", ")}. AI may rely on third-party sources instead.`,
+      impact: "Third-party sites may define your brand narrative instead of you.",
+      howToFix: "Cover key brand topics on your site: pricing, positioning, proof (testimonials, case studies), and FAQs.",
+      affectedUrls: [url],
+      details: {
+        missingTopics,
+        recommendation: "Control your brand narrative by having authoritative content on these topics on your own site."
+      }
+    });
+  }
+  if (!hasReviewLinks && !hasTestimonials) {
+    issues.push({
+      code: "AI_NO_REVIEW_INTEGRATION",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "No review platform integration",
+      description: "No links to review platforms or testimonial sections found. AI uses review signals from multiple platforms for trust.",
+      impact: "Missing review diversity signals that AI uses for brand trust assessment.",
+      howToFix: "Link to your profiles on relevant review platforms (G2, Capterra, Trustpilot, etc.) and display testimonials with attribution.",
+      affectedUrls: [url],
+      details: {
+        relevantPlatforms: [
+          "B2B SaaS: G2, Capterra, TrustRadius",
+          "Local: Google Business, Yelp, BBB",
+          "Professional: Clutch, UpCity"
+        ]
+      }
+    });
+  }
+  if (brandScore < 50) {
+    issues.push({
+      code: "AI_LOW_BRAND_SCORE",
+      severity: "warning",
+      category: "ai-readiness",
+      title: "Brand is not well-optimized for AI extraction",
+      description: `Brand optimization score: ${brandScore}/100. AI may struggle to accurately describe and recommend your brand.`,
+      impact: "Low likelihood of being recommended in AI answers for brand-related queries.",
+      howToFix: "Improve brand clarity: add quotable definitions, USPs, testimonials, proof points, and link to review platforms.",
+      affectedUrls: [url],
+      details: {
+        brandScore,
+        hasBrandDefinition,
+        hasUSP,
+        hasTestimonials,
+        hasProofPoints,
+        hasReviewLinks,
+        quotableBrandStatements: quotableBrandStatements.slice(0, 3)
+      }
+    });
+  }
+  return {
+    issues,
+    data: {
+      brandSignals: {
+        hasBrandDefinition,
+        hasUSP,
+        hasValueProposition,
+        hasBrandStatement,
+        brandMentionCount
+      },
+      brandCoverage: {
+        hasPricingInfo,
+        hasAboutSection,
+        hasFAQSection,
+        hasTestimonials,
+        hasProofPoints
+      },
+      brandConsistency: {
+        hasConsistentNaming,
+        hasContactInfo,
+        hasSocialLinks,
+        hasReviewLinks
+      },
+      quotableBrandStatements,
+      brandScore
+    }
+  };
+}
+
+// src/audit/checks/ai-citation-worthiness.ts
+
+var ORIGINAL_DATA_PATTERNS = [
+  /(?:our data|our research|our study|our analysis|we found|we discovered)/i,
+  /(?:survey of|surveyed|interviewed|analyzed)\s+\d+/i,
+  /(?:based on|from)\s+\d+[,\d]*\s+(?:data points|samples|responses|users|customers)/i,
+  /(?:internal data|proprietary data|our database)/i
+];
+var EXPERIENCE_PATTERNS = [
+  /(?:in my experience|from my experience|i've found|i've seen|i've learned)/i,
+  /(?:when i|after i|before i|i personally|i tested|i tried|i used)/i,
+  /(?:our team|we tested|we tried|we implemented|we built)/i,
+  /(?:case study|real example|actual example|here's what happened)/i
+];
+var EXPERT_QUOTE_PATTERNS = [
+  /(?:according to|says|said|explains|notes)\s+[A-Z][a-z]+\s+[A-Z][a-z]+/,
+  /"[^"]{20,}"\s*[-–—]\s*[A-Z]/,
+  /[A-Z][a-z]+\s+[A-Z][a-z]+,?\s+(?:CEO|CTO|founder|director|manager|expert|analyst|researcher)/i
+];
+var SPECIFIC_NUMBER_PATTERNS = [
+  /\$[\d,]+(?:\.\d{2})?(?:\s*(?:million|billion|k|m|b))?/i,
+  // Dollar amounts
+  /\d+(?:\.\d+)?%/,
+  // Percentages
+  /\d{1,2}\/\d{1,2}\/\d{2,4}/,
+  // Dates
+  /(?:in|since|from)\s+(?:19|20)\d{2}/,
+  // Years
+  /\d+(?:,\d{3})+/,
+  // Large numbers with commas
+  /(?:increased|decreased|grew|dropped)\s+(?:by\s+)?\d+/i
+];
+var STOCK_IMAGE_DOMAINS = [
+  "unsplash.com",
+  "pexels.com",
+  "shutterstock.com",
+  "istockphoto.com",
+  "gettyimages.com",
+  "stock.adobe.com",
+  "depositphotos.com",
+  "pixabay.com",
+  "freepik.com",
+  "rawpixel.com",
+  "123rf.com",
+  "stocksy.com"
+];
+function analyzeAICitationWorthiness(html, url) {
+  const issues = [];
+  const $ = esm/* load */.Hh(html);
+  const $content = $("body").clone();
+  $content.find("nav, footer, script, style, noscript, aside").remove();
+  const bodyText = $content.text();
+  const aiProofElements = [];
+  let hasOriginalData = false;
+  for (const pattern of ORIGINAL_DATA_PATTERNS) {
+    if (pattern.test(bodyText)) {
+      hasOriginalData = true;
+      aiProofElements.push("Original data/research");
+      break;
+    }
+  }
+  const images = $content.find("img");
+  let hasScreenshots = false;
+  let hasOriginalImages = false;
+  let stockImageCount = 0;
+  let totalImages = 0;
+  images.each((_, img) => {
+    const src = $(img).attr("src") || "";
+    const alt = $(img).attr("alt") || "";
+    const srcLower = src.toLowerCase();
+    const altLower = alt.toLowerCase();
+    totalImages++;
+    if (srcLower.includes("screenshot") || srcLower.includes("screen-") || altLower.includes("screenshot") || srcLower.includes("capture") || /screen[_-]?\d+/i.test(src)) {
+      hasScreenshots = true;
+      aiProofElements.push("Screenshots");
+    }
+    const isStockImage = STOCK_IMAGE_DOMAINS.some((domain) => srcLower.includes(domain));
+    if (isStockImage) {
+      stockImageCount++;
+    }
+  });
+  if (totalImages > 0 && stockImageCount < totalImages * 0.5) {
+    hasOriginalImages = true;
+    if (totalImages >= 3 && stockImageCount === 0) {
+      aiProofElements.push("Original images");
+    }
+  }
+  const datePatterns = [
+    /(?:updated|published|written|posted)\s+(?:on\s+)?(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i,
+    /(?:last updated|originally published):\s*\d/i,
+    /<time[^>]*datetime/i
+  ];
+  const hasDatedContent = datePatterns.some((p) => p.test(html));
+  if (hasDatedContent) {
+    aiProofElements.push("Dated/timestamped content");
+  }
+  let hasFirstPersonExperience = false;
+  for (const pattern of EXPERIENCE_PATTERNS) {
+    if (pattern.test(bodyText)) {
+      hasFirstPersonExperience = true;
+      aiProofElements.push("First-person experience");
+      break;
+    }
+  }
+  const hasAuthorByline = $('[class*="author"], [rel="author"], [itemprop="author"], .byline').length > 0 || /by\s+[A-Z][a-z]+\s+[A-Z][a-z]+/i.test(bodyText);
+  const credentialPatterns = [
+    /(?:PhD|Ph\.D|MD|M\.D|MBA|CPA|JD|J\.D)/,
+    /(?:certified|licensed|accredited)\s+\w+/i,
+    /\d+\+?\s*years?\s+(?:of\s+)?experience/i,
+    /(?:expert|specialist|professional)\s+in/i
+  ];
+  const hasAuthorCredentials = credentialPatterns.some((p) => p.test(bodyText));
+  if (hasAuthorCredentials) {
+    aiProofElements.push("Expert credentials");
+  }
+  let hasExpertQuotes = false;
+  for (const pattern of EXPERT_QUOTE_PATTERNS) {
+    if (pattern.test(bodyText)) {
+      hasExpertQuotes = true;
+      aiProofElements.push("Expert quotes");
+      break;
+    }
+  }
+  const hasMethodology = /(?:methodology|method|approach|how we|our process)/i.test(
+    $("h2, h3, h4").text()
+  ) || /(?:we measured|we calculated|we analyzed|data was collected)/i.test(bodyText);
+  const hasPrimaryResearch = /(?:original research|primary research|we conducted|our study found)/i.test(bodyText) || /(?:sample size|n\s*=\s*\d+|participants|respondents)/i.test(bodyText);
+  if (hasPrimaryResearch) {
+    aiProofElements.push("Primary research");
+  }
+  let specificNumberCount = 0;
+  for (const pattern of SPECIFIC_NUMBER_PATTERNS) {
+    const matches = bodyText.match(pattern);
+    if (matches) {
+      specificNumberCount += matches.length;
+    }
+  }
+  const hasSpecificNumbers = specificNumberCount >= 5;
+  if (hasSpecificNumbers) {
+    aiProofElements.push("Specific data points");
+  }
+  const hasCaseStudies = /(?:case study|case studies|success story|client story)/i.test(bodyText) || $('[class*="case-study"], [id*="case-study"]').length > 0;
+  if (hasCaseStudies) {
+    aiProofElements.push("Case studies");
+  }
+  const hasBeforeAfter = /(?:before and after|before\/after|before vs|the results)/i.test(bodyText) || $('[class*="before-after"], [class*="comparison"]').length > 0;
+  const hasDocumentation = $("pre code, .highlight, .code-block").length > 0 || /```[\s\S]*?```/.test(bodyText) || $('[class*="documentation"]').length > 0;
+  if (hasDocumentation) {
+    aiProofElements.push("Code/documentation");
+  }
+  const hasRealExamples = /(?:for example|here's an example|real example|actual example|let me show)/i.test(bodyText) || /(?:example:|e\.g\.,|such as:)/i.test(bodyText);
+  let citationWorthinessScore = 20;
+  if (hasOriginalData) citationWorthinessScore += 15;
+  if (hasScreenshots) citationWorthinessScore += 5;
+  if (hasOriginalImages) citationWorthinessScore += 5;
+  if (hasDatedContent) citationWorthinessScore += 5;
+  if (hasFirstPersonExperience) citationWorthinessScore += 5;
+  if (hasAuthorByline) citationWorthinessScore += 5;
+  if (hasAuthorCredentials) citationWorthinessScore += 10;
+  if (hasExpertQuotes) citationWorthinessScore += 5;
+  if (hasMethodology) citationWorthinessScore += 5;
+  if (hasPrimaryResearch) citationWorthinessScore += 10;
+  if (hasSpecificNumbers) citationWorthinessScore += 5;
+  if (hasCaseStudies) citationWorthinessScore += 5;
+  if (hasBeforeAfter) citationWorthinessScore += 3;
+  if (hasDocumentation) citationWorthinessScore += 4;
+  if (hasRealExamples) citationWorthinessScore += 3;
+  citationWorthinessScore = Math.min(100, Math.max(0, citationWorthinessScore));
+  if (!hasOriginalData && !hasPrimaryResearch) {
+    issues.push({
+      code: "AI_NO_ORIGINAL_DATA",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "No original data or research signals",
+      description: "Content lacks original data, surveys, or research findings. AI prefers citing sources with unique, first-party data.",
+      impact: "Generic content without original data is less likely to be cited as a source.",
+      howToFix: 'Add original data: survey results, internal analytics, case study numbers, or primary research findings. Use phrases like "Our data shows..." or "We surveyed X users...".',
+      affectedUrls: [url]
+    });
+  }
+  if (!hasFirstPersonExperience && !hasCaseStudies) {
+    issues.push({
+      code: "AI_NO_EXPERIENCE_SIGNALS",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "No first-hand experience signals",
+      description: 'Content reads like it could be AI-generated. No "I tested...", "We implemented...", or case study language found.',
+      impact: "AI may prefer sources that demonstrate real-world experience over generic explanations.",
+      howToFix: `Add personal experience: "In my experience...", "When we tested...", "Here's what happened when...". Include specific scenarios you've encountered.`,
+      affectedUrls: [url]
+    });
+  }
+  if (stockImageCount > 0 && stockImageCount >= totalImages * 0.5) {
+    issues.push({
+      code: "AI_STOCK_IMAGE_HEAVY",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Heavy use of stock images",
+      description: `${stockImageCount} of ${totalImages} images appear to be from stock photo sites. Original visuals signal authenticity.`,
+      impact: "Stock-heavy content appears less authentic and expert to both users and AI.",
+      howToFix: "Replace stock photos with original screenshots, diagrams, photos, or custom graphics that AI cannot easily replicate.",
+      affectedUrls: [url],
+      details: {
+        stockImageCount,
+        totalImages
+      }
+    });
+  }
+  if (!hasAuthorByline && !hasAuthorCredentials) {
+    issues.push({
+      code: "AI_NO_AUTHOR_EXPERTISE",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "No author expertise signals",
+      description: "No author byline or credentials found. AI values content from identifiable experts.",
+      impact: "Anonymous content is less trustworthy for AI citation purposes.",
+      howToFix: "Add author byline with credentials: name, title, years of experience, certifications, or relevant expertise.",
+      affectedUrls: [url]
+    });
+  }
+  if (citationWorthinessScore < 40) {
+    issues.push({
+      code: "AI_LOW_CITATION_WORTHINESS",
+      // A notice: a heuristic score, not a defect a crawler can see, and it fired on most sites.
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Content lacks AI-proof originality signals",
+      description: `Citation worthiness score: ${citationWorthinessScore}/100. Content appears generic and could be easily replicated by AI.`,
+      impact: "AI may not cite this content as it lacks unique value that AI cannot generate itself.",
+      howToFix: "Add what AI can't fake: original data, real screenshots, dated experiences, expert quotes, case studies, and specific proof points.",
+      affectedUrls: [url],
+      details: {
+        citationWorthinessScore,
+        aiProofElements: aiProofElements.length > 0 ? aiProofElements : ["None detected"],
+        missing: [
+          !hasOriginalData && "Original data/research",
+          !hasFirstPersonExperience && "First-person experience",
+          !hasAuthorCredentials && "Expert credentials",
+          !hasSpecificNumbers && "Specific data points"
+        ].filter(Boolean)
+      }
+    });
+  }
+  return {
+    issues,
+    data: {
+      originalitySignals: {
+        hasOriginalData,
+        hasScreenshots,
+        hasOriginalImages,
+        hasDatedContent,
+        hasFirstPersonExperience
+      },
+      expertiseSignals: {
+        hasAuthorByline,
+        hasAuthorCredentials,
+        hasExpertQuotes,
+        hasMethodology,
+        hasPrimaryResearch
+      },
+      proofSignals: {
+        hasSpecificNumbers,
+        hasCaseStudies,
+        hasBeforeAfter,
+        hasDocumentation,
+        hasRealExamples
+      },
+      citationWorthinessScore,
+      aiProofElements
+    }
+  };
+}
+
+// src/audit/checks/review-ecosystem.ts
+
+var REVIEW_PLATFORMS2 = {
+  general: [
+    { name: "Google Business", domain: "google.com/maps", aliases: ["goo.gl/maps", "maps.google"] },
+    { name: "Trustpilot", domain: "trustpilot.com", aliases: [] },
+    { name: "BBB", domain: "bbb.org", aliases: [] },
+    { name: "Yelp", domain: "yelp.com", aliases: [] }
+  ],
+  saas: [
+    { name: "G2", domain: "g2.com", aliases: ["g2crowd.com"] },
+    { name: "Capterra", domain: "capterra.com", aliases: [] },
+    { name: "TrustRadius", domain: "trustradius.com", aliases: [] },
+    { name: "GetApp", domain: "getapp.com", aliases: [] },
+    { name: "Software Advice", domain: "softwareadvice.com", aliases: [] },
+    { name: "Product Hunt", domain: "producthunt.com", aliases: [] }
+  ],
+  professional: [
+    { name: "Clutch", domain: "clutch.co", aliases: [] },
+    { name: "UpCity", domain: "upcity.com", aliases: [] },
+    { name: "GoodFirms", domain: "goodfirms.co", aliases: [] },
+    { name: "Expertise", domain: "expertise.com", aliases: [] }
+  ],
+  local: [
+    { name: "Angi", domain: "angi.com", aliases: ["angieslist.com"] },
+    { name: "HomeAdvisor", domain: "homeadvisor.com", aliases: [] },
+    { name: "Thumbtack", domain: "thumbtack.com", aliases: [] },
+    { name: "Houzz", domain: "houzz.com", aliases: [] }
+  ],
+  healthcare: [
+    { name: "Healthgrades", domain: "healthgrades.com", aliases: [] },
+    { name: "Zocdoc", domain: "zocdoc.com", aliases: [] },
+    { name: "Vitals", domain: "vitals.com", aliases: [] },
+    { name: "WebMD", domain: "webmd.com", aliases: [] }
+  ],
+  legal: [
+    { name: "Avvo", domain: "avvo.com", aliases: [] },
+    { name: "Martindale", domain: "martindale.com", aliases: [] },
+    { name: "FindLaw", domain: "findlaw.com", aliases: [] },
+    { name: "Justia", domain: "justia.com", aliases: [] }
+  ],
+  hospitality: [
+    { name: "TripAdvisor", domain: "tripadvisor.com", aliases: [] },
+    { name: "Booking.com", domain: "booking.com", aliases: [] },
+    { name: "OpenTable", domain: "opentable.com", aliases: [] },
+    { name: "Zomato", domain: "zomato.com", aliases: [] }
+  ],
+  ecommerce: [
+    { name: "Amazon", domain: "amazon.com", aliases: [] },
+    { name: "Shopify Reviews", domain: "apps.shopify.com", aliases: [] },
+    { name: "Yotpo", domain: "yotpo.com", aliases: [] },
+    { name: "Judge.me", domain: "judge.me", aliases: [] }
+  ]
+};
+var TRUST_BADGE_PATTERNS2 = [
+  /ssl|secure|verified|certified|accredited|licensed/i,
+  /money.back|guarantee|satisfaction/i,
+  /bbb|iso|soc\s*2|hipaa|gdpr|pci/i
+];
+function analyzeReviewEcosystem(html, url) {
+  const issues = [];
+  const $ = esm/* load */.Hh(html);
+  const allLinks = $("a[href]").map((_, a) => $(a).attr("href") || "").get();
+  const allLinksLower = allLinks.map((l) => l.toLowerCase());
+  const linkedPlatforms = [];
+  const allPlatforms = Object.values(REVIEW_PLATFORMS2).flat();
+  for (const platform of allPlatforms) {
+    const isLinked = allLinksLower.some(
+      (href) => href.includes(platform.domain) || platform.aliases.some((alias) => href.includes(alias))
+    );
+    if (isLinked) {
+      linkedPlatforms.push(platform.name);
+    }
+  }
+  const embeddedPlatforms = [];
+  const embedPatterns = [
+    { name: "Trustpilot", pattern: /trustpilot/i },
+    { name: "G2", pattern: /g2\.com|g2crowd/i },
+    { name: "Yotpo", pattern: /yotpo/i },
+    { name: "Judge.me", pattern: /judgeme|judge\.me/i },
+    { name: "Google Reviews", pattern: /google.*review|elfsight/i }
+  ];
+  const htmlLower = html.toLowerCase();
+  for (const { name, pattern } of embedPatterns) {
+    if (pattern.test(htmlLower) && !linkedPlatforms.includes(name)) {
+      embeddedPlatforms.push(name);
+    }
+  }
+  const sameAsLinks = [];
+  const scripts = $('script[type="application/ld+json"]');
+  scripts.each((_, script) => {
+    try {
+      const json = JSON.parse($(script).html() || "{}");
+      const sameAs = json.sameAs || json["@graph"] && json["@graph"][0]?.sameAs;
+      if (Array.isArray(sameAs)) {
+        for (const link of sameAs) {
+          if (typeof link === "string") {
+            for (const platform of allPlatforms) {
+              if (link.toLowerCase().includes(platform.domain)) {
+                sameAsLinks.push(platform.name);
+              }
+            }
+          }
+        }
+      }
+    } catch {
+    }
+  });
+  const testimonialSelectors = [
+    '[class*="testimonial"]',
+    '[class*="review"]',
+    '[class*="quote"]',
+    '[id*="testimonial"]',
+    "blockquote"
+  ];
+  let testimonialCount = 0;
+  let hasAttribution = false;
+  let hasPhotos = false;
+  let hasCompanyNames = false;
+  for (const selector of testimonialSelectors) {
+    const elements = $(selector);
+    elements.each((_, el) => {
+      const text = $(el).text();
+      if (text.length > 50 && text.length < 1e3) {
+        testimonialCount++;
+        if (/[-–—]\s*[A-Z][a-z]+\s+[A-Z]/.test(text) || $(el).find('[class*="name"], [class*="author"]').length > 0) {
+          hasAttribution = true;
+        }
+        if ($(el).find("img").length > 0 || $(el).siblings("img").length > 0) {
+          hasPhotos = true;
+        }
+        if (/(?:CEO|CTO|founder|director|manager)\s+(?:at|of)\s+[A-Z]/i.test(text) || $(el).find('[class*="company"], [class*="title"]').length > 0) {
+          hasCompanyNames = true;
+        }
+      }
+    });
+  }
+  let hasAggregateRating = false;
+  let hasReviewSchema = false;
+  let ratingValue;
+  let reviewCount;
+  scripts.each((_, script) => {
+    try {
+      const json = JSON.parse($(script).html() || "{}");
+      const checkSchema = (obj) => {
+        if (obj["@type"] === "AggregateRating" || obj.aggregateRating) {
+          hasAggregateRating = true;
+          const rating = obj.aggregateRating || obj;
+          if (typeof rating === "object" && rating !== null) {
+            const r = rating;
+            ratingValue = parseFloat(String(r.ratingValue)) || void 0;
+            reviewCount = parseInt(String(r.reviewCount || r.ratingCount)) || void 0;
+          }
+        }
+        if (obj["@type"] === "Review" || Array.isArray(obj.review)) {
+          hasReviewSchema = true;
+        }
+      };
+      checkSchema(json);
+      if (json["@graph"] && Array.isArray(json["@graph"])) {
+        for (const item of json["@graph"]) {
+          checkSchema(item);
+        }
+      }
+    } catch {
+    }
+  });
+  const bodyText = $("body").text();
+  const imgAlts = $("img").map((_, img) => $(img).attr("alt") || "").get().join(" ");
+  const allText = bodyText + " " + imgAlts;
+  const hasTrustBadges = TRUST_BADGE_PATTERNS2.some((p) => p.test(allText)) || $('[class*="trust"], [class*="badge"], [class*="seal"]').length > 0;
+  const hasCertifications = /(?:certified|certification|accredited|compliance)/i.test(allText) || $('[class*="certification"], [class*="accredit"]').length > 0;
+  const hasAwards = /(?:award|winner|recognized|featured in|as seen)/i.test(allText) || $('[class*="award"], [class*="recognition"], [class*="featured"]').length > 0;
+  const hasMediaMentions = /(?:featured in|as seen in|mentioned in|press|media)/i.test(allText) || $('[class*="press"], [class*="media"], [class*="featured"]').length > 0;
+  let reviewEcosystemScore = 20;
+  if (linkedPlatforms.length >= 3) reviewEcosystemScore += 15;
+  else if (linkedPlatforms.length >= 1) reviewEcosystemScore += 10;
+  if (embeddedPlatforms.length > 0) reviewEcosystemScore += 10;
+  if (sameAsLinks.length > 0) reviewEcosystemScore += 5;
+  if (testimonialCount >= 5) reviewEcosystemScore += 10;
+  else if (testimonialCount >= 2) reviewEcosystemScore += 5;
+  if (hasAttribution) reviewEcosystemScore += 5;
+  if (hasPhotos) reviewEcosystemScore += 5;
+  if (hasCompanyNames) reviewEcosystemScore += 5;
+  if (hasAggregateRating) reviewEcosystemScore += 10;
+  if (hasReviewSchema) reviewEcosystemScore += 5;
+  if (hasTrustBadges) reviewEcosystemScore += 3;
+  if (hasCertifications) reviewEcosystemScore += 3;
+  if (hasAwards) reviewEcosystemScore += 2;
+  if (hasMediaMentions) reviewEcosystemScore += 2;
+  reviewEcosystemScore = Math.min(100, Math.max(0, reviewEcosystemScore));
+  if (linkedPlatforms.length === 0 && embeddedPlatforms.length === 0) {
+    issues.push({
+      code: "AI_NO_REVIEW_PLATFORMS",
+      severity: "warning",
+      category: "ai-readiness",
+      title: "No review platform integration",
+      description: "No links or embeds from review platforms detected. AI uses review signals from multiple platforms to assess brand trust.",
+      impact: "Missing review diversity signals that AI uses when recommending brands.",
+      howToFix: "Link to your profiles on 2-3 relevant review platforms. Consider embedding review widgets for social proof.",
+      affectedUrls: [url],
+      details: {
+        suggestedPlatforms: {
+          "All businesses": ["Google Business", "Trustpilot", "BBB"],
+          "SaaS/Software": ["G2", "Capterra", "Product Hunt"],
+          "Professional services": ["Clutch", "UpCity"],
+          "Local services": ["Angi", "HomeAdvisor", "Yelp"]
+        }
+      }
+    });
+  }
+  if (testimonialCount === 0) {
+    issues.push({
+      code: "AI_NO_TESTIMONIALS",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "No testimonials or reviews on page",
+      description: "No customer testimonials found on the page. AI looks for social proof when evaluating brand trustworthiness.",
+      impact: "Missing on-page social proof that strengthens brand authority.",
+      howToFix: "Add customer testimonials with: name attribution, company/title, and optionally photos. Use blockquote elements for semantic markup.",
+      affectedUrls: [url]
+    });
+  }
+  if (testimonialCount > 0 && !hasAttribution) {
+    issues.push({
+      code: "AI_UNATTRIBUTED_TESTIMONIALS",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Testimonials lack proper attribution",
+      description: "Testimonials found but missing name attribution. Anonymous testimonials have less trust weight.",
+      impact: "Unattributed reviews are less credible for AI trust assessment.",
+      howToFix: 'Add author names to testimonials: "Great service! - John Smith, CEO at Acme Corp"',
+      affectedUrls: [url],
+      details: {
+        testimonialCount,
+        hasAttribution,
+        hasPhotos,
+        hasCompanyNames
+      }
+    });
+  }
+  if (!hasAggregateRating && testimonialCount > 0) {
+    issues.push({
+      code: "AI_NO_REVIEW_SCHEMA",
+      severity: "notice",
+      category: "ai-readiness",
+      title: "Missing review/rating schema markup",
+      description: "Page has testimonials but no AggregateRating or Review schema. Structured data helps AI understand review context.",
+      impact: "Missing rich snippet opportunity and AI-readable review data.",
+      howToFix: "Add AggregateRating schema with ratingValue, ratingCount, and bestRating. This enables star ratings in search results.",
+      affectedUrls: [url]
+    });
+  }
+  if (reviewEcosystemScore < 40) {
+    issues.push({
+      code: "AI_WEAK_REVIEW_ECOSYSTEM",
+      severity: "warning",
+      category: "ai-readiness",
+      title: "Weak review ecosystem integration",
+      description: `Review ecosystem score: ${reviewEcosystemScore}/100. AI uses review diversity across platforms to assess brand trust.`,
+      impact: "Low review presence may result in AI recommending better-reviewed competitors.",
+      howToFix: "Build review diversity: 1) Link to review platforms, 2) Add testimonials with attribution, 3) Implement review schema, 4) Display trust badges.",
+      affectedUrls: [url],
+      details: {
+        reviewEcosystemScore,
+        linkedPlatforms,
+        testimonialCount,
+        hasAggregateRating
+      }
+    });
+  }
+  return {
+    issues,
+    data: {
+      reviewPlatforms: {
+        linked: linkedPlatforms,
+        embedded: embeddedPlatforms,
+        sameAsLinks: [...new Set(sameAsLinks)]
+      },
+      testimonials: {
+        count: testimonialCount,
+        hasAttribution,
+        hasPhotos,
+        hasCompanyNames
+      },
+      reviewSchema: {
+        hasAggregateRating,
+        hasReviewSchema,
+        ratingValue,
+        reviewCount
+      },
+      trustSignals: {
+        hasTrustBadges,
+        hasCertifications,
+        hasAwards,
+        hasMediaMentions
+      },
+      reviewEcosystemScore
+    }
+  };
+}
+
+// src/audit/premium-checks.ts
+var premiumChecks = {
+  analyzeFeaturedSnippet,
+  analyzeInternalLinkGraph,
+  analyzeEEATSignals,
+  analyzeContentScience,
+  analyzeKeywordCannibalizationSinglePage,
+  analyzeConversionElements,
+  analyzeKeywordPlacement,
+  analyzeTopicalClusters,
+  analyzePlatformPresence,
+  analyzeInteractiveTools,
+  analyzeFunnelIntent,
+  analyzeNavBoostSignals,
+  analyzeEntitySEO,
+  analyzeFreshnessSignals,
+  analyzeAIContentStructure,
+  analyzeRAGChunkReadiness,
+  analyzeCitationQuality,
+  analyzeAnswerConciseness,
+  analyzeBrandMentionOptimization,
+  analyzeAICitationWorthiness,
+  analyzeReviewEcosystem
+};
+
+// src/frameworks/signals.ts
+var WEIGHT = { DECISIVE: 100, STRONG: 45, WEAK: 15 };
+var SCORE_FLOOR = 45;
+var SIGNALS = [
+  // ---- Meta-frameworks: JavaScript ------------------------------------------------
+  { framework: "nextjs", language: "typescript", weight: WEIGHT.DECISIVE, name: "next-build-dir", html: /\/_next\/(static|image|data)\// },
+  { framework: "nextjs", language: "typescript", weight: WEIGHT.DECISIVE, name: "next-data", html: /__NEXT_DATA__|self\.__next_f/ },
+  { framework: "nextjs", language: "typescript", weight: WEIGHT.DECISIVE, name: "next-mount", html: /<div id=["']__next["']/ },
+  { framework: "nextjs", language: "typescript", weight: WEIGHT.DECISIVE, name: "next-powered-by", header: /^x-powered-by: next\.js/ },
+  { framework: "nuxt", language: "typescript", weight: WEIGHT.DECISIVE, name: "nuxt-build-dir", html: /\/_nuxt\// },
+  { framework: "nuxt", language: "typescript", weight: WEIGHT.DECISIVE, name: "nuxt-payload", html: /__NUXT__|__NUXT_DATA__|<div id="__nuxt"/ },
+  { framework: "nuxt", language: "typescript", weight: WEIGHT.DECISIVE, name: "nuxt-powered-by", header: /^x-powered-by: nuxt/ },
+  { framework: "astro", language: "typescript", weight: WEIGHT.DECISIVE, name: "astro-build-dir", html: /\/_astro\// },
+  { framework: "astro", language: "typescript", weight: WEIGHT.DECISIVE, name: "astro-island", html: /<astro-island|astro-slot|data-astro-(cid|source-file|transition)/ },
+  { framework: "astro", language: "typescript", weight: WEIGHT.STRONG, name: "astro-generator", html: /name=["']?generator["']?[^>]*content=["']?Astro/i },
+  { framework: "sveltekit", language: "typescript", weight: WEIGHT.DECISIVE, name: "sveltekit-immutable", html: /\/_app\/immutable\// },
+  { framework: "sveltekit", language: "typescript", weight: WEIGHT.DECISIVE, name: "sveltekit-runtime", html: /__sveltekit|kit\.start\(/ },
+  { framework: "remix", language: "typescript", weight: WEIGHT.DECISIVE, name: "remix-context", html: /__remixContext|__remixManifest|__remixRouteModules/ },
+  { framework: "remix", language: "typescript", weight: WEIGHT.STRONG, name: "remix-build-dir", html: /\/build\/_shared\/|\/build\/entry\.client-/ },
+  { framework: "gatsby", language: "javascript", weight: WEIGHT.DECISIVE, name: "gatsby-runtime", html: /___gatsby|window\.___chunkMapping/ },
+  { framework: "gatsby", language: "javascript", weight: WEIGHT.STRONG, name: "gatsby-page-data", html: /\/page-data\/(app-data\.json|sq\/)/ },
+  { framework: "qwik", language: "typescript", weight: WEIGHT.DECISIVE, name: "qwik-container", html: /q:container|q:base|q:version|qwikloader/ },
+  { framework: "fresh", language: "typescript", weight: WEIGHT.DECISIVE, name: "fresh-build-dir", html: /\/_frsh\// },
+  { framework: "solidjs", language: "typescript", weight: WEIGHT.STRONG, name: "solid-hydration", html: /_\$HY\b|data-hk=["']/ },
+  // ---- Base UI libraries: weaker by nature, and that is the point -----------------
+  { framework: "angular", language: "typescript", weight: WEIGHT.DECISIVE, name: "angular-version", html: /ng-version=["']/ },
+  { framework: "angular", language: "typescript", weight: WEIGHT.DECISIVE, name: "angular-content-attr", html: /_ngcontent-|_nghost-/ },
+  { framework: "react", language: "javascript", weight: WEIGHT.STRONG, name: "react-root-marker", html: /data-reactroot|__reactContainer\$|__REACT_DEVTOOLS/ },
+  // A Vite-built SPA: an empty mount point plus Vite's hashed entry bundle. Two weak facts
+  // that together mean something; either one alone does not.
+  { framework: "react", language: "javascript", weight: WEIGHT.WEAK, name: "react-empty-root", html: /<div id="root"><\/div>/ },
+  { framework: "react", language: "javascript", weight: WEIGHT.WEAK, name: "react-refresh", html: /RefreshRuntime|react-refresh/ },
   {
     framework: "react",
     language: "javascript",
-    // data-reactroot/data-react-helmet are React <=15 hydration markers -
-    // React 18's createRoot() never adds them, so every modern CRA/Vite
-    // React app (an empty <div id="root">) went undetected from HTML alone.
-    patterns: [/data-reactroot/, /data-react-helmet/, /_react/, /react-app/, /<div id="root"><\/div>/],
-    confidence: "medium"
+    weight: WEIGHT.STRONG,
+    name: "react-vite-spa",
+    // Vite's entry chunk plus React's conventional mount point. Medium confidence by
+    // construction: #app instead of #root stays unknown, because Vue, Solid and others use it.
+    // Not `<div id="root"></div>`: a prerendered SPA has content inside its mount point, which
+    // is what RankCLI's own site does and what the first version of this signal missed.
+    allHtml: [/<script[^>]+src=["'][^"']+\.js["']/, /<div id="root"[\s>]/]
   },
-  // Vue (generic - lower priority)
-  {
-    framework: "vue",
-    language: "javascript",
-    patterns: [/data-v-[a-f0-9]+/, /v-cloak/, /__vue/],
-    confidence: "medium"
-  },
-  // Angular
-  {
-    framework: "angular",
-    language: "typescript",
-    patterns: [/ng-version/, /_ngcontent/, /ng-\w+=/, /\[ng/],
-    confidence: "high"
-  },
-  // ============ Hypermedia Frameworks ============
-  // HTMX
-  {
-    framework: "htmx",
-    language: "unknown",
-    patterns: [/hx-get/, /hx-post/, /hx-trigger/, /hx-swap/, /htmx\.org/],
-    confidence: "high"
-  },
-  // Hotwire/Turbo
-  {
-    framework: "hotwire",
-    language: "ruby",
-    patterns: [/turbo-frame/, /turbo-stream/, /data-turbo/, /stimulus/],
-    confidence: "high"
-  },
-  // ============ PHP Frameworks ============
-  // WordPress
-  {
-    framework: "wordpress",
-    language: "php",
-    patterns: [/wp-content/, /wp-includes/, /wp-json/, /wordpress/i],
-    confidence: "high"
-  },
-  // Laravel
-  {
-    framework: "laravel",
-    language: "php",
-    patterns: [/laravel_session/, /XSRF-TOKEN/, /@csrf/, /laravel/i],
-    confidence: "medium"
-  },
-  // Symfony
-  {
-    framework: "symfony",
-    language: "php",
-    patterns: [/symfony/, /sf2/, /_sf_/, /profiler\.css/],
-    confidence: "medium"
-  },
-  // ============ Ruby Frameworks ============
-  // Rails
-  {
-    framework: "rails",
-    language: "ruby",
-    patterns: [/csrf-token/, /turbolinks/, /data-turbo/, /rails-ujs/, /action-cable/],
-    confidence: "medium"
-  },
-  // ============ Python Frameworks ============
-  // Django
-  {
-    framework: "django",
-    language: "python",
-    patterns: [/csrfmiddlewaretoken/, /django/, /__debug__\//],
-    confidence: "medium"
-  },
-  // Flask
-  {
-    framework: "flask",
-    language: "python",
-    patterns: [/flask/, /werkzeug/i],
-    confidence: "low"
-  },
-  // FastAPI
-  {
-    framework: "fastapi",
-    language: "python",
-    patterns: [/fastapi/, /openapi\.json/],
-    confidence: "low"
-  },
-  // ============ Java Frameworks ============
-  // Spring Boot
-  {
-    framework: "spring",
-    language: "java",
-    patterns: [/spring/, /thymeleaf/, /th:/, /_csrf/],
-    confidence: "medium"
-  },
-  // ============ C# Frameworks ============
-  // ASP.NET Core
-  {
-    framework: "aspnet",
-    language: "csharp",
-    patterns: [/aspnetcore/, /__RequestVerificationToken/, /blazor/, /_framework\/blazor/],
-    confidence: "medium"
-  },
-  // ============ Elixir Frameworks ============
-  // Phoenix
-  {
-    framework: "phoenix",
-    language: "elixir",
-    patterns: [/phx-/, /phoenix/, /live-socket/, /data-phx/],
-    confidence: "high"
-  },
-  // ============ Static Site Generators ============
-  // Hugo
-  {
-    framework: "hugo",
-    language: "go",
-    patterns: [/hugo/, /generator.*hugo/i],
-    confidence: "medium"
-  },
-  // Jekyll
-  {
-    framework: "jekyll",
-    language: "ruby",
-    patterns: [/jekyll/, /generator.*jekyll/i],
-    confidence: "medium"
-  },
-  // Eleventy
-  {
-    framework: "eleventy",
-    language: "javascript",
-    patterns: [/11ty/, /eleventy/, /generator.*eleventy/i],
-    confidence: "medium"
-  },
-  // Pelican
-  {
-    framework: "pelican",
-    language: "python",
-    patterns: [/pelican/, /generator.*pelican/i],
-    confidence: "medium"
-  }
+  { framework: "vue", language: "javascript", weight: WEIGHT.DECISIVE, name: "vitepress-runtime", html: /__VP_HASH_MAP__|__VP_SITE_DATA__/ },
+  { framework: "vue", language: "javascript", weight: WEIGHT.DECISIVE, name: "vue-scoped-style", html: /data-v-[0-9a-f]{6,10}\b/ },
+  { framework: "vue", language: "javascript", weight: WEIGHT.WEAK, name: "vue-cloak", html: /v-cloak|<div id="app"><\/div>/ },
+  { framework: "svelte", language: "javascript", weight: WEIGHT.WEAK, name: "svelte-class", html: /class=["'][^"']*svelte-[0-9a-z]{6}/ },
+  // ---- Ruby -----------------------------------------------------------------------
+  // csrf-token alone is emitted by Rails, Laravel, Phoenix and Django. csrf-param is Rails.
+  { framework: "rails", language: "ruby", weight: WEIGHT.DECISIVE, name: "rails-csrf-param", html: /name=["']csrf-param["']/ },
+  { framework: "rails", language: "ruby", weight: WEIGHT.STRONG, name: "rails-ujs", html: /rails-ujs|turbolinks|data-remote=["']true["']|action_cable|actioncable/ },
+  { framework: "rails", language: "ruby", weight: WEIGHT.STRONG, name: "rails-session-cookie", header: /^set-cookie: [^;]*_session=/ },
+  { framework: "rails", language: "ruby", weight: WEIGHT.STRONG, name: "rails-app-server", header: /^(server|x-powered-by): (puma|passenger|unicorn|phusion)/ },
+  { framework: "hotwire", language: "ruby", weight: WEIGHT.STRONG, name: "turbo-elements", html: /<turbo-frame|<turbo-stream|data-turbo-track/ },
+  // ---- Python ---------------------------------------------------------------------
+  { framework: "django", language: "python", weight: WEIGHT.DECISIVE, name: "django-csrf-input", html: /name=["']csrfmiddlewaretoken["']/ },
+  { framework: "django", language: "python", weight: WEIGHT.DECISIVE, name: "django-csrf-cookie", header: /^set-cookie: csrftoken=/ },
+  { framework: "django", language: "python", weight: WEIGHT.STRONG, name: "django-admin-static", html: /\/static\/admin\/(css|js)\// },
+  { framework: "django", language: "python", weight: WEIGHT.WEAK, name: "django-wsgi-server", header: /^(server|x-powered-by): (gunicorn|uvicorn|daphne)/ },
+  { framework: "flask", language: "python", weight: WEIGHT.STRONG, name: "flask-server", header: /^server: werkzeug/ },
+  { framework: "fastapi", language: "python", weight: WEIGHT.STRONG, name: "fastapi-docs", html: /swagger-ui-bundle\.js[\s\S]{0,200}openapi\.json/ },
+  // ---- PHP ------------------------------------------------------------------------
+  { framework: "wordpress", language: "php", weight: WEIGHT.DECISIVE, name: "wp-paths", html: /\/wp-content\/|\/wp-includes\/|\/wp-json\// },
+  { framework: "wordpress", language: "php", weight: WEIGHT.DECISIVE, name: "wp-generator", html: /name=["']?generator["']?[^>]*content=["']?WordPress/i },
+  { framework: "wordpress", language: "php", weight: WEIGHT.STRONG, name: "wp-powered-by", header: /^x-powered-by: wordpress/ },
+  { framework: "laravel", language: "php", weight: WEIGHT.DECISIVE, name: "laravel-session-cookie", header: /^set-cookie: laravel_session=/ },
+  { framework: "laravel", language: "php", weight: WEIGHT.STRONG, name: "laravel-xsrf-cookie", header: /^set-cookie: XSRF-TOKEN=/i },
+  { framework: "laravel", language: "php", weight: WEIGHT.STRONG, name: "laravel-livewire", html: /livewire|wire:(click|model|submit)/i },
+  { framework: "laravel", language: "php", weight: WEIGHT.WEAK, name: "laravel-vite-build", html: /\/build\/assets\/app-[A-Za-z0-9_-]{8}\.js/ },
+  { framework: "symfony", language: "php", weight: WEIGHT.DECISIVE, name: "symfony-profiler", html: /\/_profiler\/|sf-toolbar|sf-dump/ },
+  { framework: "symfony", language: "php", weight: WEIGHT.STRONG, name: "symfony-cookie", header: /^set-cookie: (sfsession|symfony)/i },
+  // ---- Elixir ---------------------------------------------------------------------
+  { framework: "phoenix", language: "elixir", weight: WEIGHT.DECISIVE, name: "phoenix-liveview", html: /phx-(click|submit|change|value|hook|socket|main|track-static)/ },
+  { framework: "phoenix", language: "elixir", weight: WEIGHT.STRONG, name: "phoenix-cowboy", header: /^server: cowboy/ },
+  // ---- Java / C# / Go -------------------------------------------------------------
+  { framework: "spring", language: "java", weight: WEIGHT.STRONG, name: "thymeleaf-attr", html: /\sth:[a-z-]+=/ },
+  { framework: "spring", language: "java", weight: WEIGHT.STRONG, name: "spring-server", header: /^server: (apache-coyote|tomcat|jetty)/ },
+  { framework: "aspnet", language: "csharp", weight: WEIGHT.DECISIVE, name: "aspnet-verification-token", html: /__RequestVerificationToken|__VIEWSTATE/ },
+  { framework: "aspnet", language: "csharp", weight: WEIGHT.STRONG, name: "aspnet-server", header: /^(server: kestrel|x-powered-by: asp\.net|x-aspnet-version:)/ },
+  // "gin" used to be tested as a substring of the Server header, which matches nginx - the
+  // single most common web server there is. Anchored to the whole value now.
+  { framework: "go", language: "go", weight: WEIGHT.STRONG, name: "go-server", header: /^server: (gin|echo|fiber|gorilla)(\/|$| )/ },
+  // ---- Hypermedia -----------------------------------------------------------------
+  { framework: "htmx", language: "unknown", weight: WEIGHT.STRONG, name: "htmx-attrs", html: /\shx-(get|post|put|delete|trigger|swap|target)=/ },
+  { framework: "htmx", language: "unknown", weight: WEIGHT.DECISIVE, name: "htmx-script", html: /htmx(\.min)?\.js|unpkg\.com\/htmx/ },
+  // ---- Static site generators: they announce themselves -----------------------------
+  { framework: "hugo", language: "go", weight: WEIGHT.DECISIVE, name: "hugo-generator", html: /name=["']?generator["']?[^>]*content=["']?Hugo/i },
+  { framework: "hugo", language: "go", weight: WEIGHT.STRONG, name: "hugo-generator-header", header: /^x-generator: hugo/ },
+  { framework: "jekyll", language: "ruby", weight: WEIGHT.DECISIVE, name: "jekyll-generator", html: /name=["']?generator["']?[^>]*content=["']?Jekyll/i },
+  { framework: "eleventy", language: "javascript", weight: WEIGHT.DECISIVE, name: "eleventy-generator", html: /name=["']?generator["']?[^>]*content=["']?Eleventy/i },
+  { framework: "pelican", language: "python", weight: WEIGHT.DECISIVE, name: "pelican-generator", html: /name=["']?generator["']?[^>]*content=["']?Pelican/i },
+  // Sphinx: what nearly every Python project's documentation is built with, and the shape
+  // flask.palletsprojects.com turned out to be. Structural markers only - not the word
+  // "sphinx", which appears in plenty of prose.
+  // Validated against docusaurus.io, jestjs.io and redux.js.org - all three carry the mount
+  // point and the skip-to-content id. Deliberately not the word "docusaurus", which appears on
+  // deno.com purely as a link in a logo list; that near-miss is why this needed a real marker.
+  { framework: "docusaurus", language: "typescript", weight: WEIGHT.DECISIVE, name: "docusaurus-root", html: /id=["']__docusaurus/ },
+  { framework: "docusaurus", language: "typescript", weight: WEIGHT.STRONG, name: "docusaurus-skip-link", html: /__docusaurus_skipToContent/ },
+  { framework: "sphinx", language: "python", weight: WEIGHT.DECISIVE, name: "sphinx-doc-options", html: /_static\/documentation_options\.js/ },
+  { framework: "sphinx", language: "python", weight: WEIGHT.STRONG, name: "sphinx-theme-markup", html: /class=["'][^"']*sphinxsidebar|sphinx-highlight|_static\/searchtools\.js/ },
+  { framework: "sphinx", language: "python", weight: WEIGHT.STRONG, name: "docutils-generator", html: /name=["']?generator["']?[^>]*content=["']?Docutils/i }
 ];
+function headerLines(headers) {
+  if (!headers) return "";
+  return Object.entries(headers).map(([k, v]) => `${k.toLowerCase()}: ${String(v).toLowerCase()}`).join("\n");
+}
+function detectFromEvidence(input) {
+  const html = input.html ?? "";
+  const headers = headerLines(input.headers);
+  const byFramework = /* @__PURE__ */ new Map();
+  for (const signal of SIGNALS) {
+    const headerHit = signal.header && headers && new RegExp(
+      signal.header.source,
+      signal.header.flags.includes("m") ? signal.header.flags : `${signal.header.flags}m`
+    ).test(headers);
+    const allHit = signal.allHtml && html && signal.allHtml.every((re) => re.test(html));
+    const hit = signal.html && html && signal.html.test(html) || headerHit || allHit;
+    if (!hit) continue;
+    const existing = byFramework.get(signal.framework);
+    if (existing) {
+      existing.score += signal.weight;
+      existing.matched.push(signal.name);
+    } else {
+      byFramework.set(signal.framework, {
+        framework: signal.framework,
+        language: signal.language,
+        score: signal.weight,
+        matched: [signal.name]
+      });
+    }
+  }
+  const ranked = [...byFramework.values()].sort((a, b) => b.score - a.score || a.framework.localeCompare(b.framework));
+  const best = ranked[0];
+  if (!best || best.score < SCORE_FLOOR) {
+    return {
+      framework: "unknown",
+      language: "unknown",
+      confidence: "low",
+      score: best?.score ?? 0,
+      matched: best?.matched ?? [],
+      alternatives: ranked
+    };
+  }
+  return {
+    framework: best.framework,
+    language: best.language,
+    confidence: best.score >= WEIGHT.DECISIVE ? "high" : "medium",
+    score: best.score,
+    matched: best.matched,
+    alternatives: ranked.slice(1)
+  };
+}
+
+// src/frameworks/detector.ts
 var PACKAGE_DEPENDENCIES = [
   // Meta-frameworks (check first - more specific)
   { framework: "nextjs", language: "typescript", packages: ["next"], meta_framework: "react" },
@@ -84925,19 +95831,14 @@ var ELIXIR_DEPENDENCIES = [
   { framework: "phoenix", language: "elixir", packages: [":phoenix", "phoenix"] }
 ];
 function detectFromHtml(html) {
-  for (const signature of HTML_SIGNATURES) {
-    for (const pattern of signature.patterns) {
-      if (pattern.test(html)) {
-        return {
-          framework: signature.framework,
-          language: signature.language,
-          confidence: signature.confidence,
-          detected_from: "html"
-        };
-      }
-    }
-  }
-  return null;
+  const result = detectFromEvidence({ html });
+  if (result.framework === "unknown") return null;
+  return {
+    framework: result.framework,
+    language: result.language,
+    confidence: result.confidence,
+    detected_from: "html"
+  };
 }
 function detectFromPackageJson(packageJson) {
   const allDeps = {
@@ -85079,52 +95980,14 @@ function detectFromMixExs(mixContent) {
   return null;
 }
 function detectFromHeaders(headers) {
-  const poweredBy = headers["x-powered-by"]?.toLowerCase() || "";
-  const server = headers["server"]?.toLowerCase() || "";
-  const generator = headers["x-generator"]?.toLowerCase() || "";
-  if (poweredBy.includes("next.js") || poweredBy.includes("next")) {
-    return { framework: "nextjs", language: "typescript", confidence: "high", detected_from: "headers" };
-  }
-  if (poweredBy.includes("nuxt")) {
-    return { framework: "nuxt", language: "typescript", confidence: "high", detected_from: "headers" };
-  }
-  if (poweredBy.includes("remix")) {
-    return { framework: "remix", language: "typescript", confidence: "high", detected_from: "headers" };
-  }
-  if (poweredBy.includes("phusion") || poweredBy.includes("passenger") || poweredBy.includes("puma") || poweredBy.includes("unicorn")) {
-    return { framework: "rails", language: "ruby", confidence: "medium", detected_from: "headers" };
-  }
-  if (poweredBy.includes("gunicorn") || poweredBy.includes("uvicorn") || poweredBy.includes("daphne")) {
-    return null;
-  }
-  if (poweredBy.includes("php")) {
-    return null;
-  }
-  if (server.includes("tomcat") || server.includes("jetty") || poweredBy.includes("spring")) {
-    return { framework: "spring", language: "java", confidence: "medium", detected_from: "headers" };
-  }
-  if (poweredBy.includes("asp.net") || server.includes("kestrel")) {
-    return { framework: "aspnet", language: "csharp", confidence: "high", detected_from: "headers" };
-  }
-  if (poweredBy.includes("phoenix") || poweredBy.includes("cowboy")) {
-    return { framework: "phoenix", language: "elixir", confidence: "medium", detected_from: "headers" };
-  }
-  if (server.includes("gin") || server.includes("echo") || server.includes("fiber")) {
-    return { framework: "go", language: "go", confidence: "medium", detected_from: "headers" };
-  }
-  if (generator.includes("hugo")) {
-    return { framework: "hugo", language: "go", confidence: "high", detected_from: "headers" };
-  }
-  if (generator.includes("jekyll")) {
-    return { framework: "jekyll", language: "ruby", confidence: "high", detected_from: "headers" };
-  }
-  if (generator.includes("eleventy") || generator.includes("11ty")) {
-    return { framework: "eleventy", language: "javascript", confidence: "high", detected_from: "headers" };
-  }
-  if (generator.includes("pelican")) {
-    return { framework: "pelican", language: "python", confidence: "high", detected_from: "headers" };
-  }
-  return null;
+  const result = detectFromEvidence({ headers });
+  if (result.framework === "unknown") return null;
+  return {
+    framework: result.framework,
+    language: result.language,
+    confidence: result.confidence,
+    detected_from: "headers"
+  };
 }
 function detectFramework(options) {
   if (options.packageJson) {
@@ -85159,13 +96022,16 @@ function detectFramework(options) {
     const result = detectFromMixExs(options.mixExsContent);
     if (result) return result;
   }
-  if (options.headers) {
-    const result = detectFromHeaders(options.headers);
-    if (result) return result;
-  }
-  if (options.html) {
-    const result = detectFromHtml(options.html);
-    if (result) return result;
+  if (options.html || options.headers) {
+    const result = detectFromEvidence({ html: options.html, headers: options.headers });
+    if (result.framework !== "unknown") {
+      return {
+        framework: result.framework,
+        language: result.language,
+        confidence: result.confidence,
+        detected_from: options.html ? "html" : "headers"
+      };
+    }
   }
   if (options.files) {
     if (options.files.some((f) => f.includes("next.config"))) {
@@ -85272,6 +96138,8 @@ function getFrameworkDisplayName(framework) {
     jekyll: "Jekyll",
     eleventy: "Eleventy (11ty)",
     pelican: "Pelican",
+    sphinx: "Sphinx",
+    docusaurus: "Docusaurus",
     unknown: "Unknown"
   };
   return names[framework];
@@ -85296,7 +96164,7 @@ async function checkRobotsTxt(baseUrl) {
   const issues = [];
   const url = new URL("/robots.txt", baseUrl).href;
   try {
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
       timeout: 1e4,
       validateStatus: () => true
     });
@@ -85323,6 +96191,17 @@ async function checkRobotsTxt(baseUrl) {
       };
     }
     const content = response.data;
+    if ((0,chunk_ZLQQXIZ3/* looksLikeHtmlFallback */.Bp)(content, response.headers?.["content-type"])) {
+      issues.push({
+        ...ISSUE_DEFINITIONS.ROBOTS_TXT_MISSING,
+        affectedUrls: [url],
+        details: { servedHtml: true }
+      });
+      return {
+        issues,
+        data: { exists: false, blocksAll: false, hasSitemap: false, sitemapUrls: [] }
+      };
+    }
     const lines = content.toLowerCase().split("\n");
     let blocksAll = false;
     let currentUserAgent = "";
@@ -85379,7 +96258,7 @@ async function checkSitemap2(baseUrl, robotsData) {
   ];
   for (const sitemapUrl of sitemapUrls) {
     try {
-      const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(sitemapUrl, {
+      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(sitemapUrl, {
         timeout: 1e4,
         validateStatus: () => true
       });
@@ -85430,7 +96309,7 @@ async function checkRedirects(url) {
   let maxRedirects = 10;
   while (maxRedirects > 0) {
     try {
-      const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(currentUrl, {
+      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(currentUrl, {
         timeout: 1e4,
         maxRedirects: 0,
         validateStatus: () => true
@@ -85505,6 +96384,23 @@ function metaHasNoindex(content) {
   if (!content) return false;
   return content.toLowerCase().split(",").some((d) => ["noindex", "none"].includes(d.trim()));
 }
+function readRobotsDirectives(html, headers) {
+  const $ = esm/* load */.Hh(html);
+  const metaValues = [];
+  $("meta[name]").each((_, el) => {
+    const name = ($(el).attr("name") || "").toLowerCase();
+    if (name === "robots" || name === "googlebot") {
+      metaValues.push($(el).attr("content") || "");
+    }
+  });
+  const metaNoindex = metaValues.some(metaHasNoindex);
+  const xRobotsTag = headers ? Object.entries(headers).find(([k]) => k.toLowerCase() === "x-robots-tag")?.[1] : void 0;
+  const headerNoindex = xRobotsTagHasNoindex(xRobotsTag);
+  return { metaValues, metaNoindex, xRobotsTag, headerNoindex, hasNoindex: metaNoindex || headerNoindex };
+}
+function pageHasNoindex(html, headers) {
+  return readRobotsDirectives(html, headers).hasNoindex;
+}
 function isSiteRoot(url) {
   try {
     const u = new URL(url);
@@ -85520,17 +96416,7 @@ function analyzeOnPage(html, url, headers, options = {}) {
   const description = $('meta[name="description"]').attr("content")?.trim();
   const canonical = $('link[rel="canonical"]').attr("href");
   const metaRobots = $('meta[name="robots"]').attr("content");
-  const robotsMetaValues = [];
-  $("meta[name]").each((_, el) => {
-    const name = ($(el).attr("name") || "").toLowerCase();
-    if (name === "robots" || name === "googlebot") {
-      robotsMetaValues.push($(el).attr("content") || "");
-    }
-  });
-  const metaNoindex = robotsMetaValues.some(metaHasNoindex);
-  const headerLookup = headers ? Object.entries(headers).find(([k]) => k.toLowerCase() === "x-robots-tag")?.[1] : void 0;
-  const headerNoindex = xRobotsTagHasNoindex(headerLookup);
-  const hasNoindex = metaNoindex || headerNoindex;
+  const { metaValues: robotsMetaValues, metaNoindex, xRobotsTag: headerLookup, headerNoindex, hasNoindex } = readRobotsDirectives(html, headers);
   const h1s = [];
   $("h1").each((_, el) => {
     h1s.push($(el).text().trim());
@@ -85846,7 +96732,7 @@ async function analyzeLinks(html, baseUrl, checkBroken = false) {
     const internalToCheck = internal.slice(0, 10);
     for (const link of internalToCheck) {
       try {
-        const response = await (0,chunk_NATXE6B3/* httpHead */.PW)(link.href, {
+        const response = await (0,chunk_ZLQQXIZ3/* httpHead */.PW)(link.href, {
           timeout: 5e3,
           maxRedirects: 5,
           validateStatus: () => true
@@ -85861,7 +96747,7 @@ async function analyzeLinks(html, baseUrl, checkBroken = false) {
     const externalToCheck = external.slice(0, 5);
     for (const link of externalToCheck) {
       try {
-        const response = await (0,chunk_NATXE6B3/* httpHead */.PW)(link.href, {
+        const response = await (0,chunk_ZLQQXIZ3/* httpHead */.PW)(link.href, {
           timeout: 5e3,
           maxRedirects: 5,
           validateStatus: () => true
@@ -85947,7 +96833,7 @@ async function analyzeImages2(html, baseUrl, checkBroken = false) {
     for (const img of imagesToCheck) {
       try {
         const fullUrl = new URL(img.src, baseUrl).href;
-        const response = await (0,chunk_NATXE6B3/* httpHead */.PW)(fullUrl, {
+        const response = await (0,chunk_ZLQQXIZ3/* httpHead */.PW)(fullUrl, {
           timeout: 5e3,
           validateStatus: () => true
         });
@@ -86030,7 +96916,7 @@ async function analyzePerformance(url) {
   const issues = [];
   const startTime = Date.now();
   try {
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
       headers: {
         "Accept-Encoding": "gzip, deflate, br"
       },
@@ -86065,7 +96951,7 @@ async function analyzePerformance(url) {
         details: { ttfb: `${ttfbTime}ms` }
       });
     }
-    if (htmlSize > 100 * 1024) {
+    if (htmlSize > 300 * 1024) {
       issues.push({
         ...ISSUE_DEFINITIONS.HTML_TOO_LARGE,
         affectedUrls: [url],
@@ -86105,7 +96991,7 @@ async function analyzePerformance(url) {
 async function fetchCoreWebVitals(url, apiKey) {
   if (!apiKey) return null;
   try {
-    const response = await (0,chunk_NATXE6B3/* httpPost */.zA)(
+    const response = await (0,chunk_ZLQQXIZ3/* httpPost */.zA)(
       `https://chromeuxreport.googleapis.com/v1/records:queryRecord?key=${apiKey}`,
       { url },
       { timeout: 1e4 }
@@ -86646,7 +97532,7 @@ async function analyzeHreflang(html, url, options = {}) {
     for (const entry of entries) {
       if (!entry.isSelfReference && entry.href) {
         try {
-          const response = await (0,chunk_NATXE6B3/* httpHead */.PW)(entry.href, {
+          const response = await (0,chunk_ZLQQXIZ3/* httpHead */.PW)(entry.href, {
             timeout: 5e3,
             maxRedirects: 0,
             validateStatus: () => true
@@ -86680,7 +97566,7 @@ async function analyzeHreflang(html, url, options = {}) {
     for (const entry of entries) {
       if (!entry.isSelfReference && entry.href && entry.statusCode === 200) {
         try {
-          const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(entry.href, { timeout: 5e3 });
+          const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(entry.href, { timeout: 5e3 });
           const $target = esm/* load */.Hh(response.data);
           const hasReturnLink = $target(`link[rel="alternate"][hreflang][href*="${new URL(url).hostname}"]`).length > 0;
           if (!hasReturnLink) {
@@ -86965,7 +97851,9 @@ function analyzeAnchorText(html, url) {
     } catch {
       internalLinks++;
     }
-    const hasAccessibleText = text.length > 0 || ariaLabel || title;
+    const imgAlt = $(el).find("img[alt]").map((_2, img) => ($(img).attr("alt") || "").trim()).get().join(" ").trim();
+    const svgTitle = $(el).find("svg title").text().trim();
+    const hasAccessibleText = text.length > 0 || ariaLabel || title || imgAlt.length > 0 || svgTitle.length > 0;
     if (!hasAccessibleText) {
       emptyAnchors++;
       if (emptyAnchorUrls.length < 5) {
@@ -87107,7 +97995,7 @@ async function analyzeCanonicalAdvanced(html, url, options = {}) {
 async function followCanonicalChain(url, chain = [], maxDepth = 5) {
   if (chain.length >= maxDepth) return chain;
   try {
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
       timeout: 5e3,
       maxRedirects: 5,
       validateStatus: (status) => status < 400
@@ -87273,7 +98161,7 @@ async function analyzeRedirects(url, maxHops = 10) {
     }
     visitedUrls.add(currentUrl);
     try {
-      const response = await (0,chunk_NATXE6B3/* httpHead */.PW)(currentUrl, {
+      const response = await (0,chunk_ZLQQXIZ3/* httpHead */.PW)(currentUrl, {
         timeout: 5e3,
         maxRedirects: 0,
         validateStatus: () => true
@@ -87368,6 +98256,120 @@ async function checkInternalRedirects(internalLinks, batchSize = 10) {
   return { redirectLinks };
 }
 
+// src/audit/checks/crawler-access.ts
+var CRAWLERS = [
+  {
+    name: "Googlebot",
+    userAgent: "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    matters: "Google Search indexing",
+    critical: true
+  },
+  {
+    name: "bingbot",
+    userAgent: "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",
+    matters: "Bing indexing, and Copilot answers",
+    critical: true
+  },
+  {
+    name: "GPTBot",
+    userAgent: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GPTBot/1.1; +https://openai.com/gptbot)",
+    matters: "ChatGPT being able to read and cite the page",
+    critical: false
+  },
+  {
+    name: "ClaudeBot",
+    userAgent: "Mozilla/5.0 (compatible; ClaudeBot/1.0; +claudebot@anthropic.com)",
+    matters: "Claude being able to read and cite the page",
+    critical: false
+  },
+  {
+    name: "PerplexityBot",
+    userAgent: "Mozilla/5.0 (compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot)",
+    matters: "Perplexity being able to read and cite the page",
+    critical: false
+  }
+];
+var BROWSER_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
+function isRefusal(status) {
+  return status === 401 || status === 403 || status === 429 || status === 503;
+}
+async function statusFor(url, userAgent) {
+  try {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
+      headers: { "User-Agent": userAgent },
+      timeout: 15e3,
+      // We want the status itself, not an exception on 4xx/5xx.
+      validateStatus: () => true
+    });
+    return response.status;
+  } catch {
+    return null;
+  }
+}
+async function analyzeCrawlerAccess(url) {
+  const issues = [];
+  const baselineStatus = await statusFor(url, BROWSER_UA);
+  const data = { baselineStatus, crawlers: [] };
+  if (baselineStatus === null || baselineStatus >= 400) {
+    return { issues, data };
+  }
+  const results = await Promise.all(
+    CRAWLERS.map(async (crawler) => ({
+      crawler,
+      status: await statusFor(url, crawler.userAgent)
+    }))
+  );
+  const blocked = results.filter(({ status }) => status !== null && isRefusal(status));
+  data.crawlers = results.map(({ crawler, status }) => ({
+    name: crawler.name,
+    status,
+    blocked: status !== null && isRefusal(status)
+  }));
+  if (blocked.length === 0) return { issues, data };
+  const search = blocked.filter(({ crawler }) => crawler.critical);
+  const ai = blocked.filter(({ crawler }) => !crawler.critical);
+  if (search.length > 0) {
+    const names = search.map(({ crawler }) => crawler.name).join(", ");
+    issues.push({
+      code: "SEARCH_CRAWLER_BLOCKED_AT_EDGE",
+      severity: "error",
+      category: "crawlability",
+      title: `${names} refused at the edge, not by robots.txt`,
+      description: `A browser request to this URL returned ${baselineStatus}, but ${names} received ${search.map(({ status }) => status).join(", ")}. Something in front of the origin - a CDN, WAF or bot rule - is turning the crawler away, and robots.txt cannot show you this.`,
+      impact: "Pages a search crawler cannot fetch fall out of the index. This is the failure mode behind Cloudflare\u2019s 2026-09-15 default, where blocking AI training also blocked Googlebot because it is classed as a mixed-use crawler.",
+      howToFix: `Check your CDN or WAF bot rules rather than robots.txt.
+
+On Cloudflare: the zone's Security > Bots settings, and any "Block AI Bots" or AI Crawler Control toggle. Because Googlebot crawls for both Search and AI training, blocking Training applies to all of its functions on ad-supported pages - allow Search crawlers explicitly, or opt out of the default.
+
+Confirm with Search Console's URL Inspection, which fetches as the verified Googlebot.`,
+      affectedUrls: [url],
+      details: {
+        baselineStatus,
+        blocked: search.map(({ crawler, status }) => ({ crawler: crawler.name, status })),
+        note: "Observed with the crawler\u2019s user-agent. Real crawlers are also verified by IP, so a site may treat them differently."
+      }
+    });
+  }
+  if (ai.length > 0) {
+    const names = ai.map(({ crawler }) => crawler.name).join(", ");
+    issues.push({
+      code: "AI_CRAWLER_BLOCKED_AT_EDGE",
+      severity: "warning",
+      category: "ai-readiness",
+      title: `${names} refused at the edge, not by robots.txt`,
+      description: `A browser request returned ${baselineStatus}, but ${names} received ${ai.map(({ status }) => status).join(", ")}. The block is in front of the origin, so allowing these agents in robots.txt will not change it.`,
+      impact: "An assistant that cannot fetch the page cannot quote it. This is invisible to a robots.txt check, which is where most AI-visibility tools stop.",
+      howToFix: `If blocking them is deliberate, nothing to do. If not, the rule is in your CDN or WAF, not robots.txt - on Cloudflare see Security > Bots and any AI Crawler Control setting.`,
+      affectedUrls: [url],
+      details: {
+        baselineStatus,
+        blocked: ai.map(({ crawler, status }) => ({ crawler: crawler.name, status }))
+      }
+    });
+  }
+  return { issues, data };
+}
+
 // src/audit/checks/ai-readiness.ts
 
 
@@ -87383,7 +98385,7 @@ var SIGNAL_PATHS = [
 async function fetchBody(baseUrl, path3) {
   try {
     const url = new URL(path3, baseUrl).href;
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
       timeout: 8e3,
       validateStatus: () => true
     });
@@ -87441,7 +98443,7 @@ async function checkLlmsTxt(baseUrl) {
   const issues = [];
   const url = new URL("/llms.txt", baseUrl).href;
   try {
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
       timeout: 1e4,
       validateStatus: () => true
     });
@@ -87456,6 +98458,13 @@ async function checkLlmsTxt(baseUrl) {
       };
     }
     const content = response.data;
+    if ((0,chunk_ZLQQXIZ3/* looksLikeHtmlFallback */.Bp)(content, response.headers?.["content-type"])) {
+      issues.push({
+        ...ISSUE_DEFINITIONS.LLMS_TXT_MISSING,
+        affectedUrls: [url]
+      });
+      return { issues, data: { exists: false, valid: false, errors: ["File not found (the site served HTML)"] } };
+    }
     const lines = content.split("\n").filter((line) => line.trim());
     const errors = [];
     let valid = true;
@@ -87509,7 +98518,7 @@ async function checkAIBotBlocking(baseUrl) {
   const blockedBots = [];
   const allowedBots = [];
   try {
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
       timeout: 1e4,
       validateStatus: () => true
     });
@@ -87664,7 +98673,7 @@ async function checkCloudflareAICrawlerGate(baseUrl, botBlocking) {
   const issues = [];
   let behindCloudflare = false;
   try {
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(baseUrl, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(baseUrl, {
       timeout: 1e4,
       validateStatus: () => true
     });
@@ -88100,7 +99109,7 @@ function analyzeLocalSEO(html, url) {
   const detectedPhones = detectPhones(html);
   const detectedAddresses = detectAddresses(html);
   const socialProfiles = detectSocialProfiles(html);
-  if (!hasLocalBusiness) {
+  if (!hasLocalBusiness && (detectedPhones.length > 0 || detectedAddresses.length > 0)) {
     issues.push({
       ...ISSUE_DEFINITIONS.LOCAL_BUSINESS_SCHEMA_MISSING,
       affectedUrls: [url]
@@ -88164,7 +99173,7 @@ function parseHSTS(header) {
 async function analyzeSecurityHeaders2(url) {
   const issues = [];
   try {
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
       timeout: 15e3,
       validateStatus: () => true,
       maxRedirects: 5
@@ -88316,7 +99325,7 @@ async function analyzeContentFreshness(url, html) {
   const issues = [];
   let lastModified = null;
   try {
-    const response = await (0,chunk_NATXE6B3/* httpHead */.PW)(url, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpHead */.PW)(url, {
       timeout: 1e4,
       validateStatus: () => true
     });
@@ -88385,17 +99394,14 @@ var DOM_SIZE_ERROR = 3e3;
 var DOM_DEPTH_WARNING = 32;
 function countNodes($) {
   let count = 0;
-  function traverse(element) {
-    count++;
-    const el = element;
+  function traverse(node) {
+    const el = node;
+    if (el.type === "tag") count++;
     if (el.children) {
-      for (const child of el.children) {
-        traverse(child);
-      }
+      for (const child of el.children) traverse(child);
     }
   }
-  const root = $.root();
-  root.each((_, el) => traverse(el));
+  $.root().each((_, el) => traverse(el));
   return count;
 }
 function calculateMaxDepth($) {
@@ -89164,7 +100170,17 @@ function analyzeKeywords(html, url) {
   const sortPhrases = (phrases, n) => {
     return Array.from(phrases).filter(([_, count]) => count >= 2).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([phrase, count]) => ({ phrase, count, wordCount: n }));
   };
-  const potentialStuffing = topKeywords.filter((k) => k.density > 3).map((k) => k.word);
+  const brandLabels = /* @__PURE__ */ new Set();
+  try {
+    const host = new URL(url).hostname.toLowerCase().replace(/^www\./, "");
+    for (const label of host.split(".").slice(0, -1)) brandLabels.add(label);
+  } catch {
+  }
+  for (const name of [$('meta[property="og:site_name"]').attr("content"), $('meta[name="application-name"]').attr("content")]) {
+    for (const token of dist_tokenize(name || "")) brandLabels.add(token);
+  }
+  const isBrandWord = (word) => [...brandLabels].some((label) => label.includes(word) || word.includes(label));
+  const potentialStuffing = totalWords >= 200 ? topKeywords.filter((k) => k.density > 4 && !isBrandWord(k.word)).map((k) => k.word) : [];
   if (potentialStuffing.length > 0) {
     issues.push({
       ...ISSUE_DEFINITIONS.KEYWORD_STUFFING,
@@ -89250,7 +100266,7 @@ async function checkAdsTxt(baseUrl) {
   const issues = [];
   const url = new URL("/ads.txt", baseUrl).href;
   try {
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
       timeout: 1e4,
       validateStatus: () => true
     });
@@ -89389,13 +100405,6 @@ function checkAMP(html, url) {
         ampValid: null
       }
     };
-  }
-  const isArticle = $("article").length > 0 || $('meta[property="og:type"][content="article"]').length > 0 || html.toLowerCase().includes("blog") || html.toLowerCase().includes("news");
-  if (isArticle) {
-    issues.push({
-      ...ISSUE_DEFINITIONS.AMP_MISSING,
-      affectedUrls: [url]
-    });
   }
   return {
     issues,
@@ -89619,20 +100628,20 @@ function findMissingPreconnects(thirdPartyDomains, existingHints) {
       }
     })
   );
-  const missing = [];
+  const missing2 = [];
   for (const domain of thirdPartyDomains) {
     try {
       const hostname = new URL(domain).hostname;
       const recommended = CRITICAL_THIRD_PARTIES[hostname] || [domain];
       for (const rec of recommended) {
         if (!preconnected.has(rec)) {
-          missing.push(rec);
+          missing2.push(rec);
         }
       }
     } catch {
     }
   }
-  return [...new Set(missing)];
+  return [...new Set(missing2)];
 }
 function analyzeResourceHints(html, url) {
   const issues = [];
@@ -89747,7 +100756,7 @@ function analyzeResourceHints(html, url) {
 
 async function checkRobotsTxtForIndexNow(baseUrl) {
   try {
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(`${new URL(baseUrl).origin}/robots.txt`, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(`${new URL(baseUrl).origin}/robots.txt`, {
       timeout: 1e4,
       validateStatus: () => true
     });
@@ -89784,7 +100793,7 @@ async function findIndexNowKeyFile(baseUrl, possibleKeys) {
     if (!isValidIndexNowKey(key)) continue;
     const keyUrl = `${origin}/${key}.txt`;
     try {
-      const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(keyUrl, {
+      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(keyUrl, {
         timeout: 5e3,
         validateStatus: () => true
       });
@@ -89916,7 +100925,7 @@ async function getSSLCertificateAge(url) {
 }
 async function checkWaybackMachine(domain) {
   try {
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(
       `https://web.archive.org/cdx/search/cdx?url=${domain}&output=json&limit=1&from=1990`,
       {
         timeout: 1e4,
@@ -89947,7 +100956,7 @@ async function estimateIndexedPages(url) {
     ];
     for (const sitemapUrl of sitemapUrls) {
       try {
-        const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(sitemapUrl, {
+        const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(sitemapUrl, {
           timeout: 1e4,
           validateStatus: () => true
         });
@@ -90105,13 +101114,13 @@ async function analyzeSiteMaturity(html, url) {
     contentToAuthorityRatio
   };
   const { strategy, recommendations } = determineStrategy(maturityLevel, authorityIndicators, contentMetrics);
-  if (maturityLevel === "new") {
+  if (maturityLevel === "new" && ageSource === "wayback" && estimatedAgeDays !== null) {
     issues.push({
       code: "NEW_SITE_STRATEGY",
       severity: "notice",
       category: "content",
       title: "New website detected - Authority-first strategy recommended",
-      description: "Your site appears to be new (<90 days). Standard SEO advice won't work well for new sites.",
+      description: `The Wayback Machine first saw this site ${estimatedAgeDays} days ago. Standard SEO advice won't work well for a site under 90 days old.`,
       impact: "Creating lots of content without authority is wasted effort. Content from new sites rarely ranks.",
       howToFix: "Focus on building 10+ quality backlinks to ONE great page before expanding content. See strategic recommendations.",
       affectedUrls: [url],
@@ -90122,24 +101131,7 @@ async function analyzeSiteMaturity(html, url) {
       }
     });
   }
-  if (contentToAuthorityRatio === "content-heavy") {
-    issues.push({
-      code: "CONTENT_AUTHORITY_IMBALANCE",
-      severity: "warning",
-      category: "content",
-      title: "Content-to-authority imbalance",
-      description: `Site has ~${indexedPages} pages but limited backlink signals. Content is unlikely to rank.`,
-      impact: "Most of your content may be invisible to search engines due to low domain authority.",
-      howToFix: "Stop publishing new content. Focus 100% on link building until you see ranking improvements.",
-      affectedUrls: [url],
-      details: {
-        indexedPages,
-        contentToAuthorityRatio,
-        maturityLevel
-      }
-    });
-  }
-  if (maturityLevel === "growing" && !htmlSignals.hasBlog) {
+  if (maturityLevel === "growing" && ageSource === "wayback" && !htmlSignals.hasBlog) {
     issues.push({
       code: "GROWING_SITE_NO_BLOG",
       severity: "notice",
@@ -90633,8 +101625,8 @@ function analyzeRendering(html) {
   const hasSemanticStructure = hasH1 && (hasMain || hasArticle);
   const title = $("title").text().trim();
   const h1Text = $("h1").first().text().trim();
-  const firstParagraph = $("p").first().text().trim();
-  const keyContentInHTML = title.length > 10 && h1Text.length > 5 && firstParagraph.length > 50;
+  const hasSubstantialParagraph = $("p").toArray().some((p) => $(p).text().trim().length > 50);
+  const keyContentInHTML = title.length > 0 && h1Text.length > 0 && hasSubstantialParagraph;
   const EXPECTED_MIN_CONTENT = 1e3;
   const htmlContentRatio = Math.min(100, mainContentCharCount / EXPECTED_MIN_CONTENT * 100);
   let aiReadableScore = 50;
@@ -90854,9 +101846,9 @@ function analyzeClientRendering(html, url) {
       howToFix: "Ensure the initial HTML contains: meaningful <title>, descriptive <h1>, and a substantial first paragraph with your key message.",
       affectedUrls: [url],
       details: {
-        hasTitle: $("title").text().trim().length > 10,
-        hasH1: $("h1").text().trim().length > 5,
-        hasFirstParagraph: $("p").first().text().trim().length > 50
+        hasTitle: $("title").text().trim().length > 0,
+        hasH1: $("h1").text().trim().length > 0,
+        hasSubstantialParagraph: $("p").toArray().some((p) => $(p).text().trim().length > 50)
       }
     });
   }
@@ -90879,7 +101871,7 @@ async function traceRedirectChain(url, options = {}) {
     visitedUrls.add(currentUrl);
     try {
       const startTime = Date.now();
-      const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(currentUrl, {
+      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(currentUrl, {
         timeout,
         maxRedirects: 0,
         // Don't auto-follow, we want to trace manually
@@ -91276,7 +102268,7 @@ function analyzeResponsiveImages(html, url) {
   if (imagesWithoutDimensions >= 3) {
     issues.push({
       code: "IMAGES_MISSING_DIMENSIONS",
-      severity: "error",
+      severity: "warning",
       category: "performance",
       title: `${imagesWithoutDimensions} images missing width/height attributes`,
       description: `Found ${imagesWithoutDimensions} images without explicit dimensions.`,
@@ -91291,7 +102283,8 @@ function analyzeResponsiveImages(html, url) {
   } else if (imagesWithoutDimensions > 0) {
     issues.push({
       code: "IMAGES_MISSING_DIMENSIONS",
-      severity: "warning",
+      // One or two keeps a gradient below the >=3 case rather than flattening both to warning.
+      severity: "notice",
       category: "performance",
       title: `${imagesWithoutDimensions} image(s) missing width/height attributes`,
       description: `Found ${imagesWithoutDimensions} images without explicit dimensions.`,
@@ -91402,6 +102395,106 @@ function analyzeResponsiveImages(html, url) {
 
 // src/audit/checks/bing-optimization.ts
 
+
+// src/audit/checks/site-verification.ts
+var UNCHECKED = {
+  dnsChecked: false,
+  googleDns: false,
+  bingDns: false,
+  bingSiteAuthFile: false
+};
+var DNS_TIMEOUT_MS = 2e3;
+var FILE_TIMEOUT_MS = 5e3;
+var CACHE_TTL_MS = 10 * 60 * 1e3;
+var cache = /* @__PURE__ */ new Map();
+function lookupSiteVerification(url) {
+  let parsed;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return Promise.resolve(UNCHECKED);
+  }
+  const host = parsed.hostname.toLowerCase();
+  const now = Date.now();
+  const cached = cache.get(host);
+  if (cached && cached.expires > now) return cached.result;
+  const result = Promise.all([readTxtRecords(host), fetchBingSiteAuth(parsed.origin)]).then(
+    ([txt, bingSiteAuthFile]) => ({
+      dnsChecked: txt.checked,
+      googleDns: txt.records.some((record) => /^google-site-verification=/i.test(record)),
+      bingDns: txt.records.some((record) => /^MS=/i.test(record)),
+      bingSiteAuthFile
+    })
+  );
+  cache.set(host, { expires: now + CACHE_TTL_MS, result });
+  return result;
+}
+var resolveTxtLoader;
+function loadResolveTxt() {
+  resolveTxtLoader ??= (async () => {
+    if (typeof process === "undefined" || !process.versions?.node) return null;
+    try {
+      const specifier = "node:dns";
+      const dns = await __nccwpck_require__(9239)(specifier);
+      const resolveTxt = dns?.promises?.resolveTxt ?? dns?.default?.promises?.resolveTxt;
+      return typeof resolveTxt === "function" ? resolveTxt : null;
+    } catch {
+      return null;
+    }
+  })();
+  return resolveTxtLoader;
+}
+function domainCandidates(host) {
+  if (/^[\d.]+$/.test(host) || host.includes(":")) return [];
+  const labels = host.split(".").filter(Boolean);
+  const names = [];
+  for (let n = 2; n <= labels.length && names.length < 4; n++) {
+    names.push(labels.slice(-n).join("."));
+  }
+  return names.length > 0 ? names : [host];
+}
+async function readTxtRecords(host) {
+  const resolveTxt = await loadResolveTxt();
+  if (!resolveTxt) return { checked: false, records: [] };
+  const lookups = await Promise.all(domainCandidates(host).map((name) => resolveTxtWithin(resolveTxt, name)));
+  return {
+    checked: lookups.every((records) => records !== null),
+    records: lookups.flatMap((records) => records ?? [])
+  };
+}
+var NO_RECORD_CODES = /* @__PURE__ */ new Set(["ENODATA", "ENOTFOUND"]);
+async function resolveTxtWithin(resolveTxt, name) {
+  let timer;
+  const timeout = new Promise((resolve) => {
+    timer = setTimeout(() => resolve(null), DNS_TIMEOUT_MS);
+  });
+  try {
+    return await Promise.race([
+      resolveTxt(name).then(
+        (records) => records.map((chunks) => chunks.join("").trim()),
+        (error) => NO_RECORD_CODES.has(error?.code ?? "") ? [] : null
+      ),
+      timeout
+    ]);
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+async function fetchBingSiteAuth(origin) {
+  try {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(`${origin}/BingSiteAuth.xml`, {
+      timeout: FILE_TIMEOUT_MS,
+      maxBytes: 64 * 1024
+    });
+    return response.status === 200 && typeof response.data === "string" && !(0,chunk_ZLQQXIZ3/* looksLikeHtmlFallback */.Bp)(response.data, response.headers["content-type"]) && /<users[\s>]/i.test(response.data);
+  } catch {
+    return false;
+  }
+}
+
+// src/audit/checks/bing-optimization.ts
 async function analyzeBingOptimization(html, url) {
   const issues = [];
   const $ = esm/* load */.Hh(html);
@@ -91410,12 +102503,9 @@ async function analyzeBingOptimization(html, url) {
   const detectedIssues = [];
   const bingMetaTag = $('meta[name="msvalidate.01"]').attr("content");
   const hasBingMetaTag = !!bingMetaTag && bingMetaTag.length > 0;
-  let hasBingSiteAuth = false;
-  try {
-    const authResponse = await (0,chunk_NATXE6B3/* httpGet */.lx)(`${baseUrl}/BingSiteAuth.xml`, { timeout: 5e3 });
-    hasBingSiteAuth = authResponse.status === 200 && authResponse.data.includes("<?xml") && authResponse.data.toLowerCase().includes("users");
-  } catch {
-  }
+  const verification = await lookupSiteVerification(url);
+  const hasBingSiteAuth = verification.bingSiteAuthFile;
+  const hasBingDnsRecord = verification.bingDns;
   let hasBingIndexNowKey = false;
   try {
     const keyPatterns = [
@@ -91424,7 +102514,7 @@ async function analyzeBingOptimization(html, url) {
     ];
     for (const keyUrl of keyPatterns) {
       try {
-        const keyResponse = await (0,chunk_NATXE6B3/* httpGet */.lx)(keyUrl, { timeout: 5e3 });
+        const keyResponse = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(keyUrl, { timeout: 5e3 });
         if (keyResponse.status === 200 && keyResponse.data.length >= 8) {
           hasBingIndexNowKey = true;
           break;
@@ -91459,26 +102549,31 @@ async function analyzeBingOptimization(html, url) {
   });
   let bingSitemapAccessible = false;
   try {
-    const sitemapResponse = await (0,chunk_NATXE6B3/* httpGet */.lx)(`${baseUrl}/sitemap.xml`, { timeout: 5e3 });
+    const sitemapResponse = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(`${baseUrl}/sitemap.xml`, { timeout: 5e3 });
     bingSitemapAccessible = sitemapResponse.status === 200 && sitemapResponse.data.includes("<?xml");
   } catch {
   }
-  if (!hasBingMetaTag && !hasBingSiteAuth) {
+  if (!hasBingMetaTag && !hasBingSiteAuth && !hasBingDnsRecord) {
     detectedIssues.push("No Bing site verification");
     issues.push({
       code: "BING_NOT_VERIFIED",
-      severity: "warning",
+      // A notice: verification done through Search Console import or a DNS record this run
+      // could not see leaves no trace in the HTML, so this cannot be a warning.
+      severity: "notice",
       category: "ai-readiness",
-      title: "Site not verified with Bing Webmaster Tools",
-      description: "ChatGPT Search uses Bing's index. Verifying your site with Bing Webmaster Tools ensures proper indexing and access to Bing-specific SEO tools.",
+      title: verification.dnsChecked ? "Site not verified with Bing Webmaster Tools" : "Bing Webmaster Tools verification not visible in the HTML",
+      description: verification.dnsChecked ? "No msvalidate.01 meta tag in the HTML, no MS= TXT record on the domain and no /BingSiteAuth.xml file. ChatGPT Search uses Bing's index. Verifying your site with Bing Webmaster Tools ensures proper indexing and access to Bing-specific SEO tools." : "No msvalidate.01 meta tag in the HTML and no /BingSiteAuth.xml file. The site may be verified through a DNS record instead, which this run could not check. ChatGPT Search uses Bing's index. Verifying your site with Bing Webmaster Tools ensures proper indexing and access to Bing-specific SEO tools.",
       impact: "May reduce visibility in ChatGPT Search results and miss Bing-specific optimization opportunities.",
-      howToFix: "Add Bing verification: 1) Go to Bing Webmaster Tools, 2) Add your site, 3) Choose verification method (meta tag or XML file), 4) Add the verification code to your site.",
+      howToFix: "If the site is not yet in Bing Webmaster Tools: 1) Go to Bing Webmaster Tools, 2) Add your site (or import it from Google Search Console), 3) Choose a verification method (meta tag, DNS record or XML file), 4) Add the verification code to your site.",
       affectedUrls: [url],
       details: {
         hasBingMetaTag,
         hasBingSiteAuth,
+        hasBingDnsRecord,
+        dnsChecked: verification.dnsChecked,
         verificationMethods: [
           'Add <meta name="msvalidate.01" content="YOUR_CODE"> to <head>',
+          "Add an MS=YOUR_CODE TXT record to the domain's DNS",
           "Upload BingSiteAuth.xml to root directory"
         ]
       }
@@ -91515,7 +102610,7 @@ async function analyzeBingOptimization(html, url) {
     });
   }
   const hasLocalBusinessSchema = bingPlacesDetected;
-  const hasAddressOnPage = $("address").length > 0 || html.toLowerCase().includes("street") || /\d{5}(-\d{4})?/.test(html);
+  const hasAddressOnPage = $("address").text().trim().length > 0 || detectAddresses(html).length > 0;
   if (hasAddressOnPage && !hasLocalBusinessSchema) {
     detectedIssues.push("Local business may not be on Bing Places");
     issues.push({
@@ -91538,6 +102633,8 @@ async function analyzeBingOptimization(html, url) {
     data: {
       hasBingSiteAuth,
       hasBingMetaTag,
+      hasBingDnsRecord,
+      dnsChecked: verification.dnsChecked,
       hasBingIndexNowKey,
       bingPlacesDetected,
       bingSitemapAccessible,
@@ -91567,7 +102664,7 @@ async function validateRobotsTxt(url) {
   const parsedUrl = new URL(url);
   const robotsUrl = new URL("/robots.txt", parsedUrl.origin).href;
   try {
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(robotsUrl, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(robotsUrl, {
       timeout: 1e4,
       validateStatus: () => true
     });
@@ -91847,7 +102944,7 @@ async function findBrokenLinks(urls) {
   const results = await Promise.all(
     toCheck.map(async (linkUrl) => {
       try {
-        const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(linkUrl, {
+        const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(linkUrl, {
           timeout: 8e3,
           validateStatus: () => true
         });
@@ -91878,21 +102975,21 @@ async function analyzeLlmsTxt(url) {
   let contentLength = 0;
   let brokenLinks = [];
   try {
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(llmsTxtUrl, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(llmsTxtUrl, {
       timeout: 1e4,
       validateStatus: () => true
     });
-    if (response.status === 200) {
+    if (response.status === 200 && !(0,chunk_ZLQQXIZ3/* looksLikeHtmlFallback */.Bp)(response.data, response.headers?.["content-type"])) {
       exists = true;
       content = response.data;
       contentLength = content.length;
       structure = analyzeStructure(content);
     }
-    const fullResponse = await (0,chunk_NATXE6B3/* httpGet */.lx)(llmsFullUrl, {
+    const fullResponse = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(llmsFullUrl, {
       timeout: 1e4,
       validateStatus: () => true
     });
-    if (fullResponse.status === 200) {
+    if (fullResponse.status === 200 && !(0,chunk_ZLQQXIZ3/* looksLikeHtmlFallback */.Bp)(fullResponse.data, fullResponse.headers?.["content-type"])) {
       fullVersionExists = true;
     }
   } catch {
@@ -92145,7 +103242,7 @@ async function analyzeHtmlCompliance(html, url, headers) {
   if (!hasFavicon) {
     try {
       const faviconUrl = new URL("/favicon.ico", parsedUrl.origin).href;
-      const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(faviconUrl, {
+      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(faviconUrl, {
         timeout: 5e3,
         validateStatus: () => true
       });
@@ -92364,7 +103461,7 @@ async function analyzeCanonicalDomain(url) {
 }
 async function testUrl(url) {
   try {
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
       timeout: 1e4,
       maxRedirects: 0,
       // Don't follow redirects
@@ -92402,7 +103499,7 @@ async function analyzeCachingHeaders(url, headers) {
   let htmlHeaders = headers;
   if (!htmlHeaders) {
     try {
-      const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(url, {
+      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
         timeout: 1e4,
         validateStatus: () => true
       });
@@ -92432,7 +103529,7 @@ async function analyzeCachingHeaders(url, headers) {
   const assetsToCheck = assetUrls.slice(0, 5);
   for (const assetUrl of assetsToCheck) {
     try {
-      const assetResponse = await (0,chunk_NATXE6B3/* httpGet */.lx)(assetUrl, {
+      const assetResponse = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(assetUrl, {
         timeout: 5e3,
         validateStatus: () => true
       });
@@ -92547,7 +103644,7 @@ function parseCacheHeaders(headers) {
 async function getStaticAssetUrls(pageUrl) {
   const assets = [];
   try {
-    const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(pageUrl, {
+    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(pageUrl, {
       timeout: 1e4,
       validateStatus: () => true
     });
@@ -92923,6 +104020,17 @@ var NAMED_COLORS = {
   transparent: [255, 255, 255]
   // Treat as white for calculation
 };
+function inheritedBackground($el) {
+  for (const ancestor of $el.parents().toArray()) {
+    const style = ancestor.attribs?.style;
+    if (!style) continue;
+    const match = style.match(/(?:^|;)\s*background(?:-color)?\s*:\s*([^;]+)/i);
+    if (!match) continue;
+    const value = match[1].trim();
+    if (!/^(transparent|none)$/i.test(value)) return value;
+  }
+  return null;
+}
 function analyzeColorContrast(html, url) {
   const issues = [];
   const $ = esm/* load */.Hh(html);
@@ -92943,12 +104051,16 @@ function analyzeColorContrast(html, url) {
     const colorMatch = style.match(/(?:^|;)\s*color\s*:\s*([^;]+)/i);
     const bgMatch = style.match(/(?:^|;)\s*background(?:-color)?\s*:\s*([^;]+)/i);
     const foreground = colorMatch ? colorMatch[1].trim() : null;
-    const background = bgMatch ? bgMatch[1].trim() : null;
+    const background = bgMatch ? bgMatch[1].trim() : inheritedBackground($el);
     if (!foreground) {
       cannotDetermine++;
       return;
     }
-    const bgColor = background || "white";
+    if (!background) {
+      cannotDetermine++;
+      return;
+    }
+    const bgColor = background;
     const fgRgb = parseColor(foreground);
     const bgRgb = parseColor(bgColor);
     if (!fgRgb || !bgRgb) {
@@ -93023,23 +104135,6 @@ function analyzeColorContrast(html, url) {
         }
       });
     }
-  }
-  if (cannotDetermine > elementsAnalyzed * 0.8) {
-    issues.push({
-      code: "A11Y_CONTRAST_UNDETERMINED",
-      severity: "notice",
-      category: "accessibility",
-      title: "Color contrast could not be fully analyzed",
-      description: "Most text colors are set via CSS stylesheets rather than inline styles. Full contrast checking requires browser rendering.",
-      impact: "Potential contrast issues may exist that were not detected.",
-      howToFix: "Use browser DevTools (Lighthouse accessibility audit) or dedicated tools like axe-core for comprehensive contrast checking.",
-      affectedUrls: [url],
-      details: {
-        elementsAnalyzed,
-        cannotDetermine,
-        recommendation: "Run Lighthouse accessibility audit for complete contrast analysis."
-      }
-    });
   }
   return {
     issues,
@@ -93189,7 +104284,7 @@ async function analyzeAssetMinification(html, url) {
   const cssToCheck = assetUrls.css.slice(0, 3);
   const cssPromises = cssToCheck.map(async (cssUrl) => {
     try {
-      const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(cssUrl, {
+      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(cssUrl, {
         timeout: 3e3,
         // Reduced timeout
         validateStatus: () => true
@@ -93210,7 +104305,7 @@ async function analyzeAssetMinification(html, url) {
   const jsToCheck = assetUrls.js.slice(0, 3);
   const jsPromises = jsToCheck.map(async (jsUrl) => {
     try {
-      const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(jsUrl, {
+      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(jsUrl, {
         timeout: 3e3,
         // Reduced timeout
         validateStatus: () => true
@@ -93501,6 +104596,10 @@ function analyzePageResources(html, url) {
 
 // src/audit/checks/responsive-css.ts
 
+var MAX_STYLESHEETS = 3;
+var MAX_STYLESHEET_BYTES = 1024 * 1024;
+var STYLESHEET_TIMEOUT_MS = 3e3;
+var RESPONSIVE_SIGNAL = /@media\b|@container\b|\bclamp\(|(?<![\w-])(?:min|max)\(/i;
 function extractMediaQueries(css) {
   const mediaQueries = [];
   const regex = /@media\s*([^{]+)/g;
@@ -93510,35 +104609,30 @@ function extractMediaQueries(css) {
   }
   return mediaQueries;
 }
+var WIDTH_RULE = /(?:(?:min|max)-width\s*:|width\s*(?:<=|>=|<|>))\s*(\d+(?:\.\d+)?)\s*(px|em|rem)?|(\d+(?:\.\d+)?)\s*(px|em|rem)?\s*(?:<=|>=|<|>)\s*width/gi;
 function classifyBreakpoints(mediaQueries) {
   const breakpoints = /* @__PURE__ */ new Set();
   let hasMobile = false;
   let hasTablet = false;
   let hasDesktop = false;
   for (const query of mediaQueries) {
-    const widthMatches = query.match(/(?:min|max)-width\s*:\s*(\d+)(?:px|em|rem)?/gi);
-    if (widthMatches) {
-      for (const match of widthMatches) {
-        const valueMatch = match.match(/(\d+)/);
-        if (valueMatch) {
-          const value = parseInt(valueMatch[1], 10);
-          breakpoints.add(`${value}px`);
-          if (value <= 480) {
-            hasMobile = true;
-          } else if (value <= 768) {
-            hasMobile = true;
-          } else if (value <= 1024) {
-            hasTablet = true;
-          } else {
-            hasDesktop = true;
-          }
-        }
-      }
-    }
-    if (/screen\s+and/i.test(query)) {
-    }
     if (/print/i.test(query)) {
       continue;
+    }
+    for (const match of query.matchAll(WIDTH_RULE)) {
+      const raw = match[1] ?? match[3];
+      const unit = (match[2] ?? match[4] ?? "px").toLowerCase();
+      const value = Math.round(parseFloat(raw) * (unit === "px" ? 1 : 16));
+      breakpoints.add(`${value}px`);
+      if (value <= 480) {
+        hasMobile = true;
+      } else if (value <= 768) {
+        hasMobile = true;
+      } else if (value <= 1024) {
+        hasTablet = true;
+      } else {
+        hasDesktop = true;
+      }
     }
   }
   return {
@@ -93557,6 +104651,7 @@ async function analyzeResponsiveCss(html, url) {
   const allMediaQueries = [];
   const externalSources = [];
   let inlineCount = 0;
+  let hasResponsiveSignals = false;
   $("style").each((_, el) => {
     const css = $(el).text();
     const queries = extractMediaQueries(css);
@@ -93564,39 +104659,43 @@ async function analyzeResponsiveCss(html, url) {
       allMediaQueries.push(...queries);
       inlineCount += queries.length;
     }
+    if (RESPONSIVE_SIGNAL.test(css)) hasResponsiveSignals = true;
   });
-  const cssLinks = $('link[rel="stylesheet"][href]').toArray().slice(0, 3).map((el) => $(el).attr("href")).filter((href) => {
-    if (!href || href.startsWith("data:")) return false;
+  const sameOrigin = [];
+  let crossOrigin = 0;
+  $("link[rel][href]").each((_, el) => {
+    if (!/\bstylesheet\b/i.test($(el).attr("rel") ?? "")) return;
+    const href = $(el).attr("href");
+    if (!href || href.startsWith("data:")) return;
     try {
-      const cssHostname = new URL(href, url).hostname;
-      return cssHostname === baseUrl.hostname;
+      const resolved = new URL(href, url);
+      if (resolved.hostname === baseUrl.hostname) sameOrigin.push(resolved.href);
+      else crossOrigin++;
     } catch {
-      return false;
+      crossOrigin++;
     }
   });
-  const cssPromises = cssLinks.map(async (cssUrl) => {
-    try {
-      const fullUrl = new URL(cssUrl, url).href;
-      const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(fullUrl, {
-        timeout: 3e3,
-        // Reduced timeout
-        validateStatus: () => true
-      });
-      if (response.status === 200 && typeof response.data === "string") {
+  let fetchFailed = 0;
+  await Promise.all(
+    sameOrigin.slice(0, MAX_STYLESHEETS).map(async (cssUrl) => {
+      try {
+        const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(cssUrl, {
+          timeout: STYLESHEET_TIMEOUT_MS,
+          maxBytes: MAX_STYLESHEET_BYTES
+        });
+        if (typeof response.data !== "string") throw new Error("not text");
         const queries = extractMediaQueries(response.data);
-        if (queries.length > 0) {
-          allMediaQueries.push(...queries);
+        if (queries.length > 0) allMediaQueries.push(...queries);
+        if (RESPONSIVE_SIGNAL.test(response.data)) {
+          hasResponsiveSignals = true;
           externalSources.push(cssUrl);
         }
+      } catch {
+        fetchFailed++;
       }
-    } catch {
-    }
-  });
-  await Promise.race([
-    Promise.all(cssPromises),
-    new Promise((resolve) => setTimeout(resolve, 6e3))
-    // 6s overall timeout
-  ]);
+    })
+  );
+  const stylesheetsCovered = crossOrigin === 0 && fetchFailed === 0 && sameOrigin.length <= MAX_STYLESHEETS;
   const hasMediaQueries = allMediaQueries.length > 0;
   const { hasMobile, hasTablet, hasDesktop, breakpoints } = classifyBreakpoints(allMediaQueries);
   if (!hasViewport) {
@@ -93611,21 +104710,22 @@ async function analyzeResponsiveCss(html, url) {
       affectedUrls: [url]
     });
   }
-  if (!hasMediaQueries) {
+  if (!hasResponsiveSignals && stylesheetsCovered) {
     issues.push({
       code: "RESPONSIVE_NO_MEDIA_QUERIES",
       severity: "warning",
       category: "mobile",
       title: "No CSS media queries detected",
-      description: "No @media queries found in inline styles or first-party stylesheets.",
+      description: "No @media or @container queries and no fluid sizing (clamp, min, max) found in inline styles or first-party stylesheets.",
       impact: "Without media queries, the site likely uses fixed layouts that do not adapt to different screen sizes. This hurts mobile usability and SEO.",
       howToFix: "Add CSS media queries to adapt layout for different screen sizes. Consider using a mobile-first approach with min-width breakpoints.",
       affectedUrls: [url],
       details: {
-        suggestion: "Common breakpoints: 480px (mobile), 768px (tablet), 1024px (desktop)"
+        suggestion: "Common breakpoints: 480px (mobile), 768px (tablet), 1024px (desktop)",
+        stylesheetsScanned: sameOrigin.length
       }
     });
-  } else if (!hasMobile && !hasTablet) {
+  } else if (hasMediaQueries && !hasMobile && !hasTablet) {
     issues.push({
       code: "RESPONSIVE_NO_MOBILE_BREAKPOINT",
       severity: "warning",
@@ -93651,6 +104751,8 @@ async function analyzeResponsiveCss(html, url) {
         inline: inlineCount,
         external: externalSources
       },
+      hasResponsiveSignals,
+      stylesheetsCovered,
       breakpoints,
       hasMobileBreakpoint: hasMobile,
       hasTabletBreakpoint: hasTablet,
@@ -93719,7 +104821,7 @@ async function analyzeDirectoryListing(url) {
     const dirUrl = `${baseOrigin}${dir}`;
     checkedDirectories.push(dir);
     try {
-      const response = await (0,chunk_NATXE6B3/* httpGet */.lx)(dirUrl, {
+      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(dirUrl, {
         timeout: 3e3,
         // Reduced timeout
         validateStatus: () => true
@@ -94288,7 +105390,22 @@ var urlSafetyDatabase = {
 
 // src/audit/checks/tracking-verification.ts
 
-function analyzeTrackingVerification(html, url) {
+var OTHER_ANALYTICS = [
+  { name: "Cloudflare Web Analytics", pattern: /cloudflareinsights\.com\/beacon(?:\.min)?\.js/i },
+  { name: "Plausible", pattern: /plausible\.io\/js\/|<script[^>]*data-domain=[^>]*plausible|<script[^>]*plausible[^>]*data-domain=/i },
+  { name: "Fathom", pattern: /cdn\.usefathom\.com/i },
+  // data-website-id is Umami's attribute, on the hosted script and on self-hosted ones alike.
+  { name: "Umami", pattern: /<script[^>]*\bdata-website-id=/i },
+  { name: "PostHog", pattern: /posthog\.init\s*\(|\.posthog\.com\//i },
+  { name: "Matomo", pattern: /matomo\.js|piwik\.js|_paq\s*(?:=|\.push)/i },
+  { name: "Simple Analytics", pattern: /scripts\.simpleanalyticscdn\.com/i },
+  { name: "Mixpanel", pattern: /cdn\.mxpnl\.com|mixpanel\.init\s*\(/i },
+  { name: "Segment", pattern: /cdn\.segment\.com/i }
+];
+function detectOtherAnalytics(html) {
+  return OTHER_ANALYTICS.filter(({ pattern }) => pattern.test(html)).map(({ name }) => name);
+}
+async function analyzeTrackingVerification(html, url) {
   const issues = [];
   const $ = esm/* load */.Hh(html);
   const ga4Match = html.match(/gtag\s*\(\s*['"]config['"]\s*,\s*['"](G-[A-Z0-9]+)['"]/i) || html.match(/googletagmanager\.com\/gtag\/js\?id=(G-[A-Z0-9]+)/i);
@@ -94298,10 +105415,16 @@ function analyzeTrackingVerification(html, url) {
   const hasGtm = !!gtmMatch;
   const gtmContainerId = gtmMatch ? gtmMatch[1] : void 0;
   const hasGtmNoscript = /googletagmanager\.com\/ns\.html\?id=GTM-[A-Z0-9]+/i.test(html);
+  const otherAnalytics = detectOtherAnalytics(html);
+  const verification = await lookupSiteVerification(url);
   const gscMeta = $('meta[name="google-site-verification"]').attr("content");
-  const hasGscVerification = !!(gscMeta && gscMeta.length > 10);
+  const hasGscMeta = !!(gscMeta && gscMeta.length > 10);
+  const hasGscVerification = hasGscMeta || verification.googleDns;
+  const gscSource = hasGscMeta ? "meta" : verification.googleDns ? "dns" : void 0;
   const bingMeta = $('meta[name="msvalidate.01"]').attr("content");
-  const hasBingVerification = !!(bingMeta && bingMeta.length > 10);
+  const hasBingMeta = !!(bingMeta && bingMeta.length > 10);
+  const hasBingVerification = hasBingMeta || verification.bingDns || verification.bingSiteAuthFile;
+  const bingSource = hasBingMeta ? "meta" : verification.bingDns ? "dns" : verification.bingSiteAuthFile ? "file" : void 0;
   const jsonLdScripts = $('script[type="application/ld+json"]');
   const hasMicrodata = $('[itemtype*="schema.org"]').length > 0;
   const hasJsonLd = jsonLdScripts.length > 0;
@@ -94323,16 +105446,19 @@ function analyzeTrackingVerification(html, url) {
   const data = {
     ga4: { detected: hasGa4, measurementId: ga4MeasurementId },
     gtm: { detected: hasGtm, containerId: gtmContainerId, hasNoscript: hasGtmNoscript },
-    gsc: { verified: hasGscVerification, verificationCode: gscMeta },
-    bing: { verified: hasBingVerification, verificationCode: bingMeta },
+    otherAnalytics,
+    gsc: { verified: hasGscVerification, verificationCode: gscMeta, source: gscSource },
+    bing: { verified: hasBingVerification, verificationCode: bingMeta, source: bingSource },
+    dnsChecked: verification.dnsChecked,
     schemaOrg: { detected: hasJsonLd || hasMicrodata, types: schemaTypes, hasValidJson },
     sitemap: { inRobotsTxt: false }
     // Set later if we check robots.txt
   };
-  if (!hasGa4 && !hasGtm) {
+  if (!hasGa4 && !hasGtm && otherAnalytics.length === 0) {
     issues.push({
       code: "GA4_MISSING",
-      severity: "warning",
+      // A notice: which analytics a site runs is a choice, not an SEO defect.
+      severity: "notice",
       category: "on-page",
       title: "Google Analytics 4 not detected",
       description: "No GA4 tracking code found. GA4 is essential for measuring organic traffic and conversions.",
@@ -94342,40 +105468,47 @@ function analyzeTrackingVerification(html, url) {
     });
   }
   if (!hasGscVerification) {
+    const dnsChecked = verification.dnsChecked;
     issues.push({
       code: "GSC_VERIFICATION_MISSING",
-      severity: "warning",
+      // A notice: a site verified by DNS, Google Analytics or Tag Manager leaves no trace here.
+      severity: "notice",
       category: "on-page",
-      title: "Google Search Console verification not found",
-      description: "No GSC verification meta tag detected. GSC provides essential data about your search performance.",
+      title: dnsChecked ? "Google Search Console verification not found" : "Google Search Console verification not visible in the HTML",
+      description: dnsChecked ? "No google-site-verification meta tag in the HTML and no google-site-verification TXT record on the domain. GSC provides essential data about your search performance." : "No google-site-verification meta tag in the HTML. The site may be verified through a DNS TXT record instead, which this run could not check. GSC provides essential data about your search performance.",
       impact: "Missing critical insights into Google search visibility, impressions, and clicks.",
-      howToFix: "Add your GSC verification meta tag to the <head> section. Get it from search.google.com/search-console.",
-      affectedUrls: [url]
+      howToFix: dnsChecked ? "Verify the site in Google Search Console: add the meta tag to <head>, or a TXT record to the domain's DNS. Get it from search.google.com/search-console." : "If the site is not yet verified in Google Search Console, add the meta tag to <head> or a TXT record to the domain's DNS. Get it from search.google.com/search-console.",
+      affectedUrls: [url],
+      details: { dnsChecked }
     });
   }
   if (!hasBingVerification) {
+    const dnsChecked = verification.dnsChecked;
     issues.push({
       code: "BING_VERIFICATION_MISSING",
       severity: "notice",
       category: "on-page",
-      title: "Bing Webmaster Tools verification not found",
-      description: "No Bing verification meta tag detected. Bing/Yahoo account for 5-8% of search traffic.",
+      title: dnsChecked ? "Bing Webmaster Tools verification not found" : "Bing Webmaster Tools verification not visible in the HTML",
+      description: dnsChecked ? "No msvalidate.01 meta tag in the HTML, no MS= TXT record on the domain and no /BingSiteAuth.xml file. Bing/Yahoo account for 5-8% of search traffic." : "No msvalidate.01 meta tag in the HTML and no /BingSiteAuth.xml file. The site may be verified through a DNS record instead, which this run could not check. Bing/Yahoo account for 5-8% of search traffic.",
       impact: "Missing insights on Bing/Yahoo search traffic.",
-      howToFix: "Add Bing Webmaster Tools verification for insights on Bing/Yahoo traffic. Get it from bing.com/webmasters.",
-      affectedUrls: [url]
+      howToFix: "If the site is not yet in Bing Webmaster Tools, add it there: import it from Google Search Console, or verify with the meta tag, a DNS record or BingSiteAuth.xml. Get it from bing.com/webmasters.",
+      affectedUrls: [url],
+      details: { dnsChecked }
     });
   }
   if (!hasGtm) {
-    issues.push({
-      code: "GTM_MISSING",
-      severity: "notice",
-      category: "on-page",
-      title: "Google Tag Manager not detected",
-      description: "GTM not found. While not required, GTM makes it easier to manage tracking tags without code changes.",
-      impact: "Tag management requires developer involvement for each change.",
-      howToFix: "Consider using GTM for easier tag management. It allows marketing to add tags without developer help.",
-      affectedUrls: [url]
-    });
+    if (otherAnalytics.length === 0) {
+      issues.push({
+        code: "GTM_MISSING",
+        severity: "notice",
+        category: "on-page",
+        title: "Google Tag Manager not detected",
+        description: "GTM not found. While not required, GTM makes it easier to manage tracking tags without code changes.",
+        impact: "Tag management requires developer involvement for each change.",
+        howToFix: "Consider using GTM for easier tag management. It allows marketing to add tags without developer help.",
+        affectedUrls: [url]
+      });
+    }
   } else if (!hasGtmNoscript) {
     issues.push({
       code: "GTM_NOSCRIPT_MISSING",
@@ -94414,6 +105547,113 @@ function analyzeTrackingVerification(html, url) {
   return { issues, data };
 }
 
+// src/audit/meta-refresh.ts
+
+function metaRefreshTarget(html, pageUrl) {
+  if (!/http-equiv\s*=\s*["']?refresh/i.test(html)) return null;
+  const $ = esm/* load */.Hh(html);
+  for (const el of $("meta[http-equiv]").toArray()) {
+    if (($(el).attr("http-equiv") || "").trim().toLowerCase() !== "refresh") continue;
+    const content = $(el).attr("content") || "";
+    const match = content.match(/^\s*(\d+(?:\.\d+)?)\s*[;,]\s*(?:url\s*=\s*)?['"]?\s*([^'"\s>]+)/i);
+    if (!match) continue;
+    if (Number(match[1]) > 5) continue;
+    try {
+      const target = new URL(match[2], pageUrl);
+      if (target.protocol !== "http:" && target.protocol !== "https:") continue;
+      const strip = (u) => u.origin + (u.pathname.replace(/\/+$/, "") || "/") + u.search;
+      if (strip(target) === strip(new URL(pageUrl))) continue;
+      return target.toString();
+    } catch {
+      continue;
+    }
+  }
+  return null;
+}
+
+// src/audit/dedupe.ts
+var REDUNDANT_WHEN_PRESENT = [
+  // The same tag, reported by three checks.
+  { keep: "VIEWPORT_MISSING", drop: ["HTML_NO_VIEWPORT", "RESPONSIVE_NO_VIEWPORT"] },
+  { keep: "LANG_ATTR_MISSING", drop: ["HTML_NO_LANG"] },
+  { keep: "APPLE_TOUCH_ICON_MISSING", drop: ["HTML_NO_APPLE_TOUCH_ICON"] },
+  { keep: "LLMS_TXT_MISSING", drop: ["AI_NO_LLMS_TXT"] },
+  { keep: "INDEXNOW_NOT_IMPLEMENTED", drop: ["BING_NO_INDEXNOW"] },
+  { keep: "BING_VERIFICATION_MISSING", drop: ["BING_NOT_VERIFIED"] },
+  { keep: "SITEMAP_MISSING", drop: ["BING_SITEMAP_MISSING", "SITEMAP_NOT_IN_ROBOTS"] },
+  { keep: "ROBOTS_TXT_MISSING", drop: ["SITEMAP_NOT_IN_ROBOTS"] },
+  { keep: "IMAGES_MISSING_DIMENSIONS", drop: ["IMG_NO_DIMENSIONS"] },
+  { keep: "NO_MODERN_IMAGE_FORMATS", drop: ["IMAGE_NOT_WEBP_AVIF"] },
+  { keep: "SOCIAL_PROFILES_NOT_LINKED", drop: ["NO_SOCIAL_PROFILES"] },
+  { keep: "NO_EXPERIENCE_SIGNALS", drop: ["AI_NO_EXPERIENCE_SIGNALS"] },
+  // No structured data at all makes every "your schema lacks X" finding moot.
+  {
+    keep: "SCHEMA_MISSING",
+    drop: [
+      "SCHEMA_ORG_MISSING",
+      "NO_ORGANIZATION_SCHEMA",
+      "ORGANIZATION_SCHEMA_MISSING",
+      "NO_ENTITY_SCHEMA",
+      "NO_DATE_MODIFIED_SCHEMA",
+      "NO_MAIN_ENTITY_OF_PAGE",
+      "AUTHOR_NO_SCHEMA",
+      "AI_NO_REVIEW_SCHEMA",
+      "NO_SCHEMA_SAMEAS"
+    ]
+  },
+  { keep: "NO_ORGANIZATION_SCHEMA", drop: ["ORGANIZATION_SCHEMA_MISSING"] },
+  // No title, no H1: the findings about their wording are implied.
+  { keep: "TITLE_MISSING", drop: ["LOW_CTR_POTENTIAL", "NO_KEYWORDS_IN_TITLE", "TITLE_TOO_SHORT"] },
+  { keep: "META_DESC_MISSING", drop: ["LOW_CTR_POTENTIAL"] },
+  { keep: "H1_MISSING", drop: ["NO_VISIBLE_HEADLINE", "NO_KEYWORDS_IN_H1", "H1_MISSING_KEYWORD"] },
+  // Client-side rendering, diagnosed once. CLIENT_SIDE_RENDERING carries the per-framework fix.
+  {
+    keep: "CLIENT_SIDE_RENDERING",
+    drop: [
+      "REACT_CSR_DETECTED",
+      "VUE_CSR_DETECTED",
+      "ANGULAR_NO_UNIVERSAL",
+      "SPA_WITHOUT_SSR",
+      "EMPTY_BODY_CONTENT",
+      "HIGH_JS_RENDERING_RATIO",
+      "AI_LOW_HTML_READABILITY"
+    ]
+  },
+  // An empty body has no vocabulary to be undiverse.
+  { keep: "EMPTY_BODY_CONTENT", drop: ["THIN_CONTENT", "LOW_CONTENT_ENTROPY", "HIGH_CONTENT_REPETITION", "LOW_DWELL_TIME_CONTENT", "LOW_TEXT_HTML_RATIO"] },
+  { keep: "THIN_CONTENT", drop: ["LOW_DWELL_TIME_CONTENT"] },
+  { keep: "NO_INTERNAL_LINKS", drop: ["NO_CONTENT_INTERNAL_LINKS", "HIGH_ORPHAN_RISK", "LINKS_NO_INTERNAL"] },
+  // No testimonials on the page, said once instead of six times.
+  { keep: "NO_SOCIAL_PROOF", drop: ["BOFU_NO_SOCIAL_PROOF", "AI_NO_TESTIMONIALS", "AI_NO_REVIEW_INTEGRATION", "AI_NO_REVIEW_PLATFORMS", "AI_WEAK_REVIEW_ECOSYSTEM"] },
+  { keep: "AI_NO_TESTIMONIALS", drop: ["AI_NO_REVIEW_INTEGRATION", "AI_NO_REVIEW_PLATFORMS", "AI_WEAK_REVIEW_ECOSYSTEM"] },
+  // The brand-score composite restates the brand-definition finding it is built from.
+  { keep: "AI_NO_BRAND_DEFINITION", drop: ["AI_LOW_BRAND_SCORE", "NO_ENTITY_DEFINITION"] }
+];
+function dedupeIssues(issues) {
+  const present = new Set(issues.map((i) => i.code));
+  const redundant = /* @__PURE__ */ new Set();
+  for (const rule of REDUNDANT_WHEN_PRESENT) {
+    const fires = typeof rule.keep === "string" ? present.has(rule.keep) : [...present].some((code) => rule.keep.test(code));
+    if (!fires) continue;
+    for (const code of rule.drop) redundant.add(code);
+  }
+  const kept = /* @__PURE__ */ new Map();
+  const out = [];
+  for (const issue of issues) {
+    if (redundant.has(issue.code)) continue;
+    const earlier = kept.get(issue.code);
+    if (earlier) {
+      const urls = /* @__PURE__ */ new Set([...earlier.affectedUrls || [], ...issue.affectedUrls || []]);
+      earlier.affectedUrls = [...urls];
+      continue;
+    }
+    const copy = { ...issue };
+    kept.set(issue.code, copy);
+    out.push(copy);
+  }
+  return out;
+}
+
 // src/audit/engine.ts
 function sameUrl(a, b) {
   try {
@@ -94426,15 +105666,15 @@ function sameUrl(a, b) {
   }
 }
 async function runFullAudit(options) {
-  const { url, checkBrokenLinks = false, checkHreflangUrls = false, checkCanonicalChain = false, cruxApiKey, checksLimit = 280, premiumChecks } = options;
+  const { checkBrokenLinks = false, checkHreflangUrls = false, checkCanonicalChain = false, cruxApiKey, checksLimit = 280, premiumChecks: premiumChecks2 = premiumChecks } = options;
+  let url = options.url;
   const auditRoot = isSiteRoot(url) || sameUrl(url, options.auditRootUrl ?? url);
   const allIssues = [];
   const pages = [];
   const tier = checksLimit <= 50 ? "free" : checksLimit <= 100 ? "registered" : "paid";
-  const runPremiumChecks = tier === "paid" && !!premiumChecks;
+  const runPremiumChecks = tier === "paid" && !!premiumChecks2;
   const runExtendedChecks = tier !== "free";
-  const parsedUrl = new URL(url);
-  const domain = parsedUrl.hostname;
+  let domain = new URL(url).hostname;
   console.error(`
 \u{1F50D} Running comprehensive SEO audit on ${url}...
 `);
@@ -94457,11 +105697,13 @@ async function runFullAudit(options) {
       console.error("Crawlability check failed:", err);
       return [];
     }),
-    (0,chunk_NATXE6B3/* httpGet */.lx)(url, {
+    (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
       timeout: 3e4,
       validateStatus: () => true
     }).catch((err) => {
-      console.error("Main page fetch failed:", err instanceof Error ? { message: err.message, cause: err.cause } : err);
+      const cause = err instanceof Error ? err.cause : void 0;
+      const causeText = cause instanceof Error ? ` (${cause.code || cause.message})` : "";
+      console.error(`Main page fetch failed: ${err instanceof Error ? err.message : String(err)}${causeText}`);
       return { error: err, data: "", headers: {} };
     })
   ]);
@@ -94484,7 +105726,7 @@ async function runFullAudit(options) {
     });
     return createReport(url, domain, allIssues, pages, { kind: "unreachable" });
   }
-  const statusCode = fetchResult.status;
+  let statusCode = fetchResult.status;
   if (statusCode >= 400) {
     const blocked = statusCode === 401 || statusCode === 403 || statusCode === 429;
     allIssues.push({
@@ -94497,10 +105739,42 @@ async function runFullAudit(options) {
     pages.push({ url, statusCode, wordCount: 0, loadTime: 0, issues: allIssues.map((i) => i.code) });
     return createReport(url, domain, allIssues, pages, { kind: "http-error", statusCode });
   }
-  const body = typeof fetchResult.data === "string" ? fetchResult.data : JSON.stringify(fetchResult.data ?? "");
+  const asText = (data) => typeof data === "string" ? data : JSON.stringify(data ?? "");
+  let body = asText(fetchResult.data);
+  let headers = fetchResult.headers;
+  const requestedUrl = url;
+  const refreshHops = [];
+  for (let hop = 0; hop < 3; hop++) {
+    const target = metaRefreshTarget(body, url);
+    if (!target) break;
+    try {
+      const next = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(target, { timeout: 3e4, validateStatus: () => true });
+      if (next.status >= 400) break;
+      refreshHops.push(target);
+      url = target;
+      body = asText(next.data);
+      headers = next.headers;
+      statusCode = next.status;
+    } catch {
+      break;
+    }
+  }
+  if (refreshHops.length > 0) {
+    domain = new URL(url).hostname;
+    allIssues.push({
+      code: "META_REFRESH_REDIRECT",
+      severity: "notice",
+      category: "crawlability",
+      title: "Page redirects with a meta refresh",
+      description: `${requestedUrl} answers HTTP 200 with a <meta http-equiv="refresh"> to ${url}, so that page was audited. Search engines follow an instant meta refresh, but a server redirect is the documented way to move a URL and the only one every crawler and tool honours.`,
+      impact: "Some crawlers and link-checking tools stop at the stub; link signals to the original URL may not all pass to the target.",
+      howToFix: "Return a 301 (or 308) redirect from the server or CDN for this URL instead of a meta refresh.",
+      affectedUrls: [requestedUrl],
+      details: { from: requestedUrl, to: url, hops: refreshHops }
+    });
+  }
   const html = body.replace(/<\/?noscript[^>]*>/gi, "");
-  const headers = fetchResult.headers;
-  console.error(`\u{1F4DD} Phase 2: Running synchronous HTML checks (tier: ${tier}, limit: ${checksLimit})...`);
+  console.error("\u{1F4DD} Phase 2: Running HTML checks...");
   const onPageResult = analyzeOnPage(html, url, headers, { auditRoot });
   const structuredDataResult = analyzeStructuredData2(html, url);
   const mobileResult = analyzeMobile(html, url);
@@ -94515,7 +105789,6 @@ async function runFullAudit(options) {
   const urlSafetyResult = analyzeUrlSafety(url);
   const domSizeResult = analyzeDomSize(html, url);
   const imageDimensionsResult = analyzeImageDimensions(html, url);
-  const trackingResult = analyzeTrackingVerification(html, url);
   const anchorResult = runExtendedChecks ? analyzeAnchorText(html, url) : { issues: [], data: {} };
   const localSeoResult = runExtendedChecks ? analyzeLocalSEO(html, url) : { issues: [], data: {} };
   const modernImageResult = runExtendedChecks ? analyzeModernImages(html, url) : { issues: [], data: {} };
@@ -94525,27 +105798,27 @@ async function runFullAudit(options) {
   const responsiveImgResult = runExtendedChecks ? analyzeResponsiveImages(html, url) : { issues: [], data: {} };
   const colorContrastResult = runExtendedChecks ? analyzeColorContrast(html, url) : { issues: [], data: {} };
   const pageResourcesResult = runExtendedChecks ? analyzePageResources(html, url) : { issues: [], data: {} };
-  const snippetResult = runPremiumChecks ? premiumChecks.analyzeFeaturedSnippet(html, url) : { issues: [], data: {} };
-  const linkGraphResult = runPremiumChecks ? premiumChecks.analyzeInternalLinkGraph(html, url) : { issues: [], data: {} };
-  const eeatResult = runPremiumChecks ? premiumChecks.analyzeEEATSignals(html, url) : { issues: [], data: {} };
-  const contentScienceResult = runPremiumChecks ? premiumChecks.analyzeContentScience(html, url) : { issues: [], data: {} };
-  const cannibalizationResult = runPremiumChecks ? premiumChecks.analyzeKeywordCannibalizationSinglePage(html, url) : { issues: [], data: {} };
-  const conversionResult = runPremiumChecks ? premiumChecks.analyzeConversionElements(html, url) : { issues: [], data: {} };
-  const keywordPlacementResult = runPremiumChecks ? premiumChecks.analyzeKeywordPlacement(html, url) : { issues: [], data: {} };
-  const clusterResult = runPremiumChecks ? premiumChecks.analyzeTopicalClusters(html, url) : { issues: [], data: {} };
-  const platformResult = runPremiumChecks ? premiumChecks.analyzePlatformPresence(html, url) : { issues: [], data: {} };
-  const toolResult = runPremiumChecks ? premiumChecks.analyzeInteractiveTools(html, url) : { issues: [], data: {} };
-  const funnelResult = runPremiumChecks ? premiumChecks.analyzeFunnelIntent(html, url) : { issues: [], data: {} };
-  const navboostResult = runPremiumChecks ? premiumChecks.analyzeNavBoostSignals(html, url) : { issues: [], data: {} };
-  const entityResult = runPremiumChecks ? premiumChecks.analyzeEntitySEO(html, url) : { issues: [], data: {} };
-  const qdfFreshnessResult = runPremiumChecks ? premiumChecks.analyzeFreshnessSignals(html, url) : { issues: [], data: {} };
-  const aiContentStructureResult = runPremiumChecks ? premiumChecks.analyzeAIContentStructure(html, url) : { issues: [], data: {} };
-  const ragChunkReadinessResult = runPremiumChecks ? premiumChecks.analyzeRAGChunkReadiness(html, url) : { issues: [], data: {} };
-  const citationQualityResult = runPremiumChecks ? premiumChecks.analyzeCitationQuality(html, url) : { issues: [], data: {} };
-  const answerConcisenessResult = runPremiumChecks ? premiumChecks.analyzeAnswerConciseness(html, url) : { issues: [], data: {} };
-  const brandMentionResult = runPremiumChecks ? premiumChecks.analyzeBrandMentionOptimization(html, url) : { issues: [], data: {} };
-  const citationWorthinessResult = runPremiumChecks ? premiumChecks.analyzeAICitationWorthiness(html, url) : { issues: [], data: {} };
-  const reviewEcosystemResult = runPremiumChecks ? premiumChecks.analyzeReviewEcosystem(html, url) : { issues: [], data: {} };
+  const snippetResult = runPremiumChecks ? premiumChecks2.analyzeFeaturedSnippet(html, url) : { issues: [], data: {} };
+  const linkGraphResult = runPremiumChecks ? premiumChecks2.analyzeInternalLinkGraph(html, url) : { issues: [], data: {} };
+  const eeatResult = runPremiumChecks ? premiumChecks2.analyzeEEATSignals(html, url) : { issues: [], data: {} };
+  const contentScienceResult = runPremiumChecks ? premiumChecks2.analyzeContentScience(html, url) : { issues: [], data: {} };
+  const cannibalizationResult = runPremiumChecks ? premiumChecks2.analyzeKeywordCannibalizationSinglePage(html, url) : { issues: [], data: {} };
+  const conversionResult = runPremiumChecks ? premiumChecks2.analyzeConversionElements(html, url) : { issues: [], data: {} };
+  const keywordPlacementResult = runPremiumChecks ? premiumChecks2.analyzeKeywordPlacement(html, url) : { issues: [], data: {} };
+  const clusterResult = runPremiumChecks ? premiumChecks2.analyzeTopicalClusters(html, url) : { issues: [], data: {} };
+  const platformResult = runPremiumChecks ? premiumChecks2.analyzePlatformPresence(html, url) : { issues: [], data: {} };
+  const toolResult = runPremiumChecks ? premiumChecks2.analyzeInteractiveTools(html, url) : { issues: [], data: {} };
+  const funnelResult = runPremiumChecks ? premiumChecks2.analyzeFunnelIntent(html, url) : { issues: [], data: {} };
+  const navboostResult = runPremiumChecks ? premiumChecks2.analyzeNavBoostSignals(html, url) : { issues: [], data: {} };
+  const entityResult = runPremiumChecks ? premiumChecks2.analyzeEntitySEO(html, url) : { issues: [], data: {} };
+  const qdfFreshnessResult = runPremiumChecks ? premiumChecks2.analyzeFreshnessSignals(html, url) : { issues: [], data: {} };
+  const aiContentStructureResult = runPremiumChecks ? premiumChecks2.analyzeAIContentStructure(html, url) : { issues: [], data: {} };
+  const ragChunkReadinessResult = runPremiumChecks ? premiumChecks2.analyzeRAGChunkReadiness(html, url) : { issues: [], data: {} };
+  const citationQualityResult = runPremiumChecks ? premiumChecks2.analyzeCitationQuality(html, url) : { issues: [], data: {} };
+  const answerConcisenessResult = runPremiumChecks ? premiumChecks2.analyzeAnswerConciseness(html, url) : { issues: [], data: {} };
+  const brandMentionResult = runPremiumChecks ? premiumChecks2.analyzeBrandMentionOptimization(html, url) : { issues: [], data: {} };
+  const citationWorthinessResult = runPremiumChecks ? premiumChecks2.analyzeAICitationWorthiness(html, url) : { issues: [], data: {} };
+  const reviewEcosystemResult = runPremiumChecks ? premiumChecks2.analyzeReviewEcosystem(html, url) : { issues: [], data: {} };
   allIssues.push(
     ...onPageResult.issues,
     ...structuredDataResult.issues,
@@ -94590,8 +105863,7 @@ async function runFullAudit(options) {
     ...colorContrastResult.issues,
     ...pageResourcesResult.issues,
     ...urlSafetyResult.issues,
-    ...paginationResult.issues,
-    ...trackingResult.issues
+    ...paginationResult.issues
   );
   if (!structuredDataResult.data.hasSchema) {
     const suggestions = suggestSchemaTypes(html, url);
@@ -94637,11 +105909,15 @@ async function runFullAudit(options) {
   asyncChecks.push(safeAsyncIssues("Certificate", async () => (await checkCertificate(url)).issues));
   asyncChecks.push(safeAsync("Redirects", () => analyzeRedirects(url)));
   asyncChecks.push(safeAsync("Robots Validation", () => validateRobotsTxt(url)));
+  asyncChecks.push(safeAsync("Tracking Verification", () => analyzeTrackingVerification(html, url)));
+  asyncChecks.push(safeAsyncIssues("Crawler Access", async () => (await analyzeCrawlerAccess(url)).issues));
   asyncChecks.push(safeAsync("Canonical Domain", () => analyzeCanonicalDomain(url)));
   asyncChecks.push(safeAsyncIssues("Framework Detection", async () => {
     const frameworkInfo = detectFramework({ html, headers });
     if (frameworkInfo.framework === "unknown") return [];
-    return getFrameworkIssues(frameworkInfo, html, url);
+    return getFrameworkIssues(frameworkInfo, html, url, {
+      indexable: !pageHasNoindex(html, headers)
+    });
   }));
   if (runExtendedChecks) {
     asyncChecks.push(safeAsync("Hreflang", () => analyzeHreflang(html, url, { validateUrls: checkHreflangUrls })));
@@ -94665,10 +105941,10 @@ async function runFullAudit(options) {
     if (cruxApiKey) {
       asyncChecks.push(safeAsyncIssues("Core Web Vitals", async () => {
         const cwv = await fetchCoreWebVitals(url, cruxApiKey);
-        const issues = [];
+        const issues2 = [];
         if (cwv) {
           if (cwv.lcp?.rating === "poor") {
-            issues.push({
+            issues2.push({
               code: "LCP_POOR",
               severity: "error",
               category: "performance",
@@ -94681,7 +105957,7 @@ async function runFullAudit(options) {
             });
           }
           if (cwv.cls?.rating === "poor") {
-            issues.push({
+            issues2.push({
               code: "CLS_POOR",
               severity: "error",
               category: "performance",
@@ -94694,14 +105970,15 @@ async function runFullAudit(options) {
             });
           }
         }
-        return issues;
+        return issues2;
       }));
     }
   }
   const asyncResults = await Promise.all(asyncChecks);
-  for (const issues of asyncResults) {
-    allIssues.push(...issues);
+  for (const issues2 of asyncResults) {
+    allIssues.push(...issues2);
   }
+  const issues = dedupeIssues(allIssues);
   pages.push({
     url,
     statusCode,
@@ -94711,10 +105988,10 @@ async function runFullAudit(options) {
     h1: onPageResult.data.h1s,
     wordCount: onPageResult.data.wordCount,
     loadTime: perfData.loadTime,
-    issues: allIssues.map((i) => i.code)
+    issues: issues.map((i) => i.code)
   });
   console.error("\n\u2705 Audit complete!\n");
-  return createReport(url, domain, allIssues, pages);
+  return createReport(url, domain, issues, pages);
 }
 function createReport(url, domain, issues, pages, pageFailure) {
   const healthScore = calculateHealthScore(issues);
@@ -94780,7 +106057,7 @@ function calculateHealthScore(issues) {
   const links = Math.max(0, 100 - categoryDeductions.links * 3);
   const performance = Math.max(0, 100 - categoryDeductions.performance * 4);
   const security = Math.max(0, 100 - categoryDeductions.security * 5);
-  const aiReadiness = Math.max(0, 100 - categoryDeductions["ai-readiness"] * 3);
+  const aiReadiness = Math.max(0, 100 - categoryDeductions["ai-readiness"] * 1);
   const social = Math.max(0, 100 - categoryDeductions.social * 2);
   const localSeo = Math.max(0, 100 - categoryDeductions["local-seo"] * 2);
   const accessibility = Math.max(0, 100 - categoryDeductions.accessibility * 4);
@@ -94882,7 +106159,7 @@ function groupIssuesByCategory(issues) {
 
 
 function extractContentHash(html, url) {
-  const $ = cheerio37.load(html);
+  const $ = cheerio59.load(html);
   $("script, style, nav, header, footer, aside, .nav, .header, .footer, .sidebar").remove();
   const title = $("title").text().trim();
   const bodyText = $("body").text().replace(/\s+/g, " ").trim();
@@ -95029,7 +106306,7 @@ var EXCLUDE_PATTERNS = (/* unused pure expression or super */ null && ([
   /[?&](utm_|ref=|source=)/i
   // Tracking params
 ]));
-function extractLinks2(html, baseUrl) {
+function extractLinks3(html, baseUrl) {
   const base = new URL(baseUrl);
   const links = /* @__PURE__ */ new Set();
   const hrefRegex = /href=["']([^"']+)["']/gi;
@@ -95101,7 +106378,7 @@ function calculatePriority(url) {
   }
 }
 function discoverPagesFromLinks(baseUrl, html, maxPages = 5) {
-  const links = extractLinks2(html, baseUrl);
+  const links = extractLinks3(html, baseUrl);
   const pages = links.map((url) => ({
     url,
     source: "internal-link",
@@ -96413,7 +107690,7 @@ async function getPeopleAlsoAsk(query) {
       headers: { "User-Agent": USER_AGENT },
       timeout: 1e4
     });
-    const $ = cheerio38.load(response.data);
+    const $ = cheerio60.load(response.data);
     const questions = [];
     $("[data-sgrd]").each((_, el) => {
       const text = $(el).text().trim();
@@ -96439,7 +107716,7 @@ async function getRelatedSearches(query) {
       headers: { "User-Agent": USER_AGENT },
       timeout: 1e4
     });
-    const $ = cheerio38.load(response.data);
+    const $ = cheerio60.load(response.data);
     const related = [];
     $("div[data-ved] a").each((_, el) => {
       const href = $(el).attr("href");
@@ -96529,7 +107806,7 @@ async function analyzeCompetitorTitles(query) {
       headers: { "User-Agent": USER_AGENT },
       timeout: 1e4
     });
-    const $ = cheerio38.load(response.data);
+    const $ = cheerio60.load(response.data);
     const titles = [];
     const keywords = /* @__PURE__ */ new Set();
     $("h3").each((_, el) => {
@@ -96861,7 +108138,7 @@ async function fetchPageMeta(url) {
     const response = await httpGet(url, {
       timeout: 1e4
     });
-    const $ = cheerio39.load(response.data);
+    const $ = cheerio61.load(response.data);
     return {
       url,
       title: $("title").text().trim() || void 0,
@@ -96992,20 +108269,17 @@ async function extractSeedKeywords(url) {
     const response = await httpGet(url, {
       timeout: 1e4
     });
-    const $ = cheerio39.load(response.data);
+    const $ = cheerio61.load(response.data);
     const seeds = /* @__PURE__ */ new Set();
-    const title = $("title").text().toLowerCase();
-    const titleWords = title.split(/[\s\-|:]+/).filter((w) => w.length > 3);
-    titleWords.forEach((w) => seeds.add(w));
-    const h1 = $("h1").first().text().toLowerCase();
-    const h1Words = h1.split(/[\s\-|:]+/).filter((w) => w.length > 3);
-    h1Words.forEach((w) => seeds.add(w));
+    const words = (text) => text.toLowerCase().split(/[\s\-|:]+/).map((w) => w.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, "")).filter((w) => w.length > 3);
+    words($("title").text()).forEach((w) => seeds.add(w));
+    words($("h1").first().text()).forEach((w) => seeds.add(w));
     const metaKeywords = $('meta[name="keywords"]').attr("content");
     if (metaKeywords) {
       metaKeywords.split(",").forEach((k) => seeds.add(k.trim().toLowerCase()));
     }
     const desc = $('meta[name="description"]').attr("content")?.toLowerCase() || "";
-    const descWords = desc.split(/\s+/).filter((w) => w.length > 5);
+    const descWords = words(desc).filter((w) => w.length > 5);
     descWords.slice(0, 5).forEach((w) => seeds.add(w));
     return Array.from(seeds).slice(0, 10);
   } catch {
@@ -97170,7 +108444,7 @@ async function crawlPage(url, timeout) {
     validateStatus: (status) => status === 200
   });
   const html = response.data;
-  const $ = cheerio40.load(html);
+  const $ = cheerio62.load(html);
   $('script, style, noscript, iframe, nav, footer, header, aside, [role="navigation"]').remove();
   const title = $("title").text().trim();
   const description = $('meta[name="description"]').attr("content")?.trim() || "";
@@ -97693,7 +108967,7 @@ function extractNgrams(text, n, minFrequency = 2) {
     words: n
   })).sort((a, b) => b.frequency - a.frequency);
 }
-function calculateBM25(documents, query, k1 = 1.5, b = 0.75) {
+function calculateBM252(documents, query, k1 = 1.5, b = 0.75) {
   const tokenizedDocs = documents.map(tokenize2);
   const queryTokens = tokenize2(query);
   const avgDocLength = tokenizedDocs.reduce((sum, doc) => sum + doc.length, 0) / tokenizedDocs.length;
@@ -99902,7 +111176,7 @@ async function analyzeSERP(query) {
       headers: { "User-Agent": USER_AGENT2 },
       timeout: 1e4
     });
-    const $ = cheerio41.load(response.data);
+    const $ = cheerio63.load(response.data);
     const results = [];
     const relatedSearches = [];
     const peopleAlsoAsk = [];
@@ -100355,7 +111629,7 @@ function formatTopicReport(result) {
 
 // src/content/readability.ts
 function analyzeReadability(text) {
-  const cleanText = text.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  const cleanText = text.replace(/<[^>]*>/g, " ").replace(/[ \t\r\f\v]+/g, " ").replace(/ ?\n ?/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
   const words = getWords(cleanText);
   const sentences = getSentences(cleanText);
   const paragraphs = getParagraphs(cleanText);
@@ -100424,7 +111698,7 @@ function getSentences(text) {
   return text.split(/[.!?]+/).filter((s) => s.trim().length > 0);
 }
 function getParagraphs(text) {
-  return text.split(/\n\n+/).filter((p) => p.trim().length > 0);
+  return text.split(/\n\n+/).filter((p) => p.trim().split(/\s+/).length >= 3);
 }
 function countSyllables(word) {
   word = word.toLowerCase().replace(/[^a-z]/g, "");
@@ -102223,7 +113497,7 @@ This will open a browser for OAuth consent and save tokens locally.
 `;
 }
 
-// src/tracking/github-action.ts
+// src/tracking/github-action-template.ts
 function generateWorkflow(config) {
   const cronSchedule = getCronSchedule(config.schedule);
   const sync = !!config.syncToDashboard;
@@ -102454,6 +113728,8 @@ function generateGitHubActionSetup(config) {
     readmeBadge: `[![SEO Status](https://github.com/YOUR_ORG/YOUR_REPO/actions/workflows/seo.yml/badge.svg)](https://github.com/YOUR_ORG/YOUR_REPO/actions/workflows/seo.yml)`
   };
 }
+
+// src/tracking/github-action.ts
 function writeGitHubActionFiles(projectPath, config) {
   const fs3 = __require("fs");
   const path3 = __require("path");
@@ -103223,14 +114499,14 @@ async function generateH1Fix(params) {
 // src/tools/index.ts
 var tools = {
   // Crawling tools
-  crawl_url: (params) => (0,chunk_NATXE6B3/* crawlUrl */.L1)(params),
-  extract_meta: (params) => (0,chunk_NATXE6B3/* extractMeta */.lD)(params),
-  analyze_headings: (params) => (0,chunk_NATXE6B3/* analyzeHeadings */.w9)(params),
-  extract_images: (params) => (0,chunk_NATXE6B3/* extractImages */.qq)(params),
-  extract_links: (params) => (0,chunk_NATXE6B3/* extractLinks */.rc)(params),
-  extract_schema: (params) => (0,chunk_NATXE6B3/* extractSchema */.TT)(params),
-  check_robots: (params) => (0,chunk_NATXE6B3/* checkRobots */.W1)(params),
-  check_sitemap: (params) => (0,chunk_NATXE6B3/* checkSitemap */.u7)(params),
+  crawl_url: (params) => (0,chunk_ZLQQXIZ3/* crawlUrl */.L1)(params),
+  extract_meta: (params) => (0,chunk_ZLQQXIZ3/* extractMeta */.lD)(params),
+  analyze_headings: (params) => (0,chunk_ZLQQXIZ3/* analyzeHeadings */.w9)(params),
+  extract_images: (params) => (0,chunk_ZLQQXIZ3/* extractImages */.qq)(params),
+  extract_links: (params) => (0,chunk_ZLQQXIZ3/* extractLinks */.rc)(params),
+  extract_schema: (params) => (0,chunk_ZLQQXIZ3/* extractSchema */.TT)(params),
+  check_robots: (params) => (0,chunk_ZLQQXIZ3/* checkRobots */.W1)(params),
+  check_sitemap: (params) => (0,chunk_ZLQQXIZ3/* checkSitemap */.u7)(params),
   // File tools
   read_file: (params) => readFile(params),
   write_file: (params) => dist_writeFile(params),
@@ -103239,7 +114515,7 @@ var tools = {
   find_html_entry: (params) => findHtmlEntry(params),
   find_page_files: (params) => findPageFiles(params),
   // High-level analysis
-  analyze_url: (params) => (0,chunk_NATXE6B3/* analyzeUrl */.OU)(params)
+  analyze_url: (params) => (0,chunk_ZLQQXIZ3/* analyzeUrl */.OU)(params)
 };
 
 // src/executor.ts
@@ -103510,7 +114786,7 @@ async function executeAgent(agent, options = {}) {
   }
 }
 async function runDirectAnalysis(url) {
-  const { analyzeUrl: analyzeUrl2 } = await __nccwpck_require__.e(/* import() */ 517).then(__nccwpck_require__.bind(__nccwpck_require__, 9517));
+  const { analyzeUrl: analyzeUrl2 } = await __nccwpck_require__.e(/* import() */ 421).then(__nccwpck_require__.bind(__nccwpck_require__, 5421));
   const result = await analyzeUrl2({ url });
   if (!result.success || !result.data) {
     throw new Error(result.error || "Analysis failed");
@@ -108978,7 +120254,7 @@ Sitemap: ${url}/sitemap.xml`;
   };
 }
 function generateSitemapFix(context, url) {
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  const sitemap2 = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>${url}</loc>
@@ -108990,7 +120266,7 @@ function generateSitemapFix(context, url) {
     issue: { code: "MISSING_SITEMAP", message: "No sitemap.xml found", severity: "warning" },
     file: "public/sitemap.xml",
     before: null,
-    after: sitemap,
+    after: sitemap2,
     explanation: "Created sitemap.xml to help search engines discover all pages"
   };
 }
@@ -109087,7 +120363,7 @@ function generateLangFix(context) {
   };
 }
 function generateLlmsTxtFix(context, siteName, url) {
-  const llmsTxt = `# ${siteName}
+  const llmsTxt2 = `# ${siteName}
 > ${siteName} - A brief description of your product/service
 
 ## About
@@ -109110,7 +120386,7 @@ ${siteName} is... [Add your description here]
     issue: { code: "AI_NO_LLMS_TXT", message: "No llms.txt file for AI crawlers", severity: "info" },
     file: "public/llms.txt",
     before: null,
-    after: llmsTxt,
+    after: llmsTxt2,
     explanation: "Created llms.txt to help AI systems understand your site. Customize the content."
   };
 }
@@ -109741,6 +121017,394 @@ var Schemas = {
   speakable: generateSpeakableSchema,
   sitelinksSearchbox: generateSitelinksSearchboxSchema
 };
+
+// src/fixer/deterministic.ts
+function xmlEscape(value) {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+}
+function sitemap(urls) {
+  const today = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
+  const entries = urls.map(
+    (url) => `  <url>
+    <loc>${xmlEscape(url)}</loc>
+    <lastmod>${today}</lastmod>
+  </url>`
+  ).join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated by RankCLI - https://rankcli.dev -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${entries}
+</urlset>
+`;
+}
+function llmsTxt(siteName, siteUrl, description, pages) {
+  const base = siteUrl.replace(/\/$/, "");
+  const trim = (url) => url.replace(/\/$/, "");
+  const links = pages.filter((url) => trim(url) !== base).map((url) => ({ url, path: url.replace(base, "").replace(/^$/, "/") })).filter((page) => page.path !== "/").slice(0, 20).map((page) => `- [${page.path}](${page.url})`).join("\n");
+  return `# ${siteName}
+
+${description ? `> ${description}
+
+` : ""}${base}
+
+## Pages
+- [Home](${base}/)
+${links}
+
+<!-- Generated by RankCLI - https://rankcli.dev -->
+`;
+}
+function jsonLdBlock(siteName, siteUrl, description) {
+  const base = siteUrl.replace(/\/$/, "");
+  const graph = [
+    generateWebSiteSchema({ name: siteName, url: base, ...description ? { description } : {} }),
+    generateOrganizationSchema({ name: siteName, url: base, ...description ? { description } : {} })
+  ];
+  return `    <script type="application/ld+json">
+${JSON.stringify(graph, null, 2).split("\n").map((line) => `    ${line}`).join("\n")}
+    </script>
+`;
+}
+var SCHEMA_CODES = (/* unused pure expression or super */ null && ([
+  "SCHEMA_MISSING",
+  "SCHEMA_ORG_MISSING",
+  "ORGANIZATION_SCHEMA_MISSING",
+  "NO_ORGANIZATION_SCHEMA",
+  "NO_ENTITY_SCHEMA",
+  "STRUCTURED_DATA_MISSING"
+]));
+function metaDescriptionOf(html) {
+  if (!html) return null;
+  const match = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i) || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+name=["']description["']/i);
+  return match?.[1]?.trim() || null;
+}
+function buildDeterministicFixes(input) {
+  const codes = new Set(input.issueCodes);
+  const has = (...wanted) => wanted.some((code) => codes.has(code));
+  const root = input.appRoot || "";
+  const publicDir = input.publicDir === void 0 ? "public/" : input.publicDir.replace(/\/?$/, input.publicDir ? "/" : "");
+  const served = `${root}${publicDir}`;
+  const files = [];
+  const addressed = [];
+  const base = input.siteUrl.replace(/\/$/, "");
+  const pages = input.pages?.length ? input.pages : [`${base}/`];
+  const description = input.description ?? metaDescriptionOf(input.existing.indexHtml);
+  if (has("ROBOTS_TXT_MISSING", "AI_BOTS_BLOCKED", "AI_CRAWLERS_BLOCKED") && !input.existing.robotsTxt) {
+    files.push({
+      path: `${served}robots.txt`,
+      content: generateAIFriendlyRobotsTxt(base),
+      message: "fix(seo): add robots.txt allowing search and AI crawlers",
+      action: "created"
+    });
+    addressed.push("ROBOTS_TXT_MISSING");
+  }
+  if (has("SITEMAP_MISSING") && !input.existing.sitemapXml) {
+    files.push({
+      path: `${served}sitemap.xml`,
+      content: sitemap(pages),
+      message: "fix(seo): add sitemap.xml",
+      action: "created"
+    });
+    addressed.push("SITEMAP_MISSING");
+  }
+  if (has("LLMS_TXT_MISSING") && !input.existing.llmsTxt) {
+    files.push({
+      path: `${served}llms.txt`,
+      content: llmsTxt(input.siteName, base, description, pages),
+      message: "fix(seo): add llms.txt for AI assistants",
+      action: "created"
+    });
+    addressed.push("LLMS_TXT_MISSING");
+  }
+  const indexHtml = input.existing.indexHtml;
+  if (has(...SCHEMA_CODES) && indexHtml && !indexHtml.includes("application/ld+json") && indexHtml.includes("</head>")) {
+    files.push({
+      path: `${root}index.html`,
+      content: indexHtml.replace("</head>", `${jsonLdBlock(input.siteName, base, description)}  </head>`),
+      message: "fix(seo): add WebSite and Organization JSON-LD",
+      action: "edited"
+    });
+    addressed.push(...SCHEMA_CODES.filter((code) => codes.has(code)));
+  }
+  const name = (file) => file.path.split("/").pop();
+  const created = files.filter((f) => f.action === "created").map(name);
+  const edited = files.filter((f) => f.action === "edited").map(name);
+  const parts = [
+    created.length ? `Added ${created.join(", ")}` : null,
+    edited.length ? `updated ${edited.join(", ")}` : null
+  ].filter(Boolean);
+  const summary = files.length ? `${parts.join("; ")} from RankCLI's templates - generated from the site's URL and name, with no AI and nothing invented.` : "No template-generatable issues were open on this report.";
+  return { files, addressed, summary };
+}
+
+// src/fixer/app-root.ts
+var PREFERRED_NAMES = (/* unused pure expression or super */ null && (["web", "app", "site", "www", "frontend", "client", "ui", "saas", "marketing", "docs"]));
+function directoryOf(path3) {
+  const cut = path3.lastIndexOf("/");
+  return cut === -1 ? "" : path3.slice(0, cut);
+}
+function findAppRoot(files) {
+  const real = files.filter((f) => !f.includes("node_modules/") && !f.startsWith("."));
+  const packageDirs = new Set(
+    real.filter((f) => f === "package.json" || f.endsWith("/package.json")).map(directoryOf)
+  );
+  const candidates = real.filter((f) => f === "index.html" || f.endsWith("/index.html")).map(directoryOf).map((dir) => dir.endsWith("/public") ? dir.slice(0, -"/public".length) : dir === "public" ? "" : dir).filter((dir) => packageDirs.has(dir));
+  if (candidates.length > 0) {
+    const depth = (dir) => dir === "" ? 0 : dir.split("/").length;
+    candidates.sort((a, b) => {
+      if (depth(a) !== depth(b)) return depth(a) - depth(b);
+      const rank = (dir) => {
+        const name = dir.split("/").pop() ?? "";
+        const index = PREFERRED_NAMES.indexOf(name);
+        return index === -1 ? PREFERRED_NAMES.length : index;
+      };
+      return rank(a) - rank(b) || a.localeCompare(b);
+    });
+    const best = candidates[0];
+    return best === "" ? "" : `${best}/`;
+  }
+  const PAGES_MARKERS = ["CNAME", ".nojekyll", "404.html", "site.webmanifest"];
+  const staticRoots = real.filter((f) => f === "index.html" || f.endsWith("/index.html")).map(directoryOf).filter((dir) => PAGES_MARKERS.some((marker) => real.includes(dir ? `${dir}/${marker}` : marker)));
+  if (staticRoots.length > 0) {
+    staticRoots.sort((a, b) => a.split("/").length - b.split("/").length || a.localeCompare(b));
+    return staticRoots[0] === "" ? "" : `${staticRoots[0]}/`;
+  }
+  const nonRoot = [...packageDirs].filter((dir) => dir !== "");
+  if (packageDirs.has("") || nonRoot.length === 0) return "";
+  nonRoot.sort((a, b) => a.split("/").length - b.split("/").length || a.localeCompare(b));
+  return `${nonRoot[0]}/`;
+}
+
+// src/fixer/served-dir.ts
+var SERVED_DIR = {
+  // Bundlers and meta-frameworks that copy a public/ directory verbatim.
+  react: "public/",
+  vue: "public/",
+  svelte: "public/",
+  angular: "public/",
+  solidjs: "public/",
+  qwik: "public/",
+  nextjs: "public/",
+  nuxt: "public/",
+  astro: "public/",
+  sveltekit: "static/",
+  // SvelteKit's is static/, not public/
+  remix: "public/",
+  fresh: "static/",
+  // Gatsby, Hugo, Eleventy and Docusaurus all name theirs static/.
+  gatsby: "static/",
+  hugo: "static/",
+  eleventy: "public/",
+  docusaurus: "static/",
+  // Server frameworks with a public document root.
+  rails: "public/",
+  laravel: "public/",
+  symfony: "public/",
+  phoenix: "priv/static/",
+  spring: "src/main/resources/static/",
+  aspnet: "wwwroot/",
+  // Jekyll and Pelican copy their source tree, so the app root is the served root.
+  jekyll: "",
+  pelican: ""
+  // Python web frameworks have no single convention; the tree decides below.
+};
+function servedDir(framework, files, appRoot = "") {
+  const known = framework ? SERVED_DIR[framework] : void 0;
+  if (known !== void 0) return known;
+  for (const candidate of ["public/", "static/", "assets/"]) {
+    if (files.some((f) => f.startsWith(`${appRoot}${candidate}`))) return candidate;
+  }
+  return "";
+}
+
+// src/fixer/safety.ts
+var HTML_EXT = /\.html?$/i;
+var SOURCE_EXT = /\.(ts|tsx|js|jsx|mjs|cjs|vue|svelte|astro)$/i;
+function attributeValues(html, pattern) {
+  const found = /* @__PURE__ */ new Set();
+  for (const match of html.matchAll(pattern)) {
+    const value = match[1]?.trim();
+    if (value) found.add(value);
+  }
+  return found;
+}
+function scriptSources(html) {
+  return attributeValues(html, /<script[^>]+src=["']([^"']+)["']/gi);
+}
+function stylesheetHrefs(html) {
+  return attributeValues(html, /<link[^>]+href=["']([^"']+)["'][^>]*>/gi);
+}
+function verificationTokens(html) {
+  const found = /* @__PURE__ */ new Set();
+  for (const match of html.matchAll(/<meta[^>]+name=["']([^"']*(?:site-verification|verify|verification)[^"']*)["'][^>]*>/gi)) {
+    found.add(match[1].toLowerCase());
+  }
+  return found;
+}
+function importSpecifiers(source) {
+  const found = /* @__PURE__ */ new Set();
+  for (const match of source.matchAll(/\bfrom\s+["']([^"']+)["']/g)) found.add(match[1]);
+  for (const match of source.matchAll(/\brequire\(\s*["']([^"']+)["']\s*\)/g)) found.add(match[1]);
+  return found;
+}
+function missing(before, after) {
+  return [...before].filter((value) => !after.has(value));
+}
+function xmlConcern(xml) {
+  const stack = [];
+  for (const match of xml.matchAll(/<\/?([A-Za-z_][\w:.-]*)[^>]*?(\/?)>/g)) {
+    const [tag, name, selfClosing] = match;
+    if (tag.startsWith("<?") || tag.startsWith("<!")) continue;
+    if (tag.startsWith("</")) {
+      if (stack.pop() !== name) return `unbalanced </${name}>`;
+    } else if (!selfClosing) {
+      stack.push(name);
+    }
+  }
+  return stack.length ? `unclosed <${stack[stack.length - 1]}>` : null;
+}
+function sitemapUrlCount(xml) {
+  return [...xml.matchAll(/<loc>/gi)].length;
+}
+function newestLastmod(xml) {
+  const dates = [...xml.matchAll(/<lastmod>([^<]+)<\/lastmod>/gi)].map((m) => Date.parse(m[1].trim())).filter((t) => !Number.isNaN(t));
+  return dates.length ? Math.max(...dates) : null;
+}
+function jsonLdConcerns(html) {
+  const bad = [];
+  for (const match of html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    try {
+      JSON.parse(match[1]);
+    } catch (error) {
+      bad.push(error.message);
+    }
+  }
+  return bad;
+}
+var PLACEHOLDERS = [
+  { pattern: /\+?1[-\s.]?\(?800\)?[-\s.]?555[-\s.]?\d{4}/i, what: "a reserved 555 phone number" },
+  { pattern: /\b555[-\s.]?01\d{2}\b/, what: "a reserved 555 phone number" },
+  { pattern: /\bAnytown\b/i, what: '"Anytown"' },
+  { pattern: /\b123 Main (Street|St)\b/i, what: '"123 Main Street"' },
+  { pattern: /your_[a-z_]+/i, what: 'an unfilled "your_..." placeholder' },
+  { pattern: /\b(yourdomain|your-domain|example)\.(com|org|net)\b/i, what: "a placeholder domain" },
+  { pattern: /\blorem ipsum\b/i, what: "lorem ipsum" },
+  { pattern: /\bXXX-XXX-XXXX\b/i, what: "an unfilled phone template" }
+];
+function isSharedShell(html) {
+  return /<div[^>]+id=["'](root|app|__next|__nuxt)["']/i.test(html);
+}
+function assessReplacement(path3, original, replacement) {
+  const concerns = [];
+  const add = (code, detail) => concerns.push({ code, detail });
+  for (const { pattern, what } of PLACEHOLDERS) {
+    const hit = replacement.match(pattern);
+    if (hit && !(original && pattern.test(original))) {
+      add("placeholder_content", `contains ${what} (${hit[0]})`);
+    }
+  }
+  if (/\.html?$/i.test(path3) && isSharedShell(replacement)) {
+    const addsCanonical = /<link[^>]+rel=["']canonical["']/i.test(replacement) && !(original && /<link[^>]+rel=["']canonical["']/i.test(original));
+    if (addsCanonical) {
+      add(
+        "canonical_in_shared_shell",
+        `${path3} mounts a single-page app, so a canonical here applies to every route`
+      );
+    }
+  }
+  if (/\.json$/i.test(path3) || /\.webmanifest$/i.test(path3)) {
+    try {
+      JSON.parse(replacement);
+    } catch (error) {
+      add("invalid_json", error.message);
+    }
+  }
+  if (/\.xml$/i.test(path3)) {
+    const problem = xmlConcern(replacement);
+    if (problem) add("invalid_xml", problem);
+  }
+  if (HTML_EXT.test(path3)) {
+    for (const problem of jsonLdConcerns(replacement)) add("invalid_json_ld", problem);
+  }
+  if (original === null) return concerns;
+  if (replacement.length < original.length * 0.6) {
+    add("shrunk", `${Math.round(replacement.length / original.length * 100)}% of the original length`);
+  }
+  if (HTML_EXT.test(path3)) {
+    for (const tag of ["</head>", "</body>", "</html>"]) {
+      if (original.includes(tag) && !replacement.includes(tag)) add("lost_closing_tag", tag);
+    }
+    const lostScripts = missing(scriptSources(original), scriptSources(replacement));
+    if (lostScripts.length) add("lost_script", lostScripts.join(", "));
+    const lostStyles = missing(stylesheetHrefs(original), stylesheetHrefs(replacement));
+    if (lostStyles.length) add("lost_stylesheet", lostStyles.join(", "));
+    const lostVerification = missing(verificationTokens(original), verificationTokens(replacement));
+    if (lostVerification.length) add("lost_verification", lostVerification.join(", "));
+  }
+  if (SOURCE_EXT.test(path3)) {
+    const lostImports = missing(importSpecifiers(original), importSpecifiers(replacement));
+    if (lostImports.length) add("lost_import", lostImports.join(", "));
+  }
+  if (/sitemap[^/]*\.xml$/i.test(path3)) {
+    const before = sitemapUrlCount(original);
+    const after = sitemapUrlCount(replacement);
+    if (after < before) add("fewer_sitemap_urls", `${before} -> ${after}`);
+    const newestBefore = newestLastmod(original);
+    const newestAfter = newestLastmod(replacement);
+    if (newestBefore !== null && newestAfter !== null && newestAfter < newestBefore) {
+      add(
+        "lastmod_moved_backwards",
+        `${new Date(newestBefore).toISOString().slice(0, 10)} -> ${new Date(newestAfter).toISOString().slice(0, 10)}`
+      );
+    }
+  }
+  return concerns;
+}
+function describeConcerns(concerns) {
+  return concerns.map((c) => `${c.code} (${c.detail})`).join("; ");
+}
+
+// src/fixer/framework-guidance.ts
+var DEFAULT_MAX_CHARS = 4e3;
+function checkBlock(check) {
+  const fix = check.howToFix?.trim();
+  return [
+    `### ${check.title}${check.code ? ` (${check.code})` : ""}`,
+    check.description?.trim(),
+    fix ? `How this framework wants it fixed:
+${fix}` : null
+  ].filter(Boolean).join("\n");
+}
+function buildFrameworkGuidance(recipe, options = {}) {
+  if (!recipe) return "";
+  const budget = options.maxChars ?? DEFAULT_MAX_CHARS;
+  const reported = new Set(options.issueCodes ?? []);
+  const header = [
+    `## ${recipe.display_name} conventions`,
+    `Renders on the server by default: ${recipe.ssr_default ? "yes" : "no"}.`,
+    recipe.seo_challenges?.length ? `Known traps in this framework:
+${recipe.seo_challenges.map((c) => `- ${c}`).join("\n")}` : null
+  ].filter(Boolean).join("\n");
+  const checks = recipe.checks ?? [];
+  const relevant = checks.filter((c) => c.code && reported.has(c.code));
+  const rest = checks.filter((c) => !relevant.includes(c));
+  let out = header;
+  let included = 0;
+  for (const check of [...relevant, ...rest]) {
+    const block = checkBlock(check);
+    if (out.length + block.length + 2 > budget) break;
+    out += `
+
+${block}`;
+    included++;
+  }
+  if (included < checks.length) {
+    out += `
+
+_(${checks.length - included} more ${recipe.display_name} checks omitted.)_`;
+  }
+  return out;
+}
 
 // src/git/commit-helper.ts
 
@@ -112262,8 +123926,12 @@ async function analyzeComprehensive(html, url, options = {}) {
 // src/frameworks/index.ts
 var frameworks_exports = {};
 (0,chunk_6BWS3CLP/* __export */.V)(frameworks_exports, {
+  SCORE_FLOOR: () => SCORE_FLOOR,
+  SIGNALS: () => SIGNALS,
   SUPPORTED_FRAMEWORKS: () => SUPPORTED_FRAMEWORKS,
+  WEIGHT: () => WEIGHT,
   detectFramework: () => detectFramework,
+  detectFromEvidence: () => detectFromEvidence,
   detectFromHeaders: () => detectFromHeaders,
   detectFromHtml: () => detectFromHtml,
   detectFromPackageJson: () => detectFromPackageJson,
@@ -112280,19 +123948,16 @@ var frameworks_exports = {};
   loadRecipe: () => loadRecipe
 });
 var SUPPORTED_FRAMEWORKS = [
-  "react",
-  "nextjs",
-  "vue",
-  "nuxt",
   "angular",
-  "svelte",
-  "sveltekit",
   "astro",
-  "remix",
-  "gatsby",
-  "rails",
-  "laravel",
   "django",
+  "laravel",
+  "nextjs",
+  "nuxt",
+  "rails",
+  "react",
+  "sveltekit",
+  "vue",
   "wordpress"
 ];
 
@@ -112462,7 +124127,7 @@ function formatPRComment(summary, gate) {
 :robot: Powered by [RankCLI](https://rankcli.dev)`;
     return comment;
 }
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiZmlsZTovLy9ob21lL2JzYi9Db2RlL3Byb2R1Y3RzL3JhbmtjbGkuZGV2L3BhY2thZ2VzL2dpdGh1Yi1hY3Rpb24vc3JjL2FjdGlvbi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7O0dBR0c7QUFRSCxNQUFNLGNBQWMsR0FBNEIsQ0FBQyxPQUFPLEVBQUUsU0FBUyxDQUFDLENBQUM7QUFFckU7Ozs7R0FJRztBQUNILE1BQU0sQ0FBQyxNQUFNLGNBQWMsR0FBRyxDQUFDLFdBQVcsRUFBRSxxQkFBcUIsRUFBRSxvQkFBb0IsRUFBRSxnQkFBZ0IsRUFBRSxRQUFRLENBQVUsQ0FBQztBQXVDOUgsTUFBTSxNQUFNLEdBQUcsQ0FBQyxLQUFhLEVBQUUsRUFBRSxDQUFDLEtBQUssQ0FBQyxJQUFJLEVBQUUsQ0FBQyxXQUFXLEVBQUUsS0FBSyxNQUFNLENBQUM7QUFFeEU7O0dBRUc7QUFDSCxNQUFNLFVBQVUsV0FBVyxDQUFDLFFBQW9CO0lBQzlDLE1BQU0sUUFBUSxHQUFhLEVBQUUsQ0FBQztJQUM5QixNQUFNLEdBQUcsR0FBRyxRQUFRLENBQUMsS0FBSyxDQUFDLENBQUMsSUFBSSxFQUFFLENBQUM7SUFDbkMsTUFBTSxNQUFNLEdBQUcsUUFBUSxDQUFDLFNBQVMsQ0FBQyxJQUFJLE9BQU8sQ0FBQyxHQUFHLENBQUMsZUFBZSxJQUFJLFNBQVMsQ0FBQztJQUMvRSxNQUFNLFdBQVcsR0FBRyxRQUFRLENBQUMsY0FBYyxDQUFDLElBQUksU0FBUyxDQUFDO0lBQzFELE1BQU0sV0FBVyxHQUFHLFFBQVEsQ0FBQyxlQUFlLENBQUMsS0FBSyxPQUFPLENBQUMsQ0FBQyxlQUFlO0lBQzFFLG1FQUFtRTtJQUNuRSxxRUFBcUU7SUFDckUsTUFBTSxXQUFXLEdBQUcsTUFBTSxDQUFDLFFBQVEsQ0FBQyxlQUFlLENBQUMsQ0FBQyxJQUFJLE1BQU0sQ0FBQyxRQUFRLENBQUMsZ0JBQWdCLENBQUMsQ0FBQyxDQUFDO0lBQzVGLE1BQU0sY0FBYyxHQUFHLFFBQVEsQ0FBQyxRQUFRLENBQUMsaUJBQWlCLENBQUMsSUFBSSxHQUFHLEVBQUUsRUFBRSxDQUFDLElBQUksQ0FBQyxDQUFDO0lBQzdFLE1BQU0sWUFBWSxHQUFHLFFBQVEsQ0FBQyxlQUFlLENBQUMsSUFBSSxTQUFTLENBQUM7SUFDNUQsTUFBTSxjQUFjLEdBQUcsUUFBUSxDQUFDLGlCQUFpQixDQUFDLElBQUksU0FBUyxDQUFDO0lBRWhFLE1BQU0sT0FBTyxHQUFtQixFQUFFLENBQUM7SUFDbkMsS0FBSyxNQUFNLEtBQUssSUFBSSxDQUFDLFFBQVEsQ0FBQyxVQUFVLENBQUMsSUFBSSxPQUFPLENBQUMsQ0FBQyxLQUFLLENBQUMsR0FBRyxDQUFDLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLElBQUksRUFBRSxDQUFDLENBQUMsTUFBTSxDQUFDLE9BQU8sQ0FBQyxFQUFFLENBQUM7UUFDcEcsSUFBSyxjQUFvQyxDQUFDLFFBQVEsQ0FBQyxLQUFLLENBQUMsRUFBRSxDQUFDO1lBQzFELElBQUksQ0FBQyxPQUFPLENBQUMsUUFBUSxDQUFDLEtBQXFCLENBQUM7Z0JBQUUsT0FBTyxDQUFDLElBQUksQ0FBQyxLQUFxQixDQUFDLENBQUM7UUFDcEYsQ0FBQzthQUFNLENBQUM7WUFDTixRQUFRLENBQUMsSUFBSSxDQUFDLGFBQWEsS0FBSyxrREFBa0QsY0FBYyxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsR0FBRyxDQUFDLENBQUM7UUFDbEgsQ0FBQztJQUNILENBQUM7SUFFRCxNQUFNLFFBQVEsR0FBRyxRQUFRLENBQUMsV0FBVyxDQUFDLENBQUMsSUFBSSxFQUFFLENBQUMsV0FBVyxFQUFFLENBQUM7SUFDNUQsSUFBSSxRQUFRLEtBQUssTUFBTSxJQUFJLFFBQVEsS0FBSyxNQUFNLEVBQUUsQ0FBQztRQUMvQyxRQUFRLENBQUMsSUFBSSxDQUNYLDRHQUE0RztZQUM1Ryw0RUFBNEUsQ0FDN0UsQ0FBQztJQUNKLENBQUM7SUFDRCxNQUFNLE1BQU0sR0FBRyxRQUFRLENBQUMsUUFBUSxDQUFDLENBQUMsSUFBSSxFQUFFLENBQUM7SUFDekMsSUFBSSxNQUFNLElBQUksTUFBTSxLQUFLLEtBQUssRUFBRSxDQUFDO1FBQy9CLFFBQVEsQ0FBQyxJQUFJLENBQUMsbUVBQW1FLENBQUMsQ0FBQztJQUNyRixDQUFDO0lBRUQsT0FBTztRQUNMLEdBQUc7UUFDSCxNQUFNO1FBQ04sV0FBVztRQUNYLFdBQVc7UUFDWCxXQUFXO1FBQ1gsY0FBYztRQUNkLFlBQVk7UUFDWixjQUFjO1FBQ2QsT0FBTztRQUNQLFFBQVE7S0FDVCxDQUFDO0FBQ0osQ0FBQztBQUVEOzs7O0dBSUc7QUFDSCxNQUFNLFVBQVUsWUFBWSxDQUFDLE1BQTRELEVBQUUsT0FBcUI7SUFDOUcsTUFBTSxRQUFRLEdBQWEsRUFBRSxDQUFDO0lBQzlCLElBQUksT0FBTyxDQUFDLFdBQVcsRUFBRSxDQUFDO1FBQ3hCLFFBQVEsQ0FBQyxJQUFJLENBQUMsR0FBRyxPQUFPLENBQUMsR0FBRywwQkFBMEIsT0FBTyxDQUFDLFdBQVcsRUFBRSxDQUFDLENBQUM7SUFDL0UsQ0FBQztJQUNELElBQUksTUFBTSxDQUFDLFdBQVcsSUFBSSxPQUFPLENBQUMsV0FBVyxHQUFHLENBQUMsRUFBRSxDQUFDO1FBQ2xELFFBQVEsQ0FBQyxJQUFJLENBQUMsbUJBQW1CLE9BQU8sQ0FBQyxXQUFXLFNBQVMsT0FBTyxDQUFDLFdBQVcsS0FBSyxDQUFDLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsR0FBRyxFQUFFLENBQUMsQ0FBQztJQUN2RyxDQUFDO0lBQ0QsSUFBSSxNQUFNLENBQUMsY0FBYyxHQUFHLENBQUMsSUFBSSxPQUFPLENBQUMsS0FBSyxHQUFHLE1BQU0sQ0FBQyxjQUFjLEVBQUUsQ0FBQztRQUN2RSxRQUFRLENBQUMsSUFBSSxDQUFDLGFBQWEsT0FBTyxDQUFDLEtBQUssdUJBQXVCLE1BQU0sQ0FBQyxjQUFjLEVBQUUsQ0FBQyxDQUFDO0lBQzFGLENBQUM7SUFDRCxPQUFPLEVBQUUsTUFBTSxFQUFFLFFBQVEsQ0FBQyxNQUFNLEtBQUssQ0FBQyxFQUFFLFFBQVEsRUFBRSxDQUFDO0FBQ3JELENBQUM7QUFFRDs7R0FFRztBQUNILE1BQU0sVUFBVSxVQUFVLENBQUMsTUFBNEQsRUFBRSxPQUFxQjtJQUM1RyxPQUFPLENBQUMsWUFBWSxDQUFDLE1BQU0sRUFBRSxPQUFPLENBQUMsQ0FBQyxNQUFNLENBQUM7QUFDL0MsQ0FBQztBQUVEOztHQUVHO0FBQ0gsU0FBUyxhQUFhLENBQUMsS0FBYTtJQUNsQyxJQUFJLEtBQUssSUFBSSxFQUFFO1FBQUUsT0FBTyxhQUFhLENBQUM7SUFDdEMsSUFBSSxLQUFLLElBQUksRUFBRTtRQUFFLE9BQU8sT0FBTyxDQUFDO0lBQ2hDLElBQUksS0FBSyxJQUFJLEVBQUU7UUFBRSxPQUFPLFFBQVEsQ0FBQztJQUNqQyxJQUFJLEtBQUssSUFBSSxFQUFFO1FBQUUsT0FBTyxRQUFRLENBQUM7SUFDakMsT0FBTyxLQUFLLENBQUM7QUFDZixDQUFDO0FBRUQ7O0dBRUc7QUFDSCxTQUFTLGtCQUFrQixDQUFDLFFBQWdCO0lBQzFDLE1BQU0sS0FBSyxHQUEyQjtRQUNwQyxTQUFTLEVBQUUsU0FBUztRQUNwQixhQUFhLEVBQUUsYUFBYTtRQUM1QixhQUFhLEVBQUUsYUFBYTtRQUM1QixjQUFjLEVBQUUsY0FBYztRQUM5QixjQUFjLEVBQUUsY0FBYztRQUM5QixpQkFBaUIsRUFBRSxpQkFBaUI7UUFDcEMsVUFBVSxFQUFFLFVBQVU7UUFDdEIsUUFBUSxFQUFFLFFBQVE7UUFDbEIsT0FBTyxFQUFFLE9BQU87UUFDaEIsUUFBUSxFQUFFLFFBQVE7UUFDbEIsU0FBUyxFQUFFLFNBQVM7S0FDckIsQ0FBQztJQUNGLE9BQU8sS0FBSyxDQUFDLFFBQVEsQ0FBQyxJQUFJLFFBQVEsQ0FBQyxNQUFNLENBQUMsQ0FBQyxDQUFDLENBQUMsV0FBVyxFQUFFLEdBQUcsUUFBUSxDQUFDLEtBQUssQ0FBQyxDQUFDLENBQUMsQ0FBQztBQUNqRixDQUFDO0FBRUQ7O0dBRUc7QUFDSCxNQUFNLFVBQVUsZUFBZSxDQUFDLE9BQXFCLEVBQUUsSUFBaUI7SUFDdEUsTUFBTSxFQUFFLEdBQUcsRUFBRSxLQUFLLEVBQUUsV0FBVyxFQUFFLFdBQVcsRUFBRSxhQUFhLEVBQUUsVUFBVSxFQUFFLEdBQUcsT0FBTyxDQUFDO0lBQ3BGLE1BQU0sS0FBSyxHQUFHLGFBQWEsQ0FBQyxLQUFLLENBQUMsQ0FBQztJQUVuQyxJQUFJLE9BQU8sR0FBRzs7d0RBRXdDLEtBQUssVUFBVSxLQUFLOzthQUUvRCxHQUFHLENBQUMsT0FBTyxDQUFDLElBQUksRUFBRSxFQUFFLENBQUM7O0NBRWpDLENBQUM7SUFFQSxJQUFJLElBQUksSUFBSSxDQUFDLElBQUksQ0FBQyxNQUFNLEVBQUUsQ0FBQztRQUN6QixPQUFPLElBQUk7MEJBQ1csSUFBSSxDQUFDLFFBQVEsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDOztDQUVqRCxDQUFDO0lBQ0EsQ0FBQztJQUVELE9BQU8sSUFBSTs7OztjQUlDLEtBQUs7bUJBQ0EsV0FBVzthQUNqQixXQUFXO2VBQ1QsYUFBYTs7Q0FFM0IsQ0FBQztJQUVBLHFCQUFxQjtJQUNyQixNQUFNLGVBQWUsR0FBRyxNQUFNLENBQUMsT0FBTyxDQUFDLFVBQVUsQ0FBQyxDQUFDO0lBQ25ELElBQUksZUFBZSxDQUFDLE1BQU0sR0FBRyxDQUFDLEVBQUUsQ0FBQztRQUMvQixPQUFPLElBQUk7Ozs7Q0FJZCxDQUFDO1FBQ0UsS0FBSyxNQUFNLENBQUMsUUFBUSxFQUFFLElBQUksQ0FBQyxJQUFJLGVBQWUsRUFBRSxDQUFDO1lBQy9DLE1BQU0sS0FBSyxHQUFHLElBQUksQ0FBQyxLQUFLLElBQUksRUFBRSxDQUFDLENBQUMsQ0FBQyxvQkFBb0IsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLEtBQUssSUFBSSxFQUFFLENBQUMsQ0FBQyxDQUFDLFdBQVcsQ0FBQyxDQUFDLENBQUMsS0FBSyxDQUFDO1lBQy9GLE9BQU8sSUFBSSxLQUFLLEtBQUssSUFBSSxrQkFBa0IsQ0FBQyxRQUFRLENBQUMsTUFBTSxJQUFJLENBQUMsS0FBSyxVQUFVLElBQUksQ0FBQyxNQUFNLE1BQU0sQ0FBQztRQUNuRyxDQUFDO1FBQ0QsT0FBTyxJQUFJLElBQUksQ0FBQztJQUNsQixDQUFDO0lBRUQsU0FBUztJQUNULE9BQU8sSUFBSTtrREFDcUMsQ0FBQztJQUVqRCxPQUFPLE9BQU8sQ0FBQztBQUNqQixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBHaXRIdWIgQWN0aW9uIGxvZ2ljOiBpbnB1dHMsIHRoZSBwYXNzL2ZhaWwgZ2F0ZSwgYW5kIHRoZSBQUiBjb21tZW50LlxuICogUHVyZSBmdW5jdGlvbnMgLSBydW4udHMgZG9lcyB0aGUgSS9PLlxuICovXG5cbi8qKlxuICogQWxlcnQgdHJpZ2dlcnMgdGhlIGFjdGlvbiBpbXBsZW1lbnRzOlxuICogLSBlcnJvcjogdGhlIGF1ZGl0IGZvdW5kIGF0IGxlYXN0IG9uZSBlcnJvci1zZXZlcml0eSBpc3N1ZVxuICogLSBmYWlsdXJlOiB0aGUgYWN0aW9uIGZhaWxlZCAoZ2F0ZSB0cmlwcGVkLCBvciB0aGUgc2l0ZSBjb3VsZG4ndCBiZSBhdWRpdGVkKVxuICovXG5leHBvcnQgdHlwZSBBbGVydFRyaWdnZXIgPSAnZXJyb3InIHwgJ2ZhaWx1cmUnO1xuY29uc3QgQUxFUlRfVFJJR0dFUlM6IHJlYWRvbmx5IEFsZXJ0VHJpZ2dlcltdID0gWydlcnJvcicsICdmYWlsdXJlJ107XG5cbi8qKlxuICogSW5wdXRzIHRoZSBhY3Rpb24gdXNlZCB0byBkZWNsYXJlIGJ1dCBuZXZlciBpbXBsZW1lbnRlZC4gU3RpbGwgZGVjbGFyZWRcbiAqIGluIGFjdGlvbi55bWwgKHdpdGggYSBkZXByZWNhdGlvbk1lc3NhZ2UpIHNvIGFuIGV4aXN0aW5nIHdvcmtmbG93IGdldHMgYVxuICogd2FybmluZyBpbnN0ZWFkIG9mIGFuIFwiVW5leHBlY3RlZCBpbnB1dFwiIGVycm9yLlxuICovXG5leHBvcnQgY29uc3QgUkVNT1ZFRF9JTlBVVFMgPSBbJ2NyZWF0ZS1wcicsICdwci10aHJlc2hvbGQtZXJyb3JzJywgJ3ByLXRocmVzaG9sZC1zY29yZScsICdwci1iYXNlLWJyYW5jaCcsICdjaGVja3MnXSBhcyBjb25zdDtcblxuZXhwb3J0IGludGVyZmFjZSBBY3Rpb25JbnB1dHMge1xuICB1cmw6IHN0cmluZztcbiAgYXBpS2V5Pzogc3RyaW5nO1xuICBnaXRodWJUb2tlbj86IHN0cmluZztcbiAgY29tbWVudE9uUHI6IGJvb2xlYW47XG4gIGZhaWxPbkVycm9yOiBib29sZWFuO1xuICBzY29yZVRocmVzaG9sZDogbnVtYmVyO1xuICBzbGFja1dlYmhvb2s/OiBzdHJpbmc7XG4gIGRpc2NvcmRXZWJob29rPzogc3RyaW5nO1xuICBhbGVydE9uOiBBbGVydFRyaWdnZXJbXTtcbiAgLyoqIEh1bWFuLXJlYWRhYmxlIHdhcm5pbmdzIGFib3V0IGlucHV0cyAocmVtb3ZlZCwgdW5zdXBwb3J0ZWQgdmFsdWVzKS4gKi9cbiAgd2FybmluZ3M6IHN0cmluZ1tdO1xufVxuXG5leHBvcnQgaW50ZXJmYWNlIENhdGVnb3J5U3VtbWFyeSB7XG4gIHNjb3JlOiBudW1iZXI7XG4gIGlzc3VlczogbnVtYmVyO1xufVxuXG5leHBvcnQgaW50ZXJmYWNlIEF1ZGl0U3VtbWFyeSB7XG4gIHVybDogc3RyaW5nO1xuICBzY29yZTogbnVtYmVyO1xuICBpc3N1ZXNDb3VudDogbnVtYmVyO1xuICBlcnJvcnNDb3VudDogbnVtYmVyO1xuICB3YXJuaW5nc0NvdW50OiBudW1iZXI7XG4gIGNhdGVnb3JpZXM6IFJlY29yZDxzdHJpbmcsIENhdGVnb3J5U3VtbWFyeT47XG4gIC8qKiBTZXQgd2hlbiB0aGUgcGFnZSBpdHNlbGYgY291bGRuJ3QgYmUgYXVkaXRlZCAodW5yZWFjaGFibGUgLyA0eHggLyA1eHgpLiAqL1xuICBwYWdlRmFpbHVyZT86IHN0cmluZztcbn1cblxuZXhwb3J0IGludGVyZmFjZSBHYXRlUmVzdWx0IHtcbiAgcGFzc2VkOiBib29sZWFuO1xuICBmYWlsdXJlczogc3RyaW5nW107XG59XG5cbnR5cGUgR2V0SW5wdXRGbiA9IChuYW1lOiBzdHJpbmcpID0+IHN0cmluZztcblxuY29uc3QgaXNUcnVlID0gKHZhbHVlOiBzdHJpbmcpID0+IHZhbHVlLnRyaW0oKS50b0xvd2VyQ2FzZSgpID09PSAndHJ1ZSc7XG5cbi8qKlxuICogUGFyc2VzIGFjdGlvbiBpbnB1dHMgZnJvbSB0aGUgR2l0SHViIEFjdGlvbnMgZW52aXJvbm1lbnRcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIHBhcnNlSW5wdXRzKGdldElucHV0OiBHZXRJbnB1dEZuKTogQWN0aW9uSW5wdXRzIHtcbiAgY29uc3Qgd2FybmluZ3M6IHN0cmluZ1tdID0gW107XG4gIGNvbnN0IHVybCA9IGdldElucHV0KCd1cmwnKS50cmltKCk7XG4gIGNvbnN0IGFwaUtleSA9IGdldElucHV0KCdhcGkta2V5JykgfHwgcHJvY2Vzcy5lbnYuUkFOS0NMSV9BUElfS0VZIHx8IHVuZGVmaW5lZDtcbiAgY29uc3QgZ2l0aHViVG9rZW4gPSBnZXRJbnB1dCgnZ2l0aHViLXRva2VuJykgfHwgdW5kZWZpbmVkO1xuICBjb25zdCBjb21tZW50T25QciA9IGdldElucHV0KCdjb21tZW50LW9uLXByJykgIT09ICdmYWxzZSc7IC8vIGRlZmF1bHQgdHJ1ZVxuICAvLyBUaGUgc2l0ZSBkb2NzIGhhdmUgYWx3YXlzIHNhaWQgYGZhaWwtb24tZXJyb3JzYDsgYWN0aW9uLnltbCBzYWlkXG4gIC8vIGBmYWlsLW9uLWVycm9yYC4gQWNjZXB0IGJvdGggLSBlaXRoZXIgb25lIHNldCB0byB0cnVlIHR1cm5zIGl0IG9uLlxuICBjb25zdCBmYWlsT25FcnJvciA9IGlzVHJ1ZShnZXRJbnB1dCgnZmFpbC1vbi1lcnJvcicpKSB8fCBpc1RydWUoZ2V0SW5wdXQoJ2ZhaWwtb24tZXJyb3JzJykpO1xuICBjb25zdCBzY29yZVRocmVzaG9sZCA9IHBhcnNlSW50KGdldElucHV0KCdzY29yZS10aHJlc2hvbGQnKSB8fCAnMCcsIDEwKSB8fCAwO1xuICBjb25zdCBzbGFja1dlYmhvb2sgPSBnZXRJbnB1dCgnc2xhY2std2ViaG9vaycpIHx8IHVuZGVmaW5lZDtcbiAgY29uc3QgZGlzY29yZFdlYmhvb2sgPSBnZXRJbnB1dCgnZGlzY29yZC13ZWJob29rJykgfHwgdW5kZWZpbmVkO1xuXG4gIGNvbnN0IGFsZXJ0T246IEFsZXJ0VHJpZ2dlcltdID0gW107XG4gIGZvciAoY29uc3QgdmFsdWUgb2YgKGdldElucHV0KCdhbGVydC1vbicpIHx8ICdlcnJvcicpLnNwbGl0KCcsJykubWFwKHMgPT4gcy50cmltKCkpLmZpbHRlcihCb29sZWFuKSkge1xuICAgIGlmICgoQUxFUlRfVFJJR0dFUlMgYXMgcmVhZG9ubHkgc3RyaW5nW10pLmluY2x1ZGVzKHZhbHVlKSkge1xuICAgICAgaWYgKCFhbGVydE9uLmluY2x1ZGVzKHZhbHVlIGFzIEFsZXJ0VHJpZ2dlcikpIGFsZXJ0T24ucHVzaCh2YWx1ZSBhcyBBbGVydFRyaWdnZXIpO1xuICAgIH0gZWxzZSB7XG4gICAgICB3YXJuaW5ncy5wdXNoKGBhbGVydC1vbiBcIiR7dmFsdWV9XCIgaXMgbm90IHN1cHBvcnRlZCBhbmQgd2FzIGlnbm9yZWQgKHN1cHBvcnRlZDogJHtBTEVSVF9UUklHR0VSUy5qb2luKCcsICcpfSlgKTtcbiAgICB9XG4gIH1cblxuICBjb25zdCBjcmVhdGVQciA9IGdldElucHV0KCdjcmVhdGUtcHInKS50cmltKCkudG9Mb3dlckNhc2UoKTtcbiAgaWYgKGNyZWF0ZVByID09PSAndHJ1ZScgfHwgY3JlYXRlUHIgPT09ICdhdXRvJykge1xuICAgIHdhcm5pbmdzLnB1c2goXG4gICAgICAnY3JlYXRlLXByIHdhcyByZW1vdmVkOiBpdCBuZXZlciBvcGVuZWQgYSBQUi4gRm9yIGF1dG8tZml4IFBScywgcnVuIGByYW5rY2xpIHNldHVwIC0tZ2l0aHViLWFjdGlvbiAtLXN5bmNgICcgK1xuICAgICAgJ2luIHlvdXIgcmVwbyAtIHRoZSB3b3JrZmxvdyBpdCB3cml0ZXMgcnVucyBgcmFua2NsaSBmaXhgIGFuZCBvcGVucyB0aGUgUFIuJyxcbiAgICApO1xuICB9XG4gIGNvbnN0IGNoZWNrcyA9IGdldElucHV0KCdjaGVja3MnKS50cmltKCk7XG4gIGlmIChjaGVja3MgJiYgY2hlY2tzICE9PSAnYWxsJykge1xuICAgIHdhcm5pbmdzLnB1c2goJ2NoZWNrcyB3YXMgcmVtb3ZlZDogaXQgbmV2ZXIgZmlsdGVyZWQgYW55dGhpbmcuIEV2ZXJ5IGNoZWNrIHJ1bnMuJyk7XG4gIH1cblxuICByZXR1cm4ge1xuICAgIHVybCxcbiAgICBhcGlLZXksXG4gICAgZ2l0aHViVG9rZW4sXG4gICAgY29tbWVudE9uUHIsXG4gICAgZmFpbE9uRXJyb3IsXG4gICAgc2NvcmVUaHJlc2hvbGQsXG4gICAgc2xhY2tXZWJob29rLFxuICAgIGRpc2NvcmRXZWJob29rLFxuICAgIGFsZXJ0T24sXG4gICAgd2FybmluZ3MsXG4gIH07XG59XG5cbi8qKlxuICogVGhlIGFjdGlvbidzIHBhc3MvZmFpbCBkZWNpc2lvbi4gQSBwYWdlIHRoYXQgY291bGRuJ3QgYmUgYXVkaXRlZCBhbHdheXNcbiAqIGZhaWxzIC0gaXQgc2NvcmVzIDAgYW5kIGEgZ3JlZW4gY2hlY2sgd291bGQgc2F5IHRoZSBzaXRlIGlzIGZpbmUgLSB0aGVcbiAqIG90aGVyIHR3byBjb25kaXRpb25zIGFyZSB0aGUgb3B0LWluIGZhaWwtb24tZXJyb3IgLyBzY29yZS10aHJlc2hvbGQuXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBldmFsdWF0ZUdhdGUoaW5wdXRzOiBQaWNrPEFjdGlvbklucHV0cywgJ2ZhaWxPbkVycm9yJyB8ICdzY29yZVRocmVzaG9sZCc+LCBzdW1tYXJ5OiBBdWRpdFN1bW1hcnkpOiBHYXRlUmVzdWx0IHtcbiAgY29uc3QgZmFpbHVyZXM6IHN0cmluZ1tdID0gW107XG4gIGlmIChzdW1tYXJ5LnBhZ2VGYWlsdXJlKSB7XG4gICAgZmFpbHVyZXMucHVzaChgJHtzdW1tYXJ5LnVybH0gY291bGQgbm90IGJlIGF1ZGl0ZWQ6ICR7c3VtbWFyeS5wYWdlRmFpbHVyZX1gKTtcbiAgfVxuICBpZiAoaW5wdXRzLmZhaWxPbkVycm9yICYmIHN1bW1hcnkuZXJyb3JzQ291bnQgPiAwKSB7XG4gICAgZmFpbHVyZXMucHVzaChgU0VPIGF1ZGl0IGZvdW5kICR7c3VtbWFyeS5lcnJvcnNDb3VudH0gZXJyb3Ike3N1bW1hcnkuZXJyb3JzQ291bnQgPT09IDEgPyAnJyA6ICdzJ31gKTtcbiAgfVxuICBpZiAoaW5wdXRzLnNjb3JlVGhyZXNob2xkID4gMCAmJiBzdW1tYXJ5LnNjb3JlIDwgaW5wdXRzLnNjb3JlVGhyZXNob2xkKSB7XG4gICAgZmFpbHVyZXMucHVzaChgU0VPIHNjb3JlICR7c3VtbWFyeS5zY29yZX0gaXMgYmVsb3cgdGhyZXNob2xkICR7aW5wdXRzLnNjb3JlVGhyZXNob2xkfWApO1xuICB9XG4gIHJldHVybiB7IHBhc3NlZDogZmFpbHVyZXMubGVuZ3RoID09PSAwLCBmYWlsdXJlcyB9O1xufVxuXG4vKipcbiAqIERldGVybWluZXMgaWYgdGhlIGFjdGlvbiBzaG91bGQgZmFpbCBiYXNlZCBvbiBpbnB1dHMgYW5kIHJlc3VsdHNcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIHNob3VsZEZhaWwoaW5wdXRzOiBQaWNrPEFjdGlvbklucHV0cywgJ2ZhaWxPbkVycm9yJyB8ICdzY29yZVRocmVzaG9sZCc+LCBzdW1tYXJ5OiBBdWRpdFN1bW1hcnkpOiBib29sZWFuIHtcbiAgcmV0dXJuICFldmFsdWF0ZUdhdGUoaW5wdXRzLCBzdW1tYXJ5KS5wYXNzZWQ7XG59XG5cbi8qKlxuICogR2V0cyB0aGUgc2NvcmUgYmFkZ2UgY29sb3IgYmFzZWQgb24gc2NvcmUgdmFsdWVcbiAqL1xuZnVuY3Rpb24gZ2V0U2NvcmVDb2xvcihzY29yZTogbnVtYmVyKTogc3RyaW5nIHtcbiAgaWYgKHNjb3JlID49IDkwKSByZXR1cm4gJ2JyaWdodGdyZWVuJztcbiAgaWYgKHNjb3JlID49IDcwKSByZXR1cm4gJ2dyZWVuJztcbiAgaWYgKHNjb3JlID49IDUwKSByZXR1cm4gJ3llbGxvdyc7XG4gIGlmIChzY29yZSA+PSAzMCkgcmV0dXJuICdvcmFuZ2UnO1xuICByZXR1cm4gJ3JlZCc7XG59XG5cbi8qKlxuICogRm9ybWF0cyBhIGNhdGVnb3J5IG5hbWUgZm9yIGRpc3BsYXlcbiAqL1xuZnVuY3Rpb24gZm9ybWF0Q2F0ZWdvcnlOYW1lKGNhdGVnb3J5OiBzdHJpbmcpOiBzdHJpbmcge1xuICBjb25zdCBuYW1lczogUmVjb3JkPHN0cmluZywgc3RyaW5nPiA9IHtcbiAgICAnb24tcGFnZSc6ICdPbi1QYWdlJyxcbiAgICAnc29jaWFsLW1ldGEnOiAnU29jaWFsIE1ldGEnLFxuICAgICdwZXJmb3JtYW5jZSc6ICdQZXJmb3JtYW5jZScsXG4gICAgJ2NyYXdsYWJpbGl0eSc6ICdDcmF3bGFiaWxpdHknLFxuICAgICdpbmRleGFiaWxpdHknOiAnSW5kZXhhYmlsaXR5JyxcbiAgICAnc3RydWN0dXJlZC1kYXRhJzogJ1N0cnVjdHVyZWQgRGF0YScsXG4gICAgJ3NlY3VyaXR5JzogJ1NlY3VyaXR5JyxcbiAgICAnbW9iaWxlJzogJ01vYmlsZScsXG4gICAgJ2xpbmtzJzogJ0xpbmtzJyxcbiAgICAnaW1hZ2VzJzogJ0ltYWdlcycsXG4gICAgJ2NvbnRlbnQnOiAnQ29udGVudCcsXG4gIH07XG4gIHJldHVybiBuYW1lc1tjYXRlZ29yeV0gfHwgY2F0ZWdvcnkuY2hhckF0KDApLnRvVXBwZXJDYXNlKCkgKyBjYXRlZ29yeS5zbGljZSgxKTtcbn1cblxuLyoqXG4gKiBGb3JtYXRzIHRoZSBhdWRpdCBzdW1tYXJ5IGFzIGEgUFIgY29tbWVudFxuICovXG5leHBvcnQgZnVuY3Rpb24gZm9ybWF0UFJDb21tZW50KHN1bW1hcnk6IEF1ZGl0U3VtbWFyeSwgZ2F0ZT86IEdhdGVSZXN1bHQpOiBzdHJpbmcge1xuICBjb25zdCB7IHVybCwgc2NvcmUsIGlzc3Vlc0NvdW50LCBlcnJvcnNDb3VudCwgd2FybmluZ3NDb3VudCwgY2F0ZWdvcmllcyB9ID0gc3VtbWFyeTtcbiAgY29uc3QgY29sb3IgPSBnZXRTY29yZUNvbG9yKHNjb3JlKTtcblxuICBsZXQgY29tbWVudCA9IGAjIyBTRU8gQXVkaXQgUmVwb3J0XG5cbiFbU0VPIFNjb3JlXShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL1NFTyUyMFNjb3JlLSR7c2NvcmV9JTJGMTAwLSR7Y29sb3J9P3N0eWxlPWZvci10aGUtYmFkZ2UpXG5cbioqVVJMOioqIFxcYCR7dXJsLnJlcGxhY2UoL2AvZywgJycpfVxcYFxuXG5gO1xuXG4gIGlmIChnYXRlICYmICFnYXRlLnBhc3NlZCkge1xuICAgIGNvbW1lbnQgKz0gYD4gWyFDQVVUSU9OXVxuPiAqKlNFTyBjaGVjayBmYWlsZWQ6KiogJHtnYXRlLmZhaWx1cmVzLmpvaW4oJzsgJyl9XG5cbmA7XG4gIH1cblxuICBjb21tZW50ICs9IGAjIyMgU3VtbWFyeVxuXG58IE1ldHJpYyB8IFZhbHVlIHxcbnwtLS0tLS0tLXwtLS0tLS0tfFxufCBTY29yZSB8ICoqJHtzY29yZX0vMTAwKiogfFxufCBUb3RhbCBJc3N1ZXMgfCAke2lzc3Vlc0NvdW50fSBpc3N1ZXMgfFxufCBFcnJvcnMgfCAke2Vycm9yc0NvdW50fSBlcnJvcnMgfFxufCBXYXJuaW5ncyB8ICR7d2FybmluZ3NDb3VudH0gd2FybmluZ3MgfFxuXG5gO1xuXG4gIC8vIENhdGVnb3J5IGJyZWFrZG93blxuICBjb25zdCBjYXRlZ29yeUVudHJpZXMgPSBPYmplY3QuZW50cmllcyhjYXRlZ29yaWVzKTtcbiAgaWYgKGNhdGVnb3J5RW50cmllcy5sZW5ndGggPiAwKSB7XG4gICAgY29tbWVudCArPSBgIyMjIENhdGVnb3J5IEJyZWFrZG93blxuXG58IENhdGVnb3J5IHwgU2NvcmUgfCBJc3N1ZXMgfFxufC0tLS0tLS0tLS18LS0tLS0tLXwtLS0tLS0tLXxcbmA7XG4gICAgZm9yIChjb25zdCBbY2F0ZWdvcnksIGRhdGFdIG9mIGNhdGVnb3J5RW50cmllcykge1xuICAgICAgY29uc3QgZW1vamkgPSBkYXRhLnNjb3JlID49IDcwID8gJzp3aGl0ZV9jaGVja19tYXJrOicgOiBkYXRhLnNjb3JlID49IDUwID8gJzp3YXJuaW5nOicgOiAnOng6JztcbiAgICAgIGNvbW1lbnQgKz0gYHwgJHtlbW9qaX0gJHtmb3JtYXRDYXRlZ29yeU5hbWUoY2F0ZWdvcnkpfSB8ICR7ZGF0YS5zY29yZX0vMTAwIHwgJHtkYXRhLmlzc3Vlc30gfFxcbmA7XG4gICAgfVxuICAgIGNvbW1lbnQgKz0gJ1xcbic7XG4gIH1cblxuICAvLyBGb290ZXJcbiAgY29tbWVudCArPSBgLS0tXG46cm9ib3Q6IFBvd2VyZWQgYnkgW1JhbmtDTEldKGh0dHBzOi8vcmFua2NsaS5kZXYpYDtcblxuICByZXR1cm4gY29tbWVudDtcbn1cbiJdfQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiZmlsZTovLy90bXAvY2xhdWRlLTEwMDAvLWhvbWUtYnNiLUNvZGUtcHJvZHVjdHMtcmFua2NsaS1kZXYvZmRhMjdiMzctZTYzNi00ODA5LWE1ZTYtOTZhMWY0MDhmY2NlL3NjcmF0Y2hwYWQvcmFua2NsaS1wdWJsaWMvcGFja2FnZXMvZ2l0aHViLWFjdGlvbi9zcmMvYWN0aW9uLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7R0FHRztBQVFILE1BQU0sY0FBYyxHQUE0QixDQUFDLE9BQU8sRUFBRSxTQUFTLENBQUMsQ0FBQztBQUVyRTs7OztHQUlHO0FBQ0gsTUFBTSxDQUFDLE1BQU0sY0FBYyxHQUFHLENBQUMsV0FBVyxFQUFFLHFCQUFxQixFQUFFLG9CQUFvQixFQUFFLGdCQUFnQixFQUFFLFFBQVEsQ0FBVSxDQUFDO0FBdUM5SCxNQUFNLE1BQU0sR0FBRyxDQUFDLEtBQWEsRUFBRSxFQUFFLENBQUMsS0FBSyxDQUFDLElBQUksRUFBRSxDQUFDLFdBQVcsRUFBRSxLQUFLLE1BQU0sQ0FBQztBQUV4RTs7R0FFRztBQUNILE1BQU0sVUFBVSxXQUFXLENBQUMsUUFBb0I7SUFDOUMsTUFBTSxRQUFRLEdBQWEsRUFBRSxDQUFDO0lBQzlCLE1BQU0sR0FBRyxHQUFHLFFBQVEsQ0FBQyxLQUFLLENBQUMsQ0FBQyxJQUFJLEVBQUUsQ0FBQztJQUNuQyxNQUFNLE1BQU0sR0FBRyxRQUFRLENBQUMsU0FBUyxDQUFDLElBQUksT0FBTyxDQUFDLEdBQUcsQ0FBQyxlQUFlLElBQUksU0FBUyxDQUFDO0lBQy9FLE1BQU0sV0FBVyxHQUFHLFFBQVEsQ0FBQyxjQUFjLENBQUMsSUFBSSxTQUFTLENBQUM7SUFDMUQsTUFBTSxXQUFXLEdBQUcsUUFBUSxDQUFDLGVBQWUsQ0FBQyxLQUFLLE9BQU8sQ0FBQyxDQUFDLGVBQWU7SUFDMUUsbUVBQW1FO0lBQ25FLHFFQUFxRTtJQUNyRSxNQUFNLFdBQVcsR0FBRyxNQUFNLENBQUMsUUFBUSxDQUFDLGVBQWUsQ0FBQyxDQUFDLElBQUksTUFBTSxDQUFDLFFBQVEsQ0FBQyxnQkFBZ0IsQ0FBQyxDQUFDLENBQUM7SUFDNUYsTUFBTSxjQUFjLEdBQUcsUUFBUSxDQUFDLFFBQVEsQ0FBQyxpQkFBaUIsQ0FBQyxJQUFJLEdBQUcsRUFBRSxFQUFFLENBQUMsSUFBSSxDQUFDLENBQUM7SUFDN0UsTUFBTSxZQUFZLEdBQUcsUUFBUSxDQUFDLGVBQWUsQ0FBQyxJQUFJLFNBQVMsQ0FBQztJQUM1RCxNQUFNLGNBQWMsR0FBRyxRQUFRLENBQUMsaUJBQWlCLENBQUMsSUFBSSxTQUFTLENBQUM7SUFFaEUsTUFBTSxPQUFPLEdBQW1CLEVBQUUsQ0FBQztJQUNuQyxLQUFLLE1BQU0sS0FBSyxJQUFJLENBQUMsUUFBUSxDQUFDLFVBQVUsQ0FBQyxJQUFJLE9BQU8sQ0FBQyxDQUFDLEtBQUssQ0FBQyxHQUFHLENBQUMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsSUFBSSxFQUFFLENBQUMsQ0FBQyxNQUFNLENBQUMsT0FBTyxDQUFDLEVBQUUsQ0FBQztRQUNwRyxJQUFLLGNBQW9DLENBQUMsUUFBUSxDQUFDLEtBQUssQ0FBQyxFQUFFLENBQUM7WUFDMUQsSUFBSSxDQUFDLE9BQU8sQ0FBQyxRQUFRLENBQUMsS0FBcUIsQ0FBQztnQkFBRSxPQUFPLENBQUMsSUFBSSxDQUFDLEtBQXFCLENBQUMsQ0FBQztRQUNwRixDQUFDO2FBQU0sQ0FBQztZQUNOLFFBQVEsQ0FBQyxJQUFJLENBQUMsYUFBYSxLQUFLLGtEQUFrRCxjQUFjLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxHQUFHLENBQUMsQ0FBQztRQUNsSCxDQUFDO0lBQ0gsQ0FBQztJQUVELE1BQU0sUUFBUSxHQUFHLFFBQVEsQ0FBQyxXQUFXLENBQUMsQ0FBQyxJQUFJLEVBQUUsQ0FBQyxXQUFXLEVBQUUsQ0FBQztJQUM1RCxJQUFJLFFBQVEsS0FBSyxNQUFNLElBQUksUUFBUSxLQUFLLE1BQU0sRUFBRSxDQUFDO1FBQy9DLFFBQVEsQ0FBQyxJQUFJLENBQ1gsNEdBQTRHO1lBQzVHLDRFQUE0RSxDQUM3RSxDQUFDO0lBQ0osQ0FBQztJQUNELE1BQU0sTUFBTSxHQUFHLFFBQVEsQ0FBQyxRQUFRLENBQUMsQ0FBQyxJQUFJLEVBQUUsQ0FBQztJQUN6QyxJQUFJLE1BQU0sSUFBSSxNQUFNLEtBQUssS0FBSyxFQUFFLENBQUM7UUFDL0IsUUFBUSxDQUFDLElBQUksQ0FBQyxtRUFBbUUsQ0FBQyxDQUFDO0lBQ3JGLENBQUM7SUFFRCxPQUFPO1FBQ0wsR0FBRztRQUNILE1BQU07UUFDTixXQUFXO1FBQ1gsV0FBVztRQUNYLFdBQVc7UUFDWCxjQUFjO1FBQ2QsWUFBWTtRQUNaLGNBQWM7UUFDZCxPQUFPO1FBQ1AsUUFBUTtLQUNULENBQUM7QUFDSixDQUFDO0FBRUQ7Ozs7R0FJRztBQUNILE1BQU0sVUFBVSxZQUFZLENBQUMsTUFBNEQsRUFBRSxPQUFxQjtJQUM5RyxNQUFNLFFBQVEsR0FBYSxFQUFFLENBQUM7SUFDOUIsSUFBSSxPQUFPLENBQUMsV0FBVyxFQUFFLENBQUM7UUFDeEIsUUFBUSxDQUFDLElBQUksQ0FBQyxHQUFHLE9BQU8sQ0FBQyxHQUFHLDBCQUEwQixPQUFPLENBQUMsV0FBVyxFQUFFLENBQUMsQ0FBQztJQUMvRSxDQUFDO0lBQ0QsSUFBSSxNQUFNLENBQUMsV0FBVyxJQUFJLE9BQU8sQ0FBQyxXQUFXLEdBQUcsQ0FBQyxFQUFFLENBQUM7UUFDbEQsUUFBUSxDQUFDLElBQUksQ0FBQyxtQkFBbUIsT0FBTyxDQUFDLFdBQVcsU0FBUyxPQUFPLENBQUMsV0FBVyxLQUFLLENBQUMsQ0FBQyxDQUFDLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQyxHQUFHLEVBQUUsQ0FBQyxDQUFDO0lBQ3ZHLENBQUM7SUFDRCxJQUFJLE1BQU0sQ0FBQyxjQUFjLEdBQUcsQ0FBQyxJQUFJLE9BQU8sQ0FBQyxLQUFLLEdBQUcsTUFBTSxDQUFDLGNBQWMsRUFBRSxDQUFDO1FBQ3ZFLFFBQVEsQ0FBQyxJQUFJLENBQUMsYUFBYSxPQUFPLENBQUMsS0FBSyx1QkFBdUIsTUFBTSxDQUFDLGNBQWMsRUFBRSxDQUFDLENBQUM7SUFDMUYsQ0FBQztJQUNELE9BQU8sRUFBRSxNQUFNLEVBQUUsUUFBUSxDQUFDLE1BQU0sS0FBSyxDQUFDLEVBQUUsUUFBUSxFQUFFLENBQUM7QUFDckQsQ0FBQztBQUVEOztHQUVHO0FBQ0gsTUFBTSxVQUFVLFVBQVUsQ0FBQyxNQUE0RCxFQUFFLE9BQXFCO0lBQzVHLE9BQU8sQ0FBQyxZQUFZLENBQUMsTUFBTSxFQUFFLE9BQU8sQ0FBQyxDQUFDLE1BQU0sQ0FBQztBQUMvQyxDQUFDO0FBRUQ7O0dBRUc7QUFDSCxTQUFTLGFBQWEsQ0FBQyxLQUFhO0lBQ2xDLElBQUksS0FBSyxJQUFJLEVBQUU7UUFBRSxPQUFPLGFBQWEsQ0FBQztJQUN0QyxJQUFJLEtBQUssSUFBSSxFQUFFO1FBQUUsT0FBTyxPQUFPLENBQUM7SUFDaEMsSUFBSSxLQUFLLElBQUksRUFBRTtRQUFFLE9BQU8sUUFBUSxDQUFDO0lBQ2pDLElBQUksS0FBSyxJQUFJLEVBQUU7UUFBRSxPQUFPLFFBQVEsQ0FBQztJQUNqQyxPQUFPLEtBQUssQ0FBQztBQUNmLENBQUM7QUFFRDs7R0FFRztBQUNILFNBQVMsa0JBQWtCLENBQUMsUUFBZ0I7SUFDMUMsTUFBTSxLQUFLLEdBQTJCO1FBQ3BDLFNBQVMsRUFBRSxTQUFTO1FBQ3BCLGFBQWEsRUFBRSxhQUFhO1FBQzVCLGFBQWEsRUFBRSxhQUFhO1FBQzVCLGNBQWMsRUFBRSxjQUFjO1FBQzlCLGNBQWMsRUFBRSxjQUFjO1FBQzlCLGlCQUFpQixFQUFFLGlCQUFpQjtRQUNwQyxVQUFVLEVBQUUsVUFBVTtRQUN0QixRQUFRLEVBQUUsUUFBUTtRQUNsQixPQUFPLEVBQUUsT0FBTztRQUNoQixRQUFRLEVBQUUsUUFBUTtRQUNsQixTQUFTLEVBQUUsU0FBUztLQUNyQixDQUFDO0lBQ0YsT0FBTyxLQUFLLENBQUMsUUFBUSxDQUFDLElBQUksUUFBUSxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUMsQ0FBQyxXQUFXLEVBQUUsR0FBRyxRQUFRLENBQUMsS0FBSyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQ2pGLENBQUM7QUFFRDs7R0FFRztBQUNILE1BQU0sVUFBVSxlQUFlLENBQUMsT0FBcUIsRUFBRSxJQUFpQjtJQUN0RSxNQUFNLEVBQUUsR0FBRyxFQUFFLEtBQUssRUFBRSxXQUFXLEVBQUUsV0FBVyxFQUFFLGFBQWEsRUFBRSxVQUFVLEVBQUUsR0FBRyxPQUFPLENBQUM7SUFDcEYsTUFBTSxLQUFLLEdBQUcsYUFBYSxDQUFDLEtBQUssQ0FBQyxDQUFDO0lBRW5DLElBQUksT0FBTyxHQUFHOzt3REFFd0MsS0FBSyxVQUFVLEtBQUs7O2FBRS9ELEdBQUcsQ0FBQyxPQUFPLENBQUMsSUFBSSxFQUFFLEVBQUUsQ0FBQzs7Q0FFakMsQ0FBQztJQUVBLElBQUksSUFBSSxJQUFJLENBQUMsSUFBSSxDQUFDLE1BQU0sRUFBRSxDQUFDO1FBQ3pCLE9BQU8sSUFBSTswQkFDVyxJQUFJLENBQUMsUUFBUSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUM7O0NBRWpELENBQUM7SUFDQSxDQUFDO0lBRUQsT0FBTyxJQUFJOzs7O2NBSUMsS0FBSzttQkFDQSxXQUFXO2FBQ2pCLFdBQVc7ZUFDVCxhQUFhOztDQUUzQixDQUFDO0lBRUEscUJBQXFCO0lBQ3JCLE1BQU0sZUFBZSxHQUFHLE1BQU0sQ0FBQyxPQUFPLENBQUMsVUFBVSxDQUFDLENBQUM7SUFDbkQsSUFBSSxlQUFlLENBQUMsTUFBTSxHQUFHLENBQUMsRUFBRSxDQUFDO1FBQy9CLE9BQU8sSUFBSTs7OztDQUlkLENBQUM7UUFDRSxLQUFLLE1BQU0sQ0FBQyxRQUFRLEVBQUUsSUFBSSxDQUFDLElBQUksZUFBZSxFQUFFLENBQUM7WUFDL0MsTUFBTSxLQUFLLEdBQUcsSUFBSSxDQUFDLEtBQUssSUFBSSxFQUFFLENBQUMsQ0FBQyxDQUFDLG9CQUFvQixDQUFDLENBQUMsQ0FBQyxJQUFJLENBQUMsS0FBSyxJQUFJLEVBQUUsQ0FBQyxDQUFDLENBQUMsV0FBVyxDQUFDLENBQUMsQ0FBQyxLQUFLLENBQUM7WUFDL0YsT0FBTyxJQUFJLEtBQUssS0FBSyxJQUFJLGtCQUFrQixDQUFDLFFBQVEsQ0FBQyxNQUFNLElBQUksQ0FBQyxLQUFLLFVBQVUsSUFBSSxDQUFDLE1BQU0sTUFBTSxDQUFDO1FBQ25HLENBQUM7UUFDRCxPQUFPLElBQUksSUFBSSxDQUFDO0lBQ2xCLENBQUM7SUFFRCxTQUFTO0lBQ1QsT0FBTyxJQUFJO2tEQUNxQyxDQUFDO0lBRWpELE9BQU8sT0FBTyxDQUFDO0FBQ2pCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEdpdEh1YiBBY3Rpb24gbG9naWM6IGlucHV0cywgdGhlIHBhc3MvZmFpbCBnYXRlLCBhbmQgdGhlIFBSIGNvbW1lbnQuXG4gKiBQdXJlIGZ1bmN0aW9ucyAtIHJ1bi50cyBkb2VzIHRoZSBJL08uXG4gKi9cblxuLyoqXG4gKiBBbGVydCB0cmlnZ2VycyB0aGUgYWN0aW9uIGltcGxlbWVudHM6XG4gKiAtIGVycm9yOiB0aGUgYXVkaXQgZm91bmQgYXQgbGVhc3Qgb25lIGVycm9yLXNldmVyaXR5IGlzc3VlXG4gKiAtIGZhaWx1cmU6IHRoZSBhY3Rpb24gZmFpbGVkIChnYXRlIHRyaXBwZWQsIG9yIHRoZSBzaXRlIGNvdWxkbid0IGJlIGF1ZGl0ZWQpXG4gKi9cbmV4cG9ydCB0eXBlIEFsZXJ0VHJpZ2dlciA9ICdlcnJvcicgfCAnZmFpbHVyZSc7XG5jb25zdCBBTEVSVF9UUklHR0VSUzogcmVhZG9ubHkgQWxlcnRUcmlnZ2VyW10gPSBbJ2Vycm9yJywgJ2ZhaWx1cmUnXTtcblxuLyoqXG4gKiBJbnB1dHMgdGhlIGFjdGlvbiB1c2VkIHRvIGRlY2xhcmUgYnV0IG5ldmVyIGltcGxlbWVudGVkLiBTdGlsbCBkZWNsYXJlZFxuICogaW4gYWN0aW9uLnltbCAod2l0aCBhIGRlcHJlY2F0aW9uTWVzc2FnZSkgc28gYW4gZXhpc3Rpbmcgd29ya2Zsb3cgZ2V0cyBhXG4gKiB3YXJuaW5nIGluc3RlYWQgb2YgYW4gXCJVbmV4cGVjdGVkIGlucHV0XCIgZXJyb3IuXG4gKi9cbmV4cG9ydCBjb25zdCBSRU1PVkVEX0lOUFVUUyA9IFsnY3JlYXRlLXByJywgJ3ByLXRocmVzaG9sZC1lcnJvcnMnLCAncHItdGhyZXNob2xkLXNjb3JlJywgJ3ByLWJhc2UtYnJhbmNoJywgJ2NoZWNrcyddIGFzIGNvbnN0O1xuXG5leHBvcnQgaW50ZXJmYWNlIEFjdGlvbklucHV0cyB7XG4gIHVybDogc3RyaW5nO1xuICBhcGlLZXk/OiBzdHJpbmc7XG4gIGdpdGh1YlRva2VuPzogc3RyaW5nO1xuICBjb21tZW50T25QcjogYm9vbGVhbjtcbiAgZmFpbE9uRXJyb3I6IGJvb2xlYW47XG4gIHNjb3JlVGhyZXNob2xkOiBudW1iZXI7XG4gIHNsYWNrV2ViaG9vaz86IHN0cmluZztcbiAgZGlzY29yZFdlYmhvb2s/OiBzdHJpbmc7XG4gIGFsZXJ0T246IEFsZXJ0VHJpZ2dlcltdO1xuICAvKiogSHVtYW4tcmVhZGFibGUgd2FybmluZ3MgYWJvdXQgaW5wdXRzIChyZW1vdmVkLCB1bnN1cHBvcnRlZCB2YWx1ZXMpLiAqL1xuICB3YXJuaW5nczogc3RyaW5nW107XG59XG5cbmV4cG9ydCBpbnRlcmZhY2UgQ2F0ZWdvcnlTdW1tYXJ5IHtcbiAgc2NvcmU6IG51bWJlcjtcbiAgaXNzdWVzOiBudW1iZXI7XG59XG5cbmV4cG9ydCBpbnRlcmZhY2UgQXVkaXRTdW1tYXJ5IHtcbiAgdXJsOiBzdHJpbmc7XG4gIHNjb3JlOiBudW1iZXI7XG4gIGlzc3Vlc0NvdW50OiBudW1iZXI7XG4gIGVycm9yc0NvdW50OiBudW1iZXI7XG4gIHdhcm5pbmdzQ291bnQ6IG51bWJlcjtcbiAgY2F0ZWdvcmllczogUmVjb3JkPHN0cmluZywgQ2F0ZWdvcnlTdW1tYXJ5PjtcbiAgLyoqIFNldCB3aGVuIHRoZSBwYWdlIGl0c2VsZiBjb3VsZG4ndCBiZSBhdWRpdGVkICh1bnJlYWNoYWJsZSAvIDR4eCAvIDV4eCkuICovXG4gIHBhZ2VGYWlsdXJlPzogc3RyaW5nO1xufVxuXG5leHBvcnQgaW50ZXJmYWNlIEdhdGVSZXN1bHQge1xuICBwYXNzZWQ6IGJvb2xlYW47XG4gIGZhaWx1cmVzOiBzdHJpbmdbXTtcbn1cblxudHlwZSBHZXRJbnB1dEZuID0gKG5hbWU6IHN0cmluZykgPT4gc3RyaW5nO1xuXG5jb25zdCBpc1RydWUgPSAodmFsdWU6IHN0cmluZykgPT4gdmFsdWUudHJpbSgpLnRvTG93ZXJDYXNlKCkgPT09ICd0cnVlJztcblxuLyoqXG4gKiBQYXJzZXMgYWN0aW9uIGlucHV0cyBmcm9tIHRoZSBHaXRIdWIgQWN0aW9ucyBlbnZpcm9ubWVudFxuICovXG5leHBvcnQgZnVuY3Rpb24gcGFyc2VJbnB1dHMoZ2V0SW5wdXQ6IEdldElucHV0Rm4pOiBBY3Rpb25JbnB1dHMge1xuICBjb25zdCB3YXJuaW5nczogc3RyaW5nW10gPSBbXTtcbiAgY29uc3QgdXJsID0gZ2V0SW5wdXQoJ3VybCcpLnRyaW0oKTtcbiAgY29uc3QgYXBpS2V5ID0gZ2V0SW5wdXQoJ2FwaS1rZXknKSB8fCBwcm9jZXNzLmVudi5SQU5LQ0xJX0FQSV9LRVkgfHwgdW5kZWZpbmVkO1xuICBjb25zdCBnaXRodWJUb2tlbiA9IGdldElucHV0KCdnaXRodWItdG9rZW4nKSB8fCB1bmRlZmluZWQ7XG4gIGNvbnN0IGNvbW1lbnRPblByID0gZ2V0SW5wdXQoJ2NvbW1lbnQtb24tcHInKSAhPT0gJ2ZhbHNlJzsgLy8gZGVmYXVsdCB0cnVlXG4gIC8vIFRoZSBzaXRlIGRvY3MgaGF2ZSBhbHdheXMgc2FpZCBgZmFpbC1vbi1lcnJvcnNgOyBhY3Rpb24ueW1sIHNhaWRcbiAgLy8gYGZhaWwtb24tZXJyb3JgLiBBY2NlcHQgYm90aCAtIGVpdGhlciBvbmUgc2V0IHRvIHRydWUgdHVybnMgaXQgb24uXG4gIGNvbnN0IGZhaWxPbkVycm9yID0gaXNUcnVlKGdldElucHV0KCdmYWlsLW9uLWVycm9yJykpIHx8IGlzVHJ1ZShnZXRJbnB1dCgnZmFpbC1vbi1lcnJvcnMnKSk7XG4gIGNvbnN0IHNjb3JlVGhyZXNob2xkID0gcGFyc2VJbnQoZ2V0SW5wdXQoJ3Njb3JlLXRocmVzaG9sZCcpIHx8ICcwJywgMTApIHx8IDA7XG4gIGNvbnN0IHNsYWNrV2ViaG9vayA9IGdldElucHV0KCdzbGFjay13ZWJob29rJykgfHwgdW5kZWZpbmVkO1xuICBjb25zdCBkaXNjb3JkV2ViaG9vayA9IGdldElucHV0KCdkaXNjb3JkLXdlYmhvb2snKSB8fCB1bmRlZmluZWQ7XG5cbiAgY29uc3QgYWxlcnRPbjogQWxlcnRUcmlnZ2VyW10gPSBbXTtcbiAgZm9yIChjb25zdCB2YWx1ZSBvZiAoZ2V0SW5wdXQoJ2FsZXJ0LW9uJykgfHwgJ2Vycm9yJykuc3BsaXQoJywnKS5tYXAocyA9PiBzLnRyaW0oKSkuZmlsdGVyKEJvb2xlYW4pKSB7XG4gICAgaWYgKChBTEVSVF9UUklHR0VSUyBhcyByZWFkb25seSBzdHJpbmdbXSkuaW5jbHVkZXModmFsdWUpKSB7XG4gICAgICBpZiAoIWFsZXJ0T24uaW5jbHVkZXModmFsdWUgYXMgQWxlcnRUcmlnZ2VyKSkgYWxlcnRPbi5wdXNoKHZhbHVlIGFzIEFsZXJ0VHJpZ2dlcik7XG4gICAgfSBlbHNlIHtcbiAgICAgIHdhcm5pbmdzLnB1c2goYGFsZXJ0LW9uIFwiJHt2YWx1ZX1cIiBpcyBub3Qgc3VwcG9ydGVkIGFuZCB3YXMgaWdub3JlZCAoc3VwcG9ydGVkOiAke0FMRVJUX1RSSUdHRVJTLmpvaW4oJywgJyl9KWApO1xuICAgIH1cbiAgfVxuXG4gIGNvbnN0IGNyZWF0ZVByID0gZ2V0SW5wdXQoJ2NyZWF0ZS1wcicpLnRyaW0oKS50b0xvd2VyQ2FzZSgpO1xuICBpZiAoY3JlYXRlUHIgPT09ICd0cnVlJyB8fCBjcmVhdGVQciA9PT0gJ2F1dG8nKSB7XG4gICAgd2FybmluZ3MucHVzaChcbiAgICAgICdjcmVhdGUtcHIgd2FzIHJlbW92ZWQ6IGl0IG5ldmVyIG9wZW5lZCBhIFBSLiBGb3IgYXV0by1maXggUFJzLCBydW4gYHJhbmtjbGkgc2V0dXAgLS1naXRodWItYWN0aW9uIC0tc3luY2AgJyArXG4gICAgICAnaW4geW91ciByZXBvIC0gdGhlIHdvcmtmbG93IGl0IHdyaXRlcyBydW5zIGByYW5rY2xpIGZpeGAgYW5kIG9wZW5zIHRoZSBQUi4nLFxuICAgICk7XG4gIH1cbiAgY29uc3QgY2hlY2tzID0gZ2V0SW5wdXQoJ2NoZWNrcycpLnRyaW0oKTtcbiAgaWYgKGNoZWNrcyAmJiBjaGVja3MgIT09ICdhbGwnKSB7XG4gICAgd2FybmluZ3MucHVzaCgnY2hlY2tzIHdhcyByZW1vdmVkOiBpdCBuZXZlciBmaWx0ZXJlZCBhbnl0aGluZy4gRXZlcnkgY2hlY2sgcnVucy4nKTtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgdXJsLFxuICAgIGFwaUtleSxcbiAgICBnaXRodWJUb2tlbixcbiAgICBjb21tZW50T25QcixcbiAgICBmYWlsT25FcnJvcixcbiAgICBzY29yZVRocmVzaG9sZCxcbiAgICBzbGFja1dlYmhvb2ssXG4gICAgZGlzY29yZFdlYmhvb2ssXG4gICAgYWxlcnRPbixcbiAgICB3YXJuaW5ncyxcbiAgfTtcbn1cblxuLyoqXG4gKiBUaGUgYWN0aW9uJ3MgcGFzcy9mYWlsIGRlY2lzaW9uLiBBIHBhZ2UgdGhhdCBjb3VsZG4ndCBiZSBhdWRpdGVkIGFsd2F5c1xuICogZmFpbHMgLSBpdCBzY29yZXMgMCBhbmQgYSBncmVlbiBjaGVjayB3b3VsZCBzYXkgdGhlIHNpdGUgaXMgZmluZSAtIHRoZVxuICogb3RoZXIgdHdvIGNvbmRpdGlvbnMgYXJlIHRoZSBvcHQtaW4gZmFpbC1vbi1lcnJvciAvIHNjb3JlLXRocmVzaG9sZC5cbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIGV2YWx1YXRlR2F0ZShpbnB1dHM6IFBpY2s8QWN0aW9uSW5wdXRzLCAnZmFpbE9uRXJyb3InIHwgJ3Njb3JlVGhyZXNob2xkJz4sIHN1bW1hcnk6IEF1ZGl0U3VtbWFyeSk6IEdhdGVSZXN1bHQge1xuICBjb25zdCBmYWlsdXJlczogc3RyaW5nW10gPSBbXTtcbiAgaWYgKHN1bW1hcnkucGFnZUZhaWx1cmUpIHtcbiAgICBmYWlsdXJlcy5wdXNoKGAke3N1bW1hcnkudXJsfSBjb3VsZCBub3QgYmUgYXVkaXRlZDogJHtzdW1tYXJ5LnBhZ2VGYWlsdXJlfWApO1xuICB9XG4gIGlmIChpbnB1dHMuZmFpbE9uRXJyb3IgJiYgc3VtbWFyeS5lcnJvcnNDb3VudCA+IDApIHtcbiAgICBmYWlsdXJlcy5wdXNoKGBTRU8gYXVkaXQgZm91bmQgJHtzdW1tYXJ5LmVycm9yc0NvdW50fSBlcnJvciR7c3VtbWFyeS5lcnJvcnNDb3VudCA9PT0gMSA/ICcnIDogJ3MnfWApO1xuICB9XG4gIGlmIChpbnB1dHMuc2NvcmVUaHJlc2hvbGQgPiAwICYmIHN1bW1hcnkuc2NvcmUgPCBpbnB1dHMuc2NvcmVUaHJlc2hvbGQpIHtcbiAgICBmYWlsdXJlcy5wdXNoKGBTRU8gc2NvcmUgJHtzdW1tYXJ5LnNjb3JlfSBpcyBiZWxvdyB0aHJlc2hvbGQgJHtpbnB1dHMuc2NvcmVUaHJlc2hvbGR9YCk7XG4gIH1cbiAgcmV0dXJuIHsgcGFzc2VkOiBmYWlsdXJlcy5sZW5ndGggPT09IDAsIGZhaWx1cmVzIH07XG59XG5cbi8qKlxuICogRGV0ZXJtaW5lcyBpZiB0aGUgYWN0aW9uIHNob3VsZCBmYWlsIGJhc2VkIG9uIGlucHV0cyBhbmQgcmVzdWx0c1xuICovXG5leHBvcnQgZnVuY3Rpb24gc2hvdWxkRmFpbChpbnB1dHM6IFBpY2s8QWN0aW9uSW5wdXRzLCAnZmFpbE9uRXJyb3InIHwgJ3Njb3JlVGhyZXNob2xkJz4sIHN1bW1hcnk6IEF1ZGl0U3VtbWFyeSk6IGJvb2xlYW4ge1xuICByZXR1cm4gIWV2YWx1YXRlR2F0ZShpbnB1dHMsIHN1bW1hcnkpLnBhc3NlZDtcbn1cblxuLyoqXG4gKiBHZXRzIHRoZSBzY29yZSBiYWRnZSBjb2xvciBiYXNlZCBvbiBzY29yZSB2YWx1ZVxuICovXG5mdW5jdGlvbiBnZXRTY29yZUNvbG9yKHNjb3JlOiBudW1iZXIpOiBzdHJpbmcge1xuICBpZiAoc2NvcmUgPj0gOTApIHJldHVybiAnYnJpZ2h0Z3JlZW4nO1xuICBpZiAoc2NvcmUgPj0gNzApIHJldHVybiAnZ3JlZW4nO1xuICBpZiAoc2NvcmUgPj0gNTApIHJldHVybiAneWVsbG93JztcbiAgaWYgKHNjb3JlID49IDMwKSByZXR1cm4gJ29yYW5nZSc7XG4gIHJldHVybiAncmVkJztcbn1cblxuLyoqXG4gKiBGb3JtYXRzIGEgY2F0ZWdvcnkgbmFtZSBmb3IgZGlzcGxheVxuICovXG5mdW5jdGlvbiBmb3JtYXRDYXRlZ29yeU5hbWUoY2F0ZWdvcnk6IHN0cmluZyk6IHN0cmluZyB7XG4gIGNvbnN0IG5hbWVzOiBSZWNvcmQ8c3RyaW5nLCBzdHJpbmc+ID0ge1xuICAgICdvbi1wYWdlJzogJ09uLVBhZ2UnLFxuICAgICdzb2NpYWwtbWV0YSc6ICdTb2NpYWwgTWV0YScsXG4gICAgJ3BlcmZvcm1hbmNlJzogJ1BlcmZvcm1hbmNlJyxcbiAgICAnY3Jhd2xhYmlsaXR5JzogJ0NyYXdsYWJpbGl0eScsXG4gICAgJ2luZGV4YWJpbGl0eSc6ICdJbmRleGFiaWxpdHknLFxuICAgICdzdHJ1Y3R1cmVkLWRhdGEnOiAnU3RydWN0dXJlZCBEYXRhJyxcbiAgICAnc2VjdXJpdHknOiAnU2VjdXJpdHknLFxuICAgICdtb2JpbGUnOiAnTW9iaWxlJyxcbiAgICAnbGlua3MnOiAnTGlua3MnLFxuICAgICdpbWFnZXMnOiAnSW1hZ2VzJyxcbiAgICAnY29udGVudCc6ICdDb250ZW50JyxcbiAgfTtcbiAgcmV0dXJuIG5hbWVzW2NhdGVnb3J5XSB8fCBjYXRlZ29yeS5jaGFyQXQoMCkudG9VcHBlckNhc2UoKSArIGNhdGVnb3J5LnNsaWNlKDEpO1xufVxuXG4vKipcbiAqIEZvcm1hdHMgdGhlIGF1ZGl0IHN1bW1hcnkgYXMgYSBQUiBjb21tZW50XG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBmb3JtYXRQUkNvbW1lbnQoc3VtbWFyeTogQXVkaXRTdW1tYXJ5LCBnYXRlPzogR2F0ZVJlc3VsdCk6IHN0cmluZyB7XG4gIGNvbnN0IHsgdXJsLCBzY29yZSwgaXNzdWVzQ291bnQsIGVycm9yc0NvdW50LCB3YXJuaW5nc0NvdW50LCBjYXRlZ29yaWVzIH0gPSBzdW1tYXJ5O1xuICBjb25zdCBjb2xvciA9IGdldFNjb3JlQ29sb3Ioc2NvcmUpO1xuXG4gIGxldCBjb21tZW50ID0gYCMjIFNFTyBBdWRpdCBSZXBvcnRcblxuIVtTRU8gU2NvcmVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvU0VPJTIwU2NvcmUtJHtzY29yZX0lMkYxMDAtJHtjb2xvcn0/c3R5bGU9Zm9yLXRoZS1iYWRnZSlcblxuKipVUkw6KiogXFxgJHt1cmwucmVwbGFjZSgvYC9nLCAnJyl9XFxgXG5cbmA7XG5cbiAgaWYgKGdhdGUgJiYgIWdhdGUucGFzc2VkKSB7XG4gICAgY29tbWVudCArPSBgPiBbIUNBVVRJT05dXG4+ICoqU0VPIGNoZWNrIGZhaWxlZDoqKiAke2dhdGUuZmFpbHVyZXMuam9pbignOyAnKX1cblxuYDtcbiAgfVxuXG4gIGNvbW1lbnQgKz0gYCMjIyBTdW1tYXJ5XG5cbnwgTWV0cmljIHwgVmFsdWUgfFxufC0tLS0tLS0tfC0tLS0tLS18XG58IFNjb3JlIHwgKioke3Njb3JlfS8xMDAqKiB8XG58IFRvdGFsIElzc3VlcyB8ICR7aXNzdWVzQ291bnR9IGlzc3VlcyB8XG58IEVycm9ycyB8ICR7ZXJyb3JzQ291bnR9IGVycm9ycyB8XG58IFdhcm5pbmdzIHwgJHt3YXJuaW5nc0NvdW50fSB3YXJuaW5ncyB8XG5cbmA7XG5cbiAgLy8gQ2F0ZWdvcnkgYnJlYWtkb3duXG4gIGNvbnN0IGNhdGVnb3J5RW50cmllcyA9IE9iamVjdC5lbnRyaWVzKGNhdGVnb3JpZXMpO1xuICBpZiAoY2F0ZWdvcnlFbnRyaWVzLmxlbmd0aCA+IDApIHtcbiAgICBjb21tZW50ICs9IGAjIyMgQ2F0ZWdvcnkgQnJlYWtkb3duXG5cbnwgQ2F0ZWdvcnkgfCBTY29yZSB8IElzc3VlcyB8XG58LS0tLS0tLS0tLXwtLS0tLS0tfC0tLS0tLS0tfFxuYDtcbiAgICBmb3IgKGNvbnN0IFtjYXRlZ29yeSwgZGF0YV0gb2YgY2F0ZWdvcnlFbnRyaWVzKSB7XG4gICAgICBjb25zdCBlbW9qaSA9IGRhdGEuc2NvcmUgPj0gNzAgPyAnOndoaXRlX2NoZWNrX21hcms6JyA6IGRhdGEuc2NvcmUgPj0gNTAgPyAnOndhcm5pbmc6JyA6ICc6eDonO1xuICAgICAgY29tbWVudCArPSBgfCAke2Vtb2ppfSAke2Zvcm1hdENhdGVnb3J5TmFtZShjYXRlZ29yeSl9IHwgJHtkYXRhLnNjb3JlfS8xMDAgfCAke2RhdGEuaXNzdWVzfSB8XFxuYDtcbiAgICB9XG4gICAgY29tbWVudCArPSAnXFxuJztcbiAgfVxuXG4gIC8vIEZvb3RlclxuICBjb21tZW50ICs9IGAtLS1cbjpyb2JvdDogUG93ZXJlZCBieSBbUmFua0NMSV0oaHR0cHM6Ly9yYW5rY2xpLmRldilgO1xuXG4gIHJldHVybiBjb21tZW50O1xufVxuIl19
 ;// CONCATENATED MODULE: ./src/run.ts
 
 const PAGE_FAILURE_CODES = new Set(['FETCH_ERROR', 'HTTP_ERROR_STATUS']);
@@ -112594,7 +124259,7 @@ async function runAction(deps) {
         deps.setFailed(`Action failed: ${error instanceof Error ? error.message : String(error)}`);
     }
 }
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiZmlsZTovLy9ob21lL2JzYi9Db2RlL3Byb2R1Y3RzL3JhbmtjbGkuZGV2L3BhY2thZ2VzL2dpdGh1Yi1hY3Rpb24vc3JjL3J1bi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFXQSxPQUFPLEVBQUUsV0FBVyxFQUFFLFlBQVksRUFBRSxlQUFlLEVBQXNDLE1BQU0sYUFBYSxDQUFDO0FBbUM3RyxNQUFNLGtCQUFrQixHQUFHLElBQUksR0FBRyxDQUFDLENBQUMsYUFBYSxFQUFFLG1CQUFtQixDQUFDLENBQUMsQ0FBQztBQUV6RSxNQUFNLFVBQVUsU0FBUyxDQUFDLEdBQVcsRUFBRSxNQUFtQjtJQUN4RCxNQUFNLE1BQU0sR0FBaUIsTUFBTSxDQUFDLE1BQU0sQ0FBQztJQUMzQyxNQUFNLE9BQU8sR0FBaUI7UUFDNUIsR0FBRztRQUNILEtBQUssRUFBRSxNQUFNLENBQUMsV0FBVyxDQUFDLE9BQU87UUFDakMsV0FBVyxFQUFFLE1BQU0sQ0FBQyxNQUFNO1FBQzFCLFdBQVcsRUFBRSxNQUFNLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLFFBQVEsS0FBSyxPQUFPLElBQUksQ0FBQyxDQUFDLFFBQVEsS0FBSyxVQUFVLENBQUMsQ0FBQyxNQUFNO1FBQzNGLGFBQWEsRUFBRSxNQUFNLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLFFBQVEsS0FBSyxTQUFTLENBQUMsQ0FBQyxNQUFNO1FBQ2xFLFVBQVUsRUFBRSxFQUFFO0tBQ2YsQ0FBQztJQUNGLE1BQU0sV0FBVyxHQUFHLE1BQU0sQ0FBQyxJQUFJLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxrQkFBa0IsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLElBQUksQ0FBQyxDQUFDLENBQUM7SUFDckUsSUFBSSxXQUFXO1FBQUUsT0FBTyxDQUFDLFdBQVcsR0FBRyxXQUFXLENBQUMsS0FBSyxDQUFDO0lBRXpELEtBQUssTUFBTSxLQUFLLElBQUksTUFBTSxFQUFFLENBQUM7UUFDM0IsT0FBTyxDQUFDLFVBQVUsQ0FBQyxLQUFLLENBQUMsUUFBUSxDQUFDLEtBQUssRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLE1BQU0sRUFBRSxDQUFDLEVBQUUsQ0FBQztRQUMvRCxPQUFPLENBQUMsVUFBVSxDQUFDLEtBQUssQ0FBQyxRQUFRLENBQUMsQ0FBQyxNQUFNLEVBQUUsQ0FBQztJQUM5QyxDQUFDO0lBQ0QsTUFBTSxnQkFBZ0IsR0FBcUQ7UUFDekUsU0FBUyxFQUFFLFFBQVE7UUFDbkIsWUFBWSxFQUFFLGNBQWM7UUFDNUIsWUFBWSxFQUFFLGNBQWM7UUFDNUIsV0FBVyxFQUFFLGFBQWE7UUFDMUIsUUFBUSxFQUFFLFVBQVU7UUFDcEIsT0FBTyxFQUFFLFNBQVM7UUFDbEIsS0FBSyxFQUFFLE9BQU87S0FDZixDQUFDO0lBQ0YsS0FBSyxNQUFNLENBQUMsUUFBUSxFQUFFLEdBQUcsQ0FBQyxJQUFJLE1BQU0sQ0FBQyxPQUFPLENBQUMsZ0JBQWdCLENBQUMsRUFBRSxDQUFDO1FBQy9ELElBQUksT0FBTyxDQUFDLFVBQVUsQ0FBQyxRQUFRLENBQUM7WUFBRSxPQUFPLENBQUMsVUFBVSxDQUFDLFFBQVEsQ0FBQyxDQUFDLEtBQUssR0FBRyxNQUFNLENBQUMsV0FBVyxDQUFDLEdBQUcsQ0FBQyxDQUFDO0lBQ2pHLENBQUM7SUFDRCxPQUFPLE9BQU8sQ0FBQztBQUNqQixDQUFDO0FBRUQsS0FBSyxVQUFVLFVBQVUsQ0FBQyxJQUFnQixFQUFFLElBQVksRUFBRSxFQUF1QjtJQUMvRSxJQUFJLENBQUM7UUFDSCxNQUFNLEVBQUUsRUFBRSxDQUFDO0lBQ2IsQ0FBQztJQUFDLE9BQU8sS0FBSyxFQUFFLENBQUM7UUFDZixJQUFJLENBQUMsT0FBTyxDQUFDLEdBQUcsSUFBSSxZQUFZLEtBQUssWUFBWSxLQUFLLENBQUMsQ0FBQyxDQUFDLEtBQUssQ0FBQyxPQUFPLENBQUMsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsRUFBRSxDQUFDLENBQUM7SUFDNUYsQ0FBQztBQUNILENBQUM7QUFFRCxNQUFNLENBQUMsS0FBSyxVQUFVLFNBQVMsQ0FBQyxJQUFnQjtJQUM5QyxJQUFJLENBQUM7UUFDSCxNQUFNLE1BQU0sR0FBRyxXQUFXLENBQUMsQ0FBQyxJQUFJLEVBQUUsRUFBRSxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQztRQUMxRCxLQUFLLE1BQU0sT0FBTyxJQUFJLE1BQU0sQ0FBQyxRQUFRO1lBQUUsSUFBSSxDQUFDLE9BQU8sQ0FBQyxPQUFPLENBQUMsQ0FBQztRQUU3RCxJQUFJLENBQUM7WUFDSCxNQUFNLE1BQU0sR0FBRyxJQUFJLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUM7WUFDbkMsSUFBSSxNQUFNLENBQUMsUUFBUSxLQUFLLE9BQU8sSUFBSSxNQUFNLENBQUMsUUFBUSxLQUFLLFFBQVE7Z0JBQUUsTUFBTSxJQUFJLEtBQUssQ0FBQyxhQUFhLENBQUMsQ0FBQztRQUNsRyxDQUFDO1FBQUMsTUFBTSxDQUFDO1lBQ1AsSUFBSSxDQUFDLFNBQVMsQ0FBQyxzQkFBc0IsTUFBTSxDQUFDLEdBQUcsNEJBQTRCLENBQUMsQ0FBQztZQUM3RSxPQUFPO1FBQ1QsQ0FBQztRQUVELHNFQUFzRTtRQUN0RSx1RUFBdUU7UUFDdkUsdUVBQXVFO1FBQ3ZFLGlFQUFpRTtRQUNqRSxJQUFJLE1BQU0sQ0FBQyxNQUFNLEVBQUUsQ0FBQztZQUNsQixJQUFJLENBQUMsSUFBSSxDQUFDLHVCQUF1QixDQUFDLENBQUM7WUFDbkMsTUFBTSxVQUFVLEdBQUcsTUFBTSxJQUFJLENBQUMsY0FBYyxDQUFDLE1BQU0sQ0FBQyxNQUFNLENBQUMsQ0FBQztZQUM1RCxJQUFJLFVBQVUsQ0FBQyxLQUFLLEVBQUUsQ0FBQztnQkFDckIsSUFBSSxDQUFDLElBQUksQ0FBQyx3QkFBd0IsVUFBVSxDQUFDLElBQUksSUFBSSxTQUFTLEVBQUUsQ0FBQyxDQUFDO2dCQUNsRSxJQUFJLFVBQVUsQ0FBQyxTQUFTLEVBQUUsQ0FBQztvQkFDekIsSUFBSSxDQUFDLFNBQVMsQ0FBQyxzQkFBc0IsRUFBRSxVQUFVLENBQUMsU0FBUyxDQUFDLFNBQVMsQ0FBQyxDQUFDO29CQUN2RSxJQUFJLENBQUMsU0FBUyxDQUFDLHNCQUFzQixFQUFFLFVBQVUsQ0FBQyxTQUFTLENBQUMsUUFBUSxDQUFDLENBQUM7Z0JBQ3hFLENBQUM7WUFDSCxDQUFDO2lCQUFNLElBQUksVUFBVSxDQUFDLFNBQVMsS0FBSyxhQUFhLEVBQUUsQ0FBQztnQkFDbEQsSUFBSSxDQUFDLFNBQVMsQ0FBQyw4QkFBOEIsVUFBVSxDQUFDLEtBQUssRUFBRSxDQUFDLENBQUM7Z0JBQ2pFLE9BQU87WUFDVCxDQUFDO2lCQUFNLENBQUM7Z0JBQ04sSUFBSSxDQUFDLE9BQU8sQ0FBQyx5Q0FBeUMsVUFBVSxDQUFDLEtBQUssK0JBQStCLENBQUMsQ0FBQztnQkFDdkcsSUFBSSxVQUFVLENBQUMsU0FBUyxLQUFLLGNBQWMsSUFBSSxVQUFVLENBQUMsYUFBYSxFQUFFLENBQUM7b0JBQ3hFLElBQUksQ0FBQyxTQUFTLENBQUMsc0JBQXNCLEVBQUUsQ0FBQyxDQUFDLENBQUM7b0JBQzFDLElBQUksQ0FBQyxTQUFTLENBQUMsc0JBQXNCLEVBQUUsVUFBVSxDQUFDLGFBQWEsQ0FBQyxDQUFDO2dCQUNuRSxDQUFDO2dCQUNELElBQUksVUFBVSxDQUFDLFVBQVU7b0JBQUUsSUFBSSxDQUFDLElBQUksQ0FBQyxZQUFZLFVBQVUsQ0FBQyxVQUFVLEVBQUUsQ0FBQyxDQUFDO1lBQzVFLENBQUM7UUFDSCxDQUFDO1FBRUQsSUFBSSxDQUFDLElBQUksQ0FBQyx5QkFBeUIsTUFBTSxDQUFDLEdBQUcsRUFBRSxDQUFDLENBQUM7UUFDakQsTUFBTSxNQUFNLEdBQUcsTUFBTSxJQUFJLENBQUMsUUFBUSxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQztRQUMvQyxNQUFNLE9BQU8sR0FBRyxTQUFTLENBQUMsTUFBTSxDQUFDLEdBQUcsRUFBRSxNQUFNLENBQUMsQ0FBQztRQUM5QyxNQUFNLElBQUksR0FBRyxZQUFZLENBQUMsTUFBTSxFQUFFLE9BQU8sQ0FBQyxDQUFDO1FBRTNDLElBQUksQ0FBQyxJQUFJLENBQUMsMEJBQTBCLE9BQU8sQ0FBQyxLQUFLLGlCQUFpQixPQUFPLENBQUMsV0FBVyxhQUFhLE9BQU8sQ0FBQyxXQUFXLEVBQUUsQ0FBQyxDQUFDO1FBRXpILElBQUksQ0FBQyxTQUFTLENBQUMsT0FBTyxFQUFFLE9BQU8sQ0FBQyxLQUFLLENBQUMsQ0FBQztRQUN2QyxJQUFJLENBQUMsU0FBUyxDQUFDLGNBQWMsRUFBRSxPQUFPLENBQUMsV0FBVyxDQUFDLENBQUM7UUFDcEQsSUFBSSxDQUFDLFNBQVMsQ0FBQyxjQUFjLEVBQUUsT0FBTyxDQUFDLFdBQVcsQ0FBQyxDQUFDO1FBQ3BELElBQUksQ0FBQyxTQUFTLENBQUMsZ0JBQWdCLEVBQUUsT0FBTyxDQUFDLGFBQWEsQ0FBQyxDQUFDO1FBQ3hELElBQUksQ0FBQyxTQUFTLENBQUMsUUFBUSxFQUFFLElBQUksQ0FBQyxNQUFNLENBQUMsQ0FBQztRQUN0QyxJQUFJLENBQUMsU0FBUyxDQUFDLGFBQWEsRUFBRSxJQUFJLENBQUMsU0FBUyxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUM7UUFFdEQsb0VBQW9FO1FBQ3BFLE1BQU0sVUFBVSxDQUFDLElBQUksRUFBRSx5QkFBeUIsRUFBRSxHQUFHLEVBQUUsQ0FBQyxJQUFJLENBQUMsZUFBZSxDQUFDLE9BQU8sRUFBRSxJQUFJLENBQUMsQ0FBQyxDQUFDO1FBRTdGLElBQUksTUFBTSxDQUFDLFdBQVcsSUFBSSxJQUFJLENBQUMsYUFBYSxFQUFFLENBQUM7WUFDN0MsTUFBTSxLQUFLLEdBQUcsTUFBTSxDQUFDLFdBQVcsSUFBSSxPQUFPLENBQUMsR0FBRyxDQUFDLFlBQVksSUFBSSxFQUFFLENBQUM7WUFDbkUsTUFBTSxVQUFVLENBQ2QsSUFBSSxFQUNKLGlIQUFpSCxFQUNqSCxLQUFLLElBQUksRUFBRTtnQkFDVCxNQUFNLElBQUksQ0FBQyxhQUFjLENBQUMsZUFBZSxDQUFDLE9BQU8sRUFBRSxJQUFJLENBQUMsRUFBRSxLQUFLLENBQUMsQ0FBQztnQkFDakUsSUFBSSxDQUFDLElBQUksQ0FBQyxvQ0FBb0MsQ0FBQyxDQUFDO1lBQ2xELENBQUMsQ0FDRixDQUFDO1FBQ0osQ0FBQztRQUVELE1BQU0sV0FBVyxHQUFHLENBQUMsTUFBTSxDQUFDLE9BQU8sQ0FBQyxRQUFRLENBQUMsT0FBTyxDQUFDLElBQUksT0FBTyxDQUFDLFdBQVcsR0FBRyxDQUFDLENBQUM7ZUFDNUUsQ0FBQyxNQUFNLENBQUMsT0FBTyxDQUFDLFFBQVEsQ0FBQyxTQUFTLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxNQUFNLENBQUMsQ0FBQztRQUMxRCxJQUFJLFdBQVcsRUFBRSxDQUFDO1lBQ2hCLE1BQU0sT0FBTyxHQUFpQjtnQkFDNUIsR0FBRyxFQUFFLE1BQU0sQ0FBQyxHQUFHO2dCQUNmLEtBQUssRUFBRSxPQUFPLENBQUMsS0FBSztnQkFDcEIsV0FBVyxFQUFFLE9BQU8sQ0FBQyxXQUFXO2dCQUNoQyxVQUFVLEVBQUUsT0FBTyxDQUFDLFdBQVc7Z0JBQy9CLE1BQU0sRUFBRSxDQUFDLElBQUksQ0FBQyxNQUFNO2dCQUNwQixRQUFRLEVBQUUsSUFBSSxDQUFDLFFBQVE7YUFDeEIsQ0FBQztZQUNGLElBQUksTUFBTSxDQUFDLFlBQVksRUFBRSxDQUFDO2dCQUN4QixNQUFNLFVBQVUsQ0FBQyxJQUFJLEVBQUUsYUFBYSxFQUFFLEdBQUcsRUFBRSxDQUFDLElBQUksQ0FBQyxTQUFTLENBQUMsT0FBTyxFQUFFLE1BQU0sQ0FBQyxZQUFhLEVBQUUsT0FBTyxDQUFDLENBQUMsQ0FBQztZQUN0RyxDQUFDO1lBQ0QsSUFBSSxNQUFNLENBQUMsY0FBYyxFQUFFLENBQUM7Z0JBQzFCLE1BQU0sVUFBVSxDQUFDLElBQUksRUFBRSxlQUFlLEVBQUUsR0FBRyxFQUFFLENBQUMsSUFBSSxDQUFDLFNBQVMsQ0FBQyxTQUFTLEVBQUUsTUFBTSxDQUFDLGNBQWUsRUFBRSxPQUFPLENBQUMsQ0FBQyxDQUFDO1lBQzVHLENBQUM7UUFDSCxDQUFDO1FBRUQsSUFBSSxDQUFDLElBQUksQ0FBQyxNQUFNLEVBQUUsQ0FBQztZQUNqQixJQUFJLENBQUMsU0FBUyxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDLENBQUM7UUFDM0MsQ0FBQztJQUNILENBQUM7SUFBQyxPQUFPLEtBQUssRUFBRSxDQUFDO1FBQ2YsSUFBSSxDQUFDLFNBQVMsQ0FBQyxrQkFBa0IsS0FBSyxZQUFZLEtBQUssQ0FBQyxDQUFDLENBQUMsS0FBSyxDQUFDLE9BQU8sQ0FBQyxDQUFDLENBQUMsTUFBTSxDQUFDLEtBQUssQ0FBQyxFQUFFLENBQUMsQ0FBQztJQUM3RixDQUFDO0FBQ0gsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogVGhlIGFjdGlvbidzIHJ1biBvcmRlciwgd2l0aCBldmVyeSBzaWRlIGVmZmVjdCBpbmplY3RlZCBzbyBpdCBjYW4gYmVcbiAqIHRlc3RlZC4gaW5kZXgudHMgd2lyZXMgaW4gQGFjdGlvbnMvY29yZSwgQGFjdGlvbnMvZ2l0aHViIGFuZCB0aGUgcnVudGltZS5cbiAqXG4gKiBPcmRlciBtYXR0ZXJzOiB0aGUgZ2F0ZSBpcyBkZWNpZGVkIHJpZ2h0IGFmdGVyIHRoZSBhdWRpdCwgYW5kIG5vdGhpbmdcbiAqIGFmdGVyIHRoYXQgKGpvYiBzdW1tYXJ5LCBQUiBjb21tZW50LCBhbGVydHMpIGNhbiBjaGFuZ2UgaXQuIFRoZSBQUlxuICogY29tbWVudCB1c2VkIHRvIHJ1biBmaXJzdCBhbmQgdGhyb3cgb24gYSByZWFkLW9ubHkgdG9rZW4gKGV2ZXJ5IGZvcmtcbiAqIFBSKSwgc28gdGhlIGFjdGlvbiBmYWlsZWQgd2l0aCBcIlJlc291cmNlIG5vdCBhY2Nlc3NpYmxlIGJ5IGludGVncmF0aW9uXCJcbiAqIGluc3RlYWQgb2YgcmVwb3J0aW5nIC0gb3IgcGFzc2luZyAtIHRoZSBhY3R1YWwgYXVkaXQuXG4gKi9cbmltcG9ydCB0eXBlIHsgQXVkaXRSZXBvcnQsIEF1ZGl0SXNzdWUgfSBmcm9tICdAcmFua2NsaS9hZ2VudC1ydW50aW1lJztcbmltcG9ydCB7IHBhcnNlSW5wdXRzLCBldmFsdWF0ZUdhdGUsIGZvcm1hdFBSQ29tbWVudCwgdHlwZSBBdWRpdFN1bW1hcnksIHR5cGUgR2F0ZVJlc3VsdCB9IGZyb20gJy4vYWN0aW9uLmpzJztcblxuZXhwb3J0IGludGVyZmFjZSBBcGlWYWxpZGF0aW9uUmVzdWx0IHtcbiAgdmFsaWQ6IGJvb2xlYW47XG4gIGVycm9yPzogc3RyaW5nO1xuICBlcnJvckNvZGU/OiAncmF0ZV9saW1pdGVkJyB8ICdzY2hlZHVsZV9leGNlZWRlZCcgfCAnaW52YWxpZF9rZXknIHwgJ25vX2FjY2VzcycgfCAndW5hdmFpbGFibGUnO1xuICB0aWVyPzogc3RyaW5nO1xuICBuZXh0QWxsb3dlZEF0Pzogc3RyaW5nO1xuICB1cGdyYWRlVXJsPzogc3RyaW5nO1xuICByYXRlTGltaXQ/OiB7IGxpbWl0OiBudW1iZXI7IHJlbWFpbmluZzogbnVtYmVyOyByZXNldHNBdDogc3RyaW5nIH07XG59XG5cbmV4cG9ydCBpbnRlcmZhY2UgQWxlcnRQYXlsb2FkIHtcbiAgdXJsOiBzdHJpbmc7XG4gIHNjb3JlOiBudW1iZXI7XG4gIGlzc3Vlc0ZvdW5kOiBudW1iZXI7XG4gIGVycm9yQ291bnQ6IG51bWJlcjtcbiAgZmFpbGVkOiBib29sZWFuO1xuICBmYWlsdXJlczogc3RyaW5nW107XG59XG5cbmV4cG9ydCBpbnRlcmZhY2UgQWN0aW9uRGVwcyB7XG4gIGdldElucHV0KG5hbWU6IHN0cmluZyk6IHN0cmluZztcbiAgaW5mbyhtZXNzYWdlOiBzdHJpbmcpOiB2b2lkO1xuICB3YXJuaW5nKG1lc3NhZ2U6IHN0cmluZyk6IHZvaWQ7XG4gIHNldE91dHB1dChuYW1lOiBzdHJpbmcsIHZhbHVlOiBzdHJpbmcgfCBudW1iZXIgfCBib29sZWFuKTogdm9pZDtcbiAgc2V0RmFpbGVkKG1lc3NhZ2U6IHN0cmluZyk6IHZvaWQ7XG4gIHZhbGlkYXRlQXBpS2V5KGFwaUtleTogc3RyaW5nKTogUHJvbWlzZTxBcGlWYWxpZGF0aW9uUmVzdWx0PjtcbiAgcnVuQXVkaXQodXJsOiBzdHJpbmcpOiBQcm9taXNlPEF1ZGl0UmVwb3J0PjtcbiAgd3JpdGVKb2JTdW1tYXJ5KHN1bW1hcnk6IEF1ZGl0U3VtbWFyeSwgZ2F0ZTogR2F0ZVJlc3VsdCk6IFByb21pc2U8dm9pZD47XG4gIC8qKiBVbmRlZmluZWQgd2hlbiB0aGUgcnVuIGlzbid0IGZvciBhIHB1bGwgcmVxdWVzdC4gKi9cbiAgcG9zdFBSQ29tbWVudD86IChib2R5OiBzdHJpbmcsIHRva2VuOiBzdHJpbmcpID0+IFByb21pc2U8dm9pZD47XG4gIHNlbmRBbGVydChjaGFubmVsOiAnc2xhY2snIHwgJ2Rpc2NvcmQnLCB3ZWJob29rVXJsOiBzdHJpbmcsIHBheWxvYWQ6IEFsZXJ0UGF5bG9hZCk6IFByb21pc2U8dm9pZD47XG59XG5cbmNvbnN0IFBBR0VfRkFJTFVSRV9DT0RFUyA9IG5ldyBTZXQoWydGRVRDSF9FUlJPUicsICdIVFRQX0VSUk9SX1NUQVRVUyddKTtcblxuZXhwb3J0IGZ1bmN0aW9uIHN1bW1hcml6ZSh1cmw6IHN0cmluZywgcmVwb3J0OiBBdWRpdFJlcG9ydCk6IEF1ZGl0U3VtbWFyeSB7XG4gIGNvbnN0IGlzc3VlczogQXVkaXRJc3N1ZVtdID0gcmVwb3J0Lmlzc3VlcztcbiAgY29uc3Qgc3VtbWFyeTogQXVkaXRTdW1tYXJ5ID0ge1xuICAgIHVybCxcbiAgICBzY29yZTogcmVwb3J0LmhlYWx0aFNjb3JlLm92ZXJhbGwsXG4gICAgaXNzdWVzQ291bnQ6IGlzc3Vlcy5sZW5ndGgsXG4gICAgZXJyb3JzQ291bnQ6IGlzc3Vlcy5maWx0ZXIoaSA9PiBpLnNldmVyaXR5ID09PSAnZXJyb3InIHx8IGkuc2V2ZXJpdHkgPT09ICdjcml0aWNhbCcpLmxlbmd0aCxcbiAgICB3YXJuaW5nc0NvdW50OiBpc3N1ZXMuZmlsdGVyKGkgPT4gaS5zZXZlcml0eSA9PT0gJ3dhcm5pbmcnKS5sZW5ndGgsXG4gICAgY2F0ZWdvcmllczoge30sXG4gIH07XG4gIGNvbnN0IHBhZ2VGYWlsdXJlID0gaXNzdWVzLmZpbmQoaSA9PiBQQUdFX0ZBSUxVUkVfQ09ERVMuaGFzKGkuY29kZSkpO1xuICBpZiAocGFnZUZhaWx1cmUpIHN1bW1hcnkucGFnZUZhaWx1cmUgPSBwYWdlRmFpbHVyZS50aXRsZTtcblxuICBmb3IgKGNvbnN0IGlzc3VlIG9mIGlzc3Vlcykge1xuICAgIHN1bW1hcnkuY2F0ZWdvcmllc1tpc3N1ZS5jYXRlZ29yeV0gPz89IHsgc2NvcmU6IDAsIGlzc3VlczogMCB9O1xuICAgIHN1bW1hcnkuY2F0ZWdvcmllc1tpc3N1ZS5jYXRlZ29yeV0uaXNzdWVzKys7XG4gIH1cbiAgY29uc3QgY2F0ZWdvcnlTY29yZU1hcDogUmVjb3JkPHN0cmluZywga2V5b2YgQXVkaXRSZXBvcnRbJ2hlYWx0aFNjb3JlJ10+ID0ge1xuICAgICdvbi1wYWdlJzogJ29uUGFnZScsXG4gICAgY3Jhd2xhYmlsaXR5OiAnY3Jhd2xhYmlsaXR5JyxcbiAgICBpbmRleGFiaWxpdHk6ICdpbmRleGFiaWxpdHknLFxuICAgIHBlcmZvcm1hbmNlOiAncGVyZm9ybWFuY2UnLFxuICAgIHNlY3VyaXR5OiAnc2VjdXJpdHknLFxuICAgIGNvbnRlbnQ6ICdjb250ZW50JyxcbiAgICBsaW5rczogJ2xpbmtzJyxcbiAgfTtcbiAgZm9yIChjb25zdCBbY2F0ZWdvcnksIGtleV0gb2YgT2JqZWN0LmVudHJpZXMoY2F0ZWdvcnlTY29yZU1hcCkpIHtcbiAgICBpZiAoc3VtbWFyeS5jYXRlZ29yaWVzW2NhdGVnb3J5XSkgc3VtbWFyeS5jYXRlZ29yaWVzW2NhdGVnb3J5XS5zY29yZSA9IHJlcG9ydC5oZWFsdGhTY29yZVtrZXldO1xuICB9XG4gIHJldHVybiBzdW1tYXJ5O1xufVxuXG5hc3luYyBmdW5jdGlvbiBiZXN0RWZmb3J0KGRlcHM6IEFjdGlvbkRlcHMsIHdoYXQ6IHN0cmluZywgZm46ICgpID0+IFByb21pc2U8dm9pZD4pOiBQcm9taXNlPHZvaWQ+IHtcbiAgdHJ5IHtcbiAgICBhd2FpdCBmbigpO1xuICB9IGNhdGNoIChlcnJvcikge1xuICAgIGRlcHMud2FybmluZyhgJHt3aGF0fSBmYWlsZWQ6ICR7ZXJyb3IgaW5zdGFuY2VvZiBFcnJvciA/IGVycm9yLm1lc3NhZ2UgOiBTdHJpbmcoZXJyb3IpfWApO1xuICB9XG59XG5cbmV4cG9ydCBhc3luYyBmdW5jdGlvbiBydW5BY3Rpb24oZGVwczogQWN0aW9uRGVwcyk6IFByb21pc2U8dm9pZD4ge1xuICB0cnkge1xuICAgIGNvbnN0IGlucHV0cyA9IHBhcnNlSW5wdXRzKChuYW1lKSA9PiBkZXBzLmdldElucHV0KG5hbWUpKTtcbiAgICBmb3IgKGNvbnN0IHdhcm5pbmcgb2YgaW5wdXRzLndhcm5pbmdzKSBkZXBzLndhcm5pbmcod2FybmluZyk7XG5cbiAgICB0cnkge1xuICAgICAgY29uc3QgcGFyc2VkID0gbmV3IFVSTChpbnB1dHMudXJsKTtcbiAgICAgIGlmIChwYXJzZWQucHJvdG9jb2wgIT09ICdodHRwOicgJiYgcGFyc2VkLnByb3RvY29sICE9PSAnaHR0cHM6JykgdGhyb3cgbmV3IEVycm9yKCdub3QgaHR0cChzKScpO1xuICAgIH0gY2F0Y2gge1xuICAgICAgZGVwcy5zZXRGYWlsZWQoYEludmFsaWQgdXJsIGlucHV0IFwiJHtpbnB1dHMudXJsfVwiIC0gdXNlIGEgZnVsbCBodHRwKHMpIFVSTGApO1xuICAgICAgcmV0dXJuO1xuICAgIH1cblxuICAgIC8vIFRoZSBhdWRpdCBydW5zIGVudGlyZWx5IGluIHRoaXMgcnVubmVyOyB0aGUga2V5IG9ubHkgaWRlbnRpZmllcyB0aGVcbiAgICAvLyBhY2NvdW50LiBTbyBhIHF1b3RhIG9yIHBsYW4gcHJvYmxlbSBpcyBhIHdhcm5pbmcgYW5kIHRoZSBhdWRpdCBzdGlsbFxuICAgIC8vIHJ1bnMgLSByZXR1cm5pbmcgZWFybHkgaGVyZSB1c2VkIHRvIHJlcG9ydCBzdWNjZXNzIG9uIGEgcmF0ZS1saW1pdGVkXG4gICAgLy8gZGF5IHdpdGhvdXQgYXVkaXRpbmcgYW55dGhpbmcuIE9ubHkgYSB3cm9uZy9yZXZva2VkIGtleSBmYWlscy5cbiAgICBpZiAoaW5wdXRzLmFwaUtleSkge1xuICAgICAgZGVwcy5pbmZvKCdWYWxpZGF0aW5nIEFQSSBrZXkuLi4nKTtcbiAgICAgIGNvbnN0IHZhbGlkYXRpb24gPSBhd2FpdCBkZXBzLnZhbGlkYXRlQXBpS2V5KGlucHV0cy5hcGlLZXkpO1xuICAgICAgaWYgKHZhbGlkYXRpb24udmFsaWQpIHtcbiAgICAgICAgZGVwcy5pbmZvKGBBUEkga2V5IHZhbGlkLiBQbGFuOiAke3ZhbGlkYXRpb24udGllciA/PyAndW5rbm93bid9YCk7XG4gICAgICAgIGlmICh2YWxpZGF0aW9uLnJhdGVMaW1pdCkge1xuICAgICAgICAgIGRlcHMuc2V0T3V0cHV0KCdyYXRlLWxpbWl0LXJlbWFpbmluZycsIHZhbGlkYXRpb24ucmF0ZUxpbWl0LnJlbWFpbmluZyk7XG4gICAgICAgICAgZGVwcy5zZXRPdXRwdXQoJ3JhdGUtbGltaXQtcmVzZXRzLWF0JywgdmFsaWRhdGlvbi5yYXRlTGltaXQucmVzZXRzQXQpO1xuICAgICAgICB9XG4gICAgICB9IGVsc2UgaWYgKHZhbGlkYXRpb24uZXJyb3JDb2RlID09PSAnaW52YWxpZF9rZXknKSB7XG4gICAgICAgIGRlcHMuc2V0RmFpbGVkKGBBUEkga2V5IHZhbGlkYXRpb24gZmFpbGVkOiAke3ZhbGlkYXRpb24uZXJyb3J9YCk7XG4gICAgICAgIHJldHVybjtcbiAgICAgIH0gZWxzZSB7XG4gICAgICAgIGRlcHMud2FybmluZyhgUmFua0NMSSBBUEkga2V5IG5vdCB1c2FibGUgcmlnaHQgbm93ICgke3ZhbGlkYXRpb24uZXJyb3J9KSAtIHJ1bm5pbmcgdGhlIGF1ZGl0IGFueXdheS5gKTtcbiAgICAgICAgaWYgKHZhbGlkYXRpb24uZXJyb3JDb2RlID09PSAncmF0ZV9saW1pdGVkJyAmJiB2YWxpZGF0aW9uLm5leHRBbGxvd2VkQXQpIHtcbiAgICAgICAgICBkZXBzLnNldE91dHB1dCgncmF0ZS1saW1pdC1yZW1haW5pbmcnLCAwKTtcbiAgICAgICAgICBkZXBzLnNldE91dHB1dCgncmF0ZS1saW1pdC1yZXNldHMtYXQnLCB2YWxpZGF0aW9uLm5leHRBbGxvd2VkQXQpO1xuICAgICAgICB9XG4gICAgICAgIGlmICh2YWxpZGF0aW9uLnVwZ3JhZGVVcmwpIGRlcHMuaW5mbyhgVXBncmFkZTogJHt2YWxpZGF0aW9uLnVwZ3JhZGVVcmx9YCk7XG4gICAgICB9XG4gICAgfVxuXG4gICAgZGVwcy5pbmZvKGBSdW5uaW5nIFNFTyBhdWRpdCBvbjogJHtpbnB1dHMudXJsfWApO1xuICAgIGNvbnN0IHJlcG9ydCA9IGF3YWl0IGRlcHMucnVuQXVkaXQoaW5wdXRzLnVybCk7XG4gICAgY29uc3Qgc3VtbWFyeSA9IHN1bW1hcml6ZShpbnB1dHMudXJsLCByZXBvcnQpO1xuICAgIGNvbnN0IGdhdGUgPSBldmFsdWF0ZUdhdGUoaW5wdXRzLCBzdW1tYXJ5KTtcblxuICAgIGRlcHMuaW5mbyhgQXVkaXQgY29tcGxldGUuIFNjb3JlOiAke3N1bW1hcnkuc2NvcmV9LzEwMCwgSXNzdWVzOiAke3N1bW1hcnkuaXNzdWVzQ291bnR9LCBFcnJvcnM6ICR7c3VtbWFyeS5lcnJvcnNDb3VudH1gKTtcblxuICAgIGRlcHMuc2V0T3V0cHV0KCdzY29yZScsIHN1bW1hcnkuc2NvcmUpO1xuICAgIGRlcHMuc2V0T3V0cHV0KCdpc3N1ZXMtY291bnQnLCBzdW1tYXJ5Lmlzc3Vlc0NvdW50KTtcbiAgICBkZXBzLnNldE91dHB1dCgnZXJyb3JzLWNvdW50Jywgc3VtbWFyeS5lcnJvcnNDb3VudCk7XG4gICAgZGVwcy5zZXRPdXRwdXQoJ3dhcm5pbmdzLWNvdW50Jywgc3VtbWFyeS53YXJuaW5nc0NvdW50KTtcbiAgICBkZXBzLnNldE91dHB1dCgncGFzc2VkJywgZ2F0ZS5wYXNzZWQpO1xuICAgIGRlcHMuc2V0T3V0cHV0KCdyZXBvcnQtanNvbicsIEpTT04uc3RyaW5naWZ5KHJlcG9ydCkpO1xuXG4gICAgLy8gRXZlcnl0aGluZyBiZWxvdyBpcyByZXBvcnRpbmcuIE5vbmUgb2YgaXQgbWF5IGNoYW5nZSB0aGUgb3V0Y29tZS5cbiAgICBhd2FpdCBiZXN0RWZmb3J0KGRlcHMsICdXcml0aW5nIHRoZSBqb2Igc3VtbWFyeScsICgpID0+IGRlcHMud3JpdGVKb2JTdW1tYXJ5KHN1bW1hcnksIGdhdGUpKTtcblxuICAgIGlmIChpbnB1dHMuY29tbWVudE9uUHIgJiYgZGVwcy5wb3N0UFJDb21tZW50KSB7XG4gICAgICBjb25zdCB0b2tlbiA9IGlucHV0cy5naXRodWJUb2tlbiB8fCBwcm9jZXNzLmVudi5HSVRIVUJfVE9LRU4gfHwgJyc7XG4gICAgICBhd2FpdCBiZXN0RWZmb3J0KFxuICAgICAgICBkZXBzLFxuICAgICAgICAnUG9zdGluZyB0aGUgUFIgY29tbWVudCAoZm9yayBQUnMgZ2V0IGEgcmVhZC1vbmx5IHRva2VuOyB0aGUgd29ya2Zsb3cgbmVlZHMgYHBlcm1pc3Npb25zOiBwdWxsLXJlcXVlc3RzOiB3cml0ZWApJyxcbiAgICAgICAgYXN5bmMgKCkgPT4ge1xuICAgICAgICAgIGF3YWl0IGRlcHMucG9zdFBSQ29tbWVudCEoZm9ybWF0UFJDb21tZW50KHN1bW1hcnksIGdhdGUpLCB0b2tlbik7XG4gICAgICAgICAgZGVwcy5pbmZvKCdQb3N0ZWQgYXVkaXQgcmVzdWx0cyBhcyBQUiBjb21tZW50Jyk7XG4gICAgICAgIH0sXG4gICAgICApO1xuICAgIH1cblxuICAgIGNvbnN0IHNob3VsZEFsZXJ0ID0gKGlucHV0cy5hbGVydE9uLmluY2x1ZGVzKCdlcnJvcicpICYmIHN1bW1hcnkuZXJyb3JzQ291bnQgPiAwKVxuICAgICAgfHwgKGlucHV0cy5hbGVydE9uLmluY2x1ZGVzKCdmYWlsdXJlJykgJiYgIWdhdGUucGFzc2VkKTtcbiAgICBpZiAoc2hvdWxkQWxlcnQpIHtcbiAgICAgIGNvbnN0IHBheWxvYWQ6IEFsZXJ0UGF5bG9hZCA9IHtcbiAgICAgICAgdXJsOiBpbnB1dHMudXJsLFxuICAgICAgICBzY29yZTogc3VtbWFyeS5zY29yZSxcbiAgICAgICAgaXNzdWVzRm91bmQ6IHN1bW1hcnkuaXNzdWVzQ291bnQsXG4gICAgICAgIGVycm9yQ291bnQ6IHN1bW1hcnkuZXJyb3JzQ291bnQsXG4gICAgICAgIGZhaWxlZDogIWdhdGUucGFzc2VkLFxuICAgICAgICBmYWlsdXJlczogZ2F0ZS5mYWlsdXJlcyxcbiAgICAgIH07XG4gICAgICBpZiAoaW5wdXRzLnNsYWNrV2ViaG9vaykge1xuICAgICAgICBhd2FpdCBiZXN0RWZmb3J0KGRlcHMsICdTbGFjayBhbGVydCcsICgpID0+IGRlcHMuc2VuZEFsZXJ0KCdzbGFjaycsIGlucHV0cy5zbGFja1dlYmhvb2shLCBwYXlsb2FkKSk7XG4gICAgICB9XG4gICAgICBpZiAoaW5wdXRzLmRpc2NvcmRXZWJob29rKSB7XG4gICAgICAgIGF3YWl0IGJlc3RFZmZvcnQoZGVwcywgJ0Rpc2NvcmQgYWxlcnQnLCAoKSA9PiBkZXBzLnNlbmRBbGVydCgnZGlzY29yZCcsIGlucHV0cy5kaXNjb3JkV2ViaG9vayEsIHBheWxvYWQpKTtcbiAgICAgIH1cbiAgICB9XG5cbiAgICBpZiAoIWdhdGUucGFzc2VkKSB7XG4gICAgICBkZXBzLnNldEZhaWxlZChnYXRlLmZhaWx1cmVzLmpvaW4oJzsgJykpO1xuICAgIH1cbiAgfSBjYXRjaCAoZXJyb3IpIHtcbiAgICBkZXBzLnNldEZhaWxlZChgQWN0aW9uIGZhaWxlZDogJHtlcnJvciBpbnN0YW5jZW9mIEVycm9yID8gZXJyb3IubWVzc2FnZSA6IFN0cmluZyhlcnJvcil9YCk7XG4gIH1cbn1cbiJdfQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiZmlsZTovLy90bXAvY2xhdWRlLTEwMDAvLWhvbWUtYnNiLUNvZGUtcHJvZHVjdHMtcmFua2NsaS1kZXYvZmRhMjdiMzctZTYzNi00ODA5LWE1ZTYtOTZhMWY0MDhmY2NlL3NjcmF0Y2hwYWQvcmFua2NsaS1wdWJsaWMvcGFja2FnZXMvZ2l0aHViLWFjdGlvbi9zcmMvcnVuLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQVdBLE9BQU8sRUFBRSxXQUFXLEVBQUUsWUFBWSxFQUFFLGVBQWUsRUFBc0MsTUFBTSxhQUFhLENBQUM7QUFtQzdHLE1BQU0sa0JBQWtCLEdBQUcsSUFBSSxHQUFHLENBQUMsQ0FBQyxhQUFhLEVBQUUsbUJBQW1CLENBQUMsQ0FBQyxDQUFDO0FBRXpFLE1BQU0sVUFBVSxTQUFTLENBQUMsR0FBVyxFQUFFLE1BQW1CO0lBQ3hELE1BQU0sTUFBTSxHQUFpQixNQUFNLENBQUMsTUFBTSxDQUFDO0lBQzNDLE1BQU0sT0FBTyxHQUFpQjtRQUM1QixHQUFHO1FBQ0gsS0FBSyxFQUFFLE1BQU0sQ0FBQyxXQUFXLENBQUMsT0FBTztRQUNqQyxXQUFXLEVBQUUsTUFBTSxDQUFDLE1BQU07UUFDMUIsV0FBVyxFQUFFLE1BQU0sQ0FBQyxNQUFNLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsUUFBUSxLQUFLLE9BQU8sSUFBSSxDQUFDLENBQUMsUUFBUSxLQUFLLFVBQVUsQ0FBQyxDQUFDLE1BQU07UUFDM0YsYUFBYSxFQUFFLE1BQU0sQ0FBQyxNQUFNLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsUUFBUSxLQUFLLFNBQVMsQ0FBQyxDQUFDLE1BQU07UUFDbEUsVUFBVSxFQUFFLEVBQUU7S0FDZixDQUFDO0lBQ0YsTUFBTSxXQUFXLEdBQUcsTUFBTSxDQUFDLElBQUksQ0FBQyxDQUFDLENBQUMsRUFBRSxDQUFDLGtCQUFrQixDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQztJQUNyRSxJQUFJLFdBQVc7UUFBRSxPQUFPLENBQUMsV0FBVyxHQUFHLFdBQVcsQ0FBQyxLQUFLLENBQUM7SUFFekQsS0FBSyxNQUFNLEtBQUssSUFBSSxNQUFNLEVBQUUsQ0FBQztRQUMzQixPQUFPLENBQUMsVUFBVSxDQUFDLEtBQUssQ0FBQyxRQUFRLENBQUMsS0FBSyxFQUFFLEtBQUssRUFBRSxDQUFDLEVBQUUsTUFBTSxFQUFFLENBQUMsRUFBRSxDQUFDO1FBQy9ELE9BQU8sQ0FBQyxVQUFVLENBQUMsS0FBSyxDQUFDLFFBQVEsQ0FBQyxDQUFDLE1BQU0sRUFBRSxDQUFDO0lBQzlDLENBQUM7SUFDRCxNQUFNLGdCQUFnQixHQUFxRDtRQUN6RSxTQUFTLEVBQUUsUUFBUTtRQUNuQixZQUFZLEVBQUUsY0FBYztRQUM1QixZQUFZLEVBQUUsY0FBYztRQUM1QixXQUFXLEVBQUUsYUFBYTtRQUMxQixRQUFRLEVBQUUsVUFBVTtRQUNwQixPQUFPLEVBQUUsU0FBUztRQUNsQixLQUFLLEVBQUUsT0FBTztLQUNmLENBQUM7SUFDRixLQUFLLE1BQU0sQ0FBQyxRQUFRLEVBQUUsR0FBRyxDQUFDLElBQUksTUFBTSxDQUFDLE9BQU8sQ0FBQyxnQkFBZ0IsQ0FBQyxFQUFFLENBQUM7UUFDL0QsSUFBSSxPQUFPLENBQUMsVUFBVSxDQUFDLFFBQVEsQ0FBQztZQUFFLE9BQU8sQ0FBQyxVQUFVLENBQUMsUUFBUSxDQUFDLENBQUMsS0FBSyxHQUFHLE1BQU0sQ0FBQyxXQUFXLENBQUMsR0FBRyxDQUFDLENBQUM7SUFDakcsQ0FBQztJQUNELE9BQU8sT0FBTyxDQUFDO0FBQ2pCLENBQUM7QUFFRCxLQUFLLFVBQVUsVUFBVSxDQUFDLElBQWdCLEVBQUUsSUFBWSxFQUFFLEVBQXVCO0lBQy9FLElBQUksQ0FBQztRQUNILE1BQU0sRUFBRSxFQUFFLENBQUM7SUFDYixDQUFDO0lBQUMsT0FBTyxLQUFLLEVBQUUsQ0FBQztRQUNmLElBQUksQ0FBQyxPQUFPLENBQUMsR0FBRyxJQUFJLFlBQVksS0FBSyxZQUFZLEtBQUssQ0FBQyxDQUFDLENBQUMsS0FBSyxDQUFDLE9BQU8sQ0FBQyxDQUFDLENBQUMsTUFBTSxDQUFDLEtBQUssQ0FBQyxFQUFFLENBQUMsQ0FBQztJQUM1RixDQUFDO0FBQ0gsQ0FBQztBQUVELE1BQU0sQ0FBQyxLQUFLLFVBQVUsU0FBUyxDQUFDLElBQWdCO0lBQzlDLElBQUksQ0FBQztRQUNILE1BQU0sTUFBTSxHQUFHLFdBQVcsQ0FBQyxDQUFDLElBQUksRUFBRSxFQUFFLENBQUMsSUFBSSxDQUFDLFFBQVEsQ0FBQyxJQUFJLENBQUMsQ0FBQyxDQUFDO1FBQzFELEtBQUssTUFBTSxPQUFPLElBQUksTUFBTSxDQUFDLFFBQVE7WUFBRSxJQUFJLENBQUMsT0FBTyxDQUFDLE9BQU8sQ0FBQyxDQUFDO1FBRTdELElBQUksQ0FBQztZQUNILE1BQU0sTUFBTSxHQUFHLElBQUksR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQztZQUNuQyxJQUFJLE1BQU0sQ0FBQyxRQUFRLEtBQUssT0FBTyxJQUFJLE1BQU0sQ0FBQyxRQUFRLEtBQUssUUFBUTtnQkFBRSxNQUFNLElBQUksS0FBSyxDQUFDLGFBQWEsQ0FBQyxDQUFDO1FBQ2xHLENBQUM7UUFBQyxNQUFNLENBQUM7WUFDUCxJQUFJLENBQUMsU0FBUyxDQUFDLHNCQUFzQixNQUFNLENBQUMsR0FBRyw0QkFBNEIsQ0FBQyxDQUFDO1lBQzdFLE9BQU87UUFDVCxDQUFDO1FBRUQsc0VBQXNFO1FBQ3RFLHVFQUF1RTtRQUN2RSx1RUFBdUU7UUFDdkUsaUVBQWlFO1FBQ2pFLElBQUksTUFBTSxDQUFDLE1BQU0sRUFBRSxDQUFDO1lBQ2xCLElBQUksQ0FBQyxJQUFJLENBQUMsdUJBQXVCLENBQUMsQ0FBQztZQUNuQyxNQUFNLFVBQVUsR0FBRyxNQUFNLElBQUksQ0FBQyxjQUFjLENBQUMsTUFBTSxDQUFDLE1BQU0sQ0FBQyxDQUFDO1lBQzVELElBQUksVUFBVSxDQUFDLEtBQUssRUFBRSxDQUFDO2dCQUNyQixJQUFJLENBQUMsSUFBSSxDQUFDLHdCQUF3QixVQUFVLENBQUMsSUFBSSxJQUFJLFNBQVMsRUFBRSxDQUFDLENBQUM7Z0JBQ2xFLElBQUksVUFBVSxDQUFDLFNBQVMsRUFBRSxDQUFDO29CQUN6QixJQUFJLENBQUMsU0FBUyxDQUFDLHNCQUFzQixFQUFFLFVBQVUsQ0FBQyxTQUFTLENBQUMsU0FBUyxDQUFDLENBQUM7b0JBQ3ZFLElBQUksQ0FBQyxTQUFTLENBQUMsc0JBQXNCLEVBQUUsVUFBVSxDQUFDLFNBQVMsQ0FBQyxRQUFRLENBQUMsQ0FBQztnQkFDeEUsQ0FBQztZQUNILENBQUM7aUJBQU0sSUFBSSxVQUFVLENBQUMsU0FBUyxLQUFLLGFBQWEsRUFBRSxDQUFDO2dCQUNsRCxJQUFJLENBQUMsU0FBUyxDQUFDLDhCQUE4QixVQUFVLENBQUMsS0FBSyxFQUFFLENBQUMsQ0FBQztnQkFDakUsT0FBTztZQUNULENBQUM7aUJBQU0sQ0FBQztnQkFDTixJQUFJLENBQUMsT0FBTyxDQUFDLHlDQUF5QyxVQUFVLENBQUMsS0FBSywrQkFBK0IsQ0FBQyxDQUFDO2dCQUN2RyxJQUFJLFVBQVUsQ0FBQyxTQUFTLEtBQUssY0FBYyxJQUFJLFVBQVUsQ0FBQyxhQUFhLEVBQUUsQ0FBQztvQkFDeEUsSUFBSSxDQUFDLFNBQVMsQ0FBQyxzQkFBc0IsRUFBRSxDQUFDLENBQUMsQ0FBQztvQkFDMUMsSUFBSSxDQUFDLFNBQVMsQ0FBQyxzQkFBc0IsRUFBRSxVQUFVLENBQUMsYUFBYSxDQUFDLENBQUM7Z0JBQ25FLENBQUM7Z0JBQ0QsSUFBSSxVQUFVLENBQUMsVUFBVTtvQkFBRSxJQUFJLENBQUMsSUFBSSxDQUFDLFlBQVksVUFBVSxDQUFDLFVBQVUsRUFBRSxDQUFDLENBQUM7WUFDNUUsQ0FBQztRQUNILENBQUM7UUFFRCxJQUFJLENBQUMsSUFBSSxDQUFDLHlCQUF5QixNQUFNLENBQUMsR0FBRyxFQUFFLENBQUMsQ0FBQztRQUNqRCxNQUFNLE1BQU0sR0FBRyxNQUFNLElBQUksQ0FBQyxRQUFRLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDO1FBQy9DLE1BQU0sT0FBTyxHQUFHLFNBQVMsQ0FBQyxNQUFNLENBQUMsR0FBRyxFQUFFLE1BQU0sQ0FBQyxDQUFDO1FBQzlDLE1BQU0sSUFBSSxHQUFHLFlBQVksQ0FBQyxNQUFNLEVBQUUsT0FBTyxDQUFDLENBQUM7UUFFM0MsSUFBSSxDQUFDLElBQUksQ0FBQywwQkFBMEIsT0FBTyxDQUFDLEtBQUssaUJBQWlCLE9BQU8sQ0FBQyxXQUFXLGFBQWEsT0FBTyxDQUFDLFdBQVcsRUFBRSxDQUFDLENBQUM7UUFFekgsSUFBSSxDQUFDLFNBQVMsQ0FBQyxPQUFPLEVBQUUsT0FBTyxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBQ3ZDLElBQUksQ0FBQyxTQUFTLENBQUMsY0FBYyxFQUFFLE9BQU8sQ0FBQyxXQUFXLENBQUMsQ0FBQztRQUNwRCxJQUFJLENBQUMsU0FBUyxDQUFDLGNBQWMsRUFBRSxPQUFPLENBQUMsV0FBVyxDQUFDLENBQUM7UUFDcEQsSUFBSSxDQUFDLFNBQVMsQ0FBQyxnQkFBZ0IsRUFBRSxPQUFPLENBQUMsYUFBYSxDQUFDLENBQUM7UUFDeEQsSUFBSSxDQUFDLFNBQVMsQ0FBQyxRQUFRLEVBQUUsSUFBSSxDQUFDLE1BQU0sQ0FBQyxDQUFDO1FBQ3RDLElBQUksQ0FBQyxTQUFTLENBQUMsYUFBYSxFQUFFLElBQUksQ0FBQyxTQUFTLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQztRQUV0RCxvRUFBb0U7UUFDcEUsTUFBTSxVQUFVLENBQUMsSUFBSSxFQUFFLHlCQUF5QixFQUFFLEdBQUcsRUFBRSxDQUFDLElBQUksQ0FBQyxlQUFlLENBQUMsT0FBTyxFQUFFLElBQUksQ0FBQyxDQUFDLENBQUM7UUFFN0YsSUFBSSxNQUFNLENBQUMsV0FBVyxJQUFJLElBQUksQ0FBQyxhQUFhLEVBQUUsQ0FBQztZQUM3QyxNQUFNLEtBQUssR0FBRyxNQUFNLENBQUMsV0FBVyxJQUFJLE9BQU8sQ0FBQyxHQUFHLENBQUMsWUFBWSxJQUFJLEVBQUUsQ0FBQztZQUNuRSxNQUFNLFVBQVUsQ0FDZCxJQUFJLEVBQ0osaUhBQWlILEVBQ2pILEtBQUssSUFBSSxFQUFFO2dCQUNULE1BQU0sSUFBSSxDQUFDLGFBQWMsQ0FBQyxlQUFlLENBQUMsT0FBTyxFQUFFLElBQUksQ0FBQyxFQUFFLEtBQUssQ0FBQyxDQUFDO2dCQUNqRSxJQUFJLENBQUMsSUFBSSxDQUFDLG9DQUFvQyxDQUFDLENBQUM7WUFDbEQsQ0FBQyxDQUNGLENBQUM7UUFDSixDQUFDO1FBRUQsTUFBTSxXQUFXLEdBQUcsQ0FBQyxNQUFNLENBQUMsT0FBTyxDQUFDLFFBQVEsQ0FBQyxPQUFPLENBQUMsSUFBSSxPQUFPLENBQUMsV0FBVyxHQUFHLENBQUMsQ0FBQztlQUM1RSxDQUFDLE1BQU0sQ0FBQyxPQUFPLENBQUMsUUFBUSxDQUFDLFNBQVMsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxDQUFDO1FBQzFELElBQUksV0FBVyxFQUFFLENBQUM7WUFDaEIsTUFBTSxPQUFPLEdBQWlCO2dCQUM1QixHQUFHLEVBQUUsTUFBTSxDQUFDLEdBQUc7Z0JBQ2YsS0FBSyxFQUFFLE9BQU8sQ0FBQyxLQUFLO2dCQUNwQixXQUFXLEVBQUUsT0FBTyxDQUFDLFdBQVc7Z0JBQ2hDLFVBQVUsRUFBRSxPQUFPLENBQUMsV0FBVztnQkFDL0IsTUFBTSxFQUFFLENBQUMsSUFBSSxDQUFDLE1BQU07Z0JBQ3BCLFFBQVEsRUFBRSxJQUFJLENBQUMsUUFBUTthQUN4QixDQUFDO1lBQ0YsSUFBSSxNQUFNLENBQUMsWUFBWSxFQUFFLENBQUM7Z0JBQ3hCLE1BQU0sVUFBVSxDQUFDLElBQUksRUFBRSxhQUFhLEVBQUUsR0FBRyxFQUFFLENBQUMsSUFBSSxDQUFDLFNBQVMsQ0FBQyxPQUFPLEVBQUUsTUFBTSxDQUFDLFlBQWEsRUFBRSxPQUFPLENBQUMsQ0FBQyxDQUFDO1lBQ3RHLENBQUM7WUFDRCxJQUFJLE1BQU0sQ0FBQyxjQUFjLEVBQUUsQ0FBQztnQkFDMUIsTUFBTSxVQUFVLENBQUMsSUFBSSxFQUFFLGVBQWUsRUFBRSxHQUFHLEVBQUUsQ0FBQyxJQUFJLENBQUMsU0FBUyxDQUFDLFNBQVMsRUFBRSxNQUFNLENBQUMsY0FBZSxFQUFFLE9BQU8sQ0FBQyxDQUFDLENBQUM7WUFDNUcsQ0FBQztRQUNILENBQUM7UUFFRCxJQUFJLENBQUMsSUFBSSxDQUFDLE1BQU0sRUFBRSxDQUFDO1lBQ2pCLElBQUksQ0FBQyxTQUFTLENBQUMsSUFBSSxDQUFDLFFBQVEsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQztRQUMzQyxDQUFDO0lBQ0gsQ0FBQztJQUFDLE9BQU8sS0FBSyxFQUFFLENBQUM7UUFDZixJQUFJLENBQUMsU0FBUyxDQUFDLGtCQUFrQixLQUFLLFlBQVksS0FBSyxDQUFDLENBQUMsQ0FBQyxLQUFLLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQyxNQUFNLENBQUMsS0FBSyxDQUFDLEVBQUUsQ0FBQyxDQUFDO0lBQzdGLENBQUM7QUFDSCxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBUaGUgYWN0aW9uJ3MgcnVuIG9yZGVyLCB3aXRoIGV2ZXJ5IHNpZGUgZWZmZWN0IGluamVjdGVkIHNvIGl0IGNhbiBiZVxuICogdGVzdGVkLiBpbmRleC50cyB3aXJlcyBpbiBAYWN0aW9ucy9jb3JlLCBAYWN0aW9ucy9naXRodWIgYW5kIHRoZSBydW50aW1lLlxuICpcbiAqIE9yZGVyIG1hdHRlcnM6IHRoZSBnYXRlIGlzIGRlY2lkZWQgcmlnaHQgYWZ0ZXIgdGhlIGF1ZGl0LCBhbmQgbm90aGluZ1xuICogYWZ0ZXIgdGhhdCAoam9iIHN1bW1hcnksIFBSIGNvbW1lbnQsIGFsZXJ0cykgY2FuIGNoYW5nZSBpdC4gVGhlIFBSXG4gKiBjb21tZW50IHVzZWQgdG8gcnVuIGZpcnN0IGFuZCB0aHJvdyBvbiBhIHJlYWQtb25seSB0b2tlbiAoZXZlcnkgZm9ya1xuICogUFIpLCBzbyB0aGUgYWN0aW9uIGZhaWxlZCB3aXRoIFwiUmVzb3VyY2Ugbm90IGFjY2Vzc2libGUgYnkgaW50ZWdyYXRpb25cIlxuICogaW5zdGVhZCBvZiByZXBvcnRpbmcgLSBvciBwYXNzaW5nIC0gdGhlIGFjdHVhbCBhdWRpdC5cbiAqL1xuaW1wb3J0IHR5cGUgeyBBdWRpdFJlcG9ydCwgQXVkaXRJc3N1ZSB9IGZyb20gJ0ByYW5rY2xpL2FnZW50LXJ1bnRpbWUnO1xuaW1wb3J0IHsgcGFyc2VJbnB1dHMsIGV2YWx1YXRlR2F0ZSwgZm9ybWF0UFJDb21tZW50LCB0eXBlIEF1ZGl0U3VtbWFyeSwgdHlwZSBHYXRlUmVzdWx0IH0gZnJvbSAnLi9hY3Rpb24uanMnO1xuXG5leHBvcnQgaW50ZXJmYWNlIEFwaVZhbGlkYXRpb25SZXN1bHQge1xuICB2YWxpZDogYm9vbGVhbjtcbiAgZXJyb3I/OiBzdHJpbmc7XG4gIGVycm9yQ29kZT86ICdyYXRlX2xpbWl0ZWQnIHwgJ3NjaGVkdWxlX2V4Y2VlZGVkJyB8ICdpbnZhbGlkX2tleScgfCAnbm9fYWNjZXNzJyB8ICd1bmF2YWlsYWJsZSc7XG4gIHRpZXI/OiBzdHJpbmc7XG4gIG5leHRBbGxvd2VkQXQ/OiBzdHJpbmc7XG4gIHVwZ3JhZGVVcmw/OiBzdHJpbmc7XG4gIHJhdGVMaW1pdD86IHsgbGltaXQ6IG51bWJlcjsgcmVtYWluaW5nOiBudW1iZXI7IHJlc2V0c0F0OiBzdHJpbmcgfTtcbn1cblxuZXhwb3J0IGludGVyZmFjZSBBbGVydFBheWxvYWQge1xuICB1cmw6IHN0cmluZztcbiAgc2NvcmU6IG51bWJlcjtcbiAgaXNzdWVzRm91bmQ6IG51bWJlcjtcbiAgZXJyb3JDb3VudDogbnVtYmVyO1xuICBmYWlsZWQ6IGJvb2xlYW47XG4gIGZhaWx1cmVzOiBzdHJpbmdbXTtcbn1cblxuZXhwb3J0IGludGVyZmFjZSBBY3Rpb25EZXBzIHtcbiAgZ2V0SW5wdXQobmFtZTogc3RyaW5nKTogc3RyaW5nO1xuICBpbmZvKG1lc3NhZ2U6IHN0cmluZyk6IHZvaWQ7XG4gIHdhcm5pbmcobWVzc2FnZTogc3RyaW5nKTogdm9pZDtcbiAgc2V0T3V0cHV0KG5hbWU6IHN0cmluZywgdmFsdWU6IHN0cmluZyB8IG51bWJlciB8IGJvb2xlYW4pOiB2b2lkO1xuICBzZXRGYWlsZWQobWVzc2FnZTogc3RyaW5nKTogdm9pZDtcbiAgdmFsaWRhdGVBcGlLZXkoYXBpS2V5OiBzdHJpbmcpOiBQcm9taXNlPEFwaVZhbGlkYXRpb25SZXN1bHQ+O1xuICBydW5BdWRpdCh1cmw6IHN0cmluZyk6IFByb21pc2U8QXVkaXRSZXBvcnQ+O1xuICB3cml0ZUpvYlN1bW1hcnkoc3VtbWFyeTogQXVkaXRTdW1tYXJ5LCBnYXRlOiBHYXRlUmVzdWx0KTogUHJvbWlzZTx2b2lkPjtcbiAgLyoqIFVuZGVmaW5lZCB3aGVuIHRoZSBydW4gaXNuJ3QgZm9yIGEgcHVsbCByZXF1ZXN0LiAqL1xuICBwb3N0UFJDb21tZW50PzogKGJvZHk6IHN0cmluZywgdG9rZW46IHN0cmluZykgPT4gUHJvbWlzZTx2b2lkPjtcbiAgc2VuZEFsZXJ0KGNoYW5uZWw6ICdzbGFjaycgfCAnZGlzY29yZCcsIHdlYmhvb2tVcmw6IHN0cmluZywgcGF5bG9hZDogQWxlcnRQYXlsb2FkKTogUHJvbWlzZTx2b2lkPjtcbn1cblxuY29uc3QgUEFHRV9GQUlMVVJFX0NPREVTID0gbmV3IFNldChbJ0ZFVENIX0VSUk9SJywgJ0hUVFBfRVJST1JfU1RBVFVTJ10pO1xuXG5leHBvcnQgZnVuY3Rpb24gc3VtbWFyaXplKHVybDogc3RyaW5nLCByZXBvcnQ6IEF1ZGl0UmVwb3J0KTogQXVkaXRTdW1tYXJ5IHtcbiAgY29uc3QgaXNzdWVzOiBBdWRpdElzc3VlW10gPSByZXBvcnQuaXNzdWVzO1xuICBjb25zdCBzdW1tYXJ5OiBBdWRpdFN1bW1hcnkgPSB7XG4gICAgdXJsLFxuICAgIHNjb3JlOiByZXBvcnQuaGVhbHRoU2NvcmUub3ZlcmFsbCxcbiAgICBpc3N1ZXNDb3VudDogaXNzdWVzLmxlbmd0aCxcbiAgICBlcnJvcnNDb3VudDogaXNzdWVzLmZpbHRlcihpID0+IGkuc2V2ZXJpdHkgPT09ICdlcnJvcicgfHwgaS5zZXZlcml0eSA9PT0gJ2NyaXRpY2FsJykubGVuZ3RoLFxuICAgIHdhcm5pbmdzQ291bnQ6IGlzc3Vlcy5maWx0ZXIoaSA9PiBpLnNldmVyaXR5ID09PSAnd2FybmluZycpLmxlbmd0aCxcbiAgICBjYXRlZ29yaWVzOiB7fSxcbiAgfTtcbiAgY29uc3QgcGFnZUZhaWx1cmUgPSBpc3N1ZXMuZmluZChpID0+IFBBR0VfRkFJTFVSRV9DT0RFUy5oYXMoaS5jb2RlKSk7XG4gIGlmIChwYWdlRmFpbHVyZSkgc3VtbWFyeS5wYWdlRmFpbHVyZSA9IHBhZ2VGYWlsdXJlLnRpdGxlO1xuXG4gIGZvciAoY29uc3QgaXNzdWUgb2YgaXNzdWVzKSB7XG4gICAgc3VtbWFyeS5jYXRlZ29yaWVzW2lzc3VlLmNhdGVnb3J5XSA/Pz0geyBzY29yZTogMCwgaXNzdWVzOiAwIH07XG4gICAgc3VtbWFyeS5jYXRlZ29yaWVzW2lzc3VlLmNhdGVnb3J5XS5pc3N1ZXMrKztcbiAgfVxuICBjb25zdCBjYXRlZ29yeVNjb3JlTWFwOiBSZWNvcmQ8c3RyaW5nLCBrZXlvZiBBdWRpdFJlcG9ydFsnaGVhbHRoU2NvcmUnXT4gPSB7XG4gICAgJ29uLXBhZ2UnOiAnb25QYWdlJyxcbiAgICBjcmF3bGFiaWxpdHk6ICdjcmF3bGFiaWxpdHknLFxuICAgIGluZGV4YWJpbGl0eTogJ2luZGV4YWJpbGl0eScsXG4gICAgcGVyZm9ybWFuY2U6ICdwZXJmb3JtYW5jZScsXG4gICAgc2VjdXJpdHk6ICdzZWN1cml0eScsXG4gICAgY29udGVudDogJ2NvbnRlbnQnLFxuICAgIGxpbmtzOiAnbGlua3MnLFxuICB9O1xuICBmb3IgKGNvbnN0IFtjYXRlZ29yeSwga2V5XSBvZiBPYmplY3QuZW50cmllcyhjYXRlZ29yeVNjb3JlTWFwKSkge1xuICAgIGlmIChzdW1tYXJ5LmNhdGVnb3JpZXNbY2F0ZWdvcnldKSBzdW1tYXJ5LmNhdGVnb3JpZXNbY2F0ZWdvcnldLnNjb3JlID0gcmVwb3J0LmhlYWx0aFNjb3JlW2tleV07XG4gIH1cbiAgcmV0dXJuIHN1bW1hcnk7XG59XG5cbmFzeW5jIGZ1bmN0aW9uIGJlc3RFZmZvcnQoZGVwczogQWN0aW9uRGVwcywgd2hhdDogc3RyaW5nLCBmbjogKCkgPT4gUHJvbWlzZTx2b2lkPik6IFByb21pc2U8dm9pZD4ge1xuICB0cnkge1xuICAgIGF3YWl0IGZuKCk7XG4gIH0gY2F0Y2ggKGVycm9yKSB7XG4gICAgZGVwcy53YXJuaW5nKGAke3doYXR9IGZhaWxlZDogJHtlcnJvciBpbnN0YW5jZW9mIEVycm9yID8gZXJyb3IubWVzc2FnZSA6IFN0cmluZyhlcnJvcil9YCk7XG4gIH1cbn1cblxuZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHJ1bkFjdGlvbihkZXBzOiBBY3Rpb25EZXBzKTogUHJvbWlzZTx2b2lkPiB7XG4gIHRyeSB7XG4gICAgY29uc3QgaW5wdXRzID0gcGFyc2VJbnB1dHMoKG5hbWUpID0+IGRlcHMuZ2V0SW5wdXQobmFtZSkpO1xuICAgIGZvciAoY29uc3Qgd2FybmluZyBvZiBpbnB1dHMud2FybmluZ3MpIGRlcHMud2FybmluZyh3YXJuaW5nKTtcblxuICAgIHRyeSB7XG4gICAgICBjb25zdCBwYXJzZWQgPSBuZXcgVVJMKGlucHV0cy51cmwpO1xuICAgICAgaWYgKHBhcnNlZC5wcm90b2NvbCAhPT0gJ2h0dHA6JyAmJiBwYXJzZWQucHJvdG9jb2wgIT09ICdodHRwczonKSB0aHJvdyBuZXcgRXJyb3IoJ25vdCBodHRwKHMpJyk7XG4gICAgfSBjYXRjaCB7XG4gICAgICBkZXBzLnNldEZhaWxlZChgSW52YWxpZCB1cmwgaW5wdXQgXCIke2lucHV0cy51cmx9XCIgLSB1c2UgYSBmdWxsIGh0dHAocykgVVJMYCk7XG4gICAgICByZXR1cm47XG4gICAgfVxuXG4gICAgLy8gVGhlIGF1ZGl0IHJ1bnMgZW50aXJlbHkgaW4gdGhpcyBydW5uZXI7IHRoZSBrZXkgb25seSBpZGVudGlmaWVzIHRoZVxuICAgIC8vIGFjY291bnQuIFNvIGEgcXVvdGEgb3IgcGxhbiBwcm9ibGVtIGlzIGEgd2FybmluZyBhbmQgdGhlIGF1ZGl0IHN0aWxsXG4gICAgLy8gcnVucyAtIHJldHVybmluZyBlYXJseSBoZXJlIHVzZWQgdG8gcmVwb3J0IHN1Y2Nlc3Mgb24gYSByYXRlLWxpbWl0ZWRcbiAgICAvLyBkYXkgd2l0aG91dCBhdWRpdGluZyBhbnl0aGluZy4gT25seSBhIHdyb25nL3Jldm9rZWQga2V5IGZhaWxzLlxuICAgIGlmIChpbnB1dHMuYXBpS2V5KSB7XG4gICAgICBkZXBzLmluZm8oJ1ZhbGlkYXRpbmcgQVBJIGtleS4uLicpO1xuICAgICAgY29uc3QgdmFsaWRhdGlvbiA9IGF3YWl0IGRlcHMudmFsaWRhdGVBcGlLZXkoaW5wdXRzLmFwaUtleSk7XG4gICAgICBpZiAodmFsaWRhdGlvbi52YWxpZCkge1xuICAgICAgICBkZXBzLmluZm8oYEFQSSBrZXkgdmFsaWQuIFBsYW46ICR7dmFsaWRhdGlvbi50aWVyID8/ICd1bmtub3duJ31gKTtcbiAgICAgICAgaWYgKHZhbGlkYXRpb24ucmF0ZUxpbWl0KSB7XG4gICAgICAgICAgZGVwcy5zZXRPdXRwdXQoJ3JhdGUtbGltaXQtcmVtYWluaW5nJywgdmFsaWRhdGlvbi5yYXRlTGltaXQucmVtYWluaW5nKTtcbiAgICAgICAgICBkZXBzLnNldE91dHB1dCgncmF0ZS1saW1pdC1yZXNldHMtYXQnLCB2YWxpZGF0aW9uLnJhdGVMaW1pdC5yZXNldHNBdCk7XG4gICAgICAgIH1cbiAgICAgIH0gZWxzZSBpZiAodmFsaWRhdGlvbi5lcnJvckNvZGUgPT09ICdpbnZhbGlkX2tleScpIHtcbiAgICAgICAgZGVwcy5zZXRGYWlsZWQoYEFQSSBrZXkgdmFsaWRhdGlvbiBmYWlsZWQ6ICR7dmFsaWRhdGlvbi5lcnJvcn1gKTtcbiAgICAgICAgcmV0dXJuO1xuICAgICAgfSBlbHNlIHtcbiAgICAgICAgZGVwcy53YXJuaW5nKGBSYW5rQ0xJIEFQSSBrZXkgbm90IHVzYWJsZSByaWdodCBub3cgKCR7dmFsaWRhdGlvbi5lcnJvcn0pIC0gcnVubmluZyB0aGUgYXVkaXQgYW55d2F5LmApO1xuICAgICAgICBpZiAodmFsaWRhdGlvbi5lcnJvckNvZGUgPT09ICdyYXRlX2xpbWl0ZWQnICYmIHZhbGlkYXRpb24ubmV4dEFsbG93ZWRBdCkge1xuICAgICAgICAgIGRlcHMuc2V0T3V0cHV0KCdyYXRlLWxpbWl0LXJlbWFpbmluZycsIDApO1xuICAgICAgICAgIGRlcHMuc2V0T3V0cHV0KCdyYXRlLWxpbWl0LXJlc2V0cy1hdCcsIHZhbGlkYXRpb24ubmV4dEFsbG93ZWRBdCk7XG4gICAgICAgIH1cbiAgICAgICAgaWYgKHZhbGlkYXRpb24udXBncmFkZVVybCkgZGVwcy5pbmZvKGBVcGdyYWRlOiAke3ZhbGlkYXRpb24udXBncmFkZVVybH1gKTtcbiAgICAgIH1cbiAgICB9XG5cbiAgICBkZXBzLmluZm8oYFJ1bm5pbmcgU0VPIGF1ZGl0IG9uOiAke2lucHV0cy51cmx9YCk7XG4gICAgY29uc3QgcmVwb3J0ID0gYXdhaXQgZGVwcy5ydW5BdWRpdChpbnB1dHMudXJsKTtcbiAgICBjb25zdCBzdW1tYXJ5ID0gc3VtbWFyaXplKGlucHV0cy51cmwsIHJlcG9ydCk7XG4gICAgY29uc3QgZ2F0ZSA9IGV2YWx1YXRlR2F0ZShpbnB1dHMsIHN1bW1hcnkpO1xuXG4gICAgZGVwcy5pbmZvKGBBdWRpdCBjb21wbGV0ZS4gU2NvcmU6ICR7c3VtbWFyeS5zY29yZX0vMTAwLCBJc3N1ZXM6ICR7c3VtbWFyeS5pc3N1ZXNDb3VudH0sIEVycm9yczogJHtzdW1tYXJ5LmVycm9yc0NvdW50fWApO1xuXG4gICAgZGVwcy5zZXRPdXRwdXQoJ3Njb3JlJywgc3VtbWFyeS5zY29yZSk7XG4gICAgZGVwcy5zZXRPdXRwdXQoJ2lzc3Vlcy1jb3VudCcsIHN1bW1hcnkuaXNzdWVzQ291bnQpO1xuICAgIGRlcHMuc2V0T3V0cHV0KCdlcnJvcnMtY291bnQnLCBzdW1tYXJ5LmVycm9yc0NvdW50KTtcbiAgICBkZXBzLnNldE91dHB1dCgnd2FybmluZ3MtY291bnQnLCBzdW1tYXJ5Lndhcm5pbmdzQ291bnQpO1xuICAgIGRlcHMuc2V0T3V0cHV0KCdwYXNzZWQnLCBnYXRlLnBhc3NlZCk7XG4gICAgZGVwcy5zZXRPdXRwdXQoJ3JlcG9ydC1qc29uJywgSlNPTi5zdHJpbmdpZnkocmVwb3J0KSk7XG5cbiAgICAvLyBFdmVyeXRoaW5nIGJlbG93IGlzIHJlcG9ydGluZy4gTm9uZSBvZiBpdCBtYXkgY2hhbmdlIHRoZSBvdXRjb21lLlxuICAgIGF3YWl0IGJlc3RFZmZvcnQoZGVwcywgJ1dyaXRpbmcgdGhlIGpvYiBzdW1tYXJ5JywgKCkgPT4gZGVwcy53cml0ZUpvYlN1bW1hcnkoc3VtbWFyeSwgZ2F0ZSkpO1xuXG4gICAgaWYgKGlucHV0cy5jb21tZW50T25QciAmJiBkZXBzLnBvc3RQUkNvbW1lbnQpIHtcbiAgICAgIGNvbnN0IHRva2VuID0gaW5wdXRzLmdpdGh1YlRva2VuIHx8IHByb2Nlc3MuZW52LkdJVEhVQl9UT0tFTiB8fCAnJztcbiAgICAgIGF3YWl0IGJlc3RFZmZvcnQoXG4gICAgICAgIGRlcHMsXG4gICAgICAgICdQb3N0aW5nIHRoZSBQUiBjb21tZW50IChmb3JrIFBScyBnZXQgYSByZWFkLW9ubHkgdG9rZW47IHRoZSB3b3JrZmxvdyBuZWVkcyBgcGVybWlzc2lvbnM6IHB1bGwtcmVxdWVzdHM6IHdyaXRlYCknLFxuICAgICAgICBhc3luYyAoKSA9PiB7XG4gICAgICAgICAgYXdhaXQgZGVwcy5wb3N0UFJDb21tZW50IShmb3JtYXRQUkNvbW1lbnQoc3VtbWFyeSwgZ2F0ZSksIHRva2VuKTtcbiAgICAgICAgICBkZXBzLmluZm8oJ1Bvc3RlZCBhdWRpdCByZXN1bHRzIGFzIFBSIGNvbW1lbnQnKTtcbiAgICAgICAgfSxcbiAgICAgICk7XG4gICAgfVxuXG4gICAgY29uc3Qgc2hvdWxkQWxlcnQgPSAoaW5wdXRzLmFsZXJ0T24uaW5jbHVkZXMoJ2Vycm9yJykgJiYgc3VtbWFyeS5lcnJvcnNDb3VudCA+IDApXG4gICAgICB8fCAoaW5wdXRzLmFsZXJ0T24uaW5jbHVkZXMoJ2ZhaWx1cmUnKSAmJiAhZ2F0ZS5wYXNzZWQpO1xuICAgIGlmIChzaG91bGRBbGVydCkge1xuICAgICAgY29uc3QgcGF5bG9hZDogQWxlcnRQYXlsb2FkID0ge1xuICAgICAgICB1cmw6IGlucHV0cy51cmwsXG4gICAgICAgIHNjb3JlOiBzdW1tYXJ5LnNjb3JlLFxuICAgICAgICBpc3N1ZXNGb3VuZDogc3VtbWFyeS5pc3N1ZXNDb3VudCxcbiAgICAgICAgZXJyb3JDb3VudDogc3VtbWFyeS5lcnJvcnNDb3VudCxcbiAgICAgICAgZmFpbGVkOiAhZ2F0ZS5wYXNzZWQsXG4gICAgICAgIGZhaWx1cmVzOiBnYXRlLmZhaWx1cmVzLFxuICAgICAgfTtcbiAgICAgIGlmIChpbnB1dHMuc2xhY2tXZWJob29rKSB7XG4gICAgICAgIGF3YWl0IGJlc3RFZmZvcnQoZGVwcywgJ1NsYWNrIGFsZXJ0JywgKCkgPT4gZGVwcy5zZW5kQWxlcnQoJ3NsYWNrJywgaW5wdXRzLnNsYWNrV2ViaG9vayEsIHBheWxvYWQpKTtcbiAgICAgIH1cbiAgICAgIGlmIChpbnB1dHMuZGlzY29yZFdlYmhvb2spIHtcbiAgICAgICAgYXdhaXQgYmVzdEVmZm9ydChkZXBzLCAnRGlzY29yZCBhbGVydCcsICgpID0+IGRlcHMuc2VuZEFsZXJ0KCdkaXNjb3JkJywgaW5wdXRzLmRpc2NvcmRXZWJob29rISwgcGF5bG9hZCkpO1xuICAgICAgfVxuICAgIH1cblxuICAgIGlmICghZ2F0ZS5wYXNzZWQpIHtcbiAgICAgIGRlcHMuc2V0RmFpbGVkKGdhdGUuZmFpbHVyZXMuam9pbignOyAnKSk7XG4gICAgfVxuICB9IGNhdGNoIChlcnJvcikge1xuICAgIGRlcHMuc2V0RmFpbGVkKGBBY3Rpb24gZmFpbGVkOiAke2Vycm9yIGluc3RhbmNlb2YgRXJyb3IgPyBlcnJvci5tZXNzYWdlIDogU3RyaW5nKGVycm9yKX1gKTtcbiAgfVxufVxuIl19
 ;// CONCATENATED MODULE: ./src/index.ts
 /**
  * RankCLI GitHub Action - runs the RankCLI SEO audit on a URL inside the
@@ -112702,6 +124367,6 @@ void runAction({
             throw new Error(result.error || `${channel} webhook failed`);
     },
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiZmlsZTovLy9ob21lL2JzYi9Db2RlL3Byb2R1Y3RzL3JhbmtjbGkuZGV2L3BhY2thZ2VzL2dpdGh1Yi1hY3Rpb24vc3JjL2luZGV4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7O0dBSUc7QUFFSCxPQUFPLEtBQUssSUFBSSxNQUFNLGVBQWUsQ0FBQztBQUN0QyxPQUFPLEtBQUssTUFBTSxNQUFNLGlCQUFpQixDQUFDO0FBQzFDLE9BQU8sRUFBRSxZQUFZLEVBQUUsY0FBYyxFQUFFLGdCQUFnQixFQUEwQixNQUFNLHdCQUF3QixDQUFDO0FBQ2hILE9BQU8sRUFBRSxTQUFTLEVBQStDLE1BQU0sVUFBVSxDQUFDO0FBRWxGLE1BQU0sT0FBTyxHQUFHLE9BQU8sQ0FBQyxHQUFHLENBQUMsZUFBZSxJQUFJLDBDQUEwQyxDQUFDO0FBRTFGLDZGQUE2RjtBQUM3RixxREFBcUQ7QUFDckQsS0FBSyxNQUFNLEtBQUssSUFBSSxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsU0FBUyxDQUFDLEVBQUUsSUFBSSxDQUFDLFFBQVEsQ0FBQyxlQUFlLENBQUMsRUFBRSxJQUFJLENBQUMsUUFBUSxDQUFDLGlCQUFpQixDQUFDLEVBQUUsT0FBTyxDQUFDLEdBQUcsQ0FBQyxlQUFlLENBQUMsRUFBRSxDQUFDO0lBQzlJLElBQUksS0FBSztRQUFFLElBQUksQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDLENBQUM7QUFDbkMsQ0FBQztBQUVELEtBQUssVUFBVSxjQUFjLENBQUMsTUFBYztJQUMxQyxJQUFJLFFBQWtCLENBQUM7SUFDdkIsSUFBSSxDQUFDO1FBQ0gsUUFBUSxHQUFHLE1BQU0sS0FBSyxDQUFDLEdBQUcsT0FBTyxnQ0FBZ0MsRUFBRTtZQUNqRSxNQUFNLEVBQUUsTUFBTTtZQUNkLE9BQU8sRUFBRTtnQkFDUCxjQUFjLEVBQUUsa0JBQWtCO2dCQUNsQyxXQUFXLEVBQUUsTUFBTTtnQkFDbkIsWUFBWSxFQUFFLGVBQWU7YUFDOUI7U0FDRixDQUFDLENBQUM7SUFDTCxDQUFDO0lBQUMsT0FBTyxLQUFLLEVBQUUsQ0FBQztRQUNmLGdEQUFnRDtRQUNoRCxPQUFPLEVBQUUsS0FBSyxFQUFFLEtBQUssRUFBRSxTQUFTLEVBQUUsYUFBYSxFQUFFLEtBQUssRUFBRSw0QkFBNkIsS0FBZSxDQUFDLE9BQU8sR0FBRyxFQUFFLENBQUM7SUFDcEgsQ0FBQztJQUVELE1BQU0sSUFBSSxHQUFHLE1BQU0sUUFBUSxDQUFDLElBQUksRUFBRSxDQUFDLEtBQUssQ0FBQyxHQUFHLEVBQUUsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQVFsRCxDQUFDO0lBRUYsSUFBSSxRQUFRLENBQUMsRUFBRSxFQUFFLENBQUM7UUFDaEIsT0FBTyxFQUFFLEtBQUssRUFBRSxJQUFJLEVBQUUsSUFBSSxFQUFFLElBQUksQ0FBQyxZQUFZLEVBQUUsTUFBTSxFQUFFLFNBQVMsRUFBRSxJQUFJLENBQUMsU0FBUyxFQUFFLENBQUM7SUFDckYsQ0FBQztJQUNELElBQUksUUFBUSxDQUFDLE1BQU0sS0FBSyxHQUFHLEVBQUUsQ0FBQztRQUM1QixNQUFNLFFBQVEsR0FBRyxJQUFJLENBQUMsS0FBSyxLQUFLLG1CQUFtQixDQUFDO1FBQ3BELE9BQU87WUFDTCxLQUFLLEVBQUUsS0FBSztZQUNaLFNBQVMsRUFBRSxRQUFRLENBQUMsQ0FBQyxDQUFDLG1CQUFtQixDQUFDLENBQUMsQ0FBQyxjQUFjO1lBQzFELEtBQUssRUFBRSxRQUFRLENBQUMsQ0FBQyxDQUFDLCtCQUErQixDQUFDLENBQUMsQ0FBQyxpQ0FBaUM7WUFDckYsSUFBSSxFQUFFLElBQUksQ0FBQyxJQUFJO1lBQ2YsYUFBYSxFQUFFLFFBQVEsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLGVBQWUsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLFNBQVM7WUFDL0QsVUFBVSxFQUFFLElBQUksQ0FBQyxXQUFXO1NBQzdCLENBQUM7SUFDSixDQUFDO0lBQ0QsSUFBSSxRQUFRLENBQUMsTUFBTSxLQUFLLEdBQUcsRUFBRSxDQUFDO1FBQzVCLE9BQU8sRUFBRSxLQUFLLEVBQUUsS0FBSyxFQUFFLFNBQVMsRUFBRSxXQUFXLEVBQUUsS0FBSyxFQUFFLElBQUksQ0FBQyxLQUFLLElBQUksNEJBQTRCLEVBQUUsVUFBVSxFQUFFLElBQUksQ0FBQyxXQUFXLEVBQUUsQ0FBQztJQUNuSSxDQUFDO0lBQ0QsSUFBSSxRQUFRLENBQUMsTUFBTSxLQUFLLEdBQUcsRUFBRSxDQUFDO1FBQzVCLE9BQU8sRUFBRSxLQUFLLEVBQUUsS0FBSyxFQUFFLFNBQVMsRUFBRSxhQUFhLEVBQUUsS0FBSyxFQUFFLElBQUksQ0FBQyxLQUFLLElBQUksaUJBQWlCLEVBQUUsQ0FBQztJQUM1RixDQUFDO0lBQ0QsT0FBTyxFQUFFLEtBQUssRUFBRSxLQUFLLEVBQUUsU0FBUyxFQUFFLGFBQWEsRUFBRSxLQUFLLEVBQUUsSUFBSSxDQUFDLEtBQUssSUFBSSx5QkFBeUIsUUFBUSxDQUFDLE1BQU0sRUFBRSxFQUFFLENBQUM7QUFDckgsQ0FBQztBQUVELE1BQU0sV0FBVyxHQUFHLE1BQU0sQ0FBQyxPQUFPLENBQUMsT0FBTyxDQUFDLFlBQVksQ0FBQztBQUV4RCxLQUFLLFNBQVMsQ0FBQztJQUNiLFFBQVEsRUFBRSxDQUFDLElBQUksRUFBRSxFQUFFLENBQUMsSUFBSSxDQUFDLFFBQVEsQ0FBQyxJQUFJLENBQUM7SUFDdkMsSUFBSSxFQUFFLENBQUMsT0FBTyxFQUFFLEVBQUUsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQztJQUNyQyxPQUFPLEVBQUUsQ0FBQyxPQUFPLEVBQUUsRUFBRSxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsT0FBTyxDQUFDO0lBQzNDLFNBQVMsRUFBRSxDQUFDLElBQUksRUFBRSxLQUFLLEVBQUUsRUFBRSxDQUFDLElBQUksQ0FBQyxTQUFTLENBQUMsSUFBSSxFQUFFLEtBQUssQ0FBQztJQUN2RCxTQUFTLEVBQUUsQ0FBQyxPQUFPLEVBQUUsRUFBRSxDQUFDLElBQUksQ0FBQyxTQUFTLENBQUMsT0FBTyxDQUFDO0lBQy9DLGNBQWM7SUFDZCxRQUFRLEVBQUUsQ0FBQyxHQUFHLEVBQUUsRUFBRSxDQUFDLFlBQVksQ0FBQyxFQUFFLEdBQUcsRUFBRSxDQUFDO0lBQ3hDLGVBQWUsRUFBRSxLQUFLLEVBQUUsT0FBTyxFQUFFLElBQUksRUFBRSxFQUFFO1FBQ3ZDLE1BQU0sSUFBSSxDQUFDLE9BQU87YUFDZixVQUFVLENBQUMsbUJBQW1CLENBQUM7YUFDL0IsTUFBTSxDQUFDLElBQUksQ0FBQyxNQUFNLENBQUMsQ0FBQyxDQUFDLFVBQVUsQ0FBQyxDQUFDLENBQUMsYUFBYSxJQUFJLENBQUMsUUFBUSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsRUFBRSxFQUFFLElBQUksQ0FBQzthQUNoRixRQUFRLENBQUM7WUFDUixDQUFDLEVBQUUsSUFBSSxFQUFFLFFBQVEsRUFBRSxNQUFNLEVBQUUsSUFBSSxFQUFFLEVBQUUsRUFBRSxJQUFJLEVBQUUsT0FBTyxFQUFFLE1BQU0sRUFBRSxJQUFJLEVBQUUsQ0FBQztZQUNuRSxDQUFDLEtBQUssRUFBRSxPQUFPLENBQUMsR0FBRyxDQUFDO1lBQ3BCLENBQUMsT0FBTyxFQUFFLEdBQUcsT0FBTyxDQUFDLEtBQUssTUFBTSxDQUFDO1lBQ2pDLENBQUMsUUFBUSxFQUFFLE1BQU0sQ0FBQyxPQUFPLENBQUMsV0FBVyxDQUFDLENBQUM7WUFDdkMsQ0FBQyxRQUFRLEVBQUUsTUFBTSxDQUFDLE9BQU8sQ0FBQyxXQUFXLENBQUMsQ0FBQztZQUN2QyxDQUFDLFVBQVUsRUFBRSxNQUFNLENBQUMsT0FBTyxDQUFDLGFBQWEsQ0FBQyxDQUFDO1NBQzVDLENBQUM7YUFDRCxPQUFPLENBQUMsb0JBQW9CLEVBQUUscUJBQXFCLENBQUM7YUFDcEQsS0FBSyxFQUFFLENBQUM7SUFDYixDQUFDO0lBQ0QsYUFBYSxFQUFFLFdBQVc7UUFDeEIsQ0FBQyxDQUFDLEtBQUssRUFBRSxJQUFJLEVBQUUsS0FBSyxFQUFFLEVBQUU7WUFDcEIsTUFBTSxPQUFPLEdBQUcsTUFBTSxDQUFDLFVBQVUsQ0FBQyxLQUFLLENBQUMsQ0FBQztZQUN6QyxNQUFNLE9BQU8sQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLGFBQWEsQ0FBQztnQkFDdEMsS0FBSyxFQUFFLE1BQU0sQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLEtBQUs7Z0JBQ2hDLElBQUksRUFBRSxNQUFNLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxJQUFJO2dCQUM5QixZQUFZLEVBQUUsV0FBVyxDQUFDLE1BQU07Z0JBQ2hDLElBQUk7YUFDTCxDQUFDLENBQUM7UUFDTCxDQUFDO1FBQ0gsQ0FBQyxDQUFDLFNBQVM7SUFDYixTQUFTLEVBQUUsS0FBSyxFQUFFLE9BQU8sRUFBRSxVQUFVLEVBQUUsT0FBcUIsRUFBRSxFQUFFO1FBQzlELE1BQU0sS0FBSyxHQUFzQjtZQUMvQixTQUFTLEVBQUUsR0FBRyxNQUFNLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxLQUFLLElBQUksTUFBTSxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsSUFBSSxFQUFFO1lBQ3JFLFdBQVcsRUFBRSxNQUFNLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxJQUFJO1lBQ3JDLEdBQUcsRUFBRSxPQUFPLENBQUMsR0FBRztZQUNoQixLQUFLLEVBQUUsT0FBTyxDQUFDLEtBQUs7WUFDcEIsV0FBVyxFQUFFLE9BQU8sQ0FBQyxXQUFXO1lBQ2hDLFVBQVUsRUFBRSxPQUFPLENBQUMsVUFBVTtZQUM5QixTQUFTLEVBQUUsSUFBSSxJQUFJLEVBQUUsQ0FBQyxXQUFXLEVBQUU7U0FDcEMsQ0FBQztRQUNGLE1BQU0sSUFBSSxHQUFHLE9BQU8sS0FBSyxPQUFPLENBQUMsQ0FBQyxDQUFDLGNBQWMsQ0FBQyxDQUFDLENBQUMsZ0JBQWdCLENBQUM7UUFDckUsTUFBTSxNQUFNLEdBQUcsTUFBTSxJQUFJLENBQUMsVUFBVSxFQUFFLE9BQU8sRUFBRSxLQUFLLENBQUMsQ0FBQztRQUN0RCxJQUFJLENBQUMsTUFBTSxDQUFDLE9BQU87WUFBRSxNQUFNLElBQUksS0FBSyxDQUFDLE1BQU0sQ0FBQyxLQUFLLElBQUksR0FBRyxPQUFPLGlCQUFpQixDQUFDLENBQUM7SUFDcEYsQ0FBQztDQUNGLENBQUMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogUmFua0NMSSBHaXRIdWIgQWN0aW9uIC0gcnVucyB0aGUgUmFua0NMSSBTRU8gYXVkaXQgb24gYSBVUkwgaW5zaWRlIHRoZVxuICogcnVubmVyLCByZXBvcnRzIGl0IChqb2Igc3VtbWFyeSwgUFIgY29tbWVudCwgU2xhY2svRGlzY29yZCksIGFuZCBmYWlsc1xuICogdGhlIHN0ZXAgb24gdGhlIGNvbmZpZ3VyZWQgZ2F0ZS4gU2VlIHJ1bi50cyBmb3IgdGhlIHJ1biBvcmRlci5cbiAqL1xuXG5pbXBvcnQgKiBhcyBjb3JlIGZyb20gJ0BhY3Rpb25zL2NvcmUnO1xuaW1wb3J0ICogYXMgZ2l0aHViIGZyb20gJ0BhY3Rpb25zL2dpdGh1Yic7XG5pbXBvcnQgeyBydW5GdWxsQXVkaXQsIHNlbmRTbGFja0FsZXJ0LCBzZW5kRGlzY29yZEFsZXJ0LCB0eXBlIEF1ZGl0QWxlcnRQYXlsb2FkIH0gZnJvbSAnQHJhbmtjbGkvYWdlbnQtcnVudGltZSc7XG5pbXBvcnQgeyBydW5BY3Rpb24sIHR5cGUgQXBpVmFsaWRhdGlvblJlc3VsdCwgdHlwZSBBbGVydFBheWxvYWQgfSBmcm9tICcuL3J1bi5qcyc7XG5cbmNvbnN0IEFQSV9VUkwgPSBwcm9jZXNzLmVudi5SQU5LQ0xJX0FQSV9VUkwgfHwgJ2h0dHBzOi8vYnNwbGpieHdiamlxdWVleXp5YXQuc3VwYWJhc2UuY28nO1xuXG4vLyBDcmVkZW50aWFscyBzdGF5IG91dCBvZiB0aGUgbG9ncyBldmVuIHdoZW4gYSB3b3JrZmxvdyBwYXNzZXMgdGhlbSBhcyBwbGFpbiB0ZXh0IGluc3RlYWQgb2Zcbi8vIHRocm91Z2ggc2VjcmV0cy4qICh3aGljaCBHaXRIdWIgbWFza3Mgb24gaXRzIG93bikuXG5mb3IgKGNvbnN0IHZhbHVlIG9mIFtjb3JlLmdldElucHV0KCdhcGkta2V5JyksIGNvcmUuZ2V0SW5wdXQoJ3NsYWNrLXdlYmhvb2snKSwgY29yZS5nZXRJbnB1dCgnZGlzY29yZC13ZWJob29rJyksIHByb2Nlc3MuZW52LlJBTktDTElfQVBJX0tFWV0pIHtcbiAgaWYgKHZhbHVlKSBjb3JlLnNldFNlY3JldCh2YWx1ZSk7XG59XG5cbmFzeW5jIGZ1bmN0aW9uIHZhbGlkYXRlQXBpS2V5KGFwaUtleTogc3RyaW5nKTogUHJvbWlzZTxBcGlWYWxpZGF0aW9uUmVzdWx0PiB7XG4gIGxldCByZXNwb25zZTogUmVzcG9uc2U7XG4gIHRyeSB7XG4gICAgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChgJHtBUElfVVJMfS9mdW5jdGlvbnMvdjEvdmFsaWRhdGUtYXBpLWtleWAsIHtcbiAgICAgIG1ldGhvZDogJ1BPU1QnLFxuICAgICAgaGVhZGVyczoge1xuICAgICAgICAnQ29udGVudC1UeXBlJzogJ2FwcGxpY2F0aW9uL2pzb24nLFxuICAgICAgICAnWC1BUEktS2V5JzogYXBpS2V5LFxuICAgICAgICAnWC1FbmRwb2ludCc6ICdnaXRodWItYWN0aW9uJyxcbiAgICAgIH0sXG4gICAgfSk7XG4gIH0gY2F0Y2ggKGVycm9yKSB7XG4gICAgLy8gQ291bGRuJ3QgYXNrIC0gbm90IGV2aWRlbmNlIHRoZSBrZXkgaXMgd3JvbmcuXG4gICAgcmV0dXJuIHsgdmFsaWQ6IGZhbHNlLCBlcnJvckNvZGU6ICd1bmF2YWlsYWJsZScsIGVycm9yOiBgY291bGQgbm90IHJlYWNoIFJhbmtDTEkgKCR7KGVycm9yIGFzIEVycm9yKS5tZXNzYWdlfSlgIH07XG4gIH1cblxuICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuanNvbigpLmNhdGNoKCgpID0+ICh7fSkpIGFzIHtcbiAgICBlcnJvcj86IHN0cmluZztcbiAgICB0aWVyPzogc3RyaW5nO1xuICAgIG5leHRfYWxsb3dlZF9hdD86IHN0cmluZztcbiAgICByZXNldHNfYXQ/OiBzdHJpbmc7XG4gICAgdXBncmFkZV91cmw/OiBzdHJpbmc7XG4gICAgc3Vic2NyaXB0aW9uPzogeyBwbGFuSWQ/OiBzdHJpbmcgfTtcbiAgICByYXRlTGltaXQ/OiB7IGxpbWl0OiBudW1iZXI7IHJlbWFpbmluZzogbnVtYmVyOyByZXNldHNBdDogc3RyaW5nIH07XG4gIH07XG5cbiAgaWYgKHJlc3BvbnNlLm9rKSB7XG4gICAgcmV0dXJuIHsgdmFsaWQ6IHRydWUsIHRpZXI6IGRhdGEuc3Vic2NyaXB0aW9uPy5wbGFuSWQsIHJhdGVMaW1pdDogZGF0YS5yYXRlTGltaXQgfTtcbiAgfVxuICBpZiAocmVzcG9uc2Uuc3RhdHVzID09PSA0MjkpIHtcbiAgICBjb25zdCBzY2hlZHVsZSA9IGRhdGEuZXJyb3IgPT09ICdzY2hlZHVsZV9leGNlZWRlZCc7XG4gICAgcmV0dXJuIHtcbiAgICAgIHZhbGlkOiBmYWxzZSxcbiAgICAgIGVycm9yQ29kZTogc2NoZWR1bGUgPyAnc2NoZWR1bGVfZXhjZWVkZWQnIDogJ3JhdGVfbGltaXRlZCcsXG4gICAgICBlcnJvcjogc2NoZWR1bGUgPyAnc2NoZWR1bGVkLWF1ZGl0IGxpbWl0IHJlYWNoZWQnIDogJ2RhaWx5IEFQSSByZXF1ZXN0IGxpbWl0IHJlYWNoZWQnLFxuICAgICAgdGllcjogZGF0YS50aWVyLFxuICAgICAgbmV4dEFsbG93ZWRBdDogc2NoZWR1bGUgPyBkYXRhLm5leHRfYWxsb3dlZF9hdCA6IGRhdGEucmVzZXRzX2F0LFxuICAgICAgdXBncmFkZVVybDogZGF0YS51cGdyYWRlX3VybCxcbiAgICB9O1xuICB9XG4gIGlmIChyZXNwb25zZS5zdGF0dXMgPT09IDQwMykge1xuICAgIHJldHVybiB7IHZhbGlkOiBmYWxzZSwgZXJyb3JDb2RlOiAnbm9fYWNjZXNzJywgZXJyb3I6IGRhdGEuZXJyb3IgfHwgJ25vIEFQSSBhY2Nlc3Mgb24gdGhpcyBwbGFuJywgdXBncmFkZVVybDogZGF0YS51cGdyYWRlX3VybCB9O1xuICB9XG4gIGlmIChyZXNwb25zZS5zdGF0dXMgPT09IDQwMSkge1xuICAgIHJldHVybiB7IHZhbGlkOiBmYWxzZSwgZXJyb3JDb2RlOiAnaW52YWxpZF9rZXknLCBlcnJvcjogZGF0YS5lcnJvciB8fCAnaW52YWxpZCBBUEkga2V5JyB9O1xuICB9XG4gIHJldHVybiB7IHZhbGlkOiBmYWxzZSwgZXJyb3JDb2RlOiAndW5hdmFpbGFibGUnLCBlcnJvcjogZGF0YS5lcnJvciB8fCBgUmFua0NMSSBhbnN3ZXJlZCBIVFRQICR7cmVzcG9uc2Uuc3RhdHVzfWAgfTtcbn1cblxuY29uc3QgcHVsbFJlcXVlc3QgPSBnaXRodWIuY29udGV4dC5wYXlsb2FkLnB1bGxfcmVxdWVzdDtcblxudm9pZCBydW5BY3Rpb24oe1xuICBnZXRJbnB1dDogKG5hbWUpID0+IGNvcmUuZ2V0SW5wdXQobmFtZSksXG4gIGluZm86IChtZXNzYWdlKSA9PiBjb3JlLmluZm8obWVzc2FnZSksXG4gIHdhcm5pbmc6IChtZXNzYWdlKSA9PiBjb3JlLndhcm5pbmcobWVzc2FnZSksXG4gIHNldE91dHB1dDogKG5hbWUsIHZhbHVlKSA9PiBjb3JlLnNldE91dHB1dChuYW1lLCB2YWx1ZSksXG4gIHNldEZhaWxlZDogKG1lc3NhZ2UpID0+IGNvcmUuc2V0RmFpbGVkKG1lc3NhZ2UpLFxuICB2YWxpZGF0ZUFwaUtleSxcbiAgcnVuQXVkaXQ6ICh1cmwpID0+IHJ1bkZ1bGxBdWRpdCh7IHVybCB9KSxcbiAgd3JpdGVKb2JTdW1tYXJ5OiBhc3luYyAoc3VtbWFyeSwgZ2F0ZSkgPT4ge1xuICAgIGF3YWl0IGNvcmUuc3VtbWFyeVxuICAgICAgLmFkZEhlYWRpbmcoJ1NFTyBBdWRpdCBSZXN1bHRzJylcbiAgICAgIC5hZGRSYXcoZ2F0ZS5wYXNzZWQgPyAn4pyFIFBhc3NlZCcgOiBg4p2MIEZhaWxlZDogJHtnYXRlLmZhaWx1cmVzLmpvaW4oJzsgJyl9YCwgdHJ1ZSlcbiAgICAgIC5hZGRUYWJsZShbXG4gICAgICAgIFt7IGRhdGE6ICdNZXRyaWMnLCBoZWFkZXI6IHRydWUgfSwgeyBkYXRhOiAnVmFsdWUnLCBoZWFkZXI6IHRydWUgfV0sXG4gICAgICAgIFsnVVJMJywgc3VtbWFyeS51cmxdLFxuICAgICAgICBbJ1Njb3JlJywgYCR7c3VtbWFyeS5zY29yZX0vMTAwYF0sXG4gICAgICAgIFsnSXNzdWVzJywgU3RyaW5nKHN1bW1hcnkuaXNzdWVzQ291bnQpXSxcbiAgICAgICAgWydFcnJvcnMnLCBTdHJpbmcoc3VtbWFyeS5lcnJvcnNDb3VudCldLFxuICAgICAgICBbJ1dhcm5pbmdzJywgU3RyaW5nKHN1bW1hcnkud2FybmluZ3NDb3VudCldLFxuICAgICAgXSlcbiAgICAgIC5hZGRMaW5rKCdQb3dlcmVkIGJ5IFJhbmtDTEknLCAnaHR0cHM6Ly9yYW5rY2xpLmRldicpXG4gICAgICAud3JpdGUoKTtcbiAgfSxcbiAgcG9zdFBSQ29tbWVudDogcHVsbFJlcXVlc3RcbiAgICA/IGFzeW5jIChib2R5LCB0b2tlbikgPT4ge1xuICAgICAgICBjb25zdCBvY3Rva2l0ID0gZ2l0aHViLmdldE9jdG9raXQodG9rZW4pO1xuICAgICAgICBhd2FpdCBvY3Rva2l0LnJlc3QuaXNzdWVzLmNyZWF0ZUNvbW1lbnQoe1xuICAgICAgICAgIG93bmVyOiBnaXRodWIuY29udGV4dC5yZXBvLm93bmVyLFxuICAgICAgICAgIHJlcG86IGdpdGh1Yi5jb250ZXh0LnJlcG8ucmVwbyxcbiAgICAgICAgICBpc3N1ZV9udW1iZXI6IHB1bGxSZXF1ZXN0Lm51bWJlcixcbiAgICAgICAgICBib2R5LFxuICAgICAgICB9KTtcbiAgICAgIH1cbiAgICA6IHVuZGVmaW5lZCxcbiAgc2VuZEFsZXJ0OiBhc3luYyAoY2hhbm5lbCwgd2ViaG9va1VybCwgcGF5bG9hZDogQWxlcnRQYXlsb2FkKSA9PiB7XG4gICAgY29uc3QgYWxlcnQ6IEF1ZGl0QWxlcnRQYXlsb2FkID0ge1xuICAgICAgcHJvamVjdElkOiBgJHtnaXRodWIuY29udGV4dC5yZXBvLm93bmVyfS8ke2dpdGh1Yi5jb250ZXh0LnJlcG8ucmVwb31gLFxuICAgICAgcHJvamVjdE5hbWU6IGdpdGh1Yi5jb250ZXh0LnJlcG8ucmVwbyxcbiAgICAgIHVybDogcGF5bG9hZC51cmwsXG4gICAgICBzY29yZTogcGF5bG9hZC5zY29yZSxcbiAgICAgIGlzc3Vlc0ZvdW5kOiBwYXlsb2FkLmlzc3Vlc0ZvdW5kLFxuICAgICAgZXJyb3JDb3VudDogcGF5bG9hZC5lcnJvckNvdW50LFxuICAgICAgdGltZXN0YW1wOiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCksXG4gICAgfTtcbiAgICBjb25zdCBzZW5kID0gY2hhbm5lbCA9PT0gJ3NsYWNrJyA/IHNlbmRTbGFja0FsZXJ0IDogc2VuZERpc2NvcmRBbGVydDtcbiAgICBjb25zdCByZXN1bHQgPSBhd2FpdCBzZW5kKHdlYmhvb2tVcmwsICdlcnJvcicsIGFsZXJ0KTtcbiAgICBpZiAoIXJlc3VsdC5zdWNjZXNzKSB0aHJvdyBuZXcgRXJyb3IocmVzdWx0LmVycm9yIHx8IGAke2NoYW5uZWx9IHdlYmhvb2sgZmFpbGVkYCk7XG4gIH0sXG59KTtcbiJdfQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiZmlsZTovLy90bXAvY2xhdWRlLTEwMDAvLWhvbWUtYnNiLUNvZGUtcHJvZHVjdHMtcmFua2NsaS1kZXYvZmRhMjdiMzctZTYzNi00ODA5LWE1ZTYtOTZhMWY0MDhmY2NlL3NjcmF0Y2hwYWQvcmFua2NsaS1wdWJsaWMvcGFja2FnZXMvZ2l0aHViLWFjdGlvbi9zcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7R0FJRztBQUVILE9BQU8sS0FBSyxJQUFJLE1BQU0sZUFBZSxDQUFDO0FBQ3RDLE9BQU8sS0FBSyxNQUFNLE1BQU0saUJBQWlCLENBQUM7QUFDMUMsT0FBTyxFQUFFLFlBQVksRUFBRSxjQUFjLEVBQUUsZ0JBQWdCLEVBQTBCLE1BQU0sd0JBQXdCLENBQUM7QUFDaEgsT0FBTyxFQUFFLFNBQVMsRUFBK0MsTUFBTSxVQUFVLENBQUM7QUFFbEYsTUFBTSxPQUFPLEdBQUcsT0FBTyxDQUFDLEdBQUcsQ0FBQyxlQUFlLElBQUksMENBQTBDLENBQUM7QUFFMUYsNkZBQTZGO0FBQzdGLHFEQUFxRDtBQUNyRCxLQUFLLE1BQU0sS0FBSyxJQUFJLENBQUMsSUFBSSxDQUFDLFFBQVEsQ0FBQyxTQUFTLENBQUMsRUFBRSxJQUFJLENBQUMsUUFBUSxDQUFDLGVBQWUsQ0FBQyxFQUFFLElBQUksQ0FBQyxRQUFRLENBQUMsaUJBQWlCLENBQUMsRUFBRSxPQUFPLENBQUMsR0FBRyxDQUFDLGVBQWUsQ0FBQyxFQUFFLENBQUM7SUFDOUksSUFBSSxLQUFLO1FBQUUsSUFBSSxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUMsQ0FBQztBQUNuQyxDQUFDO0FBRUQsS0FBSyxVQUFVLGNBQWMsQ0FBQyxNQUFjO0lBQzFDLElBQUksUUFBa0IsQ0FBQztJQUN2QixJQUFJLENBQUM7UUFDSCxRQUFRLEdBQUcsTUFBTSxLQUFLLENBQUMsR0FBRyxPQUFPLGdDQUFnQyxFQUFFO1lBQ2pFLE1BQU0sRUFBRSxNQUFNO1lBQ2QsT0FBTyxFQUFFO2dCQUNQLGNBQWMsRUFBRSxrQkFBa0I7Z0JBQ2xDLFdBQVcsRUFBRSxNQUFNO2dCQUNuQixZQUFZLEVBQUUsZUFBZTthQUM5QjtTQUNGLENBQUMsQ0FBQztJQUNMLENBQUM7SUFBQyxPQUFPLEtBQUssRUFBRSxDQUFDO1FBQ2YsZ0RBQWdEO1FBQ2hELE9BQU8sRUFBRSxLQUFLLEVBQUUsS0FBSyxFQUFFLFNBQVMsRUFBRSxhQUFhLEVBQUUsS0FBSyxFQUFFLDRCQUE2QixLQUFlLENBQUMsT0FBTyxHQUFHLEVBQUUsQ0FBQztJQUNwSCxDQUFDO0lBRUQsTUFBTSxJQUFJLEdBQUcsTUFBTSxRQUFRLENBQUMsSUFBSSxFQUFFLENBQUMsS0FBSyxDQUFDLEdBQUcsRUFBRSxDQUFDLENBQUMsRUFBRSxDQUFDLENBUWxELENBQUM7SUFFRixJQUFJLFFBQVEsQ0FBQyxFQUFFLEVBQUUsQ0FBQztRQUNoQixPQUFPLEVBQUUsS0FBSyxFQUFFLElBQUksRUFBRSxJQUFJLEVBQUUsSUFBSSxDQUFDLFlBQVksRUFBRSxNQUFNLEVBQUUsU0FBUyxFQUFFLElBQUksQ0FBQyxTQUFTLEVBQUUsQ0FBQztJQUNyRixDQUFDO0lBQ0QsSUFBSSxRQUFRLENBQUMsTUFBTSxLQUFLLEdBQUcsRUFBRSxDQUFDO1FBQzVCLE1BQU0sUUFBUSxHQUFHLElBQUksQ0FBQyxLQUFLLEtBQUssbUJBQW1CLENBQUM7UUFDcEQsT0FBTztZQUNMLEtBQUssRUFBRSxLQUFLO1lBQ1osU0FBUyxFQUFFLFFBQVEsQ0FBQyxDQUFDLENBQUMsbUJBQW1CLENBQUMsQ0FBQyxDQUFDLGNBQWM7WUFDMUQsS0FBSyxFQUFFLFFBQVEsQ0FBQyxDQUFDLENBQUMsK0JBQStCLENBQUMsQ0FBQyxDQUFDLGlDQUFpQztZQUNyRixJQUFJLEVBQUUsSUFBSSxDQUFDLElBQUk7WUFDZixhQUFhLEVBQUUsUUFBUSxDQUFDLENBQUMsQ0FBQyxJQUFJLENBQUMsZUFBZSxDQUFDLENBQUMsQ0FBQyxJQUFJLENBQUMsU0FBUztZQUMvRCxVQUFVLEVBQUUsSUFBSSxDQUFDLFdBQVc7U0FDN0IsQ0FBQztJQUNKLENBQUM7SUFDRCxJQUFJLFFBQVEsQ0FBQyxNQUFNLEtBQUssR0FBRyxFQUFFLENBQUM7UUFDNUIsT0FBTyxFQUFFLEtBQUssRUFBRSxLQUFLLEVBQUUsU0FBUyxFQUFFLFdBQVcsRUFBRSxLQUFLLEVBQUUsSUFBSSxDQUFDLEtBQUssSUFBSSw0QkFBNEIsRUFBRSxVQUFVLEVBQUUsSUFBSSxDQUFDLFdBQVcsRUFBRSxDQUFDO0lBQ25JLENBQUM7SUFDRCxJQUFJLFFBQVEsQ0FBQyxNQUFNLEtBQUssR0FBRyxFQUFFLENBQUM7UUFDNUIsT0FBTyxFQUFFLEtBQUssRUFBRSxLQUFLLEVBQUUsU0FBUyxFQUFFLGFBQWEsRUFBRSxLQUFLLEVBQUUsSUFBSSxDQUFDLEtBQUssSUFBSSxpQkFBaUIsRUFBRSxDQUFDO0lBQzVGLENBQUM7SUFDRCxPQUFPLEVBQUUsS0FBSyxFQUFFLEtBQUssRUFBRSxTQUFTLEVBQUUsYUFBYSxFQUFFLEtBQUssRUFBRSxJQUFJLENBQUMsS0FBSyxJQUFJLHlCQUF5QixRQUFRLENBQUMsTUFBTSxFQUFFLEVBQUUsQ0FBQztBQUNySCxDQUFDO0FBRUQsTUFBTSxXQUFXLEdBQUcsTUFBTSxDQUFDLE9BQU8sQ0FBQyxPQUFPLENBQUMsWUFBWSxDQUFDO0FBRXhELEtBQUssU0FBUyxDQUFDO0lBQ2IsUUFBUSxFQUFFLENBQUMsSUFBSSxFQUFFLEVBQUUsQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDLElBQUksQ0FBQztJQUN2QyxJQUFJLEVBQUUsQ0FBQyxPQUFPLEVBQUUsRUFBRSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsT0FBTyxDQUFDO0lBQ3JDLE9BQU8sRUFBRSxDQUFDLE9BQU8sRUFBRSxFQUFFLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxPQUFPLENBQUM7SUFDM0MsU0FBUyxFQUFFLENBQUMsSUFBSSxFQUFFLEtBQUssRUFBRSxFQUFFLENBQUMsSUFBSSxDQUFDLFNBQVMsQ0FBQyxJQUFJLEVBQUUsS0FBSyxDQUFDO0lBQ3ZELFNBQVMsRUFBRSxDQUFDLE9BQU8sRUFBRSxFQUFFLENBQUMsSUFBSSxDQUFDLFNBQVMsQ0FBQyxPQUFPLENBQUM7SUFDL0MsY0FBYztJQUNkLFFBQVEsRUFBRSxDQUFDLEdBQUcsRUFBRSxFQUFFLENBQUMsWUFBWSxDQUFDLEVBQUUsR0FBRyxFQUFFLENBQUM7SUFDeEMsZUFBZSxFQUFFLEtBQUssRUFBRSxPQUFPLEVBQUUsSUFBSSxFQUFFLEVBQUU7UUFDdkMsTUFBTSxJQUFJLENBQUMsT0FBTzthQUNmLFVBQVUsQ0FBQyxtQkFBbUIsQ0FBQzthQUMvQixNQUFNLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUMsVUFBVSxDQUFDLENBQUMsQ0FBQyxhQUFhLElBQUksQ0FBQyxRQUFRLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxFQUFFLEVBQUUsSUFBSSxDQUFDO2FBQ2hGLFFBQVEsQ0FBQztZQUNSLENBQUMsRUFBRSxJQUFJLEVBQUUsUUFBUSxFQUFFLE1BQU0sRUFBRSxJQUFJLEVBQUUsRUFBRSxFQUFFLElBQUksRUFBRSxPQUFPLEVBQUUsTUFBTSxFQUFFLElBQUksRUFBRSxDQUFDO1lBQ25FLENBQUMsS0FBSyxFQUFFLE9BQU8sQ0FBQyxHQUFHLENBQUM7WUFDcEIsQ0FBQyxPQUFPLEVBQUUsR0FBRyxPQUFPLENBQUMsS0FBSyxNQUFNLENBQUM7WUFDakMsQ0FBQyxRQUFRLEVBQUUsTUFBTSxDQUFDLE9BQU8sQ0FBQyxXQUFXLENBQUMsQ0FBQztZQUN2QyxDQUFDLFFBQVEsRUFBRSxNQUFNLENBQUMsT0FBTyxDQUFDLFdBQVcsQ0FBQyxDQUFDO1lBQ3ZDLENBQUMsVUFBVSxFQUFFLE1BQU0sQ0FBQyxPQUFPLENBQUMsYUFBYSxDQUFDLENBQUM7U0FDNUMsQ0FBQzthQUNELE9BQU8sQ0FBQyxvQkFBb0IsRUFBRSxxQkFBcUIsQ0FBQzthQUNwRCxLQUFLLEVBQUUsQ0FBQztJQUNiLENBQUM7SUFDRCxhQUFhLEVBQUUsV0FBVztRQUN4QixDQUFDLENBQUMsS0FBSyxFQUFFLElBQUksRUFBRSxLQUFLLEVBQUUsRUFBRTtZQUNwQixNQUFNLE9BQU8sR0FBRyxNQUFNLENBQUMsVUFBVSxDQUFDLEtBQUssQ0FBQyxDQUFDO1lBQ3pDLE1BQU0sT0FBTyxDQUFDLElBQUksQ0FBQyxNQUFNLENBQUMsYUFBYSxDQUFDO2dCQUN0QyxLQUFLLEVBQUUsTUFBTSxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsS0FBSztnQkFDaEMsSUFBSSxFQUFFLE1BQU0sQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLElBQUk7Z0JBQzlCLFlBQVksRUFBRSxXQUFXLENBQUMsTUFBTTtnQkFDaEMsSUFBSTthQUNMLENBQUMsQ0FBQztRQUNMLENBQUM7UUFDSCxDQUFDLENBQUMsU0FBUztJQUNiLFNBQVMsRUFBRSxLQUFLLEVBQUUsT0FBTyxFQUFFLFVBQVUsRUFBRSxPQUFxQixFQUFFLEVBQUU7UUFDOUQsTUFBTSxLQUFLLEdBQXNCO1lBQy9CLFNBQVMsRUFBRSxHQUFHLE1BQU0sQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLEtBQUssSUFBSSxNQUFNLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxJQUFJLEVBQUU7WUFDckUsV0FBVyxFQUFFLE1BQU0sQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLElBQUk7WUFDckMsR0FBRyxFQUFFLE9BQU8sQ0FBQyxHQUFHO1lBQ2hCLEtBQUssRUFBRSxPQUFPLENBQUMsS0FBSztZQUNwQixXQUFXLEVBQUUsT0FBTyxDQUFDLFdBQVc7WUFDaEMsVUFBVSxFQUFFLE9BQU8sQ0FBQyxVQUFVO1lBQzlCLFNBQVMsRUFBRSxJQUFJLElBQUksRUFBRSxDQUFDLFdBQVcsRUFBRTtTQUNwQyxDQUFDO1FBQ0YsTUFBTSxJQUFJLEdBQUcsT0FBTyxLQUFLLE9BQU8sQ0FBQyxDQUFDLENBQUMsY0FBYyxDQUFDLENBQUMsQ0FBQyxnQkFBZ0IsQ0FBQztRQUNyRSxNQUFNLE1BQU0sR0FBRyxNQUFNLElBQUksQ0FBQyxVQUFVLEVBQUUsT0FBTyxFQUFFLEtBQUssQ0FBQyxDQUFDO1FBQ3RELElBQUksQ0FBQyxNQUFNLENBQUMsT0FBTztZQUFFLE1BQU0sSUFBSSxLQUFLLENBQUMsTUFBTSxDQUFDLEtBQUssSUFBSSxHQUFHLE9BQU8saUJBQWlCLENBQUMsQ0FBQztJQUNwRixDQUFDO0NBQ0YsQ0FBQyxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBSYW5rQ0xJIEdpdEh1YiBBY3Rpb24gLSBydW5zIHRoZSBSYW5rQ0xJIFNFTyBhdWRpdCBvbiBhIFVSTCBpbnNpZGUgdGhlXG4gKiBydW5uZXIsIHJlcG9ydHMgaXQgKGpvYiBzdW1tYXJ5LCBQUiBjb21tZW50LCBTbGFjay9EaXNjb3JkKSwgYW5kIGZhaWxzXG4gKiB0aGUgc3RlcCBvbiB0aGUgY29uZmlndXJlZCBnYXRlLiBTZWUgcnVuLnRzIGZvciB0aGUgcnVuIG9yZGVyLlxuICovXG5cbmltcG9ydCAqIGFzIGNvcmUgZnJvbSAnQGFjdGlvbnMvY29yZSc7XG5pbXBvcnQgKiBhcyBnaXRodWIgZnJvbSAnQGFjdGlvbnMvZ2l0aHViJztcbmltcG9ydCB7IHJ1bkZ1bGxBdWRpdCwgc2VuZFNsYWNrQWxlcnQsIHNlbmREaXNjb3JkQWxlcnQsIHR5cGUgQXVkaXRBbGVydFBheWxvYWQgfSBmcm9tICdAcmFua2NsaS9hZ2VudC1ydW50aW1lJztcbmltcG9ydCB7IHJ1bkFjdGlvbiwgdHlwZSBBcGlWYWxpZGF0aW9uUmVzdWx0LCB0eXBlIEFsZXJ0UGF5bG9hZCB9IGZyb20gJy4vcnVuLmpzJztcblxuY29uc3QgQVBJX1VSTCA9IHByb2Nlc3MuZW52LlJBTktDTElfQVBJX1VSTCB8fCAnaHR0cHM6Ly9ic3BsamJ4d2JqaXF1ZWV5enlhdC5zdXBhYmFzZS5jbyc7XG5cbi8vIENyZWRlbnRpYWxzIHN0YXkgb3V0IG9mIHRoZSBsb2dzIGV2ZW4gd2hlbiBhIHdvcmtmbG93IHBhc3NlcyB0aGVtIGFzIHBsYWluIHRleHQgaW5zdGVhZCBvZlxuLy8gdGhyb3VnaCBzZWNyZXRzLiogKHdoaWNoIEdpdEh1YiBtYXNrcyBvbiBpdHMgb3duKS5cbmZvciAoY29uc3QgdmFsdWUgb2YgW2NvcmUuZ2V0SW5wdXQoJ2FwaS1rZXknKSwgY29yZS5nZXRJbnB1dCgnc2xhY2std2ViaG9vaycpLCBjb3JlLmdldElucHV0KCdkaXNjb3JkLXdlYmhvb2snKSwgcHJvY2Vzcy5lbnYuUkFOS0NMSV9BUElfS0VZXSkge1xuICBpZiAodmFsdWUpIGNvcmUuc2V0U2VjcmV0KHZhbHVlKTtcbn1cblxuYXN5bmMgZnVuY3Rpb24gdmFsaWRhdGVBcGlLZXkoYXBpS2V5OiBzdHJpbmcpOiBQcm9taXNlPEFwaVZhbGlkYXRpb25SZXN1bHQ+IHtcbiAgbGV0IHJlc3BvbnNlOiBSZXNwb25zZTtcbiAgdHJ5IHtcbiAgICByZXNwb25zZSA9IGF3YWl0IGZldGNoKGAke0FQSV9VUkx9L2Z1bmN0aW9ucy92MS92YWxpZGF0ZS1hcGkta2V5YCwge1xuICAgICAgbWV0aG9kOiAnUE9TVCcsXG4gICAgICBoZWFkZXJzOiB7XG4gICAgICAgICdDb250ZW50LVR5cGUnOiAnYXBwbGljYXRpb24vanNvbicsXG4gICAgICAgICdYLUFQSS1LZXknOiBhcGlLZXksXG4gICAgICAgICdYLUVuZHBvaW50JzogJ2dpdGh1Yi1hY3Rpb24nLFxuICAgICAgfSxcbiAgICB9KTtcbiAgfSBjYXRjaCAoZXJyb3IpIHtcbiAgICAvLyBDb3VsZG4ndCBhc2sgLSBub3QgZXZpZGVuY2UgdGhlIGtleSBpcyB3cm9uZy5cbiAgICByZXR1cm4geyB2YWxpZDogZmFsc2UsIGVycm9yQ29kZTogJ3VuYXZhaWxhYmxlJywgZXJyb3I6IGBjb3VsZCBub3QgcmVhY2ggUmFua0NMSSAoJHsoZXJyb3IgYXMgRXJyb3IpLm1lc3NhZ2V9KWAgfTtcbiAgfVxuXG4gIGNvbnN0IGRhdGEgPSBhd2FpdCByZXNwb25zZS5qc29uKCkuY2F0Y2goKCkgPT4gKHt9KSkgYXMge1xuICAgIGVycm9yPzogc3RyaW5nO1xuICAgIHRpZXI/OiBzdHJpbmc7XG4gICAgbmV4dF9hbGxvd2VkX2F0Pzogc3RyaW5nO1xuICAgIHJlc2V0c19hdD86IHN0cmluZztcbiAgICB1cGdyYWRlX3VybD86IHN0cmluZztcbiAgICBzdWJzY3JpcHRpb24/OiB7IHBsYW5JZD86IHN0cmluZyB9O1xuICAgIHJhdGVMaW1pdD86IHsgbGltaXQ6IG51bWJlcjsgcmVtYWluaW5nOiBudW1iZXI7IHJlc2V0c0F0OiBzdHJpbmcgfTtcbiAgfTtcblxuICBpZiAocmVzcG9uc2Uub2spIHtcbiAgICByZXR1cm4geyB2YWxpZDogdHJ1ZSwgdGllcjogZGF0YS5zdWJzY3JpcHRpb24/LnBsYW5JZCwgcmF0ZUxpbWl0OiBkYXRhLnJhdGVMaW1pdCB9O1xuICB9XG4gIGlmIChyZXNwb25zZS5zdGF0dXMgPT09IDQyOSkge1xuICAgIGNvbnN0IHNjaGVkdWxlID0gZGF0YS5lcnJvciA9PT0gJ3NjaGVkdWxlX2V4Y2VlZGVkJztcbiAgICByZXR1cm4ge1xuICAgICAgdmFsaWQ6IGZhbHNlLFxuICAgICAgZXJyb3JDb2RlOiBzY2hlZHVsZSA/ICdzY2hlZHVsZV9leGNlZWRlZCcgOiAncmF0ZV9saW1pdGVkJyxcbiAgICAgIGVycm9yOiBzY2hlZHVsZSA/ICdzY2hlZHVsZWQtYXVkaXQgbGltaXQgcmVhY2hlZCcgOiAnZGFpbHkgQVBJIHJlcXVlc3QgbGltaXQgcmVhY2hlZCcsXG4gICAgICB0aWVyOiBkYXRhLnRpZXIsXG4gICAgICBuZXh0QWxsb3dlZEF0OiBzY2hlZHVsZSA/IGRhdGEubmV4dF9hbGxvd2VkX2F0IDogZGF0YS5yZXNldHNfYXQsXG4gICAgICB1cGdyYWRlVXJsOiBkYXRhLnVwZ3JhZGVfdXJsLFxuICAgIH07XG4gIH1cbiAgaWYgKHJlc3BvbnNlLnN0YXR1cyA9PT0gNDAzKSB7XG4gICAgcmV0dXJuIHsgdmFsaWQ6IGZhbHNlLCBlcnJvckNvZGU6ICdub19hY2Nlc3MnLCBlcnJvcjogZGF0YS5lcnJvciB8fCAnbm8gQVBJIGFjY2VzcyBvbiB0aGlzIHBsYW4nLCB1cGdyYWRlVXJsOiBkYXRhLnVwZ3JhZGVfdXJsIH07XG4gIH1cbiAgaWYgKHJlc3BvbnNlLnN0YXR1cyA9PT0gNDAxKSB7XG4gICAgcmV0dXJuIHsgdmFsaWQ6IGZhbHNlLCBlcnJvckNvZGU6ICdpbnZhbGlkX2tleScsIGVycm9yOiBkYXRhLmVycm9yIHx8ICdpbnZhbGlkIEFQSSBrZXknIH07XG4gIH1cbiAgcmV0dXJuIHsgdmFsaWQ6IGZhbHNlLCBlcnJvckNvZGU6ICd1bmF2YWlsYWJsZScsIGVycm9yOiBkYXRhLmVycm9yIHx8IGBSYW5rQ0xJIGFuc3dlcmVkIEhUVFAgJHtyZXNwb25zZS5zdGF0dXN9YCB9O1xufVxuXG5jb25zdCBwdWxsUmVxdWVzdCA9IGdpdGh1Yi5jb250ZXh0LnBheWxvYWQucHVsbF9yZXF1ZXN0O1xuXG52b2lkIHJ1bkFjdGlvbih7XG4gIGdldElucHV0OiAobmFtZSkgPT4gY29yZS5nZXRJbnB1dChuYW1lKSxcbiAgaW5mbzogKG1lc3NhZ2UpID0+IGNvcmUuaW5mbyhtZXNzYWdlKSxcbiAgd2FybmluZzogKG1lc3NhZ2UpID0+IGNvcmUud2FybmluZyhtZXNzYWdlKSxcbiAgc2V0T3V0cHV0OiAobmFtZSwgdmFsdWUpID0+IGNvcmUuc2V0T3V0cHV0KG5hbWUsIHZhbHVlKSxcbiAgc2V0RmFpbGVkOiAobWVzc2FnZSkgPT4gY29yZS5zZXRGYWlsZWQobWVzc2FnZSksXG4gIHZhbGlkYXRlQXBpS2V5LFxuICBydW5BdWRpdDogKHVybCkgPT4gcnVuRnVsbEF1ZGl0KHsgdXJsIH0pLFxuICB3cml0ZUpvYlN1bW1hcnk6IGFzeW5jIChzdW1tYXJ5LCBnYXRlKSA9PiB7XG4gICAgYXdhaXQgY29yZS5zdW1tYXJ5XG4gICAgICAuYWRkSGVhZGluZygnU0VPIEF1ZGl0IFJlc3VsdHMnKVxuICAgICAgLmFkZFJhdyhnYXRlLnBhc3NlZCA/ICfinIUgUGFzc2VkJyA6IGDinYwgRmFpbGVkOiAke2dhdGUuZmFpbHVyZXMuam9pbignOyAnKX1gLCB0cnVlKVxuICAgICAgLmFkZFRhYmxlKFtcbiAgICAgICAgW3sgZGF0YTogJ01ldHJpYycsIGhlYWRlcjogdHJ1ZSB9LCB7IGRhdGE6ICdWYWx1ZScsIGhlYWRlcjogdHJ1ZSB9XSxcbiAgICAgICAgWydVUkwnLCBzdW1tYXJ5LnVybF0sXG4gICAgICAgIFsnU2NvcmUnLCBgJHtzdW1tYXJ5LnNjb3JlfS8xMDBgXSxcbiAgICAgICAgWydJc3N1ZXMnLCBTdHJpbmcoc3VtbWFyeS5pc3N1ZXNDb3VudCldLFxuICAgICAgICBbJ0Vycm9ycycsIFN0cmluZyhzdW1tYXJ5LmVycm9yc0NvdW50KV0sXG4gICAgICAgIFsnV2FybmluZ3MnLCBTdHJpbmcoc3VtbWFyeS53YXJuaW5nc0NvdW50KV0sXG4gICAgICBdKVxuICAgICAgLmFkZExpbmsoJ1Bvd2VyZWQgYnkgUmFua0NMSScsICdodHRwczovL3JhbmtjbGkuZGV2JylcbiAgICAgIC53cml0ZSgpO1xuICB9LFxuICBwb3N0UFJDb21tZW50OiBwdWxsUmVxdWVzdFxuICAgID8gYXN5bmMgKGJvZHksIHRva2VuKSA9PiB7XG4gICAgICAgIGNvbnN0IG9jdG9raXQgPSBnaXRodWIuZ2V0T2N0b2tpdCh0b2tlbik7XG4gICAgICAgIGF3YWl0IG9jdG9raXQucmVzdC5pc3N1ZXMuY3JlYXRlQ29tbWVudCh7XG4gICAgICAgICAgb3duZXI6IGdpdGh1Yi5jb250ZXh0LnJlcG8ub3duZXIsXG4gICAgICAgICAgcmVwbzogZ2l0aHViLmNvbnRleHQucmVwby5yZXBvLFxuICAgICAgICAgIGlzc3VlX251bWJlcjogcHVsbFJlcXVlc3QubnVtYmVyLFxuICAgICAgICAgIGJvZHksXG4gICAgICAgIH0pO1xuICAgICAgfVxuICAgIDogdW5kZWZpbmVkLFxuICBzZW5kQWxlcnQ6IGFzeW5jIChjaGFubmVsLCB3ZWJob29rVXJsLCBwYXlsb2FkOiBBbGVydFBheWxvYWQpID0+IHtcbiAgICBjb25zdCBhbGVydDogQXVkaXRBbGVydFBheWxvYWQgPSB7XG4gICAgICBwcm9qZWN0SWQ6IGAke2dpdGh1Yi5jb250ZXh0LnJlcG8ub3duZXJ9LyR7Z2l0aHViLmNvbnRleHQucmVwby5yZXBvfWAsXG4gICAgICBwcm9qZWN0TmFtZTogZ2l0aHViLmNvbnRleHQucmVwby5yZXBvLFxuICAgICAgdXJsOiBwYXlsb2FkLnVybCxcbiAgICAgIHNjb3JlOiBwYXlsb2FkLnNjb3JlLFxuICAgICAgaXNzdWVzRm91bmQ6IHBheWxvYWQuaXNzdWVzRm91bmQsXG4gICAgICBlcnJvckNvdW50OiBwYXlsb2FkLmVycm9yQ291bnQsXG4gICAgICB0aW1lc3RhbXA6IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSxcbiAgICB9O1xuICAgIGNvbnN0IHNlbmQgPSBjaGFubmVsID09PSAnc2xhY2snID8gc2VuZFNsYWNrQWxlcnQgOiBzZW5kRGlzY29yZEFsZXJ0O1xuICAgIGNvbnN0IHJlc3VsdCA9IGF3YWl0IHNlbmQod2ViaG9va1VybCwgJ2Vycm9yJywgYWxlcnQpO1xuICAgIGlmICghcmVzdWx0LnN1Y2Nlc3MpIHRocm93IG5ldyBFcnJvcihyZXN1bHQuZXJyb3IgfHwgYCR7Y2hhbm5lbH0gd2ViaG9vayBmYWlsZWRgKTtcbiAgfSxcbn0pO1xuIl19
 
 //# sourceMappingURL=index.js.map
