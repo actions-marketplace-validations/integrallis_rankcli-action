@@ -1,15 +1,5 @@
-/**
- * The action's run order, with every side effect injected so it can be
- * tested. index.ts wires in @actions/core, @actions/github and the runtime.
- *
- * Order matters: the gate is decided right after the audit, and nothing
- * after that (job summary, PR comment, alerts) can change it. The PR
- * comment used to run first and throw on a read-only token (every fork
- * PR), so the action failed with "Resource not accessible by integration"
- * instead of reporting - or passing - the actual audit.
- */
-import type { AuditReport } from '@rankcli/agent-runtime';
-import { type AuditSummary, type GateResult } from './action.js';
+import { type AuditSettings, type GateResult, type SiteAuditResult } from '@rankcli/agent-runtime';
+import { type AuditSummary } from './action.js';
 export interface ApiValidationResult {
     valid: boolean;
     error?: string;
@@ -31,6 +21,7 @@ export interface AlertPayload {
     failed: boolean;
     failures: string[];
 }
+export type AnnotationLevel = 'error' | 'warning' | 'notice';
 export interface ActionDeps {
     getInput(name: string): string;
     info(message: string): void;
@@ -38,11 +29,22 @@ export interface ActionDeps {
     setOutput(name: string, value: string | number | boolean): void;
     setFailed(message: string): void;
     validateApiKey(apiKey: string): Promise<ApiValidationResult>;
-    runAudit(url: string): Promise<AuditReport>;
+    /** The engine's site audit with these settings (`dir` already absolute). */
+    runAudit(settings: AuditSettings & {
+        url: string;
+    }): Promise<SiteAuditResult | null>;
     writeJobSummary(summary: AuditSummary, gate: GateResult): Promise<void>;
-    /** Undefined when the run isn't for a pull request. */
-    postPRComment?: (body: string, token: string) => Promise<void>;
+    /** One annotation on the run; `file` when the finding maps to a file in the checkout. */
+    annotate?: (level: AnnotationLevel, message: string, properties: {
+        title: string;
+        file?: string;
+    }) => void;
+    /** Create the PR comment, or update the one that carries COMMENT_MARKER. Undefined outside pull requests. */
+    upsertPRComment?: (body: string, token: string) => Promise<'created' | 'updated'>;
+    /** Write the JSON report where `report-file` says. */
+    writeFile?: (path: string, content: string) => void;
     sendAlert(channel: 'slack' | 'discord', webhookUrl: string, payload: AlertPayload): Promise<void>;
+    /** The workspace (default: process.cwd()). */
+    cwd?: string;
 }
-export declare function summarize(url: string, report: AuditReport): AuditSummary;
 export declare function runAction(deps: ActionDeps): Promise<void>;
