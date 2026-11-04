@@ -30285,7 +30285,7 @@ exports.composeDoc = composeDoc;
 
 
 
-var Alias = __nccwpck_require__(3103);
+var Alias = __nccwpck_require__(5484);
 var identity = __nccwpck_require__(5393);
 var composeCollection = __nccwpck_require__(7195);
 var composeScalar = __nccwpck_require__(8763);
@@ -31895,7 +31895,7 @@ exports.mapIncludes = mapIncludes;
 
 
 
-var Alias = __nccwpck_require__(3103);
+var Alias = __nccwpck_require__(5484);
 var Collection = __nccwpck_require__(5551);
 var identity = __nccwpck_require__(5393);
 var Pair = __nccwpck_require__(9511);
@@ -32386,7 +32386,7 @@ exports.applyReviver = applyReviver;
 
 
 
-var Alias = __nccwpck_require__(3103);
+var Alias = __nccwpck_require__(5484);
 var identity = __nccwpck_require__(5393);
 var Scalar = __nccwpck_require__(8927);
 
@@ -32742,7 +32742,7 @@ var composer = __nccwpck_require__(4870);
 var Document = __nccwpck_require__(192);
 var Schema = __nccwpck_require__(8126);
 var errors = __nccwpck_require__(6394);
-var Alias = __nccwpck_require__(3103);
+var Alias = __nccwpck_require__(5484);
 var identity = __nccwpck_require__(5393);
 var Pair = __nccwpck_require__(9511);
 var Scalar = __nccwpck_require__(8927);
@@ -32816,7 +32816,7 @@ exports.warn = warn;
 
 /***/ }),
 
-/***/ 3103:
+/***/ 5484:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 
@@ -57005,572 +57005,6 @@ function generateResponsiveImage(options) {
 
 /***/ }),
 
-/***/ 856:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
-
-/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   E0: () => (/* binding */ AI_CRAWLERS_INFO),
-/* harmony export */   J6: () => (/* binding */ analyzeEntityExtraction),
-/* harmony export */   YR: () => (/* binding */ analyzeGEO),
-/* harmony export */   bG: () => (/* binding */ analyzeRobotsTxtForAI),
-/* harmony export */   d8: () => (/* binding */ analyzeContentStructure),
-/* harmony export */   g0: () => (/* binding */ analyzeCitationReadiness),
-/* harmony export */   mT: () => (/* binding */ generateAIFriendlyRobotsTxt),
-/* harmony export */   rl: () => (/* binding */ detectRenderingMode),
-/* harmony export */   z6: () => (/* binding */ calculateLLMSignals)
-/* harmony export */ });
-/* unused harmony export generateGEOIssues */
-/* harmony import */ var cheerio__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2612);
-// src/analyzers/geo-analyzer.ts
-
-var AI_CRAWLERS = {
-  // OpenAI
-  GPTBot: { userAgent: "GPTBot", company: "OpenAI", purpose: "ChatGPT training & browsing" },
-  ChatGPTUser: { userAgent: "ChatGPT-User", company: "OpenAI", purpose: "ChatGPT browsing feature" },
-  OAI_SearchBot: { userAgent: "OAI-SearchBot", company: "OpenAI", purpose: "OpenAI search features" },
-  // Anthropic
-  ClaudeBot: { userAgent: "Claude-Web", company: "Anthropic", purpose: "Claude web access" },
-  anthropic_ai: { userAgent: "anthropic-ai", company: "Anthropic", purpose: "Claude training" },
-  // Perplexity
-  PerplexityBot: { userAgent: "PerplexityBot", company: "Perplexity", purpose: "Perplexity AI search" },
-  // Google AI
-  GoogleOther: { userAgent: "Google-Extended", company: "Google", purpose: "Bard/Gemini training" },
-  // Microsoft/Bing
-  Bingbot: { userAgent: "bingbot", company: "Microsoft", purpose: "Bing Chat/Copilot" },
-  // Meta
-  FacebookBot: { userAgent: "FacebookBot", company: "Meta", purpose: "Meta AI features" },
-  MetaAI: { userAgent: "meta-externalagent", company: "Meta", purpose: "Meta AI training" },
-  // Apple
-  Applebot: { userAgent: "Applebot-Extended", company: "Apple", purpose: "Apple Intelligence" },
-  // Amazon
-  Amazonbot: { userAgent: "Amazonbot", company: "Amazon", purpose: "Alexa/Amazon AI" },
-  // Others
-  YouBot: { userAgent: "YouBot", company: "You.com", purpose: "You.com AI search" },
-  CCBot: { userAgent: "CCBot", company: "Common Crawl", purpose: "Training data" },
-  cohere_ai: { userAgent: "cohere-ai", company: "Cohere", purpose: "Cohere training" }
-};
-function analyzeRobotsTxtForAI(robotsTxt) {
-  const allowed = [];
-  const blocked = [];
-  const recommendations = [];
-  const lines = robotsTxt.split("\n").map((l) => l.trim().toLowerCase());
-  let currentAgent = "*";
-  for (const line of lines) {
-    if (line.startsWith("user-agent:")) {
-      currentAgent = line.replace("user-agent:", "").trim();
-    } else if (line.startsWith("disallow:")) {
-      const path = line.replace("disallow:", "").trim();
-      if (path === "/" || path === "/*") {
-        for (const [name, info] of Object.entries(AI_CRAWLERS)) {
-          if (currentAgent === "*" || currentAgent.includes(info.userAgent.toLowerCase())) {
-            if (!blocked.includes(name)) blocked.push(name);
-          }
-        }
-      }
-    } else if (line.startsWith("allow:")) {
-      for (const [name, info] of Object.entries(AI_CRAWLERS)) {
-        if (currentAgent === "*" || currentAgent.includes(info.userAgent.toLowerCase())) {
-          if (!allowed.includes(name)) allowed.push(name);
-        }
-      }
-    }
-  }
-  for (const [name, info] of Object.entries(AI_CRAWLERS)) {
-    const hasExplicitRule = lines.some(
-      (l) => l.includes(info.userAgent.toLowerCase())
-    );
-    if (!hasExplicitRule && !blocked.includes(name) && !allowed.includes(name)) {
-      allowed.push(name);
-    }
-  }
-  if (blocked.includes("GPTBot")) {
-    recommendations.push("\u26A0\uFE0F GPTBot is blocked - your content won't appear in ChatGPT responses");
-  }
-  if (blocked.includes("PerplexityBot")) {
-    recommendations.push("\u26A0\uFE0F PerplexityBot is blocked - missing Perplexity AI search visibility");
-  }
-  if (blocked.includes("ClaudeBot")) {
-    recommendations.push("\u26A0\uFE0F Claude-Web is blocked - no visibility in Claude AI responses");
-  }
-  if (allowed.length === 0) {
-    recommendations.push("\u{1F6A8} All AI crawlers appear to be blocked - zero AI search visibility");
-  }
-  return { allowed, blocked, recommendations };
-}
-function detectRenderingMode(html) {
-  const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
-  const signals = [];
-  const hasNextData = html.includes("__NEXT_DATA__");
-  const hasNuxtData = html.includes("__NUXT__");
-  const hasGatsbyData = html.includes("___gatsby");
-  const hasAstroIsland = html.includes("astro-island");
-  const bodyText = $("body").text().replace(/\s+/g, " ").trim();
-  const hasMinimalContent = bodyText.length < 200;
-  const hasRootDiv = $("#root, #app, #__next, #__nuxt").length > 0;
-  const hasReactRoot = $("[data-reactroot]").length > 0;
-  const hasPrerender = $('meta[name="prerender-status-code"]').length > 0 || $('meta[name="fragment"]').attr("content") === "!";
-  const paragraphs = $("p").length;
-  const headings = $("h1, h2, h3, h4, h5, h6").length;
-  const hasSubstantialContent = paragraphs > 2 || headings > 2;
-  let serverSideRendered = false;
-  let jsRenderingRequired = false;
-  if (hasNextData || hasNuxtData || hasGatsbyData || hasAstroIsland) {
-    serverSideRendered = true;
-    signals.push("Meta-framework SSR detected");
-  }
-  if (hasMinimalContent && hasRootDiv) {
-    jsRenderingRequired = true;
-    signals.push("SPA with minimal server content detected");
-  }
-  if (hasSubstantialContent) {
-    serverSideRendered = true;
-    signals.push("Substantial HTML content present");
-  }
-  if (hasReactRoot && !hasNextData && hasMinimalContent) {
-    jsRenderingRequired = true;
-    signals.push("Client-side React app detected");
-  }
-  return {
-    serverSideRendered,
-    jsRenderingRequired,
-    hasPrerendering: hasPrerender,
-    contentInHTML: hasSubstantialContent,
-    signals
-  };
-}
-function analyzeContentStructure(html) {
-  const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
-  const jsonLdScripts = $('script[type="application/ld+json"]');
-  let hasStructuredData = jsonLdScripts.length > 0;
-  let hasFAQSchema = false;
-  let hasHowToSchema = false;
-  let hasArticleSchema = false;
-  let hasProductSchema = false;
-  jsonLdScripts.each((_, el) => {
-    try {
-      const content = $(el).html() || "";
-      if (content.includes('"FAQPage"') || content.includes('"@type":"FAQPage"')) {
-        hasFAQSchema = true;
-      }
-      if (content.includes('"HowTo"') || content.includes('"@type":"HowTo"')) {
-        hasHowToSchema = true;
-      }
-      if (content.includes('"Article"') || content.includes('"BlogPosting"') || content.includes('"NewsArticle"')) {
-        hasArticleSchema = true;
-      }
-      if (content.includes('"Product"')) {
-        hasProductSchema = true;
-      }
-    } catch {
-    }
-  });
-  const hasBreadcrumbs = $('[itemtype*="BreadcrumbList"], .breadcrumb, .breadcrumbs, nav[aria-label*="breadcrumb"]').length > 0 || html.includes('"BreadcrumbList"');
-  const h1Count = $("h1").length;
-  const h2Count = $("h2").length;
-  const h3Count = $("h3").length;
-  let headingHierarchy = "poor";
-  if (h1Count === 1 && h2Count >= 2 && h3Count >= 0) {
-    headingHierarchy = "good";
-  } else if (h1Count === 1 && h2Count >= 1) {
-    headingHierarchy = "needs-work";
-  }
-  const contentSections = $('section, article, .section, [class*="section"]').length;
-  const listsAndTables = $("ul, ol, table, dl").length;
-  return {
-    hasStructuredData,
-    hasFAQSchema,
-    hasHowToSchema,
-    hasArticleSchema,
-    hasProductSchema,
-    hasBreadcrumbs,
-    headingHierarchy,
-    contentSections,
-    listsAndTables
-  };
-}
-function analyzeCitationReadiness(html) {
-  const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
-  const bodyText = $("body").text();
-  const hasCitations = $('cite, blockquote, [class*="citation"], [class*="reference"]').length > 0 || /\[\d+\]|\(\d{4}\)/.test(bodyText);
-  const externalLinks = $('a[href^="http"]').filter((_, el) => {
-    const href = $(el).attr("href") || "";
-    return !href.includes(new URL(href).hostname);
-  });
-  const hasExternalLinks = externalLinks.length > 0;
-  const hasStatistics = /\d+%|\d+\s*(million|billion|thousand)|increased by \d+|decreased by \d+/i.test(bodyText);
-  const hasQuotes = $("blockquote, q").length > 0 || /"[^"]{20,}"/.test(bodyText);
-  const hasAuthorInfo = $('[rel="author"], .author, [class*="author"], [itemtype*="Person"]').length > 0 || $('meta[name="author"]').length > 0;
-  const hasPublishDate = $('time[datetime], meta[property="article:published_time"], .publish-date, .date').length > 0;
-  const hasLastModified = $('meta[property="article:modified_time"], .updated, .modified').length > 0;
-  const trustSignals = [];
-  if (hasCitations) trustSignals.push("Citations present");
-  if (hasExternalLinks) trustSignals.push("External source links");
-  if (hasStatistics) trustSignals.push("Statistical data");
-  if (hasQuotes) trustSignals.push("Expert quotes");
-  if (hasAuthorInfo) trustSignals.push("Author attribution");
-  if (hasPublishDate) trustSignals.push("Publish date");
-  if (hasLastModified) trustSignals.push("Last modified date");
-  return {
-    hasCitations,
-    hasExternalLinks,
-    hasStatistics,
-    hasQuotes,
-    hasAuthorInfo,
-    hasPublishDate,
-    hasLastModified,
-    trustSignals
-  };
-}
-function analyzeEntityExtraction(html) {
-  const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
-  const bodyText = $("body").text();
-  const definedTerms = [];
-  $("dfn, abbr[title]").each((_, el) => {
-    const term = $(el).text().trim();
-    if (term) definedTerms.push(term);
-  });
-  const hasDefinitions = /is defined as|refers to|means that|is the process of/i.test(bodyText) || $('dfn, .definition, [class*="definition"]').length > 0;
-  const hasComparisons = /compared to|versus|vs\.|unlike|similar to|difference between/i.test(bodyText) || $('table[class*="comparison"], .comparison, [class*="versus"]').length > 0;
-  let questionAnswerPairs = 0;
-  $('details, .faq-item, [class*="question"], [class*="accordion"]').each(() => {
-    questionAnswerPairs++;
-  });
-  $("h2, h3, h4").each((_, el) => {
-    const text = $(el).text();
-    if (/^(what|how|why|when|where|who|which|can|does|is|are|should|will)\s/i.test(text) || text.endsWith("?")) {
-      questionAnswerPairs++;
-    }
-  });
-  const namedEntities = [];
-  $("strong, b").each((_, el) => {
-    const text = $(el).text().trim();
-    if (text.length > 2 && text.length < 50 && /^[A-Z]/.test(text)) {
-      if (!namedEntities.includes(text)) namedEntities.push(text);
-    }
-  });
-  return {
-    namedEntities: namedEntities.slice(0, 20),
-    // Limit to top 20
-    definedTerms,
-    hasDefinitions,
-    hasComparisons,
-    questionAnswerPairs
-  };
-}
-function calculateLLMSignals(structure, citation, entity, html) {
-  const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
-  let contentClarity = 0;
-  if (structure.headingHierarchy === "good") contentClarity += 30;
-  else if (structure.headingHierarchy === "needs-work") contentClarity += 15;
-  contentClarity += Math.min(structure.listsAndTables * 5, 25);
-  contentClarity += Math.min(structure.contentSections * 5, 20);
-  if (structure.hasBreadcrumbs) contentClarity += 10;
-  contentClarity += entity.hasDefinitions ? 15 : 0;
-  contentClarity = Math.min(contentClarity, 100);
-  let factDensity = 0;
-  if (citation.hasStatistics) factDensity += 25;
-  if (citation.hasCitations) factDensity += 20;
-  if (citation.hasExternalLinks) factDensity += 15;
-  if (citation.hasQuotes) factDensity += 15;
-  factDensity += Math.min(entity.questionAnswerPairs * 5, 25);
-  factDensity = Math.min(factDensity, 100);
-  let structureQuality = 0;
-  if (structure.hasStructuredData) structureQuality += 25;
-  if (structure.hasFAQSchema) structureQuality += 20;
-  if (structure.hasArticleSchema) structureQuality += 15;
-  if (structure.hasHowToSchema) structureQuality += 15;
-  if (structure.hasProductSchema) structureQuality += 10;
-  structureQuality += structure.headingHierarchy === "good" ? 15 : 0;
-  structureQuality = Math.min(structureQuality, 100);
-  let citationQuality = 0;
-  citationQuality += citation.trustSignals.length * 12;
-  if (citation.hasAuthorInfo) citationQuality += 15;
-  if (citation.hasPublishDate && citation.hasLastModified) citationQuality += 15;
-  citationQuality = Math.min(citationQuality, 100);
-  const overallLLMFriendliness = Math.round(
-    contentClarity * 0.25 + factDensity * 0.25 + structureQuality * 0.3 + citationQuality * 0.2
-  );
-  return {
-    contentClarity,
-    factDensity,
-    structureQuality,
-    citationQuality,
-    overallLLMFriendliness
-  };
-}
-function generateGEOIssues(aiAccess, structure, citation, entity, llmSignals, url) {
-  const issues = [];
-  if (aiAccess.blockedCrawlers.length > 0) {
-    issues.push({
-      code: "GEO_AI_CRAWLERS_BLOCKED",
-      severity: "critical",
-      category: "technical",
-      title: `${aiAccess.blockedCrawlers.length} AI crawlers blocked in robots.txt`,
-      description: `The following AI crawlers are blocked: ${aiAccess.blockedCrawlers.join(", ")}. This prevents your content from appearing in AI search results.`,
-      impact: "Your content will NOT appear in ChatGPT, Perplexity, or Claude responses",
-      howToFix: `Update robots.txt to allow AI crawlers:
-
-User-agent: GPTBot
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Claude-Web
-Allow: /`,
-      affectedUrls: [url]
-    });
-  }
-  if (aiAccess.jsRenderingRequired && !aiAccess.hasPrerendering) {
-    issues.push({
-      code: "GEO_JS_RENDERING_REQUIRED",
-      severity: "critical",
-      category: "technical",
-      title: "JavaScript rendering required - AI crawlers see blank page",
-      description: "Your site requires JavaScript to render content. Most AI crawlers (GPTBot, PerplexityBot) do not execute JavaScript and will see a blank page.",
-      impact: "Zero visibility in AI search - crawlers cannot access your content",
-      howToFix: "Implement Server-Side Rendering (SSR) or Static Site Generation (SSG). For React: use Next.js. For Vue: use Nuxt. Alternatively, implement a prerendering service.",
-      affectedUrls: [url]
-    });
-  }
-  if (!structure.hasStructuredData) {
-    issues.push({
-      code: "GEO_NO_STRUCTURED_DATA",
-      severity: "warning",
-      category: "technical",
-      title: "No JSON-LD structured data found",
-      description: "Structured data helps AI systems understand your content's context, entities, and relationships.",
-      impact: "AI systems may misunderstand or skip your content",
-      howToFix: "Add JSON-LD structured data. At minimum, include Organization, WebPage, and Article/Product schemas.",
-      affectedUrls: [url]
-    });
-  }
-  if (!structure.hasFAQSchema && entity.questionAnswerPairs > 0) {
-    issues.push({
-      code: "GEO_MISSING_FAQ_SCHEMA",
-      severity: "warning",
-      category: "technical",
-      title: "Q&A content without FAQPage schema",
-      description: `Found ${entity.questionAnswerPairs} question-answer pairs but no FAQPage schema. FAQ schema is excellent for AI search visibility.`,
-      impact: "Missing opportunity for featured snippets and AI citations",
-      howToFix: "Add FAQPage schema markup for your Q&A content. This dramatically increases chances of being cited by AI.",
-      affectedUrls: [url]
-    });
-  }
-  if (structure.headingHierarchy === "poor") {
-    issues.push({
-      code: "GEO_POOR_HEADING_STRUCTURE",
-      severity: "warning",
-      category: "content",
-      title: "Poor heading hierarchy hurts AI understanding",
-      description: "AI systems use heading structure to understand content organization. Your page lacks a clear H1 \u2192 H2 \u2192 H3 hierarchy.",
-      impact: "AI may struggle to extract key topics and relationships",
-      howToFix: "Structure content with one H1 (main topic), multiple H2s (subtopics), and H3s (details). Use question-format headings where appropriate.",
-      affectedUrls: [url]
-    });
-  }
-  if (!citation.hasCitations && !citation.hasExternalLinks) {
-    issues.push({
-      code: "GEO_NO_CITATIONS",
-      severity: "warning",
-      category: "content",
-      title: "No citations or source references",
-      description: "AI systems prioritize content with verifiable sources and citations. Your page lacks external references.",
-      impact: "Lower trust score in AI ranking - may not be cited as authoritative",
-      howToFix: "Add citations, link to authoritative sources, include statistics with references, and add expert quotes.",
-      affectedUrls: [url]
-    });
-  }
-  if (!citation.hasAuthorInfo) {
-    issues.push({
-      code: "GEO_NO_AUTHOR_INFO",
-      severity: "info",
-      category: "content",
-      title: "Missing author attribution",
-      description: "Author information helps establish E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) for AI systems.",
-      impact: "Lower credibility score in AI ranking algorithms",
-      howToFix: "Add author byline, link to author bio/profile, and consider adding author schema markup.",
-      affectedUrls: [url]
-    });
-  }
-  if (!citation.hasPublishDate || !citation.hasLastModified) {
-    issues.push({
-      code: "GEO_NO_DATES",
-      severity: "info",
-      category: "content",
-      title: "Missing publish/update dates",
-      description: "AI systems consider content freshness. Pages without dates may be considered outdated.",
-      impact: "May be deprioritized for time-sensitive queries",
-      howToFix: 'Add visible publish date and "last updated" date. Include datePublished and dateModified in schema.',
-      affectedUrls: [url]
-    });
-  }
-  if (llmSignals.overallLLMFriendliness < 40) {
-    issues.push({
-      code: "GEO_LOW_LLM_SCORE",
-      severity: "warning",
-      category: "content",
-      title: `Low AI-friendliness score: ${llmSignals.overallLLMFriendliness}/100`,
-      description: "Your content structure and signals are not optimized for AI consumption. AI systems may struggle to extract and cite your content.",
-      impact: "Significantly reduced chances of appearing in AI search results",
-      howToFix: "Improve content structure (clear headings, lists, tables), add citations and statistics, include FAQ sections, and add comprehensive schema markup.",
-      affectedUrls: [url]
-    });
-  }
-  return issues;
-}
-async function analyzeGEO(html, url, robotsTxt) {
-  let aiCrawlerAccess = {
-    robotsTxtAllowsAI: true,
-    blockedCrawlers: [],
-    allowedCrawlers: Object.keys(AI_CRAWLERS),
-    hasPrerendering: false,
-    jsRenderingRequired: false,
-    serverSideRendered: true
-  };
-  if (robotsTxt) {
-    const robotsAnalysis = analyzeRobotsTxtForAI(robotsTxt);
-    aiCrawlerAccess.blockedCrawlers = robotsAnalysis.blocked;
-    aiCrawlerAccess.allowedCrawlers = robotsAnalysis.allowed;
-    aiCrawlerAccess.robotsTxtAllowsAI = robotsAnalysis.blocked.length === 0;
-  }
-  const renderingMode = detectRenderingMode(html);
-  aiCrawlerAccess.hasPrerendering = renderingMode.hasPrerendering;
-  aiCrawlerAccess.jsRenderingRequired = renderingMode.jsRenderingRequired;
-  aiCrawlerAccess.serverSideRendered = renderingMode.serverSideRendered;
-  const contentStructure = analyzeContentStructure(html);
-  const citationReadiness = analyzeCitationReadiness(html);
-  const entityExtraction = analyzeEntityExtraction(html);
-  const llmSignals = calculateLLMSignals(
-    contentStructure,
-    citationReadiness,
-    entityExtraction,
-    html
-  );
-  const issues = generateGEOIssues(
-    aiCrawlerAccess,
-    contentStructure,
-    citationReadiness,
-    entityExtraction,
-    llmSignals,
-    url
-  );
-  const recommendations = [];
-  if (aiCrawlerAccess.blockedCrawlers.length > 0) {
-    recommendations.push("\u{1F6A8} URGENT: Unblock AI crawlers in robots.txt");
-  }
-  if (aiCrawlerAccess.jsRenderingRequired) {
-    recommendations.push("\u{1F6A8} URGENT: Implement SSR/SSG for AI crawler access");
-  }
-  if (!contentStructure.hasFAQSchema && entityExtraction.questionAnswerPairs > 0) {
-    recommendations.push("Add FAQPage schema for your Q&A content");
-  }
-  if (!contentStructure.hasStructuredData) {
-    recommendations.push("Add JSON-LD structured data (Article, Organization)");
-  }
-  if (citationReadiness.trustSignals.length < 3) {
-    recommendations.push("Add more trust signals: citations, statistics, author info");
-  }
-  if (contentStructure.listsAndTables < 2) {
-    recommendations.push("Add lists and tables - AI loves structured content");
-  }
-  if (!entityExtraction.hasDefinitions) {
-    recommendations.push("Add clear definitions for key terms");
-  }
-  if (entityExtraction.questionAnswerPairs < 3) {
-    recommendations.push("Add FAQ section with common questions");
-  }
-  let score = llmSignals.overallLLMFriendliness;
-  if (aiCrawlerAccess.blockedCrawlers.length > 0) {
-    score -= aiCrawlerAccess.blockedCrawlers.length * 10;
-  }
-  if (aiCrawlerAccess.jsRenderingRequired && !aiCrawlerAccess.hasPrerendering) {
-    score -= 30;
-  }
-  if (contentStructure.hasFAQSchema) score += 10;
-  if (contentStructure.hasArticleSchema) score += 5;
-  if (aiCrawlerAccess.robotsTxtAllowsAI) score += 10;
-  score = Math.max(0, Math.min(100, score));
-  return {
-    score: Math.round(score),
-    aiCrawlerAccess,
-    contentStructure,
-    citationReadiness,
-    entityExtraction,
-    llmSignals,
-    issues,
-    recommendations
-  };
-}
-function generateAIFriendlyRobotsTxt(siteUrl) {
-  return `# AI-Optimized robots.txt
-# Generated by RankCLI - https://rankcli.dev
-
-# Allow all standard crawlers
-User-agent: *
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/static/
-Disallow: /private/
-
-# === AI Search Crawlers ===
-# OpenAI (ChatGPT)
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-# Anthropic (Claude)
-User-agent: Claude-Web
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-# Perplexity
-User-agent: PerplexityBot
-Allow: /
-
-# Google AI (Gemini/Bard)
-User-agent: Google-Extended
-Allow: /
-
-# Microsoft (Copilot)
-User-agent: bingbot
-Allow: /
-
-# Apple Intelligence
-User-agent: Applebot-Extended
-Allow: /
-
-# Meta AI
-User-agent: meta-externalagent
-Allow: /
-
-# You.com
-User-agent: YouBot
-Allow: /
-
-# Cohere
-User-agent: cohere-ai
-Allow: /
-
-# Sitemap
-Sitemap: ${siteUrl}/sitemap.xml
-`;
-}
-var AI_CRAWLERS_INFO = AI_CRAWLERS;
-
-
-
-
-/***/ }),
-
 /***/ 3537:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
 
@@ -58806,6 +58240,813 @@ function analyzeMobileSEO(html, url) {
 
 /***/ }),
 
+/***/ 2934:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
+
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   L1: () => (/* binding */ crawlUrl),
+/* harmony export */   OU: () => (/* binding */ analyzeUrl),
+/* harmony export */   TT: () => (/* binding */ extractSchema),
+/* harmony export */   W1: () => (/* binding */ checkRobots),
+/* harmony export */   lD: () => (/* binding */ extractMeta),
+/* harmony export */   qq: () => (/* binding */ extractImages),
+/* harmony export */   rc: () => (/* binding */ extractLinks),
+/* harmony export */   u7: () => (/* binding */ checkSitemap),
+/* harmony export */   w9: () => (/* binding */ analyzeHeadings)
+/* harmony export */ });
+/* harmony import */ var _chunk_SWTM7CDR_mjs__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(3103);
+/* harmony import */ var cheerio__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2612);
+
+
+// src/tools/crawl.ts
+
+async function crawlUrl(params) {
+  const { url } = params;
+  try {
+    const start = Date.now();
+    const response = await (0,_chunk_SWTM7CDR_mjs__WEBPACK_IMPORTED_MODULE_1__/* .httpGet */ .lx)(url, {
+      timeout: 3e4,
+      validateStatus: () => true
+    });
+    const loadTime = Date.now() - start;
+    const result = {
+      url,
+      html: response.data,
+      statusCode: response.status,
+      headers: response.headers,
+      loadTime
+    };
+    return { success: true, data: result };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error crawling URL"
+    };
+  }
+}
+async function extractMeta(params) {
+  const { html, url } = params;
+  try {
+    const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
+    const meta = {
+      title: $("title").text().trim() || void 0,
+      description: $('meta[name="description"]').attr("content")?.trim(),
+      canonical: $('link[rel="canonical"]').attr("href"),
+      robots: $('meta[name="robots"]').attr("content"),
+      viewport: $('meta[name="viewport"]').attr("content"),
+      charset: $("meta[charset]").attr("charset") || $('meta[http-equiv="Content-Type"]').attr("content"),
+      openGraph: {
+        title: $('meta[property="og:title"]').attr("content"),
+        description: $('meta[property="og:description"]').attr("content"),
+        image: $('meta[property="og:image"]').attr("content"),
+        url: $('meta[property="og:url"]').attr("content"),
+        type: $('meta[property="og:type"]').attr("content"),
+        siteName: $('meta[property="og:site_name"]').attr("content")
+      },
+      twitter: {
+        card: $('meta[name="twitter:card"]').attr("content"),
+        title: $('meta[name="twitter:title"]').attr("content"),
+        description: $('meta[name="twitter:description"]').attr("content"),
+        image: $('meta[name="twitter:image"]').attr("content"),
+        site: $('meta[name="twitter:site"]').attr("content")
+      },
+      other: {}
+    };
+    $("meta").each((_, el) => {
+      const name = $(el).attr("name") || $(el).attr("property");
+      const content = $(el).attr("content");
+      if (name && content && !name.startsWith("og:") && !name.startsWith("twitter:")) {
+        if (!["description", "robots", "viewport"].includes(name)) {
+          meta.other[name] = content;
+        }
+      }
+    });
+    return { success: true, data: meta };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Error extracting meta"
+    };
+  }
+}
+async function analyzeHeadings(params) {
+  const { html } = params;
+  try {
+    const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
+    const headings = [];
+    $("h1, h2, h3, h4, h5, h6").each((_, el) => {
+      const tag = el.tagName.toLowerCase();
+      headings.push({
+        tag,
+        text: $(el).text().trim(),
+        level: parseInt(tag.charAt(1), 10)
+      });
+    });
+    return { success: true, data: headings };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Error analyzing headings"
+    };
+  }
+}
+async function extractImages(params) {
+  const { html } = params;
+  try {
+    const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
+    const images = [];
+    $("img").each((_, el) => {
+      images.push({
+        src: $(el).attr("src") || "",
+        alt: $(el).attr("alt") || null,
+        width: $(el).attr("width"),
+        height: $(el).attr("height"),
+        loading: $(el).attr("loading")
+      });
+    });
+    return { success: true, data: images };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Error extracting images"
+    };
+  }
+}
+async function extractLinks(params) {
+  const { html, baseUrl } = params;
+  try {
+    const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
+    const links = [];
+    const baseHostname = new URL(baseUrl).hostname;
+    $("a[href]").each((_, el) => {
+      const href = $(el).attr("href") || "";
+      const rel = $(el).attr("rel") || "";
+      let isInternal = false;
+      try {
+        if (href.startsWith("/") || href.startsWith("#")) {
+          isInternal = true;
+        } else {
+          const linkHostname = new URL(href).hostname;
+          isInternal = linkHostname === baseHostname;
+        }
+      } catch {
+        isInternal = true;
+      }
+      links.push({
+        href,
+        text: $(el).text().trim(),
+        isInternal,
+        isNofollow: rel.includes("nofollow")
+      });
+    });
+    return { success: true, data: links };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Error extracting links"
+    };
+  }
+}
+async function extractSchema(params) {
+  const { html } = params;
+  try {
+    const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
+    const schemas = [];
+    $('script[type="application/ld+json"]').each((_, el) => {
+      try {
+        const content = $(el).html();
+        if (content) {
+          const data = JSON.parse(content);
+          schemas.push({
+            type: data["@type"] || "Unknown",
+            data
+          });
+        }
+      } catch {
+      }
+    });
+    return { success: true, data: schemas };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Error extracting schema"
+    };
+  }
+}
+async function checkRobots(params) {
+  try {
+    const baseUrl = new URL(params.url);
+    const robotsUrl = `${baseUrl.protocol}//${baseUrl.host}/robots.txt`;
+    const response = await (0,_chunk_SWTM7CDR_mjs__WEBPACK_IMPORTED_MODULE_1__/* .httpGet */ .lx)(robotsUrl, {
+      timeout: 1e4,
+      validateStatus: () => true
+    });
+    if (response.status === 200) {
+      return {
+        success: true,
+        data: {
+          exists: true,
+          content: response.data,
+          url: robotsUrl
+        }
+      };
+    }
+    return {
+      success: true,
+      data: {
+        exists: false,
+        url: robotsUrl
+      }
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Error checking robots.txt"
+    };
+  }
+}
+async function checkSitemap(params) {
+  try {
+    const baseUrl = new URL(params.url);
+    const sitemapUrls = [
+      `${baseUrl.protocol}//${baseUrl.host}/sitemap.xml`,
+      `${baseUrl.protocol}//${baseUrl.host}/sitemap_index.xml`,
+      `${baseUrl.protocol}//${baseUrl.host}/sitemap/sitemap.xml`
+    ];
+    for (const sitemapUrl of sitemapUrls) {
+      try {
+        const response = await (0,_chunk_SWTM7CDR_mjs__WEBPACK_IMPORTED_MODULE_1__/* .httpGet */ .lx)(sitemapUrl, {
+          timeout: 1e4
+        });
+        if (response.status === 200 && response.data.includes("<?xml")) {
+          const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(response.data, { xmlMode: true });
+          const urlCount = $("url").length || $("sitemap").length;
+          return {
+            success: true,
+            data: {
+              exists: true,
+              url: sitemapUrl,
+              urlCount,
+              content: response.data.substring(0, 2e3)
+              // First 2KB
+            }
+          };
+        }
+      } catch {
+      }
+    }
+    return {
+      success: true,
+      data: {
+        exists: false
+      }
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Error checking sitemap"
+    };
+  }
+}
+
+// src/tools/analyzer.ts
+async function analyzeUrl(params) {
+  const { url } = params;
+  const issues = [];
+  try {
+    const crawlResult = await crawlUrl({ url });
+    if (!crawlResult.success || !crawlResult.data) {
+      return { success: false, error: `Failed to crawl URL: ${crawlResult.error}` };
+    }
+    const { html, statusCode, loadTime } = crawlResult.data;
+    if (statusCode !== 200) {
+      issues.push({
+        severity: "critical",
+        category: "technical",
+        code: "HTTP_ERROR",
+        message: `Page returned HTTP ${statusCode}`,
+        impact: "Search engines cannot index pages that return error codes"
+      });
+    }
+    const metaResult = await extractMeta({ html, url });
+    if (metaResult.success && metaResult.data) {
+      const meta = metaResult.data;
+      analyzeMeta(meta, url, issues);
+    }
+    const headingsResult = await analyzeHeadings({ html });
+    if (headingsResult.success && headingsResult.data) {
+      const headings = headingsResult.data;
+      analyzeHeadingStructure(headings, issues);
+    }
+    const imagesResult = await extractImages({ html });
+    if (imagesResult.success && imagesResult.data) {
+      const images = imagesResult.data;
+      analyzeImages(images, issues);
+    }
+    const schemaResult = await extractSchema({ html });
+    if (schemaResult.success) {
+      const schemas = schemaResult.data;
+      if (!schemas || schemas.length === 0) {
+        issues.push({
+          severity: "warning",
+          category: "schema",
+          code: "MISSING_SCHEMA",
+          message: "No JSON-LD structured data found",
+          impact: "Missing rich snippets in search results. Add Schema.org markup for your content type."
+        });
+      }
+    }
+    const robotsResult = await checkRobots({ url });
+    if (robotsResult.success) {
+      const robots = robotsResult.data;
+      if (!robots.exists) {
+        issues.push({
+          severity: "warning",
+          category: "technical",
+          code: "MISSING_ROBOTS",
+          message: "No robots.txt file found",
+          impact: "Provide crawling instructions to search engines with robots.txt"
+        });
+      }
+    }
+    const sitemapResult = await checkSitemap({ url });
+    if (sitemapResult.success) {
+      const sitemap = sitemapResult.data;
+      if (!sitemap.exists) {
+        issues.push({
+          severity: "warning",
+          category: "technical",
+          code: "MISSING_SITEMAP",
+          message: "No sitemap.xml found",
+          impact: "Sitemap helps search engines discover and index all your pages"
+        });
+      }
+    }
+    if (loadTime > 3e3) {
+      issues.push({
+        severity: loadTime > 5e3 ? "critical" : "warning",
+        category: "performance",
+        code: "SLOW_LOAD_TIME",
+        message: `Page load time is ${(loadTime / 1e3).toFixed(1)}s`,
+        impact: "Slow pages hurt user experience and search rankings. Target <2.5s LCP."
+      });
+    }
+    const score = calculateScore(issues);
+    const result = {
+      url,
+      score,
+      issues,
+      recommendations: generateRecommendations(issues)
+    };
+    return { success: true, data: result };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Analysis failed"
+    };
+  }
+}
+function analyzeMeta(meta, url, issues) {
+  if (!meta.title) {
+    issues.push({
+      severity: "critical",
+      category: "meta",
+      code: "MISSING_TITLE",
+      message: "Missing title tag",
+      impact: "Title is the most important on-page SEO element. Every page needs a unique title.",
+      fix: {
+        file: "index.html",
+        before: null,
+        after: "<title>Your Page Title - Brand Name</title>"
+      }
+    });
+  } else if (meta.title.length < 30) {
+    issues.push({
+      severity: "warning",
+      category: "meta",
+      code: "TITLE_TOO_SHORT",
+      message: `Title too short (${meta.title.length} chars)`,
+      impact: "Longer titles provide more context. Aim for 50-60 characters.",
+      element: meta.title
+    });
+  } else if (meta.title.length > 60) {
+    issues.push({
+      severity: "warning",
+      category: "meta",
+      code: "TITLE_TOO_LONG",
+      message: `Title too long (${meta.title.length} chars)`,
+      impact: "Titles over 60 characters get truncated in search results.",
+      element: meta.title.substring(0, 60) + "..."
+    });
+  }
+  if (!meta.description) {
+    issues.push({
+      severity: "critical",
+      category: "meta",
+      code: "MISSING_META_DESC",
+      message: "Missing meta description",
+      impact: "Meta description appears in search results and affects click-through rate.",
+      fix: {
+        file: "index.html",
+        before: null,
+        after: '<meta name="description" content="A compelling description of your page in 150-160 characters." />'
+      }
+    });
+  } else if (meta.description.length < 120) {
+    issues.push({
+      severity: "warning",
+      category: "meta",
+      code: "META_DESC_TOO_SHORT",
+      message: `Meta description too short (${meta.description.length} chars)`,
+      impact: "Aim for 150-160 characters for optimal display in search results."
+    });
+  } else if (meta.description.length > 160) {
+    issues.push({
+      severity: "info",
+      category: "meta",
+      code: "META_DESC_TOO_LONG",
+      message: `Meta description may be truncated (${meta.description.length} chars)`,
+      impact: "Descriptions over 160 characters may be cut off in search results."
+    });
+  }
+  if (!meta.canonical) {
+    issues.push({
+      severity: "warning",
+      category: "technical",
+      code: "MISSING_CANONICAL",
+      message: "No canonical URL specified",
+      impact: "Canonical tags prevent duplicate content issues.",
+      fix: {
+        file: "index.html",
+        before: null,
+        after: `<link rel="canonical" href="${url}" />`
+      }
+    });
+  }
+  if (!meta.viewport) {
+    issues.push({
+      severity: "critical",
+      category: "technical",
+      code: "MISSING_VIEWPORT",
+      message: "Missing viewport meta tag",
+      impact: "Required for mobile-friendly pages. Google uses mobile-first indexing.",
+      fix: {
+        file: "index.html",
+        before: null,
+        after: '<meta name="viewport" content="width=device-width, initial-scale=1" />'
+      }
+    });
+  }
+  const missingOG = [];
+  if (!meta.openGraph.title) missingOG.push("og:title");
+  if (!meta.openGraph.description) missingOG.push("og:description");
+  if (!meta.openGraph.image) missingOG.push("og:image");
+  if (missingOG.length > 0) {
+    issues.push({
+      severity: "warning",
+      category: "social",
+      code: "MISSING_OG_TAGS",
+      message: `Missing Open Graph tags: ${missingOG.join(", ")}`,
+      impact: "Open Graph tags control how your page appears when shared on social media."
+    });
+  }
+  if (!meta.twitter.card) {
+    issues.push({
+      severity: "info",
+      category: "social",
+      code: "MISSING_TWITTER_CARD",
+      message: "Missing Twitter Card meta tags",
+      impact: "Twitter/X cards improve visibility when your content is shared."
+    });
+  }
+}
+function analyzeHeadingStructure(headings, issues) {
+  const h1s = headings.filter((h) => h.level === 1);
+  if (h1s.length === 0) {
+    issues.push({
+      severity: "critical",
+      category: "content",
+      code: "MISSING_H1",
+      message: "No H1 heading found",
+      impact: "Every page should have exactly one H1 that describes the main content."
+    });
+  } else if (h1s.length > 1) {
+    issues.push({
+      severity: "warning",
+      category: "content",
+      code: "MULTIPLE_H1",
+      message: `Multiple H1 headings found (${h1s.length})`,
+      impact: "Best practice is one H1 per page. Use H2-H6 for subsections.",
+      element: h1s.map((h) => h.text).join(", ")
+    });
+  }
+  let prevLevel = 0;
+  for (const h of headings) {
+    if (h.level > prevLevel + 1 && prevLevel > 0) {
+      issues.push({
+        severity: "info",
+        category: "content",
+        code: "SKIPPED_HEADING_LEVEL",
+        message: `Skipped heading level: H${prevLevel} to H${h.level}`,
+        impact: "Maintain proper heading hierarchy for accessibility and SEO."
+      });
+      break;
+    }
+    prevLevel = h.level;
+  }
+}
+function analyzeImages(images, issues) {
+  const missingAlt = images.filter((img) => !img.alt);
+  if (missingAlt.length > 0) {
+    issues.push({
+      severity: "warning",
+      category: "accessibility",
+      code: "IMAGES_MISSING_ALT",
+      message: `${missingAlt.length} image(s) missing alt text`,
+      impact: "Alt text is essential for accessibility and helps search engines understand images.",
+      element: missingAlt.slice(0, 3).map((i) => i.src).join(", ")
+    });
+  }
+  const missingDimensions = images.filter((img) => !img.width || !img.height);
+  if (missingDimensions.length > 0) {
+    issues.push({
+      severity: "info",
+      category: "performance",
+      code: "IMAGES_MISSING_DIMENSIONS",
+      message: `${missingDimensions.length} image(s) missing width/height`,
+      impact: "Specifying dimensions prevents layout shift (CLS)."
+    });
+  }
+}
+function calculateScore(issues) {
+  const weights = {
+    critical: 15,
+    warning: 5,
+    info: 1
+  };
+  let totalDeduction = 0;
+  for (const issue of issues) {
+    totalDeduction += weights[issue.severity];
+  }
+  return Math.max(0, Math.min(100, 100 - totalDeduction));
+}
+function generateRecommendations(issues) {
+  const recommendations = [];
+  const criticalCount = issues.filter((i) => i.severity === "critical").length;
+  const warningCount = issues.filter((i) => i.severity === "warning").length;
+  if (criticalCount > 0) {
+    recommendations.push({
+      priority: "high",
+      category: "immediate",
+      message: `Fix ${criticalCount} critical issue(s) first`,
+      impact: "Critical issues directly impact search visibility"
+    });
+  }
+  if (issues.some((i) => i.code === "MISSING_SCHEMA")) {
+    recommendations.push({
+      priority: "high",
+      category: "schema",
+      message: "Add JSON-LD structured data",
+      impact: "Enable rich snippets in search results"
+    });
+  }
+  if (issues.some((i) => i.code.includes("OG") || i.code.includes("TWITTER"))) {
+    recommendations.push({
+      priority: "medium",
+      category: "social",
+      message: "Complete social media meta tags",
+      impact: "Improve appearance when shared on social platforms"
+    });
+  }
+  if (warningCount > 3) {
+    recommendations.push({
+      priority: "medium",
+      category: "optimization",
+      message: `Address ${warningCount} warnings to improve score`,
+      impact: "Each fix improves overall SEO health"
+    });
+  }
+  return recommendations;
+}
+
+
+
+
+/***/ }),
+
+/***/ 3103:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
+
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   Bp: () => (/* binding */ looksLikeHtmlFallback),
+/* harmony export */   PW: () => (/* binding */ httpHead),
+/* harmony export */   lx: () => (/* binding */ httpGet),
+/* harmony export */   zA: () => (/* binding */ httpPost)
+/* harmony export */ });
+// src/utils/http.ts
+var DEFAULT_TIMEOUT = 3e4;
+var DEFAULT_USER_AGENT = "RankCLI/1.0 (+https://rankcli.dev)";
+function createTimeoutController(timeout) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+  return { controller, timeoutId };
+}
+function headersToObject(headers) {
+  const obj = {};
+  headers.forEach((value, key) => {
+    obj[key.toLowerCase()] = value;
+  });
+  return obj;
+}
+function looksLikeHtmlFallback(body, contentType) {
+  if (contentType && /text\/html/i.test(contentType)) return true;
+  if (typeof body !== "string") return false;
+  const head = body.trimStart().slice(0, 200).toLowerCase();
+  return head.startsWith("<!doctype html") || head.startsWith("<html");
+}
+async function httpGet(url, config = {}) {
+  const {
+    headers = {},
+    timeout = DEFAULT_TIMEOUT,
+    validateStatus = (status) => status >= 200 && status < 300,
+    maxRedirects = 5,
+    params,
+    maxBytes
+  } = config;
+  let finalUrl = url;
+  if (params) {
+    const searchParams = new URLSearchParams();
+    for (const [key, value] of Object.entries(params)) {
+      searchParams.append(key, String(value));
+    }
+    const separator = url.includes("?") ? "&" : "?";
+    finalUrl = `${url}${separator}${searchParams.toString()}`;
+  }
+  const { controller, timeoutId } = createTimeoutController(timeout);
+  try {
+    const response = await fetch(finalUrl, {
+      method: "GET",
+      headers: {
+        "User-Agent": DEFAULT_USER_AGENT,
+        ...headers
+      },
+      signal: controller.signal,
+      redirect: maxRedirects > 0 ? "follow" : "manual"
+    });
+    const contentType = response.headers.get("content-type") || "";
+    let data;
+    if (contentType.includes("application/json")) {
+      data = await response.json();
+    } else {
+      data = await readText(response, maxBytes);
+    }
+    clearTimeout(timeoutId);
+    if (!validateStatus(response.status)) {
+      const error = new Error(`Request failed with status ${response.status}`);
+      error.response = {
+        data,
+        status: response.status,
+        statusText: response.statusText,
+        headers: headersToObject(response.headers)
+      };
+      throw error;
+    }
+    return {
+      data,
+      status: response.status,
+      statusText: response.statusText,
+      headers: headersToObject(response.headers)
+    };
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new Error(`Request timeout after ${timeout}ms`);
+    }
+    throw error;
+  }
+}
+async function readText(response, maxBytes) {
+  if (!maxBytes || !response.body) return response.text();
+  const reader = response.body.getReader();
+  const chunks = [];
+  let received = 0;
+  while (received < maxBytes) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    received += value.byteLength;
+  }
+  if (received >= maxBytes) await reader.cancel().catch(() => void 0);
+  const decoder = new TextDecoder();
+  let text = "";
+  for (const chunk of chunks) text += decoder.decode(chunk, { stream: true });
+  return text + decoder.decode();
+}
+async function httpHead(url, config = {}) {
+  const {
+    headers = {},
+    timeout = DEFAULT_TIMEOUT,
+    validateStatus = (status) => status >= 200 && status < 300,
+    maxRedirects = 5
+  } = config;
+  const { controller, timeoutId } = createTimeoutController(timeout);
+  try {
+    const response = await fetch(url, {
+      method: "HEAD",
+      headers: {
+        "User-Agent": DEFAULT_USER_AGENT,
+        ...headers
+      },
+      signal: controller.signal,
+      redirect: maxRedirects > 0 ? "follow" : "manual"
+    });
+    clearTimeout(timeoutId);
+    if (!validateStatus(response.status)) {
+      const error = new Error(`Request failed with status ${response.status}`);
+      error.response = {
+        data: null,
+        status: response.status,
+        statusText: response.statusText,
+        headers: headersToObject(response.headers)
+      };
+      throw error;
+    }
+    return {
+      data: null,
+      status: response.status,
+      statusText: response.statusText,
+      headers: headersToObject(response.headers)
+    };
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new Error(`Request timeout after ${timeout}ms`);
+    }
+    throw error;
+  }
+}
+async function httpPost(url, data, config = {}) {
+  const {
+    headers = {},
+    timeout = DEFAULT_TIMEOUT,
+    validateStatus = (status) => status >= 200 && status < 300,
+    auth
+  } = config;
+  const { controller, timeoutId } = createTimeoutController(timeout);
+  const requestHeaders = {
+    "User-Agent": DEFAULT_USER_AGENT,
+    "Content-Type": "application/json",
+    ...headers
+  };
+  if (auth) {
+    const credentials = btoa(`${auth.username}:${auth.password}`);
+    requestHeaders["Authorization"] = `Basic ${credentials}`;
+  }
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: requestHeaders,
+      body: data ? JSON.stringify(data) : void 0,
+      signal: controller.signal
+    });
+    const contentType = response.headers.get("content-type") || "";
+    let responseData;
+    if (contentType.includes("application/json")) {
+      responseData = await response.json();
+    } else {
+      responseData = await response.text();
+    }
+    clearTimeout(timeoutId);
+    if (!validateStatus(response.status)) {
+      const error = new Error(`Request failed with status ${response.status}`);
+      error.response = {
+        data: responseData,
+        status: response.status,
+        statusText: response.statusText,
+        headers: headersToObject(response.headers)
+      };
+      throw error;
+    }
+    return {
+      data: responseData,
+      status: response.status,
+      statusText: response.statusText,
+      headers: headersToObject(response.headers)
+    };
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new Error(`Request timeout after ${timeout}ms`);
+    }
+    throw error;
+  }
+}
+
+
+
+
+/***/ }),
+
 /***/ 6584:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
 
@@ -59289,794 +59530,2857 @@ function generateSchemaTemplate(pageType, options) {
 
 /***/ }),
 
-/***/ 5844:
+/***/ 4688:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
 
 /* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   Bp: () => (/* binding */ looksLikeHtmlFallback),
-/* harmony export */   L1: () => (/* binding */ crawlUrl),
-/* harmony export */   OU: () => (/* binding */ analyzeUrl),
-/* harmony export */   PW: () => (/* binding */ httpHead),
-/* harmony export */   TT: () => (/* binding */ extractSchema),
-/* harmony export */   W1: () => (/* binding */ checkRobots),
-/* harmony export */   lD: () => (/* binding */ extractMeta),
-/* harmony export */   lx: () => (/* binding */ httpGet),
-/* harmony export */   qq: () => (/* binding */ extractImages),
-/* harmony export */   rc: () => (/* binding */ extractLinks),
-/* harmony export */   u7: () => (/* binding */ checkSitemap),
-/* harmony export */   w9: () => (/* binding */ analyzeHeadings),
-/* harmony export */   zA: () => (/* binding */ httpPost)
+/* harmony export */   E0: () => (/* binding */ AI_CRAWLERS_INFO),
+/* harmony export */   FM: () => (/* binding */ runAIReadinessChecks),
+/* harmony export */   J6: () => (/* binding */ analyzeEntityExtraction),
+/* harmony export */   YR: () => (/* binding */ analyzeGEO),
+/* harmony export */   bG: () => (/* binding */ analyzeRobotsTxtForAI),
+/* harmony export */   d8: () => (/* binding */ analyzeContentStructure),
+/* harmony export */   g0: () => (/* binding */ analyzeCitationReadiness),
+/* harmony export */   jS: () => (/* binding */ KNOWN_BOTS),
+/* harmony export */   mT: () => (/* binding */ generateAIFriendlyRobotsTxt),
+/* harmony export */   rB: () => (/* binding */ ISSUE_DEFINITIONS),
+/* harmony export */   rl: () => (/* binding */ detectRenderingMode),
+/* harmony export */   z6: () => (/* binding */ calculateLLMSignals)
 /* harmony export */ });
+/* unused harmony exports AI_READINESS_NOTE, checkLlmsTxt, checkAIBotBlocking, checkJSRenderingRatio, generateGEOIssues */
+/* harmony import */ var _chunk_SWTM7CDR_mjs__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(3103);
 /* harmony import */ var cheerio__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2612);
-// src/utils/http.ts
-var DEFAULT_TIMEOUT = 3e4;
-var DEFAULT_USER_AGENT = "RankCLI/1.0 (+https://rankcli.dev)";
-function createTimeoutController(timeout) {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeout);
-  return { controller, timeoutId };
-}
-function headersToObject(headers) {
-  const obj = {};
-  headers.forEach((value, key) => {
-    obj[key.toLowerCase()] = value;
-  });
-  return obj;
-}
-function looksLikeHtmlFallback(body, contentType) {
-  if (contentType && /text\/html/i.test(contentType)) return true;
-  if (typeof body !== "string") return false;
-  const head = body.trimStart().slice(0, 200).toLowerCase();
-  return head.startsWith("<!doctype html") || head.startsWith("<html");
-}
-async function httpGet(url, config = {}) {
-  const {
-    headers = {},
-    timeout = DEFAULT_TIMEOUT,
-    validateStatus = (status) => status >= 200 && status < 300,
-    maxRedirects = 5,
-    params,
-    maxBytes
-  } = config;
-  let finalUrl = url;
-  if (params) {
-    const searchParams = new URLSearchParams();
-    for (const [key, value] of Object.entries(params)) {
-      searchParams.append(key, String(value));
-    }
-    const separator = url.includes("?") ? "&" : "?";
-    finalUrl = `${url}${separator}${searchParams.toString()}`;
-  }
-  const { controller, timeoutId } = createTimeoutController(timeout);
-  try {
-    const response = await fetch(finalUrl, {
-      method: "GET",
-      headers: {
-        "User-Agent": DEFAULT_USER_AGENT,
-        ...headers
-      },
-      signal: controller.signal,
-      redirect: maxRedirects > 0 ? "follow" : "manual"
-    });
-    const contentType = response.headers.get("content-type") || "";
-    let data;
-    if (contentType.includes("application/json")) {
-      data = await response.json();
-    } else {
-      data = await readText(response, maxBytes);
-    }
-    clearTimeout(timeoutId);
-    if (!validateStatus(response.status)) {
-      const error = new Error(`Request failed with status ${response.status}`);
-      error.response = {
-        data,
-        status: response.status,
-        statusText: response.statusText,
-        headers: headersToObject(response.headers)
-      };
-      throw error;
-    }
-    return {
-      data,
-      status: response.status,
-      statusText: response.statusText,
-      headers: headersToObject(response.headers)
-    };
-  } catch (error) {
-    clearTimeout(timeoutId);
-    if (error instanceof Error && error.name === "AbortError") {
-      throw new Error(`Request timeout after ${timeout}ms`);
-    }
-    throw error;
-  }
-}
-async function readText(response, maxBytes) {
-  if (!maxBytes || !response.body) return response.text();
-  const reader = response.body.getReader();
-  const chunks = [];
-  let received = 0;
-  while (received < maxBytes) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    chunks.push(value);
-    received += value.byteLength;
-  }
-  if (received >= maxBytes) await reader.cancel().catch(() => void 0);
-  const decoder = new TextDecoder();
-  let text = "";
-  for (const chunk of chunks) text += decoder.decode(chunk, { stream: true });
-  return text + decoder.decode();
-}
-async function httpHead(url, config = {}) {
-  const {
-    headers = {},
-    timeout = DEFAULT_TIMEOUT,
-    validateStatus = (status) => status >= 200 && status < 300,
-    maxRedirects = 5
-  } = config;
-  const { controller, timeoutId } = createTimeoutController(timeout);
-  try {
-    const response = await fetch(url, {
-      method: "HEAD",
-      headers: {
-        "User-Agent": DEFAULT_USER_AGENT,
-        ...headers
-      },
-      signal: controller.signal,
-      redirect: maxRedirects > 0 ? "follow" : "manual"
-    });
-    clearTimeout(timeoutId);
-    if (!validateStatus(response.status)) {
-      const error = new Error(`Request failed with status ${response.status}`);
-      error.response = {
-        data: null,
-        status: response.status,
-        statusText: response.statusText,
-        headers: headersToObject(response.headers)
-      };
-      throw error;
-    }
-    return {
-      data: null,
-      status: response.status,
-      statusText: response.statusText,
-      headers: headersToObject(response.headers)
-    };
-  } catch (error) {
-    clearTimeout(timeoutId);
-    if (error instanceof Error && error.name === "AbortError") {
-      throw new Error(`Request timeout after ${timeout}ms`);
-    }
-    throw error;
-  }
-}
-async function httpPost(url, data, config = {}) {
-  const {
-    headers = {},
-    timeout = DEFAULT_TIMEOUT,
-    validateStatus = (status) => status >= 200 && status < 300,
-    auth
-  } = config;
-  const { controller, timeoutId } = createTimeoutController(timeout);
-  const requestHeaders = {
-    "User-Agent": DEFAULT_USER_AGENT,
-    "Content-Type": "application/json",
-    ...headers
-  };
-  if (auth) {
-    const credentials = btoa(`${auth.username}:${auth.password}`);
-    requestHeaders["Authorization"] = `Basic ${credentials}`;
-  }
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: requestHeaders,
-      body: data ? JSON.stringify(data) : void 0,
-      signal: controller.signal
-    });
-    const contentType = response.headers.get("content-type") || "";
-    let responseData;
-    if (contentType.includes("application/json")) {
-      responseData = await response.json();
-    } else {
-      responseData = await response.text();
-    }
-    clearTimeout(timeoutId);
-    if (!validateStatus(response.status)) {
-      const error = new Error(`Request failed with status ${response.status}`);
-      error.response = {
-        data: responseData,
-        status: response.status,
-        statusText: response.statusText,
-        headers: headersToObject(response.headers)
-      };
-      throw error;
-    }
-    return {
-      data: responseData,
-      status: response.status,
-      statusText: response.statusText,
-      headers: headersToObject(response.headers)
-    };
-  } catch (error) {
-    clearTimeout(timeoutId);
-    if (error instanceof Error && error.name === "AbortError") {
-      throw new Error(`Request timeout after ${timeout}ms`);
-    }
-    throw error;
-  }
-}
 
-// src/tools/crawl.ts
 
-async function crawlUrl(params) {
-  const { url } = params;
+// src/audit/checks/ai-bots.ts
+var KNOWN_BOTS = [
+  // Classic search indexes. 88 percent of ChatGPT citations come from the general search index
+  // (Ahrefs, 2026), so these matter for AI answers as much as for organic traffic.
+  {
+    name: "Googlebot",
+    class: "search",
+    robotsTokens: ["googlebot"],
+    userAgent: "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    loses: "Google Search and AI Overviews"
+  },
+  {
+    name: "bingbot",
+    class: "search",
+    robotsTokens: ["bingbot"],
+    userAgent: "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",
+    loses: "Bing and Copilot"
+  },
+  // AI search crawlers: the index each assistant answers from.
+  {
+    name: "OAI-SearchBot",
+    class: "ai-search",
+    robotsTokens: ["oai-searchbot"],
+    userAgent: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; OAI-SearchBot/1.0; +https://openai.com/searchbot",
+    loses: "ChatGPT search answers"
+  },
+  {
+    name: "Claude-SearchBot",
+    class: "ai-search",
+    robotsTokens: ["claude-searchbot"],
+    userAgent: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Claude-SearchBot/1.0; +Claude-SearchBot@anthropic.com)",
+    loses: "Claude search results"
+  },
+  {
+    name: "PerplexityBot",
+    class: "ai-search",
+    robotsTokens: ["perplexitybot"],
+    userAgent: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot)",
+    loses: "Perplexity answers"
+  },
+  // User-triggered fetchers: retrieve one page because a user pasted its link or asked about it.
+  {
+    name: "ChatGPT-User",
+    class: "user",
+    robotsTokens: ["chatgpt-user"],
+    userAgent: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; ChatGPT-User/1.0; +https://openai.com/bot",
+    loses: "ChatGPT reading a page a user asks about"
+  },
+  {
+    name: "Claude-User",
+    class: "user",
+    robotsTokens: ["claude-user"],
+    userAgent: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Claude-User/1.0; +Claude-User@anthropic.com)",
+    loses: "Claude reading a page a user asks about"
+  },
+  {
+    name: "Perplexity-User",
+    class: "user",
+    robotsTokens: ["perplexity-user"],
+    userAgent: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Perplexity-User/1.0; +https://perplexity.ai/perplexity-user)",
+    loses: "Perplexity reading a page a user asks about"
+  },
+  // Training crawlers: model-training data, nothing a user sees. Both OpenAI and Anthropic
+  // document that disallowing these has no effect on search answers.
+  {
+    name: "GPTBot",
+    class: "training",
+    robotsTokens: ["gptbot"],
+    userAgent: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; GPTBot/1.2; +https://openai.com/gptbot",
+    loses: "OpenAI's training corpus"
+  },
+  {
+    name: "ClaudeBot",
+    class: "training",
+    // Claude-Web and anthropic-ai are the older tokens still found in robots.txt files.
+    robotsTokens: ["claudebot", "claude-web", "anthropic-ai"],
+    userAgent: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; ClaudeBot/1.0; +claudebot@anthropic.com)",
+    loses: "Anthropic's training corpus"
+  },
+  {
+    name: "CCBot",
+    class: "training",
+    robotsTokens: ["ccbot"],
+    userAgent: "CCBot/2.0 (https://commoncrawl.org/faq/)",
+    loses: "Common Crawl, which several models train on"
+  },
+  {
+    name: "Google-Extended",
+    class: "training",
+    robotsTokens: ["google-extended"],
+    userAgent: null,
+    loses: "Gemini's training data (Search is unaffected)"
+  },
+  {
+    name: "Bytespider",
+    class: "training",
+    robotsTokens: ["bytespider"],
+    userAgent: null,
+    loses: "ByteDance's training corpus"
+  },
+  {
+    name: "Applebot-Extended",
+    class: "training",
+    robotsTokens: ["applebot-extended"],
+    userAgent: null,
+    loses: "Apple's training data (Applebot itself, which powers Siri and Spotlight search, is unaffected)"
+  },
+  {
+    name: "meta-externalagent",
+    class: "training",
+    robotsTokens: ["meta-externalagent"],
+    userAgent: null,
+    loses: "Meta's training corpus"
+  },
+  {
+    name: "Amazonbot",
+    class: "training",
+    robotsTokens: ["amazonbot"],
+    userAgent: null,
+    loses: "Amazon's training data for Alexa"
+  },
+  {
+    name: "cohere-ai",
+    class: "training",
+    robotsTokens: ["cohere-ai"],
+    userAgent: null,
+    loses: "Cohere's training corpus"
+  },
+  {
+    name: "YouBot",
+    class: "ai-search",
+    robotsTokens: ["youbot"],
+    userAgent: null,
+    loses: "You.com answers"
+  }
+];
+var BOT_OPERATOR = {
+  Googlebot: "Google",
+  bingbot: "Microsoft",
+  "OAI-SearchBot": "OpenAI",
+  "Claude-SearchBot": "Anthropic",
+  PerplexityBot: "Perplexity",
+  "ChatGPT-User": "OpenAI",
+  "Claude-User": "Anthropic",
+  "Perplexity-User": "Perplexity",
+  GPTBot: "OpenAI",
+  ClaudeBot: "Anthropic",
+  CCBot: "Common Crawl",
+  "Google-Extended": "Google",
+  Bytespider: "ByteDance",
+  "Applebot-Extended": "Apple",
+  "meta-externalagent": "Meta",
+  Amazonbot: "Amazon",
+  "cohere-ai": "Cohere",
+  YouBot: "You.com"
+};
+var BOT_CLASS_LABEL = {
+  search: "search crawlers",
+  "ai-search": "AI search crawlers",
+  user: "user-triggered fetchers",
+  training: "AI training crawlers"
+};
+
+// src/audit/checks/ai-readiness.ts
+
+
+// src/audit/types.ts
+var AI_READINESS_NOTE = "AI Readiness measures hygiene on the levers the citation evidence supports: crawler access by bot class, indexability, freshness and answer-first structure. It does not predict citations; no published study shows that any score does.";
+var ISSUE_DEFINITIONS = {
+  // ==================== CRAWLABILITY ====================
+  ROBOTS_TXT_MISSING: {
+    code: "ROBOTS_TXT_MISSING",
+    severity: "warning",
+    category: "crawlability",
+    title: "Missing robots.txt",
+    description: "No robots.txt file found at the root of the domain.",
+    impact: "Search engines cannot determine crawling rules for your site.",
+    howToFix: "Create a robots.txt file at the root of your domain with appropriate directives."
+  },
+  ROBOTS_TXT_BLOCKS_ALL: {
+    code: "ROBOTS_TXT_BLOCKS_ALL",
+    severity: "error",
+    category: "crawlability",
+    title: "robots.txt blocks all crawlers",
+    description: 'The robots.txt file contains "Disallow: /" which blocks all search engines.',
+    impact: "Your entire site will not be indexed by search engines.",
+    howToFix: "Update robots.txt to allow crawling of important pages."
+  },
+  ROBOTS_TXT_SERVER_ERROR: {
+    code: "ROBOTS_TXT_SERVER_ERROR",
+    severity: "warning",
+    category: "crawlability",
+    title: "robots.txt returns a server error",
+    description: "Requesting /robots.txt returned a 5xx (or 429) status instead of the file or a 404.",
+    impact: 'Google treats a 5xx/429 robots.txt as "disallow everything" and stops crawling the whole site until it gets a real answer.',
+    howToFix: "Serve robots.txt with a 200 (or return a 404 if you have none). Check the server/CDN route for /robots.txt."
+  },
+  SITEMAP_MISSING: {
+    code: "SITEMAP_MISSING",
+    severity: "warning",
+    category: "crawlability",
+    title: "Missing XML sitemap",
+    description: "No sitemap.xml found at standard locations.",
+    impact: "Search engines may not discover all your pages efficiently.",
+    howToFix: "Create an XML sitemap and submit it to search engines."
+  },
+  SITEMAP_NOT_IN_ROBOTS: {
+    code: "SITEMAP_NOT_IN_ROBOTS",
+    severity: "notice",
+    category: "crawlability",
+    title: "Sitemap not referenced in robots.txt",
+    description: "The sitemap URL is not listed in robots.txt.",
+    impact: "Search engines may not find your sitemap automatically.",
+    howToFix: 'Add "Sitemap: https://yoursite.com/sitemap.xml" to robots.txt.'
+  },
+  SITEMAP_LASTMOD_MISSING: {
+    code: "SITEMAP_LASTMOD_MISSING",
+    severity: "notice",
+    category: "crawlability",
+    title: "Sitemap missing lastmod dates",
+    description: "No <lastmod> tags found on any URL entry in the sitemap.",
+    impact: "Search engines rely on lastmod as a freshness signal to prioritize recrawling changed pages.",
+    howToFix: "Add a <lastmod> tag (ISO 8601 date) to each <url> entry, reflecting when that page last actually changed."
+  },
+  SITEMAP_LASTMOD_INVALID: {
+    code: "SITEMAP_LASTMOD_INVALID",
+    severity: "warning",
+    category: "crawlability",
+    title: "Sitemap has invalid lastmod dates",
+    description: "One or more <lastmod> values are not valid dates, or are set in the future.",
+    impact: "Search engines may ignore lastmod entirely for this sitemap once they detect invalid values, losing the freshness signal for every URL in it.",
+    howToFix: "Use a real, valid ISO 8601 date (e.g. 2026-01-15 or 2026-01-15T10:00:00Z) reflecting the actual last-changed time - never a placeholder or future date."
+  },
+  SITEMAP_LASTMOD_UNIFORM: {
+    code: "SITEMAP_LASTMOD_UNIFORM",
+    severity: "notice",
+    category: "crawlability",
+    title: "Every sitemap lastmod is the same date",
+    description: "Every <url> in the sitemap carries the same <lastmod>. That is the build time, not when each page last changed.",
+    impact: "Google uses lastmod only while it proves consistently accurate and ignores it once it does not; Bing pairs an accurate lastmod with IndexNow so AI systems reference the current version of a page. A uniform value gives up the freshness signal for every URL.",
+    howToFix: "Emit each page\u2019s real last-changed date (the content\u2019s updated date, or the file\u2019s last commit), or omit <lastmod> rather than stamping the build time."
+  },
+  REDIRECT_CHAIN: {
+    code: "REDIRECT_CHAIN",
+    severity: "warning",
+    category: "crawlability",
+    title: "Redirect chain detected",
+    description: "Multiple redirects before reaching the final destination.",
+    impact: "Wastes crawl budget and reduces link equity passed to the final page.",
+    howToFix: "Update redirects to point directly to the final destination URL."
+  },
+  REDIRECT_LOOP: {
+    code: "REDIRECT_LOOP",
+    severity: "error",
+    category: "crawlability",
+    title: "Redirect loop detected",
+    description: "Redirects create an infinite loop.",
+    impact: "Page is completely inaccessible to users and search engines.",
+    howToFix: "Fix the redirect configuration to break the loop."
+  },
+  ORPHAN_PAGE: {
+    code: "ORPHAN_PAGE",
+    severity: "warning",
+    category: "crawlability",
+    title: "Orphan page (no internal links)",
+    description: "This page has no internal links pointing to it.",
+    impact: "Search engines may not discover this page, and it receives no link equity.",
+    howToFix: "Add internal links from relevant pages to this page."
+  },
+  // ==================== INDEXABILITY ====================
+  // Base severity for a noindexed page other than the audited root;
+  // on-page.ts raises it to 'error' on the site root (a noindexed homepage
+  // takes the whole site out of search).
+  NOINDEX_TAG: {
+    code: "NOINDEX_TAG",
+    severity: "warning",
+    category: "indexability",
+    title: "Page has noindex meta tag",
+    description: "The page contains a robots/googlebot meta tag with noindex (or none).",
+    impact: "This page will not appear in search results.",
+    howToFix: "Remove the noindex directive from the robots meta tag if you want this page indexed."
+  },
+  NOINDEX_HEADER: {
+    code: "NOINDEX_HEADER",
+    severity: "warning",
+    category: "indexability",
+    title: "Page sends X-Robots-Tag: noindex",
+    description: "The HTTP response carries an X-Robots-Tag header with noindex (or none).",
+    impact: "This page will not appear in search results, whatever the HTML says.",
+    howToFix: "Remove noindex from the X-Robots-Tag header in your server, CDN or hosting config."
+  },
+  HTTP_ERROR_STATUS: {
+    code: "HTTP_ERROR_STATUS",
+    severity: "error",
+    category: "indexability",
+    title: "Page returns an HTTP error status",
+    description: "The audited URL answered with a 4xx or 5xx status code.",
+    impact: "Search engines drop pages that return 4xx, and stop crawling pages (and eventually sites) that keep returning 5xx.",
+    howToFix: "Make the URL return 200. For a moved page use a 301 to its new address; for a server error check the application logs."
+  },
+  CANONICAL_MISSING: {
+    code: "CANONICAL_MISSING",
+    severity: "warning",
+    category: "indexability",
+    title: "Missing canonical tag",
+    description: "No canonical URL specified for this page.",
+    impact: "May cause duplicate content issues if the page is accessible via multiple URLs.",
+    howToFix: "Add a self-referencing canonical tag or point to the preferred URL."
+  },
+  CANONICAL_POINTS_TO_REDIRECT: {
+    code: "CANONICAL_POINTS_TO_REDIRECT",
+    severity: "error",
+    category: "indexability",
+    title: "Canonical points to redirect",
+    description: "The canonical URL redirects to a different page.",
+    impact: "Confuses search engines and may cause indexing issues.",
+    howToFix: "Update the canonical to point to the final destination URL."
+  },
+  CANONICAL_POINTS_TO_4XX: {
+    code: "CANONICAL_POINTS_TO_4XX",
+    severity: "error",
+    category: "indexability",
+    title: "Canonical points to 4XX page",
+    description: "The canonical URL returns a 4XX error.",
+    impact: "Search engines cannot index this page properly.",
+    howToFix: "Update the canonical to point to a valid URL."
+  },
+  MULTIPLE_CANONICALS: {
+    code: "MULTIPLE_CANONICALS",
+    severity: "error",
+    category: "indexability",
+    title: "Multiple canonical tags",
+    description: "Page has more than one canonical tag.",
+    impact: "Search engines may ignore all canonical hints.",
+    howToFix: "Remove duplicate canonical tags, keeping only one."
+  },
+  // ==================== ON-PAGE SEO ====================
+  TITLE_MISSING: {
+    code: "TITLE_MISSING",
+    severity: "error",
+    category: "on-page",
+    title: "Missing title tag",
+    description: "The page has no title tag.",
+    impact: "Critical ranking factor missing. Page will have poor search visibility.",
+    howToFix: "Add a descriptive title tag (50-60 characters)."
+  },
+  TITLE_TOO_SHORT: {
+    code: "TITLE_TOO_SHORT",
+    severity: "warning",
+    category: "on-page",
+    title: "Title tag too short",
+    description: "Title tag is less than 30 characters.",
+    impact: "Not utilizing the full space available in search results.",
+    howToFix: "Expand the title to 50-60 characters with relevant keywords."
+  },
+  TITLE_TOO_LONG: {
+    code: "TITLE_TOO_LONG",
+    severity: "warning",
+    category: "on-page",
+    title: "Title tag too long",
+    description: "Title tag exceeds 60 characters.",
+    impact: "Title will be truncated in search results.",
+    howToFix: "Shorten the title to under 60 characters."
+  },
+  TITLE_DUPLICATE: {
+    code: "TITLE_DUPLICATE",
+    severity: "warning",
+    category: "on-page",
+    title: "Duplicate title tag",
+    description: "Multiple pages have the same title.",
+    impact: "Can cause keyword cannibalization and confuse search engines.",
+    howToFix: "Ensure each page has a unique, descriptive title."
+  },
+  META_DESC_MISSING: {
+    code: "META_DESC_MISSING",
+    severity: "warning",
+    category: "on-page",
+    title: "Missing meta description",
+    description: "No meta description tag found.",
+    impact: "Search engines may use random page content as the snippet.",
+    howToFix: "Add a compelling meta description (150-160 characters)."
+  },
+  META_DESC_TOO_SHORT: {
+    code: "META_DESC_TOO_SHORT",
+    severity: "notice",
+    category: "on-page",
+    title: "Meta description too short",
+    description: "Meta description is less than 120 characters.",
+    impact: "Not fully utilizing the snippet space in search results.",
+    howToFix: "Expand to 150-160 characters with a compelling call-to-action."
+  },
+  META_DESC_TOO_LONG: {
+    code: "META_DESC_TOO_LONG",
+    severity: "notice",
+    category: "on-page",
+    title: "Meta description too long",
+    description: "Meta description exceeds 160 characters.",
+    impact: "Description may be truncated in search results.",
+    howToFix: "Shorten to under 160 characters."
+  },
+  META_DESC_DUPLICATE: {
+    code: "META_DESC_DUPLICATE",
+    severity: "warning",
+    category: "on-page",
+    title: "Duplicate meta description",
+    description: "Multiple pages have the same meta description.",
+    impact: "Reduces the uniqueness of your pages in search results.",
+    howToFix: "Write unique meta descriptions for each page."
+  },
+  H1_MISSING: {
+    code: "H1_MISSING",
+    severity: "error",
+    category: "on-page",
+    title: "Missing H1 heading",
+    description: "No H1 tag found on the page.",
+    impact: "Search engines use H1 to understand the main topic of the page.",
+    howToFix: "Add exactly one H1 tag that describes the main content."
+  },
+  H1_MULTIPLE: {
+    code: "H1_MULTIPLE",
+    severity: "warning",
+    category: "on-page",
+    title: "Multiple H1 headings",
+    description: "Page has more than one H1 tag.",
+    impact: "Can dilute the topical focus of the page.",
+    howToFix: "Use only one H1 per page. Use H2-H6 for subheadings."
+  },
+  H1_DUPLICATE_OF_TITLE: {
+    code: "H1_DUPLICATE_OF_TITLE",
+    severity: "notice",
+    category: "on-page",
+    title: "H1 identical to title tag",
+    description: "The H1 heading is exactly the same as the title tag.",
+    impact: "Missed opportunity to target additional keywords.",
+    howToFix: "Consider varying the H1 to cover related keywords."
+  },
+  HEADING_SKIP: {
+    code: "HEADING_SKIP",
+    severity: "notice",
+    category: "on-page",
+    title: "Skipped heading level",
+    description: "Heading hierarchy skips levels (e.g., H1 to H3).",
+    impact: "May confuse screen readers and reduce content structure clarity.",
+    howToFix: "Maintain proper heading hierarchy (H1 > H2 > H3, etc.)."
+  },
+  H2_MISSING: {
+    code: "H2_MISSING",
+    severity: "warning",
+    category: "on-page",
+    title: "No H2 headings found",
+    description: "No H2 tags were found on the page.",
+    impact: "H2 headings help structure content and are important for SEO and readability.",
+    howToFix: "Break your content into sections using H2 headings with relevant keywords."
+  },
+  // ==================== CONTENT ====================
+  THIN_CONTENT: {
+    code: "THIN_CONTENT",
+    severity: "warning",
+    category: "content",
+    title: "Thin content",
+    description: "Page has less than 300 words of text content.",
+    impact: "May be seen as low-quality by search engines.",
+    howToFix: "Add more valuable, relevant content to the page."
+  },
+  DUPLICATE_CONTENT: {
+    code: "DUPLICATE_CONTENT",
+    severity: "warning",
+    category: "content",
+    title: "Duplicate content detected",
+    description: "Significant content overlap with other pages.",
+    impact: "Search engines may filter out duplicate pages from results.",
+    howToFix: "Use canonical tags or differentiate the content."
+  },
+  LOW_TEXT_HTML_RATIO: {
+    code: "LOW_TEXT_HTML_RATIO",
+    severity: "notice",
+    category: "content",
+    title: "Low text-to-HTML ratio",
+    description: "Text content is less than 10% of total HTML.",
+    impact: "May indicate poor content or bloated HTML.",
+    howToFix: "Add more text content or reduce unnecessary HTML/scripts."
+  },
+  // ==================== LINKS ====================
+  BROKEN_INTERNAL_LINK: {
+    code: "BROKEN_INTERNAL_LINK",
+    severity: "error",
+    category: "links",
+    title: "Broken internal link",
+    description: "Internal link points to a page that returns 4XX error.",
+    impact: "Poor user experience and wasted crawl budget.",
+    howToFix: "Fix the broken link or remove it."
+  },
+  BROKEN_EXTERNAL_LINK: {
+    code: "BROKEN_EXTERNAL_LINK",
+    severity: "warning",
+    category: "links",
+    title: "Broken external link",
+    description: "External link points to a page that returns 4XX error.",
+    impact: "Poor user experience and potential trust issues.",
+    howToFix: "Update or remove the broken external link."
+  },
+  JS_ONLY_NAVIGATION: {
+    code: "JS_ONLY_NAVIGATION",
+    severity: "warning",
+    category: "links",
+    title: "JavaScript-only navigation detected",
+    description: "Navigation elements use onClick handlers without proper <a href> links.",
+    impact: "Search engine crawlers cannot follow JavaScript-only navigation. These links are invisible to crawlers, preventing page discovery and indexing.",
+    howToFix: "Replace onClick navigation with proper <a href> or <Link> components. In React, use react-router Link instead of navigate() in onClick handlers. Ensure all navigation renders as real anchor tags with href attributes."
+  },
+  TOO_MANY_LINKS: {
+    code: "TOO_MANY_LINKS",
+    severity: "notice",
+    category: "links",
+    title: "Too many on-page links",
+    description: "Page has more than 100 links.",
+    impact: "Dilutes PageRank passed to each linked page.",
+    howToFix: "Reduce the number of links to the most important ones."
+  },
+  NOFOLLOW_INTERNAL: {
+    code: "NOFOLLOW_INTERNAL",
+    severity: "notice",
+    category: "links",
+    title: "Nofollow on internal link",
+    description: 'Internal link has rel="nofollow" attribute.',
+    impact: "Prevents PageRank from flowing to important pages.",
+    howToFix: "Remove nofollow from internal links unless intentional."
+  },
+  // ==================== IMAGES ====================
+  IMG_ALT_MISSING: {
+    code: "IMG_ALT_MISSING",
+    severity: "warning",
+    category: "images",
+    title: "Image missing alt text",
+    description: "Image has no alt attribute.",
+    impact: "Poor accessibility and missed SEO opportunity.",
+    howToFix: "Add descriptive alt text to all images."
+  },
+  IMG_ALT_EMPTY: {
+    code: "IMG_ALT_EMPTY",
+    severity: "notice",
+    category: "images",
+    title: "Image has empty alt text",
+    description: 'Image has alt="" (empty alt attribute).',
+    impact: "Acceptable for decorative images but not for content images.",
+    howToFix: "Add descriptive alt text if the image conveys information."
+  },
+  IMG_NO_DIMENSIONS: {
+    code: "IMG_NO_DIMENSIONS",
+    severity: "notice",
+    category: "images",
+    title: "Image missing dimensions",
+    description: "Image lacks width and height attributes.",
+    impact: "Causes layout shift (CLS) when image loads.",
+    howToFix: "Add width and height attributes to all images."
+  },
+  IMG_TOO_LARGE: {
+    code: "IMG_TOO_LARGE",
+    severity: "warning",
+    category: "images",
+    title: "Image file too large",
+    description: "Image file size exceeds 200KB.",
+    impact: "Slows down page load time.",
+    howToFix: "Compress and optimize images. Consider WebP format."
+  },
+  IMG_BROKEN: {
+    code: "IMG_BROKEN",
+    severity: "error",
+    category: "images",
+    title: "Broken image",
+    description: "Image URL returns 4XX error.",
+    impact: "Poor user experience with missing images.",
+    howToFix: "Fix the image URL or replace with a working image."
+  },
+  // ==================== STRUCTURED DATA ====================
+  SCHEMA_MISSING: {
+    code: "SCHEMA_MISSING",
+    severity: "warning",
+    category: "structured-data",
+    title: "No structured data found",
+    description: "Page has no JSON-LD or microdata.",
+    impact: "Missing opportunity for rich snippets in search results.",
+    howToFix: "Add appropriate Schema.org markup for your content type."
+  },
+  SCHEMA_INVALID: {
+    code: "SCHEMA_INVALID",
+    severity: "error",
+    category: "structured-data",
+    title: "Invalid structured data",
+    description: "JSON-LD contains syntax errors.",
+    impact: "Search engines cannot parse the structured data.",
+    howToFix: "Fix JSON syntax errors and validate with Google Rich Results Test."
+  },
+  SCHEMA_MISSING_REQUIRED: {
+    code: "SCHEMA_MISSING_REQUIRED",
+    severity: "warning",
+    category: "structured-data",
+    title: "Missing required schema properties",
+    description: "Schema markup is missing required properties.",
+    impact: "May not qualify for rich snippets.",
+    howToFix: "Add all required properties for the schema type."
+  },
+  // ==================== PERFORMANCE ====================
+  SLOW_PAGE: {
+    code: "SLOW_PAGE",
+    severity: "warning",
+    category: "performance",
+    title: "Slow page load time",
+    description: "Page takes more than 3 seconds to load.",
+    impact: "High bounce rates and potential ranking penalty.",
+    howToFix: "Optimize images, enable caching, minimize CSS/JS."
+  },
+  SLOW_TTFB: {
+    code: "SLOW_TTFB",
+    severity: "warning",
+    category: "performance",
+    title: "Slow Time to First Byte (TTFB)",
+    description: "Server response time exceeds 600ms.",
+    impact: "Delays entire page load and affects Core Web Vitals.",
+    howToFix: "Optimize server configuration, use caching, consider CDN."
+  },
+  LCP_POOR: {
+    code: "LCP_POOR",
+    severity: "error",
+    category: "performance",
+    title: "Poor Largest Contentful Paint (LCP)",
+    description: "LCP exceeds 2.5 seconds.",
+    impact: "Direct Core Web Vitals ranking factor.",
+    howToFix: "Optimize hero images, preload critical resources."
+  },
+  CLS_POOR: {
+    code: "CLS_POOR",
+    severity: "error",
+    category: "performance",
+    title: "Poor Cumulative Layout Shift (CLS)",
+    description: "CLS exceeds 0.1.",
+    impact: "Direct Core Web Vitals ranking factor.",
+    howToFix: "Set image dimensions, avoid inserting content above existing content."
+  },
+  HTML_TOO_LARGE: {
+    code: "HTML_TOO_LARGE",
+    severity: "warning",
+    category: "performance",
+    title: "HTML document too large",
+    description: "HTML size exceeds 300KB.",
+    impact: "Increases load time and memory usage.",
+    howToFix: "Reduce inline CSS/JS, remove unnecessary HTML."
+  },
+  UNCOMPRESSED: {
+    code: "UNCOMPRESSED",
+    severity: "warning",
+    category: "performance",
+    title: "Uncompressed resources",
+    description: "Page is not served with gzip/brotli compression.",
+    impact: "Larger file transfer sizes slow down the page.",
+    howToFix: "Enable gzip or brotli compression on your server."
+  },
+  NO_CACHE: {
+    code: "NO_CACHE",
+    severity: "notice",
+    category: "performance",
+    title: "Missing cache headers",
+    description: "Page lacks Cache-Control or Expires headers.",
+    impact: "Browser cannot cache resources, causing repeated downloads.",
+    howToFix: "Add appropriate cache headers for static resources."
+  },
+  // ==================== SECURITY ====================
+  NOT_HTTPS: {
+    code: "NOT_HTTPS",
+    severity: "error",
+    category: "security",
+    title: "Page not served over HTTPS",
+    description: "Page is accessible via HTTP instead of HTTPS.",
+    impact: "Browser warnings, user distrust, and ranking penalty.",
+    howToFix: "Install SSL certificate and redirect HTTP to HTTPS."
+  },
+  MIXED_CONTENT: {
+    code: "MIXED_CONTENT",
+    severity: "error",
+    category: "security",
+    title: "Mixed content",
+    description: "HTTPS page loads resources over HTTP.",
+    impact: "Browser may block resources or show security warnings.",
+    howToFix: "Update all resource URLs to use HTTPS."
+  },
+  CERT_EXPIRING: {
+    code: "CERT_EXPIRING",
+    severity: "warning",
+    category: "security",
+    title: "SSL certificate expiring soon",
+    description: "SSL certificate expires within 30 days.",
+    impact: "Site will become insecure when certificate expires.",
+    howToFix: "Renew your SSL certificate before expiration."
+  },
+  HSTS_MISSING: {
+    code: "HSTS_MISSING",
+    severity: "notice",
+    category: "security",
+    title: "Missing HSTS header",
+    description: "Strict-Transport-Security header not set.",
+    impact: "Users may be vulnerable to downgrade attacks.",
+    howToFix: "Add HSTS header to enforce HTTPS."
+  },
+  // ==================== MOBILE ====================
+  VIEWPORT_MISSING: {
+    code: "VIEWPORT_MISSING",
+    severity: "error",
+    category: "mobile",
+    title: "Missing viewport meta tag",
+    description: "No viewport meta tag found.",
+    impact: "Page will not render properly on mobile devices.",
+    howToFix: 'Add <meta name="viewport" content="width=device-width, initial-scale=1">'
+  },
+  VIEWPORT_NOT_RESPONSIVE: {
+    code: "VIEWPORT_NOT_RESPONSIVE",
+    severity: "warning",
+    category: "mobile",
+    title: "Non-responsive viewport",
+    description: "Viewport uses fixed width instead of device-width.",
+    impact: "Page may not adapt to different screen sizes.",
+    howToFix: "Use width=device-width in viewport meta tag."
+  },
+  TAP_TARGETS_TOO_SMALL: {
+    code: "TAP_TARGETS_TOO_SMALL",
+    severity: "warning",
+    category: "mobile",
+    title: "Tap targets too small",
+    description: "Clickable elements are smaller than 48x48 pixels.",
+    impact: "Difficult for mobile users to tap links/buttons.",
+    howToFix: "Increase the size of tap targets to at least 48x48 pixels."
+  },
+  // ==================== INTERNATIONAL ====================
+  HREFLANG_MISSING: {
+    code: "HREFLANG_MISSING",
+    severity: "notice",
+    category: "international",
+    title: "Missing hreflang tags",
+    description: "Multi-language site without hreflang annotations.",
+    impact: "Search engines may show wrong language version to users.",
+    howToFix: "Add hreflang tags to specify language/region versions."
+  },
+  HREFLANG_INVALID: {
+    code: "HREFLANG_INVALID",
+    severity: "warning",
+    category: "international",
+    title: "Invalid hreflang value",
+    description: "Hreflang contains invalid language or region code.",
+    impact: "Search engines will ignore the hreflang directive.",
+    howToFix: "Use valid ISO 639-1 language and ISO 3166-1 Alpha-2 region codes."
+  },
+  HREFLANG_NO_RETURN: {
+    code: "HREFLANG_NO_RETURN",
+    severity: "warning",
+    category: "international",
+    title: "Missing hreflang return link",
+    description: "Hreflang page does not link back to this page.",
+    impact: "Hreflang signals may be ignored by search engines.",
+    howToFix: "Ensure all hreflang pages have reciprocal links."
+  },
+  HREFLANG_SELF_MISSING: {
+    code: "HREFLANG_SELF_MISSING",
+    severity: "notice",
+    category: "international",
+    title: "Missing self-referencing hreflang",
+    description: "Page does not include hreflang pointing to itself.",
+    impact: "Best practice to include self-referencing hreflang.",
+    howToFix: "Add hreflang for the current page language/region."
+  },
+  HREFLANG_X_DEFAULT_MISSING: {
+    code: "HREFLANG_X_DEFAULT_MISSING",
+    severity: "notice",
+    category: "international",
+    title: "Missing x-default hreflang",
+    description: "Multi-language page missing x-default fallback.",
+    impact: "Users with unsupported language may not see appropriate version.",
+    howToFix: 'Add hreflang="x-default" pointing to your default language page.'
+  },
+  HREFLANG_TO_NON_200: {
+    code: "HREFLANG_TO_NON_200",
+    severity: "error",
+    category: "international",
+    title: "Hreflang points to non-200 page",
+    description: "Hreflang URL returns error or redirect.",
+    impact: "Search engines cannot serve the alternate language version.",
+    howToFix: "Update hreflang to point to valid, accessible URLs."
+  },
+  // ==================== SOFT 404 ====================
+  SOFT_404: {
+    code: "SOFT_404",
+    severity: "error",
+    category: "content",
+    title: "Soft 404 detected",
+    description: "Page returns 200 but appears to be an error page.",
+    impact: "Wastes crawl budget and may index low-value error pages.",
+    howToFix: "Return proper 404 status for error pages or add meaningful content."
+  },
+  // ==================== OPEN GRAPH / SOCIAL ====================
+  OG_TITLE_MISSING: {
+    code: "OG_TITLE_MISSING",
+    severity: "warning",
+    category: "on-page",
+    title: "Missing Open Graph title",
+    description: "No og:title meta tag found.",
+    impact: "Social shares may display incorrect or missing title.",
+    howToFix: 'Add <meta property="og:title" content="Your Title">'
+  },
+  OG_DESCRIPTION_MISSING: {
+    code: "OG_DESCRIPTION_MISSING",
+    severity: "warning",
+    category: "on-page",
+    title: "Missing Open Graph description",
+    description: "No og:description meta tag found.",
+    impact: "Social shares may display incorrect or missing description.",
+    howToFix: 'Add <meta property="og:description" content="Your description">'
+  },
+  OG_IMAGE_MISSING: {
+    code: "OG_IMAGE_MISSING",
+    severity: "warning",
+    category: "on-page",
+    title: "Missing Open Graph image",
+    description: "No og:image meta tag found.",
+    impact: "Social shares will not display a preview image.",
+    howToFix: 'Add <meta property="og:image" content="https://yoursite.com/image.jpg">'
+  },
+  OG_IMAGE_TOO_SMALL: {
+    code: "OG_IMAGE_TOO_SMALL",
+    severity: "notice",
+    category: "on-page",
+    title: "Open Graph image too small",
+    description: "OG image should be at least 1200x630 pixels.",
+    impact: "Image may appear low quality on social platforms.",
+    howToFix: "Use an image at least 1200x630 pixels for optimal display."
+  },
+  OG_URL_MISSING: {
+    code: "OG_URL_MISSING",
+    severity: "notice",
+    category: "on-page",
+    title: "Missing Open Graph URL",
+    description: "No og:url meta tag found.",
+    impact: "Social platforms may use inconsistent URL for shares.",
+    howToFix: 'Add <meta property="og:url" content="https://yoursite.com/page">'
+  },
+  OG_TYPE_MISSING: {
+    code: "OG_TYPE_MISSING",
+    severity: "notice",
+    category: "on-page",
+    title: "Missing Open Graph type",
+    description: "No og:type meta tag found.",
+    impact: 'Social platforms default to "website" type.',
+    howToFix: 'Add <meta property="og:type" content="website"> (or article, product, etc.)'
+  },
+  TWITTER_CARD_MISSING: {
+    code: "TWITTER_CARD_MISSING",
+    severity: "notice",
+    category: "on-page",
+    title: "Missing Twitter Card tags",
+    description: "No twitter:card meta tag found.",
+    impact: "Twitter shares may not display optimally.",
+    howToFix: 'Add <meta name="twitter:card" content="summary_large_image">'
+  },
+  TWITTER_IMAGE_MISSING: {
+    code: "TWITTER_IMAGE_MISSING",
+    severity: "notice",
+    category: "on-page",
+    title: "Missing Twitter Card image",
+    description: "No twitter:image meta tag found.",
+    impact: "Twitter shares will not display a preview image.",
+    howToFix: 'Add <meta name="twitter:image" content="https://yoursite.com/image.jpg">'
+  },
+  // ==================== CANONICAL ADVANCED ====================
+  CANONICAL_CHAIN: {
+    code: "CANONICAL_CHAIN",
+    severity: "warning",
+    category: "indexability",
+    title: "Canonical chain detected",
+    description: "Canonical URL points to a page with a different canonical.",
+    impact: "Creates confusion for search engines about the preferred URL.",
+    howToFix: "Update canonical to point directly to the final preferred URL."
+  },
+  CANONICAL_CROSS_DOMAIN: {
+    code: "CANONICAL_CROSS_DOMAIN",
+    severity: "warning",
+    category: "indexability",
+    title: "Cross-domain canonical",
+    description: "Canonical points to a different domain.",
+    impact: "Transfers ranking signals to another domain. Ensure this is intentional.",
+    howToFix: "Verify cross-domain canonical is intentional or update to same domain."
+  },
+  CANONICAL_MISMATCH_SITEMAP: {
+    code: "CANONICAL_MISMATCH_SITEMAP",
+    severity: "warning",
+    category: "indexability",
+    title: "Canonical URL not in sitemap",
+    description: "The canonical URL differs from the sitemap URL.",
+    impact: "Conflicting signals about which URL should be indexed.",
+    howToFix: "Ensure sitemap contains only canonical URLs."
+  },
+  // ==================== ANCHOR TEXT ====================
+  ANCHOR_TEXT_GENERIC: {
+    code: "ANCHOR_TEXT_GENERIC",
+    severity: "notice",
+    category: "links",
+    title: "Generic anchor text detected",
+    description: 'Many internal links use generic text like "click here" or "read more".',
+    impact: "Misses opportunity to provide context to search engines.",
+    howToFix: "Use descriptive anchor text that indicates the target page content."
+  },
+  ANCHOR_TEXT_OVER_OPTIMIZED: {
+    code: "ANCHOR_TEXT_OVER_OPTIMIZED",
+    severity: "warning",
+    category: "links",
+    title: "Over-optimized anchor text",
+    description: "Excessive exact-match keyword anchor text detected.",
+    impact: "May trigger spam filters and algorithmic penalties.",
+    howToFix: "Diversify anchor text with natural variations."
+  },
+  ANCHOR_TEXT_EMPTY: {
+    code: "ANCHOR_TEXT_EMPTY",
+    severity: "warning",
+    category: "links",
+    title: "Empty anchor text",
+    description: "Link has no text content (empty anchor).",
+    impact: "Provides no context for users or search engines.",
+    howToFix: "Add descriptive text to the link or use aria-label for icon links."
+  },
+  // ==================== PAGINATION ====================
+  PAGINATION_NO_LINKS: {
+    code: "PAGINATION_NO_LINKS",
+    severity: "warning",
+    category: "crawlability",
+    title: "Pagination without HTML links",
+    description: "Paginated content uses JavaScript without HTML fallback links.",
+    impact: "Search engines cannot discover paginated content.",
+    howToFix: "Add <a href> links for pagination alongside JavaScript."
+  },
+  PAGINATION_CANONICAL_ISSUE: {
+    code: "PAGINATION_CANONICAL_ISSUE",
+    severity: "error",
+    category: "indexability",
+    title: "Pagination canonical points to page 1",
+    description: "Paginated pages have canonical pointing to page 1.",
+    impact: "Paginated content may not be indexed properly.",
+    howToFix: "Each paginated page should self-reference or use View All canonical."
+  },
+  INFINITE_SCROLL_NO_FALLBACK: {
+    code: "INFINITE_SCROLL_NO_FALLBACK",
+    severity: "warning",
+    category: "crawlability",
+    title: "Infinite scroll without fallback",
+    description: "Infinite scroll detected without pagination links.",
+    impact: "Search engines cannot access content loaded via infinite scroll.",
+    howToFix: "Implement replaceState/pushState and provide pagination links."
+  },
+  // ==================== DUPLICATE/CANNIBALIZATION ====================
+  NEAR_DUPLICATE: {
+    code: "NEAR_DUPLICATE",
+    severity: "warning",
+    category: "content",
+    title: "Near-duplicate content",
+    description: "Page has 90%+ content similarity with another page.",
+    impact: "May cause keyword cannibalization and dilute ranking signals.",
+    howToFix: "Consolidate pages, differentiate content, or use canonical tags."
+  },
+  KEYWORD_CANNIBALIZATION: {
+    code: "KEYWORD_CANNIBALIZATION",
+    severity: "warning",
+    category: "content",
+    title: "Potential keyword cannibalization",
+    description: "Multiple pages target the same primary keyword.",
+    impact: "Pages compete against each other in search results.",
+    howToFix: "Consolidate pages or differentiate keyword targeting."
+  },
+  // ==================== LINK ANALYSIS ADVANCED ====================
+  LINK_DEPTH_TOO_DEEP: {
+    code: "LINK_DEPTH_TOO_DEEP",
+    severity: "warning",
+    category: "links",
+    title: "Page too deep in site structure",
+    description: "Page requires more than 3 clicks from homepage.",
+    impact: "Deep pages receive less link equity and may be crawled less frequently.",
+    howToFix: "Improve internal linking to reduce click depth."
+  },
+  INTERNAL_REDIRECT: {
+    code: "INTERNAL_REDIRECT",
+    severity: "notice",
+    category: "links",
+    title: "Internal link to redirect",
+    description: "Internal link points to a URL that redirects.",
+    impact: "Wastes crawl budget and dilutes link equity.",
+    howToFix: "Update internal links to point directly to final URLs."
+  },
+  // ==================== JAVASCRIPT SEO ====================
+  JS_RENDERED_CONTENT: {
+    code: "JS_RENDERED_CONTENT",
+    severity: "notice",
+    category: "content",
+    title: "JavaScript-rendered content detected",
+    description: "Significant content only visible after JavaScript execution.",
+    impact: "Search engines may not see all content or delay indexing.",
+    howToFix: "Consider server-side rendering or prerendering for critical content."
+  },
+  JS_LINKS_ONLY: {
+    code: "JS_LINKS_ONLY",
+    severity: "warning",
+    category: "links",
+    title: "Links only in JavaScript",
+    description: "Internal links exist only in rendered DOM, not in source HTML.",
+    impact: "Search engines may not discover these links.",
+    howToFix: "Ensure important links are in static HTML or use server-side rendering."
+  },
+  // ==================== FAVICON & MISC ====================
+  FAVICON_MISSING: {
+    code: "FAVICON_MISSING",
+    severity: "notice",
+    category: "on-page",
+    title: "Missing favicon",
+    description: 'No favicon.ico or link rel="icon" found.',
+    impact: "Browser tabs show generic icon; poor brand presence.",
+    howToFix: 'Add a favicon.ico or link rel="icon" to your pages.'
+  },
+  LANG_ATTR_MISSING: {
+    code: "LANG_ATTR_MISSING",
+    severity: "notice",
+    category: "on-page",
+    title: "Missing lang attribute",
+    description: "HTML tag lacks lang attribute.",
+    impact: "Accessibility issue; browsers/screen readers may use wrong language.",
+    howToFix: 'Add lang attribute to HTML tag (e.g., <html lang="en">).'
+  },
+  // ==================== AI/LLM READINESS ====================
+  LLMS_TXT_MISSING: {
+    code: "LLMS_TXT_MISSING",
+    severity: "notice",
+    category: "ai-readiness",
+    title: "No llms.txt",
+    description: "No /llms.txt. It is a convention for coding agents and documentation sites (Lighthouse 13.3 audits it; Anthropic, OpenAI, Stripe, Vercel and Supabase publish one for their docs). No search engine or answer engine reads it: Google says it neither helps nor harms, and in a 137,000-domain study 97 percent of the files received no request in a month.",
+    impact: "None on search or AI answers. A documentation site gains a curated index for the agents that look for one.",
+    howToFix: "For a documentation site, publish /llms.txt: an H1 with the project name, a one-line blockquote description, then markdown links with a short description each (the Lighthouse criteria). For a marketing site, ignore this notice."
+  },
+  LLMS_TXT_INVALID: {
+    code: "LLMS_TXT_INVALID",
+    severity: "notice",
+    category: "ai-readiness",
+    title: "llms.txt does not follow the convention",
+    description: "The file exists but does not follow the llms.txt convention (an H1, a blockquote description, markdown links).",
+    impact: "The agents that read llms.txt (coding agents, Lighthouse\u2019s agentic audit) get less than intended; search and answer engines are unaffected either way.",
+    howToFix: 'Start the file with "# Project name", follow with "> one-line description", then sections of "- [Title](url): description" links. See https://llmstxt.org/.'
+  },
+  AI_BOT_BLOCKED_ALL: {
+    code: "AI_BOT_BLOCKED_ALL",
+    severity: "warning",
+    category: "ai-readiness",
+    title: "robots.txt disallows every AI crawler, the search ones included",
+    description: "Every AI crawler is disallowed: the search crawlers (OAI-SearchBot, Claude-SearchBot, PerplexityBot), the user-triggered fetchers (ChatGPT-User, Claude-User, Perplexity-User) and the training crawlers (GPTBot, ClaudeBot, CCBot, Google-Extended).",
+    impact: "The site is out of ChatGPT search, Claude search and Perplexity answers, and assistants cannot read a page a user pastes. Disallowing the training crawlers alone would have cost none of that.",
+    howToFix: `Keep the training crawlers disallowed if that is the policy, and allow the rest explicitly:
+
+User-agent: OAI-SearchBot
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: ChatGPT-User
+User-agent: Claude-User
+User-agent: Perplexity-User
+Allow: /`
+  },
+  AI_SEARCH_BOTS_DISALLOWED: {
+    code: "AI_SEARCH_BOTS_DISALLOWED",
+    severity: "warning",
+    category: "ai-readiness",
+    title: "robots.txt opts the site out of AI search answers",
+    description: 'These are the crawlers that build the index each assistant answers from. OpenAI: "Sites that are opted out of OAI-SearchBot will not be shown in ChatGPT search answers"; Anthropic documents the same for Claude-SearchBot; PerplexityBot is how Perplexity reads the web.',
+    impact: "The site is absent from those answers. This is independent of training: GPTBot and ClaudeBot can stay disallowed without this cost.",
+    howToFix: `Allow the search crawlers explicitly (an Allow in their own group wins over a wildcard Disallow):
+
+User-agent: OAI-SearchBot
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+Allow: /`
+  },
+  AI_USER_FETCH_DISALLOWED: {
+    code: "AI_USER_FETCH_DISALLOWED",
+    severity: "warning",
+    category: "ai-readiness",
+    title: "robots.txt disallows the agents that fetch a page when a user asks",
+    description: "These agents retrieve one page because a user pasted its link or asked about it; they are not crawlers and visit nothing on their own.",
+    impact: "A user who asks ChatGPT, Claude or Perplexity about a page on this site gets an error instead of its content.",
+    howToFix: `Allow them explicitly:
+
+User-agent: ChatGPT-User
+User-agent: Claude-User
+User-agent: Perplexity-User
+Allow: /`
+  },
+  AI_TRAINING_BOTS_DISALLOWED: {
+    code: "AI_TRAINING_BOTS_DISALLOWED",
+    severity: "notice",
+    category: "ai-readiness",
+    title: "robots.txt disallows AI training crawlers",
+    description: "These crawlers collect model-training data only. OpenAI and Anthropic both document the training crawler (GPTBot, ClaudeBot) and the search crawler (OAI-SearchBot, Claude-SearchBot) as separate bots with separate consequences.",
+    impact: "None on search or AI answers. Reported so the choice is visible, not to change it.",
+    howToFix: "Nothing, if that is the policy. To allow training on the content, remove the Disallow for the crawler\u2019s group."
+  },
+  CLOUDFLARE_AI_CRAWLER_GATE_AMBIGUOUS: {
+    code: "CLOUDFLARE_AI_CRAWLER_GATE_AMBIGUOUS",
+    severity: "warning",
+    category: "ai-readiness",
+    title: "No explicit AI crawler rules on a Cloudflare-fronted site",
+    description: 'This site appears to be served through Cloudflare but robots.txt has no explicit Allow/Disallow rules for AI crawlers. Cloudflare blocks "mixed-use" AI crawlers by default on ad-hosting zones starting September 15, 2026, and is rolling out Pay Per Crawl / Pay Per Use gating beyond that.',
+    impact: "Without an explicit rule, whether AI crawlers (and future citation opportunities in ChatGPT, Claude, Perplexity, etc.) can reach this site now depends on Cloudflare account-level bot-management defaults, not on this codebase \u2014 a silent, invisible-to-git failure mode.",
+    howToFix: `Two ways to make your stance explicit, either works: (1) add a Content-Signal line to robots.txt - e.g. "Content-Signal: search=yes,ai-train=no,use=reference" - the format Cloudflare's AI Crawl Control update actually reads, or (2) add explicit User-agent rules for the search crawlers (OAI-SearchBot, Claude-SearchBot, PerplexityBot) and, separately, the training crawlers (GPTBot, ClaudeBot, CCBot, Google-Extended). Either way, confirm the matching allow/block posture in the Cloudflare dashboard under Bot Management \u2192 AI Crawl Control. If you'd rather charge than block, Cloudflare's Pay Per Crawl (AI Crawl Control \u2192 Payments tab) lets you set a per-crawl price instead of a flat allow/deny \u2014 worth a look if you get meaningful AI-crawler traffic.`
+  },
+  NO_AGENT_EXPERIENCE_SURFACE: {
+    code: "NO_AGENT_EXPERIENCE_SURFACE",
+    severity: "notice",
+    category: "ai-readiness",
+    title: "No agent-facing discovery surface found",
+    description: "None of the emerging AI-agent discovery conventions were found: llms-full.txt, SKILL.md, a discoverable MCP server, or an OpenAPI spec. This is a genuinely new, low-adoption category as of 2026 \u2014 most sites have none of these yet \u2014 so this is an opportunity, not a compliance failure.",
+    impact: "AI agents (not just chatbots answering questions, but agents that browse and act on a user's behalf) increasingly prefer sites that expose machine-readable capabilities over ones that require scraping and guessing at HTML structure. Being an early, discoverable site in this space is a low-competition differentiator right now.",
+    howToFix: "Start with whichever fits your site: llms-full.txt (a single Markdown dump of your key content \u2014 measured as fetched roughly 2x more than plain llms.txt), a SKILL.md capability manifest, or an OpenAPI spec at /openapi.json if you already have an API. A discoverable MCP server is the highest-effort, highest-payoff option if your product has one to expose."
+  },
+  HIGH_JS_RENDERING_RATIO: {
+    code: "HIGH_JS_RENDERING_RATIO",
+    severity: "warning",
+    category: "ai-readiness",
+    title: "High JavaScript rendering required",
+    description: "More than 50% of page content requires JavaScript to render.",
+    impact: "AI crawlers may not see all content; they often use static HTML only.",
+    howToFix: "Implement server-side rendering or prerendering for critical content."
+  },
+  // ==================== PIXEL-BASED META CHECKS ====================
+  TITLE_TRUNCATED_SERP: {
+    code: "TITLE_TRUNCATED_SERP",
+    severity: "warning",
+    category: "on-page",
+    title: "Title will be truncated in SERP",
+    description: "Title exceeds 580 pixels and will be cut off in Google search results.",
+    impact: "Important information at the end of your title will not be visible.",
+    howToFix: "Shorten title to fit within 580 pixel width (approximately 50-60 characters)."
+  },
+  META_DESC_TRUNCATED_SERP: {
+    code: "META_DESC_TRUNCATED_SERP",
+    severity: "notice",
+    category: "on-page",
+    title: "Meta description will be truncated in SERP",
+    description: "Meta description exceeds 920 pixels on desktop.",
+    impact: "Your description may be cut off in search results.",
+    howToFix: "Shorten description to fit within 920 pixels (approximately 150-160 characters)."
+  },
+  // ==================== SOCIAL META TAGS (Enhanced) ====================
+  TWITTER_TITLE_MISSING: {
+    code: "TWITTER_TITLE_MISSING",
+    severity: "notice",
+    category: "social",
+    title: "Missing Twitter Card title",
+    description: "No twitter:title meta tag found.",
+    impact: "Twitter/X shares will use og:title or page title as fallback.",
+    howToFix: 'Add <meta name="twitter:title" content="Your Title">'
+  },
+  TWITTER_DESCRIPTION_MISSING: {
+    code: "TWITTER_DESCRIPTION_MISSING",
+    severity: "notice",
+    category: "social",
+    title: "Missing Twitter Card description",
+    description: "No twitter:description meta tag found.",
+    impact: "Twitter/X shares will use og:description or meta description as fallback.",
+    howToFix: 'Add <meta name="twitter:description" content="Your description">'
+  },
+  OG_IMAGE_WRONG_DIMENSIONS: {
+    code: "OG_IMAGE_WRONG_DIMENSIONS",
+    severity: "notice",
+    category: "social",
+    title: "Open Graph image wrong aspect ratio",
+    description: "OG image is not the recommended 1.91:1 aspect ratio (1200x630).",
+    impact: "Image may be cropped awkwardly on social platforms.",
+    howToFix: "Use an image with 1200x630 pixels (1.91:1 aspect ratio)."
+  },
+  OG_IMAGE_TOO_LARGE: {
+    code: "OG_IMAGE_TOO_LARGE",
+    severity: "warning",
+    category: "social",
+    title: "Open Graph image file too large",
+    description: "OG image exceeds 5MB file size limit.",
+    impact: "Social platforms may not display the image.",
+    howToFix: "Compress the image to under 5MB while maintaining quality."
+  },
+  SOCIAL_PROFILES_NOT_LINKED: {
+    code: "SOCIAL_PROFILES_NOT_LINKED",
+    severity: "notice",
+    category: "social",
+    title: "No social profile links found",
+    description: "Page has no links to social media profiles.",
+    impact: "Missed opportunity for social proof and brand presence.",
+    howToFix: "Add links to your social media profiles (Facebook, Twitter, LinkedIn, etc.)."
+  },
+  // ==================== LOCAL SEO ====================
+  LOCAL_BUSINESS_SCHEMA_MISSING: {
+    code: "LOCAL_BUSINESS_SCHEMA_MISSING",
+    severity: "notice",
+    category: "local-seo",
+    title: "Missing LocalBusiness schema",
+    description: "No LocalBusiness structured data found.",
+    impact: "Local business information won't appear in Google's local knowledge panel.",
+    howToFix: "Add LocalBusiness schema with name, address, phone, and hours."
+  },
+  ORGANIZATION_SCHEMA_MISSING: {
+    code: "ORGANIZATION_SCHEMA_MISSING",
+    severity: "notice",
+    category: "local-seo",
+    title: "Missing Organization schema",
+    description: "No Organization or Person structured data found.",
+    impact: "Search engines may not understand your brand identity.",
+    howToFix: "Add Organization schema with logo, contact info, and social profiles."
+  },
+  NAP_INCONSISTENT: {
+    code: "NAP_INCONSISTENT",
+    severity: "warning",
+    category: "local-seo",
+    title: "Inconsistent NAP information",
+    description: "Name, Address, Phone detected in multiple formats on page.",
+    impact: "Inconsistent business info can hurt local search rankings.",
+    howToFix: "Use consistent NAP format across all pages and match your Google Business Profile."
+  },
+  ADDRESS_NOT_DETECTED: {
+    code: "ADDRESS_NOT_DETECTED",
+    severity: "notice",
+    category: "local-seo",
+    title: "No business address detected",
+    description: "Could not find a physical address on this page.",
+    impact: "Local businesses should display their address for local SEO.",
+    howToFix: "Add your business address in a visible location and in LocalBusiness schema."
+  },
+  PHONE_NOT_DETECTED: {
+    code: "PHONE_NOT_DETECTED",
+    severity: "notice",
+    category: "local-seo",
+    title: "No phone number detected",
+    description: "Could not find a phone number on this page.",
+    impact: "Contact information helps with local SEO and user trust.",
+    howToFix: "Add your phone number in visible location and in LocalBusiness schema."
+  },
+  // ==================== SECURITY HEADERS ====================
+  CSP_MISSING: {
+    code: "CSP_MISSING",
+    severity: "notice",
+    category: "security",
+    title: "Missing Content-Security-Policy header",
+    description: "No Content-Security-Policy (CSP) header found.",
+    impact: "Site is more vulnerable to XSS and code injection attacks.",
+    howToFix: "Add a Content-Security-Policy header to control which resources can be loaded."
+  },
+  X_FRAME_OPTIONS_MISSING: {
+    code: "X_FRAME_OPTIONS_MISSING",
+    severity: "notice",
+    category: "security",
+    title: "Missing X-Frame-Options header",
+    description: "No X-Frame-Options header found.",
+    impact: "Site may be vulnerable to clickjacking attacks.",
+    howToFix: "Add X-Frame-Options: DENY or SAMEORIGIN header."
+  },
+  X_CONTENT_TYPE_OPTIONS_MISSING: {
+    code: "X_CONTENT_TYPE_OPTIONS_MISSING",
+    severity: "notice",
+    category: "security",
+    title: "Missing X-Content-Type-Options header",
+    description: "No X-Content-Type-Options header found.",
+    impact: "Browser may MIME-sniff content types, potentially executing malicious files.",
+    howToFix: "Add X-Content-Type-Options: nosniff header."
+  },
+  REFERRER_POLICY_MISSING: {
+    code: "REFERRER_POLICY_MISSING",
+    severity: "notice",
+    category: "security",
+    title: "Missing Referrer-Policy header",
+    description: "No Referrer-Policy header found.",
+    impact: "Browser may leak referrer information to third-party sites.",
+    howToFix: "Add Referrer-Policy: strict-origin-when-cross-origin header."
+  },
+  PERMISSIONS_POLICY_MISSING: {
+    code: "PERMISSIONS_POLICY_MISSING",
+    severity: "notice",
+    category: "security",
+    title: "Missing Permissions-Policy header",
+    description: "No Permissions-Policy (formerly Feature-Policy) header found.",
+    impact: "Cannot control which browser features your site can use.",
+    howToFix: "Add Permissions-Policy header to control camera, microphone, geolocation, etc."
+  },
+  // ==================== CONTENT FRESHNESS ====================
+  CONTENT_STALE: {
+    code: "CONTENT_STALE",
+    severity: "notice",
+    category: "content",
+    title: "Content appears stale",
+    description: "Last-Modified header shows content over 1 year old.",
+    impact: "Search engines may prioritize fresher content in results.",
+    howToFix: "Update content regularly and ensure Last-Modified header is accurate."
+  },
+  NO_LAST_MODIFIED: {
+    code: "NO_LAST_MODIFIED",
+    severity: "notice",
+    category: "content",
+    title: "No Last-Modified header",
+    description: "Server does not send Last-Modified header.",
+    impact: "Browsers and CDNs cannot efficiently cache content.",
+    howToFix: "Configure your server to send Last-Modified headers."
+  },
+  OG_UPDATED_TIME_MISSING: {
+    code: "OG_UPDATED_TIME_MISSING",
+    severity: "notice",
+    category: "content",
+    title: "Missing article:modified_time",
+    description: "No article:modified_time Open Graph tag found.",
+    impact: "Social platforms may not show content update dates.",
+    howToFix: 'Add <meta property="article:modified_time" content="2024-01-01T12:00:00Z">'
+  },
+  // ==================== PERFORMANCE (Enhanced) ====================
+  RENDER_BLOCKING_RESOURCES: {
+    code: "RENDER_BLOCKING_RESOURCES",
+    severity: "warning",
+    category: "performance",
+    title: "Render-blocking resources detected",
+    description: "CSS or JavaScript files block initial page render.",
+    impact: "Delays First Contentful Paint and user perception of speed.",
+    howToFix: "Inline critical CSS, defer non-critical JS, or use async/defer attributes."
+  },
+  DOM_SIZE_EXCESSIVE: {
+    code: "DOM_SIZE_EXCESSIVE",
+    severity: "warning",
+    category: "performance",
+    title: "Excessive DOM size",
+    description: "Page has more than 1500 DOM nodes.",
+    impact: "Large DOM increases memory usage and slows style calculations.",
+    howToFix: "Simplify page structure, lazy-load content, or paginate long lists."
+  },
+  DOM_DEPTH_EXCESSIVE: {
+    code: "DOM_DEPTH_EXCESSIVE",
+    severity: "notice",
+    category: "performance",
+    title: "Excessive DOM depth",
+    description: "DOM tree is more than 32 levels deep.",
+    impact: "Deep nesting slows CSS selector matching and layout calculations.",
+    howToFix: "Flatten your HTML structure where possible."
+  },
+  IMAGE_NOT_WEBP_AVIF: {
+    code: "IMAGE_NOT_WEBP_AVIF",
+    severity: "notice",
+    category: "images",
+    title: "Images not using modern formats",
+    description: "Images use JPEG/PNG instead of WebP/AVIF.",
+    impact: "Modern formats provide 25-50% smaller file sizes.",
+    howToFix: "Convert images to WebP or AVIF format with fallbacks."
+  },
+  NO_CDN_DETECTED: {
+    code: "NO_CDN_DETECTED",
+    severity: "notice",
+    category: "performance",
+    title: "No CDN detected",
+    description: "Static resources are not served from a CDN.",
+    impact: "Users far from your server experience slower load times.",
+    howToFix: "Use a CDN like Cloudflare, Fastly, or AWS CloudFront."
+  },
+  // ==================== TECHNOLOGY DETECTION ====================
+  WORDPRESS_DETECTED: {
+    code: "WORDPRESS_DETECTED",
+    severity: "notice",
+    category: "on-page",
+    title: "WordPress detected",
+    description: "Site is built with WordPress CMS.",
+    impact: "Informational - WordPress powers 40% of the web.",
+    howToFix: "Ensure WordPress core, themes, and plugins are up to date."
+  },
+  OUTDATED_JQUERY: {
+    code: "OUTDATED_JQUERY",
+    severity: "warning",
+    category: "security",
+    title: "Outdated jQuery version detected",
+    description: "Page uses a jQuery version with known vulnerabilities.",
+    impact: "Site may be vulnerable to security exploits.",
+    howToFix: "Update jQuery to the latest version (3.x or higher)."
+  },
+  OUTDATED_FRAMEWORK: {
+    code: "OUTDATED_FRAMEWORK",
+    severity: "warning",
+    category: "security",
+    title: "Outdated JavaScript framework detected",
+    description: "Page uses an outdated version of a JavaScript framework.",
+    impact: "May have security vulnerabilities or performance issues.",
+    howToFix: "Update to the latest stable version of the framework."
+  },
+  // ==================== KEYWORD DENSITY ====================
+  KEYWORD_STUFFING: {
+    code: "KEYWORD_STUFFING",
+    severity: "warning",
+    category: "content",
+    title: "Potential keyword stuffing detected",
+    description: "A keyword appears more than 3% of total word count.",
+    impact: "May trigger search engine spam filters.",
+    howToFix: "Write naturally and use keyword variations instead of repetition."
+  },
+  NO_KEYWORDS_IN_TITLE: {
+    code: "NO_KEYWORDS_IN_TITLE",
+    severity: "warning",
+    category: "on-page",
+    title: "Top keywords not in title",
+    description: "Most common page keywords are not present in the title tag.",
+    impact: "Title may not accurately reflect page content for search engines.",
+    howToFix: "Include your primary keyword in the title tag."
+  },
+  NO_KEYWORDS_IN_H1: {
+    code: "NO_KEYWORDS_IN_H1",
+    severity: "notice",
+    category: "on-page",
+    title: "Top keywords not in H1",
+    description: "Most common page keywords are not present in the H1 heading.",
+    impact: "H1 may not signal page topic effectively.",
+    howToFix: "Include your primary keyword in the H1 heading."
+  },
+  // ==================== ADDITIONAL CHECKS ====================
+  AMP_MISSING: {
+    code: "AMP_MISSING",
+    severity: "notice",
+    category: "mobile",
+    title: "No AMP version detected",
+    description: "Page does not have an Accelerated Mobile Page version.",
+    impact: "May load slower on mobile and miss Top Stories carousel eligibility.",
+    howToFix: "Consider implementing AMP for content-heavy pages."
+  },
+  AMP_INVALID: {
+    code: "AMP_INVALID",
+    severity: "warning",
+    category: "mobile",
+    title: "Invalid AMP markup",
+    description: "AMP page contains validation errors.",
+    impact: "Invalid AMP pages may not be served from Google AMP cache.",
+    howToFix: "Validate and fix AMP errors using the AMP Validator."
+  },
+  ADS_TXT_MISSING: {
+    code: "ADS_TXT_MISSING",
+    severity: "notice",
+    category: "crawlability",
+    title: "Missing ads.txt file",
+    description: "No ads.txt file found for ad inventory authorization.",
+    impact: "If running ads, unauthorized sellers may claim your inventory.",
+    howToFix: "Create an ads.txt file listing authorized ad sellers."
+  },
+  ADS_TXT_INVALID: {
+    code: "ADS_TXT_INVALID",
+    severity: "warning",
+    category: "crawlability",
+    title: "Invalid ads.txt format",
+    description: "ads.txt file contains syntax errors.",
+    impact: "Ad platforms may not recognize your authorized sellers.",
+    howToFix: "Validate ads.txt format using IAB ads.txt validator."
+  },
+  DMARC_MISSING: {
+    code: "DMARC_MISSING",
+    severity: "notice",
+    category: "security",
+    title: "Missing DMARC record",
+    description: "No DMARC DNS record found for email authentication.",
+    impact: "Emails from your domain may be spoofed or marked as spam.",
+    howToFix: 'Add a DMARC record to your DNS: _dmarc.yourdomain.com TXT "v=DMARC1; p=none"'
+  },
+  SPF_MISSING: {
+    code: "SPF_MISSING",
+    severity: "notice",
+    category: "security",
+    title: "Missing SPF record",
+    description: "No SPF DNS record found for email authentication.",
+    impact: "Emails from your domain may be marked as spam.",
+    howToFix: "Add an SPF record to your DNS with authorized mail servers."
+  },
+  SAFE_BROWSING_FLAGGED: {
+    code: "SAFE_BROWSING_FLAGGED",
+    severity: "error",
+    category: "security",
+    title: "Site flagged by Google Safe Browsing",
+    description: "Google has flagged this site for malware or phishing.",
+    impact: "Browsers will show warnings and traffic will plummet.",
+    howToFix: "Remove malware/phishing content and request review in Search Console."
+  },
+  PLAINTEXT_EMAIL: {
+    code: "PLAINTEXT_EMAIL",
+    severity: "notice",
+    category: "security",
+    title: "Email addresses in plain text",
+    description: "Email addresses found in page HTML without obfuscation.",
+    impact: "Email addresses can be harvested by spam bots.",
+    howToFix: "Use contact forms or obfuscate emails (e.g., name[at]domain.com)."
+  },
+  DIRECTORY_LISTING_ENABLED: {
+    code: "DIRECTORY_LISTING_ENABLED",
+    severity: "warning",
+    category: "security",
+    title: "Directory listing enabled",
+    description: "Web server is configured to list directory contents.",
+    impact: "Exposes file structure and potentially sensitive files.",
+    howToFix: "Disable directory listing in your web server configuration."
+  },
+  FAVICON_NOT_ICO: {
+    code: "FAVICON_NOT_ICO",
+    severity: "notice",
+    category: "on-page",
+    title: "Favicon not in ICO format",
+    description: "Favicon is not in the traditional .ico format.",
+    impact: "Some older browsers may not display the favicon.",
+    howToFix: "Provide favicon.ico at site root in addition to PNG/SVG versions."
+  },
+  APPLE_TOUCH_ICON_MISSING: {
+    code: "APPLE_TOUCH_ICON_MISSING",
+    severity: "notice",
+    category: "mobile",
+    title: "Missing Apple Touch Icon",
+    description: "No apple-touch-icon link found.",
+    impact: "iOS users adding site to home screen will see a generic icon.",
+    howToFix: 'Add <link rel="apple-touch-icon" href="/apple-touch-icon.png">'
+  },
+  // ==================== ADVANCED SEO CHECKS ====================
+  // Featured Snippet Optimization
+  FAQ_SCHEMA_MISSING: {
+    code: "FAQ_SCHEMA_MISSING",
+    severity: "warning",
+    category: "structured-data",
+    title: "FAQ content without FAQPage schema",
+    description: "Question-format headings found but no FAQPage schema markup.",
+    impact: "Missing out on FAQ rich results and PAA box opportunities.",
+    howToFix: "Add FAQPage structured data for your Q&A content."
+  },
+  // Internal Link Graph
+  NO_CONTEXTUAL_INTERNAL_LINKS: {
+    code: "NO_CONTEXTUAL_INTERNAL_LINKS",
+    severity: "warning",
+    category: "links",
+    title: "No contextual internal links",
+    description: "All internal links are in navigation/footer. No editorial links in content.",
+    impact: "Editorial links in content pass more SEO value than navigational links.",
+    howToFix: "Add relevant internal links within your main content to related pages."
+  },
+  LOW_EDITORIAL_LINKS: {
+    code: "LOW_EDITORIAL_LINKS",
+    severity: "notice",
+    category: "links",
+    title: "Few editorial internal links",
+    description: "Only a few editorial (in-content) internal links found.",
+    impact: "Editorial links with surrounding context provide stronger topical signals.",
+    howToFix: "Add 2-5 relevant internal links within your body content."
+  },
+  FIRST_LINK_GENERIC_ANCHOR: {
+    code: "FIRST_LINK_GENERIC_ANCHOR",
+    severity: "notice",
+    category: "links",
+    title: "First link uses generic anchor text",
+    description: 'First link to a page uses generic anchor like "click here" or "read more".',
+    impact: "Google may prioritize first link anchor for topic signals.",
+    howToFix: "Use descriptive, keyword-relevant anchor text for internal links."
+  },
+  TOO_MANY_INTERNAL_LINKS: {
+    code: "TOO_MANY_INTERNAL_LINKS",
+    severity: "warning",
+    category: "links",
+    title: "Excessive internal links",
+    description: "Page has over 100 internal links, which may dilute PageRank distribution.",
+    impact: "Too many links reduce the value passed to each linked page.",
+    howToFix: "Reduce internal links to the most important and relevant pages."
+  },
+  NO_INTERNAL_LINKS: {
+    code: "NO_INTERNAL_LINKS",
+    severity: "error",
+    category: "links",
+    title: "No internal links found",
+    description: "Page has no internal links to other pages on the site.",
+    impact: "Creates a dead end for users and search engine crawlers.",
+    howToFix: "Add relevant internal links to related content."
+  },
+  // Resource Hints
+  MISSING_PRECONNECT: {
+    code: "MISSING_PRECONNECT",
+    severity: "warning",
+    category: "performance",
+    title: "Missing preconnect hints for third-party origins",
+    description: "Third-party origins used without preconnect hints.",
+    impact: "Connection setup to third-party origins adds latency to resource loading.",
+    howToFix: "Add preconnect hints for critical third-party origins."
+  },
+  GOOGLE_FONTS_NO_PRECONNECT: {
+    code: "GOOGLE_FONTS_NO_PRECONNECT",
+    severity: "warning",
+    category: "performance",
+    title: "Google Fonts without preconnect",
+    description: "Google Fonts are used but preconnect hints are missing.",
+    impact: "Adds significant latency to font loading, affecting LCP.",
+    howToFix: "Add preconnect hints for fonts.googleapis.com and fonts.gstatic.com."
+  },
+  HERO_IMAGE_NOT_PRELOADED: {
+    code: "HERO_IMAGE_NOT_PRELOADED",
+    severity: "notice",
+    category: "performance",
+    title: "Hero image not preloaded",
+    description: "Page has images but none are preloaded for faster LCP.",
+    impact: "Preloading LCP images can improve Largest Contentful Paint.",
+    howToFix: 'Add <link rel="preload" href="hero-image.jpg" as="image"> for your LCP image.'
+  },
+  NO_CRITICAL_RESOURCE_PRELOAD: {
+    code: "NO_CRITICAL_RESOURCE_PRELOAD",
+    severity: "notice",
+    category: "performance",
+    title: "No critical resources preloaded",
+    description: "Page has render-blocking resources but no preload hints.",
+    impact: "Preloading critical resources can improve initial render time.",
+    howToFix: "Consider preloading critical CSS, fonts, or hero images."
+  },
+  EXCESSIVE_PRELOADS: {
+    code: "EXCESSIVE_PRELOADS",
+    severity: "warning",
+    category: "performance",
+    title: "Too many preload hints",
+    description: "Page has more than 10 preload hints.",
+    impact: "Preloading too many resources competes for bandwidth and can delay critical resources.",
+    howToFix: "Limit preloads to truly critical resources (2-5 maximum)."
+  },
+  ES_MODULES_NO_MODULEPRELOAD: {
+    code: "ES_MODULES_NO_MODULEPRELOAD",
+    severity: "notice",
+    category: "performance",
+    title: "ES modules without modulepreload",
+    description: "Page uses ES modules but no modulepreload hints are present.",
+    impact: "Modulepreload can parallelize module loading for faster execution.",
+    howToFix: 'Add <link rel="modulepreload" href="critical-module.js"> for critical modules.'
+  },
+  // E-E-A-T Signals
+  YMYL_NO_AUTHOR: {
+    code: "YMYL_NO_AUTHOR",
+    severity: "warning",
+    category: "content",
+    title: "YMYL content without author information",
+    description: "This appears to be YMYL (Your Money Your Life) content but has no visible author.",
+    impact: "Google prioritizes E-E-A-T signals heavily for YMYL topics.",
+    howToFix: "Add author byline with credentials, bio, and author schema."
+  },
+  YMYL_NO_EXPERTISE: {
+    code: "YMYL_NO_EXPERTISE",
+    severity: "warning",
+    category: "content",
+    title: "YMYL content without expertise signals",
+    description: "YMYL content lacks visible expertise indicators (credentials, qualifications).",
+    impact: "Expertise is crucial for YMYL content ranking.",
+    howToFix: 'Include author credentials, "reviewed by" statements, or cite expert sources.'
+  },
+  YMYL_NO_CITATIONS: {
+    code: "YMYL_NO_CITATIONS",
+    severity: "warning",
+    category: "content",
+    title: "YMYL content without authoritative citations",
+    description: "YMYL content has no links to authoritative sources (.gov, .edu, etc.).",
+    impact: "Citing authoritative sources builds trust for sensitive topics.",
+    howToFix: "Add citations to government, academic, or recognized industry sources."
+  },
+  NO_ORGANIZATION_SCHEMA: {
+    code: "NO_ORGANIZATION_SCHEMA",
+    severity: "notice",
+    category: "structured-data",
+    title: "Missing Organization schema",
+    description: "No Organization structured data found.",
+    impact: "Missed opportunity to establish organizational identity for E-E-A-T.",
+    howToFix: "Add Organization schema with name, logo, contact, and social profiles."
+  },
+  AUTHOR_NO_SCHEMA: {
+    code: "AUTHOR_NO_SCHEMA",
+    severity: "notice",
+    category: "structured-data",
+    title: "Author without Person schema",
+    description: "Author name is present but no Person structured data.",
+    impact: "Person schema helps Google understand author entity relationships.",
+    howToFix: "Add Person schema with sameAs links to author profiles."
+  },
+  NO_MODIFIED_DATE: {
+    code: "NO_MODIFIED_DATE",
+    severity: "notice",
+    category: "content",
+    title: "No content modification date",
+    description: "Content has published date but no last-modified date.",
+    impact: "Modified dates signal content freshness to search engines.",
+    howToFix: "Add article:modified_time meta tag or dateModified in schema."
+  },
+  // IndexNow
+  INDEXNOW_NOT_IMPLEMENTED: {
+    code: "INDEXNOW_NOT_IMPLEMENTED",
+    severity: "notice",
+    category: "crawlability",
+    title: "IndexNow not implemented",
+    description: "Site does not appear to have IndexNow instant indexing set up.",
+    impact: "Content changes reach Bing, Yandex and the engines that read Bing\u2019s index later. Bing tells publishers to pair an accurate sitemap lastmod with IndexNow so AI systems reference the current version of a page.",
+    howToFix: "Create a key at indexnow.org and implement the IndexNow protocol."
+  },
+  INDEXNOW_INVALID_KEY: {
+    code: "INDEXNOW_INVALID_KEY",
+    severity: "warning",
+    category: "crawlability",
+    title: "IndexNow key format invalid",
+    description: "The IndexNow key does not match expected formats.",
+    impact: "IndexNow submissions may fail with invalid key format.",
+    howToFix: "Use a valid key format: 32-character hex or UUID format."
+  },
+  // Content Science (Novel Checks)
+  ZIPF_KEYWORD_STUFFING: {
+    code: "ZIPF_KEYWORD_STUFFING",
+    severity: "warning",
+    category: "content",
+    title: "Unnatural keyword distribution detected",
+    description: "Content deviates from natural language patterns (Zipf's law). Possible keyword stuffing.",
+    impact: "Search engines can detect unnatural text patterns, potentially triggering spam filters.",
+    howToFix: "Reduce repetition of over-used keywords and use more natural language."
+  },
+  LOW_CONTENT_ENTROPY: {
+    code: "LOW_CONTENT_ENTROPY",
+    severity: "warning",
+    category: "content",
+    title: "Low vocabulary diversity (thin content signal)",
+    description: "Content entropy is low, indicating repetitive or thin content.",
+    impact: "Low diversity content may be seen as low-quality by search engines.",
+    howToFix: "Expand vocabulary, add more unique insights, and reduce repetitive phrases."
+  },
+  HIGH_CONTENT_REPETITION: {
+    code: "HIGH_CONTENT_REPETITION",
+    severity: "notice",
+    category: "content",
+    title: "High content repetition detected",
+    description: "Content shows high repetition pattern.",
+    impact: "Highly repetitive content provides less value and may hurt engagement.",
+    howToFix: "Vary your vocabulary and sentence structures. Avoid repeating the same phrases."
+  },
+  BM25_KEYWORD_MISSING: {
+    code: "BM25_KEYWORD_MISSING",
+    severity: "warning",
+    category: "on-page",
+    title: "Target keyword not found",
+    description: "A target keyword is not present in your content at all.",
+    impact: "Page unlikely to rank for this keyword without any mention of it.",
+    howToFix: "Add natural mentions of the target keyword in your content."
+  },
+  BM25_KEYWORD_SATURATED: {
+    code: "BM25_KEYWORD_SATURATED",
+    severity: "notice",
+    category: "on-page",
+    title: "Keyword over-optimized",
+    description: "Keyword found many times. Additional mentions provide diminishing returns.",
+    impact: "Over-optimization can trigger spam signals.",
+    howToFix: "Use semantic variations and related terms instead of exact repetition."
+  },
+  // Site Maturity
+  CONTENT_AUTHORITY_IMBALANCE: {
+    code: "CONTENT_AUTHORITY_IMBALANCE",
+    severity: "warning",
+    category: "content",
+    title: "Content-to-authority imbalance",
+    description: "Site has many pages but limited backlink signals. Content is unlikely to rank.",
+    impact: "Most of your content may be invisible to search engines due to low domain authority.",
+    howToFix: "Stop publishing new content. Focus 100% on link building until you see ranking improvements."
+  },
+  GROWING_SITE_NO_BLOG: {
+    code: "GROWING_SITE_NO_BLOG",
+    severity: "notice",
+    category: "content",
+    title: "Growing site without blog/content hub",
+    description: "Site is in growth phase but lacks a blog or content section.",
+    impact: "Blog content is essential for attracting backlinks and building topical authority.",
+    howToFix: "Create a blog section with linkable content assets (guides, research, tools)."
+  },
+  // Keyword Cannibalization
+  INTERNAL_CANNIBALIZATION_SIGNAL: {
+    code: "INTERNAL_CANNIBALIZATION_SIGNAL",
+    severity: "warning",
+    category: "content",
+    title: "Duplicate H1 tags on page",
+    description: "Page has multiple H1 tags with duplicates, which can dilute keyword focus.",
+    impact: "Multiple similar H1s can confuse search engines about page topic.",
+    howToFix: "Use a single, unique H1 that clearly defines the page topic."
+  },
+  TITLE_H1_KEYWORD_MISMATCH: {
+    code: "TITLE_H1_KEYWORD_MISMATCH",
+    severity: "warning",
+    category: "on-page",
+    title: "Title and H1 target different keywords",
+    description: "The title tag and H1 heading have no overlapping keywords.",
+    impact: "Search engines may be confused about the primary topic of the page.",
+    howToFix: "Align title and H1 to target the same primary keyword or topic."
+  },
+  // ==================== ASSET MINIFICATION ====================
+  CSS_NOT_MINIFIED: {
+    code: "CSS_NOT_MINIFIED",
+    severity: "warning",
+    category: "performance",
+    title: "CSS files not minified",
+    description: "CSS files contain unnecessary whitespace, comments, or unoptimized code.",
+    impact: "Unminified CSS increases file size and page load time.",
+    howToFix: "Use a CSS minifier (cssnano, clean-css) or ensure build tools minify CSS in production."
+  },
+  JS_NOT_MINIFIED: {
+    code: "JS_NOT_MINIFIED",
+    severity: "warning",
+    category: "performance",
+    title: "JavaScript files not minified",
+    description: "JavaScript files contain unnecessary whitespace, comments, or long variable names.",
+    impact: "Unminified JavaScript increases file size, parse time, and page load time.",
+    howToFix: "Use a JS minifier (Terser, UglifyJS) or ensure build tools minify JS in production."
+  },
+  // ==================== PAGE RESOURCES ====================
+  PAGE_RESOURCES_EXCESSIVE: {
+    code: "PAGE_RESOURCES_EXCESSIVE",
+    severity: "error",
+    category: "performance",
+    title: "Excessive number of page resources",
+    description: "Page makes over 100 HTTP requests for resources.",
+    impact: "Too many HTTP requests cause slow page loads due to connection overhead and browser limits.",
+    howToFix: "Combine CSS/JS files, use image sprites, lazy-load resources, remove unused dependencies."
+  },
+  PAGE_RESOURCES_HIGH: {
+    code: "PAGE_RESOURCES_HIGH",
+    severity: "warning",
+    category: "performance",
+    title: "High number of page resources",
+    description: "Page makes over 50 HTTP requests for resources.",
+    impact: "Many HTTP requests increase page load time, especially on mobile networks.",
+    howToFix: "Bundle CSS/JS files, lazy-load images below the fold, consider critical CSS inlining."
+  },
+  PAGE_RESOURCES_THIRD_PARTY_HIGH: {
+    code: "PAGE_RESOURCES_THIRD_PARTY_HIGH",
+    severity: "warning",
+    category: "performance",
+    title: "Many third-party resources",
+    description: "Page loads many resources from third-party domains.",
+    impact: "Third-party resources add latency and are outside your control.",
+    howToFix: "Self-host critical third-party resources when possible. Use preconnect hints for remaining."
+  },
+  PAGE_RESOURCES_MANY_IFRAMES: {
+    code: "PAGE_RESOURCES_MANY_IFRAMES",
+    severity: "warning",
+    category: "performance",
+    title: "Multiple iframes detected",
+    description: "Page contains multiple iframes, each loading its own document.",
+    impact: "Iframes significantly increase page weight and can block the main thread.",
+    howToFix: "Lazy-load iframes below the fold. Consider native embeds or facade patterns."
+  },
+  // ==================== RESPONSIVE CSS ====================
+  RESPONSIVE_NO_VIEWPORT: {
+    code: "RESPONSIVE_NO_VIEWPORT",
+    severity: "error",
+    category: "mobile",
+    title: "Missing viewport meta tag",
+    description: "No viewport meta tag found for responsive design.",
+    impact: "Without viewport meta, mobile browsers render at desktop width and scale down.",
+    howToFix: 'Add <meta name="viewport" content="width=device-width, initial-scale=1"> to <head>.'
+  },
+  RESPONSIVE_NO_MEDIA_QUERIES: {
+    code: "RESPONSIVE_NO_MEDIA_QUERIES",
+    severity: "warning",
+    category: "mobile",
+    title: "No CSS media queries detected",
+    description: "No @media queries found in stylesheets.",
+    impact: "Without media queries, the site uses fixed layouts that do not adapt to screen sizes.",
+    howToFix: "Add CSS media queries for different screen sizes. Use mobile-first approach."
+  },
+  RESPONSIVE_NO_MOBILE_BREAKPOINT: {
+    code: "RESPONSIVE_NO_MOBILE_BREAKPOINT",
+    severity: "warning",
+    category: "mobile",
+    title: "No mobile breakpoints detected",
+    description: "Media queries exist but none target mobile screen sizes.",
+    impact: "Site may not be optimized for mobile devices, hurting majority of traffic.",
+    howToFix: "Add media queries for mobile: @media (max-width: 768px) { ... }"
+  },
+  // ==================== LINKS RATIO ====================
+  LINKS_NO_INTERNAL: {
+    code: "LINKS_NO_INTERNAL",
+    severity: "warning",
+    category: "links",
+    title: "No internal links found",
+    description: "Page has no internal links to other pages on the site.",
+    impact: "Internal links help search engines discover pages and distribute link equity.",
+    howToFix: "Add relevant internal links to related content or navigation."
+  },
+  LINKS_NO_EXTERNAL: {
+    code: "LINKS_NO_EXTERNAL",
+    severity: "notice",
+    category: "links",
+    title: "No external links found",
+    description: "Page has no links to external websites.",
+    impact: "Linking to authoritative sources improves credibility and content context.",
+    howToFix: "Add links to high-quality external sources that support your content."
+  },
+  LINKS_RATIO_POOR: {
+    code: "LINKS_RATIO_POOR",
+    severity: "warning",
+    category: "links",
+    title: "Poor internal-to-external link ratio",
+    description: "Page has more external links than internal links.",
+    impact: "Too many external links can dilute page authority and may look spammy.",
+    howToFix: "Add more internal links. Aim for at least 2 internal links per external link."
+  },
+  // ==================== URL SAFETY (Local Hash Database) ====================
+  URL_SAFETY_KNOWN_THREAT: {
+    code: "URL_SAFETY_KNOWN_THREAT",
+    severity: "error",
+    category: "security",
+    title: "Website URL matches known threat database",
+    description: "Your website URL matches entries in the local threat database.",
+    impact: "Browsers and security tools may block access to your site. Search engines may remove you from results.",
+    howToFix: "Scan your site for malware, remove any malicious content, and request removal from threat databases."
+  },
+  URL_SAFETY_EXTERNAL_THREAT: {
+    code: "URL_SAFETY_EXTERNAL_THREAT",
+    severity: "error",
+    category: "security",
+    title: "External links to known malicious URLs",
+    description: "External links point to URLs flagged in threat databases.",
+    impact: "Linking to malicious sites harms visitors and damages your reputation and rankings.",
+    howToFix: "Remove all links to flagged URLs immediately."
+  },
+  URL_SAFETY_SUSPICIOUS_DOMAIN: {
+    code: "URL_SAFETY_SUSPICIOUS_DOMAIN",
+    severity: "warning",
+    category: "security",
+    title: "Website URL has suspicious characteristics",
+    description: "Your URL shows patterns commonly associated with phishing or malicious sites.",
+    impact: "Users and security tools may distrust your site.",
+    howToFix: "Use a trustworthy domain structure. Avoid patterns that mimic other brands or use suspicious TLDs."
+  },
+  URL_SAFETY_SUSPICIOUS_EXTERNAL: {
+    code: "URL_SAFETY_SUSPICIOUS_EXTERNAL",
+    severity: "warning",
+    category: "security",
+    title: "External links with suspicious characteristics",
+    description: "External links show patterns associated with phishing or malicious sites.",
+    impact: "Linking to suspicious sites can harm visitors and rankings.",
+    howToFix: "Review and remove or replace suspicious external links."
+  },
+  URL_SAFETY_SHORTENERS: {
+    code: "URL_SAFETY_SHORTENERS",
+    severity: "notice",
+    category: "security",
+    title: "External links use URL shorteners",
+    description: "External links use URL shorteners, hiding the actual destination.",
+    impact: "URL shorteners reduce trust and SEO link value.",
+    howToFix: "Replace shortened URLs with direct links to the destination."
+  },
+  // ==================== FRAMEWORK-SPECIFIC SEO ====================
+  REACT_CSR_DETECTED: {
+    code: "REACT_CSR_DETECTED",
+    severity: "error",
+    category: "framework",
+    title: "Client-side rendered React app detected",
+    description: "React apps without SSR send empty HTML to crawlers. Search engines may not index your content.",
+    impact: "Critical - your content is likely invisible to Google.",
+    howToFix: "Migrate to Next.js for automatic SSR/SSG, add prerendering with react-snap, or use react-helmet-async with a prerender service."
+  },
+  NEXTJS_NO_METADATA_API: {
+    code: "NEXTJS_NO_METADATA_API",
+    severity: "warning",
+    category: "framework",
+    title: "Not using Next.js Metadata API",
+    description: "Next.js 13+ has a built-in Metadata API that is more reliable than third-party solutions.",
+    impact: "Missing out on Next.js optimized SEO features.",
+    howToFix: "Use export const metadata or generateMetadata in your page/layout files."
+  },
+  VUE_CSR_DETECTED: {
+    code: "VUE_CSR_DETECTED",
+    severity: "error",
+    category: "framework",
+    title: "Client-side rendered Vue app detected",
+    description: "Vue apps without SSR send empty HTML to crawlers.",
+    impact: "Your content may not be indexed by search engines.",
+    howToFix: "Migrate to Nuxt for automatic SSR/SSG, or add SSR with @vue/server-renderer."
+  },
+  ANGULAR_NO_UNIVERSAL: {
+    code: "ANGULAR_NO_UNIVERSAL",
+    severity: "error",
+    category: "framework",
+    title: "Angular app without Universal (SSR)",
+    description: "Client-side Angular apps send empty HTML to crawlers.",
+    impact: "Your content may not be indexed by search engines.",
+    howToFix: "Add Angular Universal for SSR: ng add @angular/ssr"
+  },
+  WORDPRESS_NO_SEO_PLUGIN: {
+    code: "WORDPRESS_NO_SEO_PLUGIN",
+    severity: "warning",
+    category: "framework",
+    title: "No SEO plugin detected",
+    description: "WordPress benefits greatly from an SEO plugin like Yoast or Rank Math.",
+    impact: "Missing automated SEO features like sitemaps, schema, and meta tag management.",
+    howToFix: "Install Yoast SEO or Rank Math plugin."
+  },
+  WORDPRESS_NO_CACHING: {
+    code: "WORDPRESS_NO_CACHING",
+    severity: "warning",
+    category: "framework",
+    title: "No caching plugin detected",
+    description: "WordPress without caching is slow, hurting Core Web Vitals.",
+    impact: "Poor performance affects user experience and rankings.",
+    howToFix: "Install WP Super Cache, W3 Total Cache, or LiteSpeed Cache."
+  },
+  SPA_EMPTY_BODY: {
+    code: "SPA_EMPTY_BODY",
+    severity: "error",
+    category: "framework",
+    title: "Single Page App with empty body",
+    description: "Page body contains minimal content, suggesting client-side rendering without SSR.",
+    impact: "Search engines see an empty page and cannot index your content.",
+    howToFix: "Implement server-side rendering, static site generation, or prerendering."
+  },
+  FRAMEWORK_OUTDATED: {
+    code: "FRAMEWORK_OUTDATED",
+    severity: "warning",
+    category: "framework",
+    title: "Outdated framework version detected",
+    description: "Running an outdated version of your framework may have security vulnerabilities and SEO bugs.",
+    impact: "Potential security issues and missing SEO improvements.",
+    howToFix: "Update to the latest stable version of your framework."
+  }
+};
+
+// src/audit/checks/agent-experience.ts
+var SIGNAL_PATHS = [
+  { path: "/llms-full.txt", description: "Full-site content dump for AI agents \u2014 the fuller sibling of llms.txt, measured as fetched roughly 2x more often" },
+  { path: "/skill.md", description: "SKILL.md capability manifest (Anthropic Agent Skills convention)" },
+  { path: "/mcp", description: "MCP (Model Context Protocol) server, discoverable at a conventional path" },
+  { path: "/.well-known/mcp.json", description: "MCP server descriptor at the .well-known convention" },
+  { path: "/openapi.json", description: "OpenAPI spec \u2014 lets an agent discover and call your API directly instead of scraping HTML" },
+  { path: "/.well-known/ai-plugin.json", description: "AI plugin manifest (older but still-referenced convention for agent tool discovery)" }
+];
+async function fetchBody(baseUrl, path) {
   try {
-    const start = Date.now();
-    const response = await httpGet(url, {
-      timeout: 3e4,
+    const url = new URL(path, baseUrl).href;
+    const response = await (0,_chunk_SWTM7CDR_mjs__WEBPACK_IMPORTED_MODULE_1__/* .httpGet */ .lx)(url, {
+      timeout: 8e3,
       validateStatus: () => true
     });
-    const loadTime = Date.now() - start;
-    const result = {
-      url,
-      html: response.data,
-      statusCode: response.status,
-      headers: response.headers,
-      loadTime
-    };
-    return { success: true, data: result };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Unknown error crawling URL"
-    };
+    return { status: response.status, body: String(response.data ?? "") };
+  } catch {
+    return null;
   }
 }
-async function extractMeta(params) {
-  const { html, url } = params;
-  try {
-    const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
-    const meta = {
-      title: $("title").text().trim() || void 0,
-      description: $('meta[name="description"]').attr("content")?.trim(),
-      canonical: $('link[rel="canonical"]').attr("href"),
-      robots: $('meta[name="robots"]').attr("content"),
-      viewport: $('meta[name="viewport"]').attr("content"),
-      charset: $("meta[charset]").attr("charset") || $('meta[http-equiv="Content-Type"]').attr("content"),
-      openGraph: {
-        title: $('meta[property="og:title"]').attr("content"),
-        description: $('meta[property="og:description"]').attr("content"),
-        image: $('meta[property="og:image"]').attr("content"),
-        url: $('meta[property="og:url"]').attr("content"),
-        type: $('meta[property="og:type"]').attr("content"),
-        siteName: $('meta[property="og:site_name"]').attr("content")
-      },
-      twitter: {
-        card: $('meta[name="twitter:card"]').attr("content"),
-        title: $('meta[name="twitter:title"]').attr("content"),
-        description: $('meta[name="twitter:description"]').attr("content"),
-        image: $('meta[name="twitter:image"]').attr("content"),
-        site: $('meta[name="twitter:site"]').attr("content")
-      },
-      other: {}
-    };
-    $("meta").each((_, el) => {
-      const name = $(el).attr("name") || $(el).attr("property");
-      const content = $(el).attr("content");
-      if (name && content && !name.startsWith("og:") && !name.startsWith("twitter:")) {
-        if (!["description", "robots", "viewport"].includes(name)) {
-          meta.other[name] = content;
-        }
-      }
+async function pathExists(baseUrl, path, fallbackBody) {
+  const result = await fetchBody(baseUrl, path);
+  if (!result) return false;
+  if (result.status === 404) return false;
+  if (result.status < 200 || result.status >= 400) return false;
+  if (fallbackBody != null && result.body === fallbackBody) return false;
+  return true;
+}
+async function checkAgentExperience(baseUrl) {
+  const issues = [];
+  const probePath = `/__rankcli_ax_probe_${Math.random().toString(36).slice(2)}`;
+  const baseline = await fetchBody(baseUrl, probePath);
+  const fallbackBody = baseline && baseline.status >= 200 && baseline.status < 400 ? baseline.body : null;
+  const signals = await Promise.all(
+    SIGNAL_PATHS.map(async ({ path, description }) => ({
+      path,
+      description,
+      present: await pathExists(baseUrl, path, fallbackBody)
+    }))
+  );
+  const presentCount = signals.filter((s) => s.present).length;
+  const score = Math.round(presentCount / signals.length * 100);
+  if (presentCount === 0) {
+    issues.push({
+      ...ISSUE_DEFINITIONS.NO_AGENT_EXPERIENCE_SURFACE,
+      affectedUrls: [baseUrl],
+      details: { checkedPaths: SIGNAL_PATHS.map((s) => s.path) }
     });
-    return { success: true, data: meta };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Error extracting meta"
-    };
   }
+  return { issues, data: { signals, score } };
 }
-async function analyzeHeadings(params) {
-  const { html } = params;
+
+// src/audit/checks/ai-readiness.ts
+async function checkLlmsTxt(baseUrl) {
+  const issues = [];
+  const url = new URL("/llms.txt", baseUrl).href;
   try {
-    const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
-    const headings = [];
-    $("h1, h2, h3, h4, h5, h6").each((_, el) => {
-      const tag = el.tagName.toLowerCase();
-      headings.push({
-        tag,
-        text: $(el).text().trim(),
-        level: parseInt(tag.charAt(1), 10)
-      });
-    });
-    return { success: true, data: headings };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Error analyzing headings"
-    };
-  }
-}
-async function extractImages(params) {
-  const { html } = params;
-  try {
-    const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
-    const images = [];
-    $("img").each((_, el) => {
-      images.push({
-        src: $(el).attr("src") || "",
-        alt: $(el).attr("alt") || null,
-        width: $(el).attr("width"),
-        height: $(el).attr("height"),
-        loading: $(el).attr("loading")
-      });
-    });
-    return { success: true, data: images };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Error extracting images"
-    };
-  }
-}
-async function extractLinks(params) {
-  const { html, baseUrl } = params;
-  try {
-    const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
-    const links = [];
-    const baseHostname = new URL(baseUrl).hostname;
-    $("a[href]").each((_, el) => {
-      const href = $(el).attr("href") || "";
-      const rel = $(el).attr("rel") || "";
-      let isInternal = false;
-      try {
-        if (href.startsWith("/") || href.startsWith("#")) {
-          isInternal = true;
-        } else {
-          const linkHostname = new URL(href).hostname;
-          isInternal = linkHostname === baseHostname;
-        }
-      } catch {
-        isInternal = true;
-      }
-      links.push({
-        href,
-        text: $(el).text().trim(),
-        isInternal,
-        isNofollow: rel.includes("nofollow")
-      });
-    });
-    return { success: true, data: links };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Error extracting links"
-    };
-  }
-}
-async function extractSchema(params) {
-  const { html } = params;
-  try {
-    const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
-    const schemas = [];
-    $('script[type="application/ld+json"]').each((_, el) => {
-      try {
-        const content = $(el).html();
-        if (content) {
-          const data = JSON.parse(content);
-          schemas.push({
-            type: data["@type"] || "Unknown",
-            data
-          });
-        }
-      } catch {
-      }
-    });
-    return { success: true, data: schemas };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Error extracting schema"
-    };
-  }
-}
-async function checkRobots(params) {
-  try {
-    const baseUrl = new URL(params.url);
-    const robotsUrl = `${baseUrl.protocol}//${baseUrl.host}/robots.txt`;
-    const response = await httpGet(robotsUrl, {
+    const response = await (0,_chunk_SWTM7CDR_mjs__WEBPACK_IMPORTED_MODULE_1__/* .httpGet */ .lx)(url, {
       timeout: 1e4,
       validateStatus: () => true
     });
-    if (response.status === 200) {
+    if (response.status === 404 || response.status >= 400) {
+      issues.push({
+        ...ISSUE_DEFINITIONS.LLMS_TXT_MISSING,
+        affectedUrls: [url]
+      });
       return {
-        success: true,
-        data: {
-          exists: true,
-          content: response.data,
-          url: robotsUrl
-        }
+        issues,
+        data: { exists: false, valid: false, errors: ["File not found"] }
       };
     }
+    const content = response.data;
+    if ((0,_chunk_SWTM7CDR_mjs__WEBPACK_IMPORTED_MODULE_1__/* .looksLikeHtmlFallback */ .Bp)(content, response.headers?.["content-type"])) {
+      issues.push({
+        ...ISSUE_DEFINITIONS.LLMS_TXT_MISSING,
+        affectedUrls: [url]
+      });
+      return { issues, data: { exists: false, valid: false, errors: ["File not found (the site served HTML)"] } };
+    }
+    const lines = content.split("\n").filter((line) => line.trim());
+    const errors = [];
+    let valid = true;
+    if (lines.length === 0) {
+      errors.push("File is empty");
+      valid = false;
+    } else if (!lines[0].startsWith("#")) {
+      errors.push("File should start with a markdown heading (# Site Name)");
+      valid = false;
+    }
+    const hasDescription = content.toLowerCase().includes("## ") || content.length > 50;
+    if (!hasDescription) {
+      errors.push("File should contain meaningful content describing your site for AI");
+      valid = false;
+    }
+    if (!valid) {
+      issues.push({
+        ...ISSUE_DEFINITIONS.LLMS_TXT_INVALID,
+        affectedUrls: [url],
+        details: { errors }
+      });
+    }
     return {
-      success: true,
-      data: {
-        exists: false,
-        url: robotsUrl
-      }
+      issues,
+      data: { exists: true, content, valid, errors }
     };
   } catch (error) {
+    issues.push({
+      ...ISSUE_DEFINITIONS.LLMS_TXT_MISSING,
+      affectedUrls: [url],
+      details: { error: error instanceof Error ? error.message : "Unknown error" }
+    });
     return {
-      success: false,
-      error: error instanceof Error ? error.message : "Error checking robots.txt"
+      issues,
+      data: { exists: false, valid: false, errors: ["Failed to fetch"] }
     };
   }
 }
-async function checkSitemap(params) {
-  try {
-    const baseUrl = new URL(params.url);
-    const sitemapUrls = [
-      `${baseUrl.protocol}//${baseUrl.host}/sitemap.xml`,
-      `${baseUrl.protocol}//${baseUrl.host}/sitemap_index.xml`,
-      `${baseUrl.protocol}//${baseUrl.host}/sitemap/sitemap.xml`
-    ];
-    for (const sitemapUrl of sitemapUrls) {
-      try {
-        const response = await httpGet(sitemapUrl, {
-          timeout: 1e4
-        });
-        if (response.status === 200 && response.data.includes("<?xml")) {
-          const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(response.data, { xmlMode: true });
-          const urlCount = $("url").length || $("sitemap").length;
-          return {
-            success: true,
-            data: {
-              exists: true,
-              url: sitemapUrl,
-              urlCount,
-              content: response.data.substring(0, 2e3)
-              // First 2KB
-            }
-          };
-        }
-      } catch {
-      }
+function parseContentSignal(robotsTxtContent) {
+  for (const line of robotsTxtContent.split("\n")) {
+    const trimmed = line.trim();
+    if (trimmed.toLowerCase().startsWith("content-signal:")) {
+      return trimmed.substring(trimmed.indexOf(":") + 1).trim();
     }
-    return {
-      success: true,
-      data: {
-        exists: false
-      }
-    };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Error checking sitemap"
-    };
   }
+  return null;
+}
+function parseRobotsGroups(content) {
+  const groups = /* @__PURE__ */ new Map();
+  let current = [];
+  let lastWasAgent = false;
+  for (const raw of content.split("\n")) {
+    const line = raw.replace(/#.*$/, "").trim();
+    if (!line) continue;
+    const colon = line.indexOf(":");
+    if (colon === -1) continue;
+    const directive = line.slice(0, colon).trim().toLowerCase();
+    const value = line.slice(colon + 1).trim();
+    if (directive === "user-agent") {
+      if (!lastWasAgent) current = [];
+      current.push(value.toLowerCase());
+      lastWasAgent = true;
+      for (const token of current) if (!groups.has(token)) groups.set(token, { disallowAll: false, allowRoot: false });
+      continue;
+    }
+    lastWasAgent = false;
+    if (directive === "disallow" && (value === "/" || value === "/*")) {
+      for (const token of current) groups.get(token).disallowAll = true;
+    } else if (directive === "allow" && (value === "/" || value === "/*")) {
+      for (const token of current) groups.get(token).allowRoot = true;
+    }
+  }
+  return groups;
+}
+function isDisallowed(bot, groups) {
+  const own = bot.robotsTokens.map((token) => groups.get(token)).filter((g) => !!g);
+  if (own.length > 0) return own.some((g) => g.disallowAll) && !own.some((g) => g.allowRoot);
+  const star = groups.get("*");
+  return !!star?.disallowAll;
+}
+function emptyClasses() {
+  return {
+    search: { allowed: [], disallowed: [] },
+    "ai-search": { allowed: [], disallowed: [] },
+    user: { allowed: [], disallowed: [] },
+    training: { allowed: [], disallowed: [] }
+  };
+}
+function allAllowed(robotsExists) {
+  const classes = emptyClasses();
+  for (const bot of KNOWN_BOTS) classes[bot.class].allowed.push(bot.name);
+  return { robotsExists, blockedBots: [], allowedBots: KNOWN_BOTS.map((b) => b.name), allBlocked: false, contentSignal: null, classes };
+}
+async function checkAIBotBlocking(baseUrl) {
+  const issues = [];
+  const url = new URL("/robots.txt", baseUrl).href;
+  let content;
+  try {
+    const response = await (0,_chunk_SWTM7CDR_mjs__WEBPACK_IMPORTED_MODULE_1__/* .httpGet */ .lx)(url, { timeout: 1e4, validateStatus: () => true });
+    if (response.status >= 400 || (0,_chunk_SWTM7CDR_mjs__WEBPACK_IMPORTED_MODULE_1__/* .looksLikeHtmlFallback */ .Bp)(response.data, response.headers?.["content-type"])) {
+      return { issues, data: allAllowed(false) };
+    }
+    content = response.data;
+  } catch {
+    return { issues, data: allAllowed(false) };
+  }
+  const groups = parseRobotsGroups(content);
+  const classes = emptyClasses();
+  const blockedBots = [];
+  const allowedBots = [];
+  for (const bot of KNOWN_BOTS) {
+    if (isDisallowed(bot, groups)) {
+      classes[bot.class].disallowed.push(bot.name);
+      blockedBots.push(bot.name);
+    } else {
+      classes[bot.class].allowed.push(bot.name);
+      allowedBots.push(bot.name);
+    }
+  }
+  const aiBots = KNOWN_BOTS.filter((bot) => bot.class !== "search");
+  const allBlocked = aiBots.every((bot) => blockedBots.includes(bot.name));
+  const names = (cls) => classes[cls].disallowed.join(", ");
+  if (allBlocked) {
+    issues.push({
+      ...ISSUE_DEFINITIONS.AI_BOT_BLOCKED_ALL,
+      affectedUrls: [url],
+      details: { blockedBots, classes }
+    });
+  } else {
+    if (classes["ai-search"].disallowed.length > 0) {
+      issues.push({
+        ...ISSUE_DEFINITIONS.AI_SEARCH_BOTS_DISALLOWED,
+        description: `robots.txt disallows ${names("ai-search")}. ${ISSUE_DEFINITIONS.AI_SEARCH_BOTS_DISALLOWED.description}`,
+        affectedUrls: [url],
+        details: { disallowed: classes["ai-search"].disallowed }
+      });
+    }
+    if (classes.user.disallowed.length > 0) {
+      issues.push({
+        ...ISSUE_DEFINITIONS.AI_USER_FETCH_DISALLOWED,
+        description: `robots.txt disallows ${names("user")}. ${ISSUE_DEFINITIONS.AI_USER_FETCH_DISALLOWED.description}`,
+        affectedUrls: [url],
+        details: { disallowed: classes.user.disallowed }
+      });
+    }
+    if (classes.training.disallowed.length > 0) {
+      issues.push({
+        ...ISSUE_DEFINITIONS.AI_TRAINING_BOTS_DISALLOWED,
+        description: `robots.txt disallows ${names("training")}. ${ISSUE_DEFINITIONS.AI_TRAINING_BOTS_DISALLOWED.description}`,
+        affectedUrls: [url],
+        details: { disallowed: classes.training.disallowed }
+      });
+    }
+  }
+  return {
+    issues,
+    data: { robotsExists: true, blockedBots, allowedBots, allBlocked, contentSignal: parseContentSignal(content), classes }
+  };
+}
+function checkJSRenderingRatio(html, url) {
+  const issues = [];
+  const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
+  $("script, style, noscript").remove();
+  const staticText = $("body").text().replace(/\s+/g, " ").trim();
+  const staticWordCount = staticText.split(/\s+/).filter((word) => word.length > 0).length;
+  const hasReactRoot = $("#root, #app, #__next, [data-reactroot]").length > 0;
+  const hasVueApp = $("#app[data-v-app], [data-v-]").length > 0;
+  const hasAngularApp = $("[ng-app], [data-ng-app]").length > 0;
+  const hasEmptyBody = staticWordCount < 50;
+  let ratio = 0;
+  if (hasEmptyBody && (hasReactRoot || hasVueApp || hasAngularApp)) {
+    ratio = 90;
+  } else if (hasReactRoot || hasVueApp || hasAngularApp) {
+    ratio = 50;
+  } else if (staticWordCount < 100) {
+    ratio = 60;
+  } else {
+    ratio = 10;
+  }
+  const hasNoScript = $("noscript").length > 0;
+  if (hasNoScript && ratio > 50) {
+    ratio -= 20;
+  }
+  if (ratio > 50) {
+    issues.push({
+      ...ISSUE_DEFINITIONS.HIGH_JS_RENDERING_RATIO,
+      affectedUrls: [url],
+      details: { ratio: `${ratio}%`, staticWordCount }
+    });
+  }
+  return {
+    issues,
+    data: { ratio, staticWordCount }
+  };
+}
+async function checkCloudflareAICrawlerGate(baseUrl, botBlocking) {
+  const issues = [];
+  let behindCloudflare = false;
+  try {
+    const response = await (0,_chunk_SWTM7CDR_mjs__WEBPACK_IMPORTED_MODULE_1__/* .httpGet */ .lx)(baseUrl, {
+      timeout: 1e4,
+      validateStatus: () => true
+    });
+    const server = response.headers["server"] || "";
+    behindCloudflare = server.toLowerCase().includes("cloudflare") || "cf-ray" in response.headers;
+  } catch {
+    behindCloudflare = false;
+  }
+  const hasExplicitAIRules = botBlocking.robotsExists && (botBlocking.blockedBots.length > 0 || !!botBlocking.contentSignal);
+  const ambiguous = behindCloudflare && !hasExplicitAIRules;
+  if (ambiguous) {
+    issues.push({
+      ...ISSUE_DEFINITIONS.CLOUDFLARE_AI_CRAWLER_GATE_AMBIGUOUS,
+      affectedUrls: [baseUrl]
+    });
+  }
+  return {
+    issues,
+    data: { behindCloudflare, hasExplicitAIRules, ambiguous }
+  };
+}
+async function runAIReadinessChecks(baseUrl, html) {
+  const allIssues = [];
+  const llmsResult = await checkLlmsTxt(baseUrl);
+  allIssues.push(...llmsResult.issues);
+  const botResult = await checkAIBotBlocking(baseUrl);
+  allIssues.push(...botResult.issues);
+  const jsResult = checkJSRenderingRatio(html, baseUrl);
+  allIssues.push(...jsResult.issues);
+  const cfGateResult = await checkCloudflareAICrawlerGate(baseUrl, botResult.data);
+  allIssues.push(...cfGateResult.issues);
+  const agentExperienceResult = await checkAgentExperience(baseUrl);
+  allIssues.push(...agentExperienceResult.issues);
+  return {
+    issues: allIssues,
+    data: {
+      llmsTxt: llmsResult.data,
+      botBlocking: botResult.data,
+      jsRenderingRatio: jsResult.data.ratio,
+      cloudflareAIGate: cfGateResult.data,
+      agentExperience: agentExperienceResult.data
+    }
+  };
 }
 
-// src/tools/analyzer.ts
-async function analyzeUrl(params) {
-  const { url } = params;
-  const issues = [];
-  try {
-    const crawlResult = await crawlUrl({ url });
-    if (!crawlResult.success || !crawlResult.data) {
-      return { success: false, error: `Failed to crawl URL: ${crawlResult.error}` };
+// src/analyzers/geo-analyzer.ts
+
+var AI_CRAWLERS = Object.fromEntries(
+  KNOWN_BOTS.map((bot) => [
+    bot.name,
+    {
+      userAgent: bot.name,
+      company: BOT_OPERATOR[bot.name] ?? "",
+      purpose: `${BOT_CLASS_LABEL[bot.class].replace(/s$/, "")}: blocking it costs ${bot.loses}`,
+      class: bot.class,
+      loses: bot.loses
     }
-    const { html, statusCode, loadTime } = crawlResult.data;
-    if (statusCode !== 200) {
-      issues.push({
-        severity: "critical",
-        category: "technical",
-        code: "HTTP_ERROR",
-        message: `Page returned HTTP ${statusCode}`,
-        impact: "Search engines cannot index pages that return error codes"
-      });
-    }
-    const metaResult = await extractMeta({ html, url });
-    if (metaResult.success && metaResult.data) {
-      const meta = metaResult.data;
-      analyzeMeta(meta, url, issues);
-    }
-    const headingsResult = await analyzeHeadings({ html });
-    if (headingsResult.success && headingsResult.data) {
-      const headings = headingsResult.data;
-      analyzeHeadingStructure(headings, issues);
-    }
-    const imagesResult = await extractImages({ html });
-    if (imagesResult.success && imagesResult.data) {
-      const images = imagesResult.data;
-      analyzeImages(images, issues);
-    }
-    const schemaResult = await extractSchema({ html });
-    if (schemaResult.success) {
-      const schemas = schemaResult.data;
-      if (!schemas || schemas.length === 0) {
-        issues.push({
-          severity: "warning",
-          category: "schema",
-          code: "MISSING_SCHEMA",
-          message: "No JSON-LD structured data found",
-          impact: "Missing rich snippets in search results. Add Schema.org markup for your content type."
-        });
-      }
-    }
-    const robotsResult = await checkRobots({ url });
-    if (robotsResult.success) {
-      const robots = robotsResult.data;
-      if (!robots.exists) {
-        issues.push({
-          severity: "warning",
-          category: "technical",
-          code: "MISSING_ROBOTS",
-          message: "No robots.txt file found",
-          impact: "Provide crawling instructions to search engines with robots.txt"
-        });
-      }
-    }
-    const sitemapResult = await checkSitemap({ url });
-    if (sitemapResult.success) {
-      const sitemap = sitemapResult.data;
-      if (!sitemap.exists) {
-        issues.push({
-          severity: "warning",
-          category: "technical",
-          code: "MISSING_SITEMAP",
-          message: "No sitemap.xml found",
-          impact: "Sitemap helps search engines discover and index all your pages"
-        });
-      }
-    }
-    if (loadTime > 3e3) {
-      issues.push({
-        severity: loadTime > 5e3 ? "critical" : "warning",
-        category: "performance",
-        code: "SLOW_LOAD_TIME",
-        message: `Page load time is ${(loadTime / 1e3).toFixed(1)}s`,
-        impact: "Slow pages hurt user experience and search rankings. Target <2.5s LCP."
-      });
-    }
-    const score = calculateScore(issues);
-    const result = {
-      url,
-      score,
-      issues,
-      recommendations: generateRecommendations(issues)
-    };
-    return { success: true, data: result };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Analysis failed"
-    };
-  }
-}
-function analyzeMeta(meta, url, issues) {
-  if (!meta.title) {
-    issues.push({
-      severity: "critical",
-      category: "meta",
-      code: "MISSING_TITLE",
-      message: "Missing title tag",
-      impact: "Title is the most important on-page SEO element. Every page needs a unique title.",
-      fix: {
-        file: "index.html",
-        before: null,
-        after: "<title>Your Page Title - Brand Name</title>"
-      }
-    });
-  } else if (meta.title.length < 30) {
-    issues.push({
-      severity: "warning",
-      category: "meta",
-      code: "TITLE_TOO_SHORT",
-      message: `Title too short (${meta.title.length} chars)`,
-      impact: "Longer titles provide more context. Aim for 50-60 characters.",
-      element: meta.title
-    });
-  } else if (meta.title.length > 60) {
-    issues.push({
-      severity: "warning",
-      category: "meta",
-      code: "TITLE_TOO_LONG",
-      message: `Title too long (${meta.title.length} chars)`,
-      impact: "Titles over 60 characters get truncated in search results.",
-      element: meta.title.substring(0, 60) + "..."
-    });
-  }
-  if (!meta.description) {
-    issues.push({
-      severity: "critical",
-      category: "meta",
-      code: "MISSING_META_DESC",
-      message: "Missing meta description",
-      impact: "Meta description appears in search results and affects click-through rate.",
-      fix: {
-        file: "index.html",
-        before: null,
-        after: '<meta name="description" content="A compelling description of your page in 150-160 characters." />'
-      }
-    });
-  } else if (meta.description.length < 120) {
-    issues.push({
-      severity: "warning",
-      category: "meta",
-      code: "META_DESC_TOO_SHORT",
-      message: `Meta description too short (${meta.description.length} chars)`,
-      impact: "Aim for 150-160 characters for optimal display in search results."
-    });
-  } else if (meta.description.length > 160) {
-    issues.push({
-      severity: "info",
-      category: "meta",
-      code: "META_DESC_TOO_LONG",
-      message: `Meta description may be truncated (${meta.description.length} chars)`,
-      impact: "Descriptions over 160 characters may be cut off in search results."
-    });
-  }
-  if (!meta.canonical) {
-    issues.push({
-      severity: "warning",
-      category: "technical",
-      code: "MISSING_CANONICAL",
-      message: "No canonical URL specified",
-      impact: "Canonical tags prevent duplicate content issues.",
-      fix: {
-        file: "index.html",
-        before: null,
-        after: `<link rel="canonical" href="${url}" />`
-      }
-    });
-  }
-  if (!meta.viewport) {
-    issues.push({
-      severity: "critical",
-      category: "technical",
-      code: "MISSING_VIEWPORT",
-      message: "Missing viewport meta tag",
-      impact: "Required for mobile-friendly pages. Google uses mobile-first indexing.",
-      fix: {
-        file: "index.html",
-        before: null,
-        after: '<meta name="viewport" content="width=device-width, initial-scale=1" />'
-      }
-    });
-  }
-  const missingOG = [];
-  if (!meta.openGraph.title) missingOG.push("og:title");
-  if (!meta.openGraph.description) missingOG.push("og:description");
-  if (!meta.openGraph.image) missingOG.push("og:image");
-  if (missingOG.length > 0) {
-    issues.push({
-      severity: "warning",
-      category: "social",
-      code: "MISSING_OG_TAGS",
-      message: `Missing Open Graph tags: ${missingOG.join(", ")}`,
-      impact: "Open Graph tags control how your page appears when shared on social media."
-    });
-  }
-  if (!meta.twitter.card) {
-    issues.push({
-      severity: "info",
-      category: "social",
-      code: "MISSING_TWITTER_CARD",
-      message: "Missing Twitter Card meta tags",
-      impact: "Twitter/X cards improve visibility when your content is shared."
-    });
-  }
-}
-function analyzeHeadingStructure(headings, issues) {
-  const h1s = headings.filter((h) => h.level === 1);
-  if (h1s.length === 0) {
-    issues.push({
-      severity: "critical",
-      category: "content",
-      code: "MISSING_H1",
-      message: "No H1 heading found",
-      impact: "Every page should have exactly one H1 that describes the main content."
-    });
-  } else if (h1s.length > 1) {
-    issues.push({
-      severity: "warning",
-      category: "content",
-      code: "MULTIPLE_H1",
-      message: `Multiple H1 headings found (${h1s.length})`,
-      impact: "Best practice is one H1 per page. Use H2-H6 for subsections.",
-      element: h1s.map((h) => h.text).join(", ")
-    });
-  }
-  let prevLevel = 0;
-  for (const h of headings) {
-    if (h.level > prevLevel + 1 && prevLevel > 0) {
-      issues.push({
-        severity: "info",
-        category: "content",
-        code: "SKIPPED_HEADING_LEVEL",
-        message: `Skipped heading level: H${prevLevel} to H${h.level}`,
-        impact: "Maintain proper heading hierarchy for accessibility and SEO."
-      });
-      break;
-    }
-    prevLevel = h.level;
-  }
-}
-function analyzeImages(images, issues) {
-  const missingAlt = images.filter((img) => !img.alt);
-  if (missingAlt.length > 0) {
-    issues.push({
-      severity: "warning",
-      category: "accessibility",
-      code: "IMAGES_MISSING_ALT",
-      message: `${missingAlt.length} image(s) missing alt text`,
-      impact: "Alt text is essential for accessibility and helps search engines understand images.",
-      element: missingAlt.slice(0, 3).map((i) => i.src).join(", ")
-    });
-  }
-  const missingDimensions = images.filter((img) => !img.width || !img.height);
-  if (missingDimensions.length > 0) {
-    issues.push({
-      severity: "info",
-      category: "performance",
-      code: "IMAGES_MISSING_DIMENSIONS",
-      message: `${missingDimensions.length} image(s) missing width/height`,
-      impact: "Specifying dimensions prevents layout shift (CLS)."
-    });
-  }
-}
-function calculateScore(issues) {
-  const weights = {
-    critical: 15,
-    warning: 5,
-    info: 1
+  ])
+);
+function analyzeRobotsTxtForAI(robotsTxt) {
+  const groups = parseRobotsGroups(robotsTxt);
+  const byClass = {
+    search: { allowed: [], blocked: [] },
+    "ai-search": { allowed: [], blocked: [] },
+    user: { allowed: [], blocked: [] },
+    training: { allowed: [], blocked: [] }
   };
-  let totalDeduction = 0;
-  for (const issue of issues) {
-    totalDeduction += weights[issue.severity];
+  for (const bot of KNOWN_BOTS) {
+    (isDisallowed(bot, groups) ? byClass[bot.class].blocked : byClass[bot.class].allowed).push(bot.name);
   }
-  return Math.max(0, Math.min(100, 100 - totalDeduction));
-}
-function generateRecommendations(issues) {
+  const blocked = Object.keys(byClass).flatMap((cls) => byClass[cls].blocked);
+  const allowed = Object.keys(byClass).flatMap((cls) => byClass[cls].allowed);
   const recommendations = [];
-  const criticalCount = issues.filter((i) => i.severity === "critical").length;
-  const warningCount = issues.filter((i) => i.severity === "warning").length;
-  if (criticalCount > 0) {
-    recommendations.push({
-      priority: "high",
-      category: "immediate",
-      message: `Fix ${criticalCount} critical issue(s) first`,
-      impact: "Critical issues directly impact search visibility"
-    });
+  const list = (cls) => byClass[cls].blocked.join(", ");
+  if (byClass.search.blocked.length > 0) {
+    recommendations.push(`\u{1F6A8} ${list("search")} disallowed: the site is out of the index that most AI answers draw from, not only out of search.`);
   }
-  if (issues.some((i) => i.code === "MISSING_SCHEMA")) {
-    recommendations.push({
-      priority: "high",
-      category: "schema",
-      message: "Add JSON-LD structured data",
-      impact: "Enable rich snippets in search results"
-    });
+  if (byClass["ai-search"].blocked.length > 0) {
+    recommendations.push(`\u26A0\uFE0F ${list("ai-search")} disallowed: the site is out of those assistants' answers (OpenAI: a site opted out of OAI-SearchBot is not shown in ChatGPT search answers). Allow them in their own group; an Allow there wins over a wildcard Disallow.`);
   }
-  if (issues.some((i) => i.code.includes("OG") || i.code.includes("TWITTER"))) {
-    recommendations.push({
-      priority: "medium",
-      category: "social",
-      message: "Complete social media meta tags",
-      impact: "Improve appearance when shared on social platforms"
-    });
+  if (byClass.user.blocked.length > 0) {
+    recommendations.push(`\u26A0\uFE0F ${list("user")} disallowed: these fetch one page because a user asked about it, so the assistant answers "I cannot access that page".`);
   }
-  if (warningCount > 3) {
-    recommendations.push({
-      priority: "medium",
-      category: "optimization",
-      message: `Address ${warningCount} warnings to improve score`,
-      impact: "Each fix improves overall SEO health"
-    });
+  if (byClass.training.blocked.length > 0) {
+    recommendations.push(`\u2139\uFE0F ${list("training")} disallowed: training crawlers only. No search or answer visibility is lost; keep it if that is the policy.`);
   }
-  return recommendations;
+  if (recommendations.length === 0) {
+    recommendations.push("\u2705 Every crawler class is allowed in robots.txt. A CDN or WAF can still refuse them in front of the origin; `rankcli audit` fetches as each bot to check.");
+  }
+  return { allowed, blocked, byClass, recommendations };
 }
+function detectRenderingMode(html) {
+  const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
+  const signals = [];
+  const hasNextData = html.includes("__NEXT_DATA__");
+  const hasNuxtData = html.includes("__NUXT__");
+  const hasGatsbyData = html.includes("___gatsby");
+  const hasAstroIsland = html.includes("astro-island");
+  const bodyText = $("body").text().replace(/\s+/g, " ").trim();
+  const hasMinimalContent = bodyText.length < 200;
+  const hasRootDiv = $("#root, #app, #__next, #__nuxt").length > 0;
+  const hasReactRoot = $("[data-reactroot]").length > 0;
+  const hasPrerender = $('meta[name="prerender-status-code"]').length > 0 || $('meta[name="fragment"]').attr("content") === "!";
+  const paragraphs = $("p").length;
+  const headings = $("h1, h2, h3, h4, h5, h6").length;
+  const hasSubstantialContent = paragraphs > 2 || headings > 2;
+  let serverSideRendered = false;
+  let jsRenderingRequired = false;
+  if (hasNextData || hasNuxtData || hasGatsbyData || hasAstroIsland) {
+    serverSideRendered = true;
+    signals.push("Meta-framework SSR detected");
+  }
+  if (hasMinimalContent && hasRootDiv) {
+    jsRenderingRequired = true;
+    signals.push("SPA with minimal server content detected");
+  }
+  if (hasSubstantialContent) {
+    serverSideRendered = true;
+    signals.push("Substantial HTML content present");
+  }
+  if (hasReactRoot && !hasNextData && hasMinimalContent) {
+    jsRenderingRequired = true;
+    signals.push("Client-side React app detected");
+  }
+  return {
+    serverSideRendered,
+    jsRenderingRequired,
+    hasPrerendering: hasPrerender,
+    contentInHTML: hasSubstantialContent,
+    signals
+  };
+}
+function analyzeContentStructure(html) {
+  const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
+  const jsonLdScripts = $('script[type="application/ld+json"]');
+  let hasStructuredData = jsonLdScripts.length > 0;
+  let hasFAQSchema = false;
+  let hasHowToSchema = false;
+  let hasArticleSchema = false;
+  let hasProductSchema = false;
+  jsonLdScripts.each((_, el) => {
+    try {
+      const content = $(el).html() || "";
+      if (content.includes('"FAQPage"') || content.includes('"@type":"FAQPage"')) {
+        hasFAQSchema = true;
+      }
+      if (content.includes('"HowTo"') || content.includes('"@type":"HowTo"')) {
+        hasHowToSchema = true;
+      }
+      if (content.includes('"Article"') || content.includes('"BlogPosting"') || content.includes('"NewsArticle"')) {
+        hasArticleSchema = true;
+      }
+      if (content.includes('"Product"')) {
+        hasProductSchema = true;
+      }
+    } catch {
+    }
+  });
+  const hasBreadcrumbs = $('[itemtype*="BreadcrumbList"], .breadcrumb, .breadcrumbs, nav[aria-label*="breadcrumb"]').length > 0 || html.includes('"BreadcrumbList"');
+  const h1Count = $("h1").length;
+  const h2Count = $("h2").length;
+  const h3Count = $("h3").length;
+  let headingHierarchy = "poor";
+  if (h1Count === 1 && h2Count >= 2 && h3Count >= 0) {
+    headingHierarchy = "good";
+  } else if (h1Count === 1 && h2Count >= 1) {
+    headingHierarchy = "needs-work";
+  }
+  const contentSections = $('section, article, .section, [class*="section"]').length;
+  const listsAndTables = $("ul, ol, table, dl").length;
+  return {
+    hasStructuredData,
+    hasFAQSchema,
+    hasHowToSchema,
+    hasArticleSchema,
+    hasProductSchema,
+    hasBreadcrumbs,
+    headingHierarchy,
+    contentSections,
+    listsAndTables
+  };
+}
+function analyzeCitationReadiness(html) {
+  const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
+  const bodyText = $("body").text();
+  const hasCitations = $('cite, blockquote, [class*="citation"], [class*="reference"]').length > 0 || /\[\d+\]|\(\d{4}\)/.test(bodyText);
+  const externalLinks = $('a[href^="http"]').filter((_, el) => {
+    const href = $(el).attr("href") || "";
+    return !href.includes(new URL(href).hostname);
+  });
+  const hasExternalLinks = externalLinks.length > 0;
+  const hasStatistics = /\d+%|\d+\s*(million|billion|thousand)|increased by \d+|decreased by \d+/i.test(bodyText);
+  const hasQuotes = $("blockquote, q").length > 0 || /"[^"]{20,}"/.test(bodyText);
+  const hasAuthorInfo = $('[rel="author"], .author, [class*="author"], [itemtype*="Person"]').length > 0 || $('meta[name="author"]').length > 0;
+  const hasPublishDate = $('time[datetime], meta[property="article:published_time"], .publish-date, .date').length > 0;
+  const hasLastModified = $('meta[property="article:modified_time"], .updated, .modified').length > 0;
+  const trustSignals = [];
+  if (hasCitations) trustSignals.push("Citations present");
+  if (hasExternalLinks) trustSignals.push("External source links");
+  if (hasStatistics) trustSignals.push("Statistical data");
+  if (hasQuotes) trustSignals.push("Expert quotes");
+  if (hasAuthorInfo) trustSignals.push("Author attribution");
+  if (hasPublishDate) trustSignals.push("Publish date");
+  if (hasLastModified) trustSignals.push("Last modified date");
+  return {
+    hasCitations,
+    hasExternalLinks,
+    hasStatistics,
+    hasQuotes,
+    hasAuthorInfo,
+    hasPublishDate,
+    hasLastModified,
+    trustSignals
+  };
+}
+function analyzeEntityExtraction(html) {
+  const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
+  const bodyText = $("body").text();
+  const definedTerms = [];
+  $("dfn, abbr[title]").each((_, el) => {
+    const term = $(el).text().trim();
+    if (term) definedTerms.push(term);
+  });
+  const hasDefinitions = /is defined as|refers to|means that|is the process of/i.test(bodyText) || $('dfn, .definition, [class*="definition"]').length > 0;
+  const hasComparisons = /compared to|versus|vs\.|unlike|similar to|difference between/i.test(bodyText) || $('table[class*="comparison"], .comparison, [class*="versus"]').length > 0;
+  let questionAnswerPairs = 0;
+  $('details, .faq-item, [class*="question"], [class*="accordion"]').each(() => {
+    questionAnswerPairs++;
+  });
+  $("h2, h3, h4").each((_, el) => {
+    const text = $(el).text();
+    if (/^(what|how|why|when|where|who|which|can|does|is|are|should|will)\s/i.test(text) || text.endsWith("?")) {
+      questionAnswerPairs++;
+    }
+  });
+  const namedEntities = [];
+  $("strong, b").each((_, el) => {
+    const text = $(el).text().trim();
+    if (text.length > 2 && text.length < 50 && /^[A-Z]/.test(text)) {
+      if (!namedEntities.includes(text)) namedEntities.push(text);
+    }
+  });
+  return {
+    namedEntities: namedEntities.slice(0, 20),
+    // Limit to top 20
+    definedTerms,
+    hasDefinitions,
+    hasComparisons,
+    questionAnswerPairs
+  };
+}
+function calculateLLMSignals(structure, citation, entity, html) {
+  const $ = cheerio__WEBPACK_IMPORTED_MODULE_0__/* .load */ .Hh(html);
+  let contentClarity = 0;
+  if (structure.headingHierarchy === "good") contentClarity += 30;
+  else if (structure.headingHierarchy === "needs-work") contentClarity += 15;
+  contentClarity += Math.min(structure.listsAndTables * 5, 25);
+  contentClarity += Math.min(structure.contentSections * 5, 20);
+  if (structure.hasBreadcrumbs) contentClarity += 10;
+  contentClarity += entity.hasDefinitions ? 15 : 0;
+  contentClarity = Math.min(contentClarity, 100);
+  let factDensity = 0;
+  if (citation.hasStatistics) factDensity += 25;
+  if (citation.hasCitations) factDensity += 20;
+  if (citation.hasExternalLinks) factDensity += 15;
+  if (citation.hasQuotes) factDensity += 15;
+  factDensity += Math.min(entity.questionAnswerPairs * 5, 25);
+  factDensity = Math.min(factDensity, 100);
+  let structureQuality = 0;
+  if (structure.hasStructuredData) structureQuality += 25;
+  if (structure.hasFAQSchema) structureQuality += 20;
+  if (structure.hasArticleSchema) structureQuality += 15;
+  if (structure.hasHowToSchema) structureQuality += 15;
+  if (structure.hasProductSchema) structureQuality += 10;
+  structureQuality += structure.headingHierarchy === "good" ? 15 : 0;
+  structureQuality = Math.min(structureQuality, 100);
+  let citationQuality = 0;
+  citationQuality += citation.trustSignals.length * 12;
+  if (citation.hasAuthorInfo) citationQuality += 15;
+  if (citation.hasPublishDate && citation.hasLastModified) citationQuality += 15;
+  citationQuality = Math.min(citationQuality, 100);
+  const overallLLMFriendliness = Math.round(
+    contentClarity * 0.25 + factDensity * 0.25 + structureQuality * 0.3 + citationQuality * 0.2
+  );
+  return {
+    contentClarity,
+    factDensity,
+    structureQuality,
+    citationQuality,
+    overallLLMFriendliness
+  };
+}
+function generateGEOIssues(aiAccess, structure, citation, entity, llmSignals, url) {
+  const issues = [];
+  if (aiAccess.blockedCrawlers.length > 0) {
+    issues.push({
+      code: "GEO_AI_CRAWLERS_BLOCKED",
+      severity: "critical",
+      category: "technical",
+      title: `${aiAccess.blockedCrawlers.length} AI crawlers blocked in robots.txt`,
+      description: `The following AI crawlers are blocked: ${aiAccess.blockedCrawlers.join(", ")}. This prevents your content from appearing in AI search results.`,
+      impact: "Your content will NOT appear in ChatGPT, Perplexity, or Claude responses",
+      howToFix: `Update robots.txt to allow AI crawlers:
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /`,
+      affectedUrls: [url]
+    });
+  }
+  if (aiAccess.jsRenderingRequired && !aiAccess.hasPrerendering) {
+    issues.push({
+      code: "GEO_JS_RENDERING_REQUIRED",
+      severity: "critical",
+      category: "technical",
+      title: "JavaScript rendering required - AI crawlers see blank page",
+      description: "Your site requires JavaScript to render content. Most AI crawlers (GPTBot, PerplexityBot) do not execute JavaScript and will see a blank page.",
+      impact: "Zero visibility in AI search - crawlers cannot access your content",
+      howToFix: "Implement Server-Side Rendering (SSR) or Static Site Generation (SSG). For React: use Next.js. For Vue: use Nuxt. Alternatively, implement a prerendering service.",
+      affectedUrls: [url]
+    });
+  }
+  if (!structure.hasStructuredData) {
+    issues.push({
+      code: "GEO_NO_STRUCTURED_DATA",
+      severity: "warning",
+      category: "technical",
+      title: "No JSON-LD structured data found",
+      description: "Structured data helps AI systems understand your content's context, entities, and relationships.",
+      impact: "AI systems may misunderstand or skip your content",
+      howToFix: "Add JSON-LD structured data. At minimum, include Organization, WebPage, and Article/Product schemas.",
+      affectedUrls: [url]
+    });
+  }
+  if (!structure.hasFAQSchema && entity.questionAnswerPairs > 0) {
+    issues.push({
+      code: "GEO_MISSING_FAQ_SCHEMA",
+      severity: "warning",
+      category: "technical",
+      title: "Q&A content without FAQPage schema",
+      description: `Found ${entity.questionAnswerPairs} question-answer pairs but no FAQPage schema. FAQ schema is excellent for AI search visibility.`,
+      impact: "Missing opportunity for featured snippets and AI citations",
+      howToFix: "Add FAQPage schema markup for your Q&A content. This dramatically increases chances of being cited by AI.",
+      affectedUrls: [url]
+    });
+  }
+  if (structure.headingHierarchy === "poor") {
+    issues.push({
+      code: "GEO_POOR_HEADING_STRUCTURE",
+      severity: "warning",
+      category: "content",
+      title: "Poor heading hierarchy hurts AI understanding",
+      description: "AI systems use heading structure to understand content organization. Your page lacks a clear H1 \u2192 H2 \u2192 H3 hierarchy.",
+      impact: "AI may struggle to extract key topics and relationships",
+      howToFix: "Structure content with one H1 (main topic), multiple H2s (subtopics), and H3s (details). Use question-format headings where appropriate.",
+      affectedUrls: [url]
+    });
+  }
+  if (!citation.hasCitations && !citation.hasExternalLinks) {
+    issues.push({
+      code: "GEO_NO_CITATIONS",
+      severity: "warning",
+      category: "content",
+      title: "No citations or source references",
+      description: "AI systems prioritize content with verifiable sources and citations. Your page lacks external references.",
+      impact: "Lower trust score in AI ranking - may not be cited as authoritative",
+      howToFix: "Add citations, link to authoritative sources, include statistics with references, and add expert quotes.",
+      affectedUrls: [url]
+    });
+  }
+  if (!citation.hasAuthorInfo) {
+    issues.push({
+      code: "GEO_NO_AUTHOR_INFO",
+      severity: "info",
+      category: "content",
+      title: "Missing author attribution",
+      description: "Author information helps establish E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) for AI systems.",
+      impact: "Lower credibility score in AI ranking algorithms",
+      howToFix: "Add author byline, link to author bio/profile, and consider adding author schema markup.",
+      affectedUrls: [url]
+    });
+  }
+  if (!citation.hasPublishDate || !citation.hasLastModified) {
+    issues.push({
+      code: "GEO_NO_DATES",
+      severity: "info",
+      category: "content",
+      title: "Missing publish/update dates",
+      description: "AI systems consider content freshness. Pages without dates may be considered outdated.",
+      impact: "May be deprioritized for time-sensitive queries",
+      howToFix: 'Add visible publish date and "last updated" date. Include datePublished and dateModified in schema.',
+      affectedUrls: [url]
+    });
+  }
+  if (llmSignals.overallLLMFriendliness < 40) {
+    issues.push({
+      code: "GEO_LOW_LLM_SCORE",
+      severity: "warning",
+      category: "content",
+      title: `Low AI-friendliness score: ${llmSignals.overallLLMFriendliness}/100`,
+      description: "Your content structure and signals are not optimized for AI consumption. AI systems may struggle to extract and cite your content.",
+      impact: "Significantly reduced chances of appearing in AI search results",
+      howToFix: "Improve content structure (clear headings, lists, tables), add citations and statistics, include FAQ sections, and add comprehensive schema markup.",
+      affectedUrls: [url]
+    });
+  }
+  return issues;
+}
+async function analyzeGEO(html, url, robotsTxt) {
+  let aiCrawlerAccess = {
+    robotsTxtAllowsAI: true,
+    blockedCrawlers: [],
+    allowedCrawlers: Object.keys(AI_CRAWLERS),
+    hasPrerendering: false,
+    jsRenderingRequired: false,
+    serverSideRendered: true
+  };
+  if (robotsTxt) {
+    const robotsAnalysis = analyzeRobotsTxtForAI(robotsTxt);
+    aiCrawlerAccess.blockedCrawlers = robotsAnalysis.blocked;
+    aiCrawlerAccess.allowedCrawlers = robotsAnalysis.allowed;
+    aiCrawlerAccess.robotsTxtAllowsAI = robotsAnalysis.blocked.length === 0;
+  }
+  const renderingMode = detectRenderingMode(html);
+  aiCrawlerAccess.hasPrerendering = renderingMode.hasPrerendering;
+  aiCrawlerAccess.jsRenderingRequired = renderingMode.jsRenderingRequired;
+  aiCrawlerAccess.serverSideRendered = renderingMode.serverSideRendered;
+  const contentStructure = analyzeContentStructure(html);
+  const citationReadiness = analyzeCitationReadiness(html);
+  const entityExtraction = analyzeEntityExtraction(html);
+  const llmSignals = calculateLLMSignals(
+    contentStructure,
+    citationReadiness,
+    entityExtraction,
+    html
+  );
+  const issues = generateGEOIssues(
+    aiCrawlerAccess,
+    contentStructure,
+    citationReadiness,
+    entityExtraction,
+    llmSignals,
+    url
+  );
+  const recommendations = [];
+  if (aiCrawlerAccess.blockedCrawlers.length > 0) {
+    recommendations.push("\u{1F6A8} URGENT: Unblock AI crawlers in robots.txt");
+  }
+  if (aiCrawlerAccess.jsRenderingRequired) {
+    recommendations.push("\u{1F6A8} URGENT: Implement SSR/SSG for AI crawler access");
+  }
+  if (!contentStructure.hasFAQSchema && entityExtraction.questionAnswerPairs > 0) {
+    recommendations.push("Add FAQPage schema for your Q&A content");
+  }
+  if (!contentStructure.hasStructuredData) {
+    recommendations.push("Add JSON-LD structured data (Article, Organization)");
+  }
+  if (citationReadiness.trustSignals.length < 3) {
+    recommendations.push("Add more trust signals: citations, statistics, author info");
+  }
+  if (contentStructure.listsAndTables < 2) {
+    recommendations.push("Add lists and tables - AI loves structured content");
+  }
+  if (!entityExtraction.hasDefinitions) {
+    recommendations.push("Add clear definitions for key terms");
+  }
+  if (entityExtraction.questionAnswerPairs < 3) {
+    recommendations.push("Add FAQ section with common questions");
+  }
+  let score = llmSignals.overallLLMFriendliness;
+  if (aiCrawlerAccess.blockedCrawlers.length > 0) {
+    score -= aiCrawlerAccess.blockedCrawlers.length * 10;
+  }
+  if (aiCrawlerAccess.jsRenderingRequired && !aiCrawlerAccess.hasPrerendering) {
+    score -= 30;
+  }
+  if (contentStructure.hasFAQSchema) score += 10;
+  if (contentStructure.hasArticleSchema) score += 5;
+  if (aiCrawlerAccess.robotsTxtAllowsAI) score += 10;
+  score = Math.max(0, Math.min(100, score));
+  return {
+    score: Math.round(score),
+    aiCrawlerAccess,
+    contentStructure,
+    citationReadiness,
+    entityExtraction,
+    llmSignals,
+    issues,
+    recommendations
+  };
+}
+function generateAIFriendlyRobotsTxt(siteUrl) {
+  const names = (cls) => KNOWN_BOTS.filter((bot) => bot.class === cls).map((bot) => `User-agent: ${bot.name}`).join("\n");
+  return `# robots.txt
+# Generated by RankCLI - https://rankcli.dev
+# Four kinds of bot read a site, and blocking each costs something different; the groups
+# below say which. An Allow in a bot's own group wins over a wildcard Disallow.
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/static/
+Disallow: /private/
+
+# AI search crawlers: the index each assistant answers from. Disallowing one takes the site
+# out of that assistant's answers.
+${names("ai-search")}
+Allow: /
+
+# Fetchers that read one page because a user asked about it. Disallowing one means the
+# assistant cannot read a page a user pastes.
+${names("user")}
+Allow: /
+
+# Training crawlers: model-training data only. Allowed here; disallowing them costs no
+# search or answer visibility, so change this group to Disallow: / if that is the policy.
+${names("training")}
+Allow: /
+
+# Sitemap
+Sitemap: ${siteUrl}/sitemap.xml
+`;
+}
+var AI_CRAWLERS_INFO = AI_CRAWLERS;
 
 
 
@@ -68218,10 +70522,12 @@ const external_node_fs_namespaceObject = __WEBPACK_EXTERNAL_createRequire(import
 const external_node_path_namespaceObject = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:path");
 // EXTERNAL MODULE: ../agent-runtime/dist/chunk-M27NQCWW.mjs
 var chunk_M27NQCWW = __nccwpck_require__(8488);
-// EXTERNAL MODULE: ../agent-runtime/dist/chunk-ZLQQXIZ3.mjs
-var chunk_ZLQQXIZ3 = __nccwpck_require__(5844);
-// EXTERNAL MODULE: ../agent-runtime/dist/chunk-3ZSCLNTW.mjs
-var chunk_3ZSCLNTW = __nccwpck_require__(856);
+// EXTERNAL MODULE: ../agent-runtime/dist/chunk-MYAJGWIH.mjs
+var chunk_MYAJGWIH = __nccwpck_require__(2934);
+// EXTERNAL MODULE: ../agent-runtime/dist/chunk-ZNDXIGWA.mjs
+var chunk_ZNDXIGWA = __nccwpck_require__(4688);
+// EXTERNAL MODULE: ../agent-runtime/dist/chunk-SWTM7CDR.mjs
+var chunk_SWTM7CDR = __nccwpck_require__(3103);
 // EXTERNAL MODULE: ../agent-runtime/dist/chunk-4E4MQOSP.mjs
 var chunk_4E4MQOSP = __nccwpck_require__(3537);
 // EXTERNAL MODULE: ../agent-runtime/dist/chunk-AK2IC22C.mjs
@@ -85417,6 +87723,7 @@ const { HUMAN_PROMPT, AI_PROMPT } = client_Anthropic;
 
 
 
+
 // src/frameworks/suggestion-engine.ts
 
 var RECIPES = {
@@ -87722,1885 +90029,6 @@ recommended_plugins:
     - "Wordfence or Sucuri"
 `);
 
-// src/audit/types.ts
-var ISSUE_DEFINITIONS = {
-  // ==================== CRAWLABILITY ====================
-  ROBOTS_TXT_MISSING: {
-    code: "ROBOTS_TXT_MISSING",
-    severity: "warning",
-    category: "crawlability",
-    title: "Missing robots.txt",
-    description: "No robots.txt file found at the root of the domain.",
-    impact: "Search engines cannot determine crawling rules for your site.",
-    howToFix: "Create a robots.txt file at the root of your domain with appropriate directives."
-  },
-  ROBOTS_TXT_BLOCKS_ALL: {
-    code: "ROBOTS_TXT_BLOCKS_ALL",
-    severity: "error",
-    category: "crawlability",
-    title: "robots.txt blocks all crawlers",
-    description: 'The robots.txt file contains "Disallow: /" which blocks all search engines.',
-    impact: "Your entire site will not be indexed by search engines.",
-    howToFix: "Update robots.txt to allow crawling of important pages."
-  },
-  ROBOTS_TXT_SERVER_ERROR: {
-    code: "ROBOTS_TXT_SERVER_ERROR",
-    severity: "warning",
-    category: "crawlability",
-    title: "robots.txt returns a server error",
-    description: "Requesting /robots.txt returned a 5xx (or 429) status instead of the file or a 404.",
-    impact: 'Google treats a 5xx/429 robots.txt as "disallow everything" and stops crawling the whole site until it gets a real answer.',
-    howToFix: "Serve robots.txt with a 200 (or return a 404 if you have none). Check the server/CDN route for /robots.txt."
-  },
-  SITEMAP_MISSING: {
-    code: "SITEMAP_MISSING",
-    severity: "warning",
-    category: "crawlability",
-    title: "Missing XML sitemap",
-    description: "No sitemap.xml found at standard locations.",
-    impact: "Search engines may not discover all your pages efficiently.",
-    howToFix: "Create an XML sitemap and submit it to search engines."
-  },
-  SITEMAP_NOT_IN_ROBOTS: {
-    code: "SITEMAP_NOT_IN_ROBOTS",
-    severity: "notice",
-    category: "crawlability",
-    title: "Sitemap not referenced in robots.txt",
-    description: "The sitemap URL is not listed in robots.txt.",
-    impact: "Search engines may not find your sitemap automatically.",
-    howToFix: 'Add "Sitemap: https://yoursite.com/sitemap.xml" to robots.txt.'
-  },
-  SITEMAP_LASTMOD_MISSING: {
-    code: "SITEMAP_LASTMOD_MISSING",
-    severity: "notice",
-    category: "crawlability",
-    title: "Sitemap missing lastmod dates",
-    description: "No <lastmod> tags found on any URL entry in the sitemap.",
-    impact: "Search engines rely on lastmod as a freshness signal to prioritize recrawling changed pages.",
-    howToFix: "Add a <lastmod> tag (ISO 8601 date) to each <url> entry, reflecting when that page last actually changed."
-  },
-  SITEMAP_LASTMOD_INVALID: {
-    code: "SITEMAP_LASTMOD_INVALID",
-    severity: "warning",
-    category: "crawlability",
-    title: "Sitemap has invalid lastmod dates",
-    description: "One or more <lastmod> values are not valid dates, or are set in the future.",
-    impact: "Search engines may ignore lastmod entirely for this sitemap once they detect invalid values, losing the freshness signal for every URL in it.",
-    howToFix: "Use a real, valid ISO 8601 date (e.g. 2026-01-15 or 2026-01-15T10:00:00Z) reflecting the actual last-changed time - never a placeholder or future date."
-  },
-  REDIRECT_CHAIN: {
-    code: "REDIRECT_CHAIN",
-    severity: "warning",
-    category: "crawlability",
-    title: "Redirect chain detected",
-    description: "Multiple redirects before reaching the final destination.",
-    impact: "Wastes crawl budget and reduces link equity passed to the final page.",
-    howToFix: "Update redirects to point directly to the final destination URL."
-  },
-  REDIRECT_LOOP: {
-    code: "REDIRECT_LOOP",
-    severity: "error",
-    category: "crawlability",
-    title: "Redirect loop detected",
-    description: "Redirects create an infinite loop.",
-    impact: "Page is completely inaccessible to users and search engines.",
-    howToFix: "Fix the redirect configuration to break the loop."
-  },
-  ORPHAN_PAGE: {
-    code: "ORPHAN_PAGE",
-    severity: "warning",
-    category: "crawlability",
-    title: "Orphan page (no internal links)",
-    description: "This page has no internal links pointing to it.",
-    impact: "Search engines may not discover this page, and it receives no link equity.",
-    howToFix: "Add internal links from relevant pages to this page."
-  },
-  // ==================== INDEXABILITY ====================
-  // Base severity for a noindexed page other than the audited root;
-  // on-page.ts raises it to 'error' on the site root (a noindexed homepage
-  // takes the whole site out of search).
-  NOINDEX_TAG: {
-    code: "NOINDEX_TAG",
-    severity: "warning",
-    category: "indexability",
-    title: "Page has noindex meta tag",
-    description: "The page contains a robots/googlebot meta tag with noindex (or none).",
-    impact: "This page will not appear in search results.",
-    howToFix: "Remove the noindex directive from the robots meta tag if you want this page indexed."
-  },
-  NOINDEX_HEADER: {
-    code: "NOINDEX_HEADER",
-    severity: "warning",
-    category: "indexability",
-    title: "Page sends X-Robots-Tag: noindex",
-    description: "The HTTP response carries an X-Robots-Tag header with noindex (or none).",
-    impact: "This page will not appear in search results, whatever the HTML says.",
-    howToFix: "Remove noindex from the X-Robots-Tag header in your server, CDN or hosting config."
-  },
-  HTTP_ERROR_STATUS: {
-    code: "HTTP_ERROR_STATUS",
-    severity: "error",
-    category: "indexability",
-    title: "Page returns an HTTP error status",
-    description: "The audited URL answered with a 4xx or 5xx status code.",
-    impact: "Search engines drop pages that return 4xx, and stop crawling pages (and eventually sites) that keep returning 5xx.",
-    howToFix: "Make the URL return 200. For a moved page use a 301 to its new address; for a server error check the application logs."
-  },
-  CANONICAL_MISSING: {
-    code: "CANONICAL_MISSING",
-    severity: "warning",
-    category: "indexability",
-    title: "Missing canonical tag",
-    description: "No canonical URL specified for this page.",
-    impact: "May cause duplicate content issues if the page is accessible via multiple URLs.",
-    howToFix: "Add a self-referencing canonical tag or point to the preferred URL."
-  },
-  CANONICAL_POINTS_TO_REDIRECT: {
-    code: "CANONICAL_POINTS_TO_REDIRECT",
-    severity: "error",
-    category: "indexability",
-    title: "Canonical points to redirect",
-    description: "The canonical URL redirects to a different page.",
-    impact: "Confuses search engines and may cause indexing issues.",
-    howToFix: "Update the canonical to point to the final destination URL."
-  },
-  CANONICAL_POINTS_TO_4XX: {
-    code: "CANONICAL_POINTS_TO_4XX",
-    severity: "error",
-    category: "indexability",
-    title: "Canonical points to 4XX page",
-    description: "The canonical URL returns a 4XX error.",
-    impact: "Search engines cannot index this page properly.",
-    howToFix: "Update the canonical to point to a valid URL."
-  },
-  MULTIPLE_CANONICALS: {
-    code: "MULTIPLE_CANONICALS",
-    severity: "error",
-    category: "indexability",
-    title: "Multiple canonical tags",
-    description: "Page has more than one canonical tag.",
-    impact: "Search engines may ignore all canonical hints.",
-    howToFix: "Remove duplicate canonical tags, keeping only one."
-  },
-  // ==================== ON-PAGE SEO ====================
-  TITLE_MISSING: {
-    code: "TITLE_MISSING",
-    severity: "error",
-    category: "on-page",
-    title: "Missing title tag",
-    description: "The page has no title tag.",
-    impact: "Critical ranking factor missing. Page will have poor search visibility.",
-    howToFix: "Add a descriptive title tag (50-60 characters)."
-  },
-  TITLE_TOO_SHORT: {
-    code: "TITLE_TOO_SHORT",
-    severity: "warning",
-    category: "on-page",
-    title: "Title tag too short",
-    description: "Title tag is less than 30 characters.",
-    impact: "Not utilizing the full space available in search results.",
-    howToFix: "Expand the title to 50-60 characters with relevant keywords."
-  },
-  TITLE_TOO_LONG: {
-    code: "TITLE_TOO_LONG",
-    severity: "warning",
-    category: "on-page",
-    title: "Title tag too long",
-    description: "Title tag exceeds 60 characters.",
-    impact: "Title will be truncated in search results.",
-    howToFix: "Shorten the title to under 60 characters."
-  },
-  TITLE_DUPLICATE: {
-    code: "TITLE_DUPLICATE",
-    severity: "warning",
-    category: "on-page",
-    title: "Duplicate title tag",
-    description: "Multiple pages have the same title.",
-    impact: "Can cause keyword cannibalization and confuse search engines.",
-    howToFix: "Ensure each page has a unique, descriptive title."
-  },
-  META_DESC_MISSING: {
-    code: "META_DESC_MISSING",
-    severity: "warning",
-    category: "on-page",
-    title: "Missing meta description",
-    description: "No meta description tag found.",
-    impact: "Search engines may use random page content as the snippet.",
-    howToFix: "Add a compelling meta description (150-160 characters)."
-  },
-  META_DESC_TOO_SHORT: {
-    code: "META_DESC_TOO_SHORT",
-    severity: "notice",
-    category: "on-page",
-    title: "Meta description too short",
-    description: "Meta description is less than 120 characters.",
-    impact: "Not fully utilizing the snippet space in search results.",
-    howToFix: "Expand to 150-160 characters with a compelling call-to-action."
-  },
-  META_DESC_TOO_LONG: {
-    code: "META_DESC_TOO_LONG",
-    severity: "notice",
-    category: "on-page",
-    title: "Meta description too long",
-    description: "Meta description exceeds 160 characters.",
-    impact: "Description may be truncated in search results.",
-    howToFix: "Shorten to under 160 characters."
-  },
-  META_DESC_DUPLICATE: {
-    code: "META_DESC_DUPLICATE",
-    severity: "warning",
-    category: "on-page",
-    title: "Duplicate meta description",
-    description: "Multiple pages have the same meta description.",
-    impact: "Reduces the uniqueness of your pages in search results.",
-    howToFix: "Write unique meta descriptions for each page."
-  },
-  H1_MISSING: {
-    code: "H1_MISSING",
-    severity: "error",
-    category: "on-page",
-    title: "Missing H1 heading",
-    description: "No H1 tag found on the page.",
-    impact: "Search engines use H1 to understand the main topic of the page.",
-    howToFix: "Add exactly one H1 tag that describes the main content."
-  },
-  H1_MULTIPLE: {
-    code: "H1_MULTIPLE",
-    severity: "warning",
-    category: "on-page",
-    title: "Multiple H1 headings",
-    description: "Page has more than one H1 tag.",
-    impact: "Can dilute the topical focus of the page.",
-    howToFix: "Use only one H1 per page. Use H2-H6 for subheadings."
-  },
-  H1_DUPLICATE_OF_TITLE: {
-    code: "H1_DUPLICATE_OF_TITLE",
-    severity: "notice",
-    category: "on-page",
-    title: "H1 identical to title tag",
-    description: "The H1 heading is exactly the same as the title tag.",
-    impact: "Missed opportunity to target additional keywords.",
-    howToFix: "Consider varying the H1 to cover related keywords."
-  },
-  HEADING_SKIP: {
-    code: "HEADING_SKIP",
-    severity: "notice",
-    category: "on-page",
-    title: "Skipped heading level",
-    description: "Heading hierarchy skips levels (e.g., H1 to H3).",
-    impact: "May confuse screen readers and reduce content structure clarity.",
-    howToFix: "Maintain proper heading hierarchy (H1 > H2 > H3, etc.)."
-  },
-  H2_MISSING: {
-    code: "H2_MISSING",
-    severity: "warning",
-    category: "on-page",
-    title: "No H2 headings found",
-    description: "No H2 tags were found on the page.",
-    impact: "H2 headings help structure content and are important for SEO and readability.",
-    howToFix: "Break your content into sections using H2 headings with relevant keywords."
-  },
-  // ==================== CONTENT ====================
-  THIN_CONTENT: {
-    code: "THIN_CONTENT",
-    severity: "warning",
-    category: "content",
-    title: "Thin content",
-    description: "Page has less than 300 words of text content.",
-    impact: "May be seen as low-quality by search engines.",
-    howToFix: "Add more valuable, relevant content to the page."
-  },
-  DUPLICATE_CONTENT: {
-    code: "DUPLICATE_CONTENT",
-    severity: "warning",
-    category: "content",
-    title: "Duplicate content detected",
-    description: "Significant content overlap with other pages.",
-    impact: "Search engines may filter out duplicate pages from results.",
-    howToFix: "Use canonical tags or differentiate the content."
-  },
-  LOW_TEXT_HTML_RATIO: {
-    code: "LOW_TEXT_HTML_RATIO",
-    severity: "notice",
-    category: "content",
-    title: "Low text-to-HTML ratio",
-    description: "Text content is less than 10% of total HTML.",
-    impact: "May indicate poor content or bloated HTML.",
-    howToFix: "Add more text content or reduce unnecessary HTML/scripts."
-  },
-  // ==================== LINKS ====================
-  BROKEN_INTERNAL_LINK: {
-    code: "BROKEN_INTERNAL_LINK",
-    severity: "error",
-    category: "links",
-    title: "Broken internal link",
-    description: "Internal link points to a page that returns 4XX error.",
-    impact: "Poor user experience and wasted crawl budget.",
-    howToFix: "Fix the broken link or remove it."
-  },
-  BROKEN_EXTERNAL_LINK: {
-    code: "BROKEN_EXTERNAL_LINK",
-    severity: "warning",
-    category: "links",
-    title: "Broken external link",
-    description: "External link points to a page that returns 4XX error.",
-    impact: "Poor user experience and potential trust issues.",
-    howToFix: "Update or remove the broken external link."
-  },
-  JS_ONLY_NAVIGATION: {
-    code: "JS_ONLY_NAVIGATION",
-    severity: "warning",
-    category: "links",
-    title: "JavaScript-only navigation detected",
-    description: "Navigation elements use onClick handlers without proper <a href> links.",
-    impact: "Search engine crawlers cannot follow JavaScript-only navigation. These links are invisible to crawlers, preventing page discovery and indexing.",
-    howToFix: "Replace onClick navigation with proper <a href> or <Link> components. In React, use react-router Link instead of navigate() in onClick handlers. Ensure all navigation renders as real anchor tags with href attributes."
-  },
-  TOO_MANY_LINKS: {
-    code: "TOO_MANY_LINKS",
-    severity: "notice",
-    category: "links",
-    title: "Too many on-page links",
-    description: "Page has more than 100 links.",
-    impact: "Dilutes PageRank passed to each linked page.",
-    howToFix: "Reduce the number of links to the most important ones."
-  },
-  NOFOLLOW_INTERNAL: {
-    code: "NOFOLLOW_INTERNAL",
-    severity: "notice",
-    category: "links",
-    title: "Nofollow on internal link",
-    description: 'Internal link has rel="nofollow" attribute.',
-    impact: "Prevents PageRank from flowing to important pages.",
-    howToFix: "Remove nofollow from internal links unless intentional."
-  },
-  // ==================== IMAGES ====================
-  IMG_ALT_MISSING: {
-    code: "IMG_ALT_MISSING",
-    severity: "warning",
-    category: "images",
-    title: "Image missing alt text",
-    description: "Image has no alt attribute.",
-    impact: "Poor accessibility and missed SEO opportunity.",
-    howToFix: "Add descriptive alt text to all images."
-  },
-  IMG_ALT_EMPTY: {
-    code: "IMG_ALT_EMPTY",
-    severity: "notice",
-    category: "images",
-    title: "Image has empty alt text",
-    description: 'Image has alt="" (empty alt attribute).',
-    impact: "Acceptable for decorative images but not for content images.",
-    howToFix: "Add descriptive alt text if the image conveys information."
-  },
-  IMG_NO_DIMENSIONS: {
-    code: "IMG_NO_DIMENSIONS",
-    severity: "notice",
-    category: "images",
-    title: "Image missing dimensions",
-    description: "Image lacks width and height attributes.",
-    impact: "Causes layout shift (CLS) when image loads.",
-    howToFix: "Add width and height attributes to all images."
-  },
-  IMG_TOO_LARGE: {
-    code: "IMG_TOO_LARGE",
-    severity: "warning",
-    category: "images",
-    title: "Image file too large",
-    description: "Image file size exceeds 200KB.",
-    impact: "Slows down page load time.",
-    howToFix: "Compress and optimize images. Consider WebP format."
-  },
-  IMG_BROKEN: {
-    code: "IMG_BROKEN",
-    severity: "error",
-    category: "images",
-    title: "Broken image",
-    description: "Image URL returns 4XX error.",
-    impact: "Poor user experience with missing images.",
-    howToFix: "Fix the image URL or replace with a working image."
-  },
-  // ==================== STRUCTURED DATA ====================
-  SCHEMA_MISSING: {
-    code: "SCHEMA_MISSING",
-    severity: "warning",
-    category: "structured-data",
-    title: "No structured data found",
-    description: "Page has no JSON-LD or microdata.",
-    impact: "Missing opportunity for rich snippets in search results.",
-    howToFix: "Add appropriate Schema.org markup for your content type."
-  },
-  SCHEMA_INVALID: {
-    code: "SCHEMA_INVALID",
-    severity: "error",
-    category: "structured-data",
-    title: "Invalid structured data",
-    description: "JSON-LD contains syntax errors.",
-    impact: "Search engines cannot parse the structured data.",
-    howToFix: "Fix JSON syntax errors and validate with Google Rich Results Test."
-  },
-  SCHEMA_MISSING_REQUIRED: {
-    code: "SCHEMA_MISSING_REQUIRED",
-    severity: "warning",
-    category: "structured-data",
-    title: "Missing required schema properties",
-    description: "Schema markup is missing required properties.",
-    impact: "May not qualify for rich snippets.",
-    howToFix: "Add all required properties for the schema type."
-  },
-  // ==================== PERFORMANCE ====================
-  SLOW_PAGE: {
-    code: "SLOW_PAGE",
-    severity: "warning",
-    category: "performance",
-    title: "Slow page load time",
-    description: "Page takes more than 3 seconds to load.",
-    impact: "High bounce rates and potential ranking penalty.",
-    howToFix: "Optimize images, enable caching, minimize CSS/JS."
-  },
-  SLOW_TTFB: {
-    code: "SLOW_TTFB",
-    severity: "warning",
-    category: "performance",
-    title: "Slow Time to First Byte (TTFB)",
-    description: "Server response time exceeds 600ms.",
-    impact: "Delays entire page load and affects Core Web Vitals.",
-    howToFix: "Optimize server configuration, use caching, consider CDN."
-  },
-  LCP_POOR: {
-    code: "LCP_POOR",
-    severity: "error",
-    category: "performance",
-    title: "Poor Largest Contentful Paint (LCP)",
-    description: "LCP exceeds 2.5 seconds.",
-    impact: "Direct Core Web Vitals ranking factor.",
-    howToFix: "Optimize hero images, preload critical resources."
-  },
-  CLS_POOR: {
-    code: "CLS_POOR",
-    severity: "error",
-    category: "performance",
-    title: "Poor Cumulative Layout Shift (CLS)",
-    description: "CLS exceeds 0.1.",
-    impact: "Direct Core Web Vitals ranking factor.",
-    howToFix: "Set image dimensions, avoid inserting content above existing content."
-  },
-  HTML_TOO_LARGE: {
-    code: "HTML_TOO_LARGE",
-    severity: "warning",
-    category: "performance",
-    title: "HTML document too large",
-    description: "HTML size exceeds 300KB.",
-    impact: "Increases load time and memory usage.",
-    howToFix: "Reduce inline CSS/JS, remove unnecessary HTML."
-  },
-  UNCOMPRESSED: {
-    code: "UNCOMPRESSED",
-    severity: "warning",
-    category: "performance",
-    title: "Uncompressed resources",
-    description: "Page is not served with gzip/brotli compression.",
-    impact: "Larger file transfer sizes slow down the page.",
-    howToFix: "Enable gzip or brotli compression on your server."
-  },
-  NO_CACHE: {
-    code: "NO_CACHE",
-    severity: "notice",
-    category: "performance",
-    title: "Missing cache headers",
-    description: "Page lacks Cache-Control or Expires headers.",
-    impact: "Browser cannot cache resources, causing repeated downloads.",
-    howToFix: "Add appropriate cache headers for static resources."
-  },
-  // ==================== SECURITY ====================
-  NOT_HTTPS: {
-    code: "NOT_HTTPS",
-    severity: "error",
-    category: "security",
-    title: "Page not served over HTTPS",
-    description: "Page is accessible via HTTP instead of HTTPS.",
-    impact: "Browser warnings, user distrust, and ranking penalty.",
-    howToFix: "Install SSL certificate and redirect HTTP to HTTPS."
-  },
-  MIXED_CONTENT: {
-    code: "MIXED_CONTENT",
-    severity: "error",
-    category: "security",
-    title: "Mixed content",
-    description: "HTTPS page loads resources over HTTP.",
-    impact: "Browser may block resources or show security warnings.",
-    howToFix: "Update all resource URLs to use HTTPS."
-  },
-  CERT_EXPIRING: {
-    code: "CERT_EXPIRING",
-    severity: "warning",
-    category: "security",
-    title: "SSL certificate expiring soon",
-    description: "SSL certificate expires within 30 days.",
-    impact: "Site will become insecure when certificate expires.",
-    howToFix: "Renew your SSL certificate before expiration."
-  },
-  HSTS_MISSING: {
-    code: "HSTS_MISSING",
-    severity: "notice",
-    category: "security",
-    title: "Missing HSTS header",
-    description: "Strict-Transport-Security header not set.",
-    impact: "Users may be vulnerable to downgrade attacks.",
-    howToFix: "Add HSTS header to enforce HTTPS."
-  },
-  // ==================== MOBILE ====================
-  VIEWPORT_MISSING: {
-    code: "VIEWPORT_MISSING",
-    severity: "error",
-    category: "mobile",
-    title: "Missing viewport meta tag",
-    description: "No viewport meta tag found.",
-    impact: "Page will not render properly on mobile devices.",
-    howToFix: 'Add <meta name="viewport" content="width=device-width, initial-scale=1">'
-  },
-  VIEWPORT_NOT_RESPONSIVE: {
-    code: "VIEWPORT_NOT_RESPONSIVE",
-    severity: "warning",
-    category: "mobile",
-    title: "Non-responsive viewport",
-    description: "Viewport uses fixed width instead of device-width.",
-    impact: "Page may not adapt to different screen sizes.",
-    howToFix: "Use width=device-width in viewport meta tag."
-  },
-  TAP_TARGETS_TOO_SMALL: {
-    code: "TAP_TARGETS_TOO_SMALL",
-    severity: "warning",
-    category: "mobile",
-    title: "Tap targets too small",
-    description: "Clickable elements are smaller than 48x48 pixels.",
-    impact: "Difficult for mobile users to tap links/buttons.",
-    howToFix: "Increase the size of tap targets to at least 48x48 pixels."
-  },
-  // ==================== INTERNATIONAL ====================
-  HREFLANG_MISSING: {
-    code: "HREFLANG_MISSING",
-    severity: "notice",
-    category: "international",
-    title: "Missing hreflang tags",
-    description: "Multi-language site without hreflang annotations.",
-    impact: "Search engines may show wrong language version to users.",
-    howToFix: "Add hreflang tags to specify language/region versions."
-  },
-  HREFLANG_INVALID: {
-    code: "HREFLANG_INVALID",
-    severity: "warning",
-    category: "international",
-    title: "Invalid hreflang value",
-    description: "Hreflang contains invalid language or region code.",
-    impact: "Search engines will ignore the hreflang directive.",
-    howToFix: "Use valid ISO 639-1 language and ISO 3166-1 Alpha-2 region codes."
-  },
-  HREFLANG_NO_RETURN: {
-    code: "HREFLANG_NO_RETURN",
-    severity: "warning",
-    category: "international",
-    title: "Missing hreflang return link",
-    description: "Hreflang page does not link back to this page.",
-    impact: "Hreflang signals may be ignored by search engines.",
-    howToFix: "Ensure all hreflang pages have reciprocal links."
-  },
-  HREFLANG_SELF_MISSING: {
-    code: "HREFLANG_SELF_MISSING",
-    severity: "notice",
-    category: "international",
-    title: "Missing self-referencing hreflang",
-    description: "Page does not include hreflang pointing to itself.",
-    impact: "Best practice to include self-referencing hreflang.",
-    howToFix: "Add hreflang for the current page language/region."
-  },
-  HREFLANG_X_DEFAULT_MISSING: {
-    code: "HREFLANG_X_DEFAULT_MISSING",
-    severity: "notice",
-    category: "international",
-    title: "Missing x-default hreflang",
-    description: "Multi-language page missing x-default fallback.",
-    impact: "Users with unsupported language may not see appropriate version.",
-    howToFix: 'Add hreflang="x-default" pointing to your default language page.'
-  },
-  HREFLANG_TO_NON_200: {
-    code: "HREFLANG_TO_NON_200",
-    severity: "error",
-    category: "international",
-    title: "Hreflang points to non-200 page",
-    description: "Hreflang URL returns error or redirect.",
-    impact: "Search engines cannot serve the alternate language version.",
-    howToFix: "Update hreflang to point to valid, accessible URLs."
-  },
-  // ==================== SOFT 404 ====================
-  SOFT_404: {
-    code: "SOFT_404",
-    severity: "error",
-    category: "content",
-    title: "Soft 404 detected",
-    description: "Page returns 200 but appears to be an error page.",
-    impact: "Wastes crawl budget and may index low-value error pages.",
-    howToFix: "Return proper 404 status for error pages or add meaningful content."
-  },
-  // ==================== OPEN GRAPH / SOCIAL ====================
-  OG_TITLE_MISSING: {
-    code: "OG_TITLE_MISSING",
-    severity: "warning",
-    category: "on-page",
-    title: "Missing Open Graph title",
-    description: "No og:title meta tag found.",
-    impact: "Social shares may display incorrect or missing title.",
-    howToFix: 'Add <meta property="og:title" content="Your Title">'
-  },
-  OG_DESCRIPTION_MISSING: {
-    code: "OG_DESCRIPTION_MISSING",
-    severity: "warning",
-    category: "on-page",
-    title: "Missing Open Graph description",
-    description: "No og:description meta tag found.",
-    impact: "Social shares may display incorrect or missing description.",
-    howToFix: 'Add <meta property="og:description" content="Your description">'
-  },
-  OG_IMAGE_MISSING: {
-    code: "OG_IMAGE_MISSING",
-    severity: "warning",
-    category: "on-page",
-    title: "Missing Open Graph image",
-    description: "No og:image meta tag found.",
-    impact: "Social shares will not display a preview image.",
-    howToFix: 'Add <meta property="og:image" content="https://yoursite.com/image.jpg">'
-  },
-  OG_IMAGE_TOO_SMALL: {
-    code: "OG_IMAGE_TOO_SMALL",
-    severity: "notice",
-    category: "on-page",
-    title: "Open Graph image too small",
-    description: "OG image should be at least 1200x630 pixels.",
-    impact: "Image may appear low quality on social platforms.",
-    howToFix: "Use an image at least 1200x630 pixels for optimal display."
-  },
-  OG_URL_MISSING: {
-    code: "OG_URL_MISSING",
-    severity: "notice",
-    category: "on-page",
-    title: "Missing Open Graph URL",
-    description: "No og:url meta tag found.",
-    impact: "Social platforms may use inconsistent URL for shares.",
-    howToFix: 'Add <meta property="og:url" content="https://yoursite.com/page">'
-  },
-  OG_TYPE_MISSING: {
-    code: "OG_TYPE_MISSING",
-    severity: "notice",
-    category: "on-page",
-    title: "Missing Open Graph type",
-    description: "No og:type meta tag found.",
-    impact: 'Social platforms default to "website" type.',
-    howToFix: 'Add <meta property="og:type" content="website"> (or article, product, etc.)'
-  },
-  TWITTER_CARD_MISSING: {
-    code: "TWITTER_CARD_MISSING",
-    severity: "notice",
-    category: "on-page",
-    title: "Missing Twitter Card tags",
-    description: "No twitter:card meta tag found.",
-    impact: "Twitter shares may not display optimally.",
-    howToFix: 'Add <meta name="twitter:card" content="summary_large_image">'
-  },
-  TWITTER_IMAGE_MISSING: {
-    code: "TWITTER_IMAGE_MISSING",
-    severity: "notice",
-    category: "on-page",
-    title: "Missing Twitter Card image",
-    description: "No twitter:image meta tag found.",
-    impact: "Twitter shares will not display a preview image.",
-    howToFix: 'Add <meta name="twitter:image" content="https://yoursite.com/image.jpg">'
-  },
-  // ==================== CANONICAL ADVANCED ====================
-  CANONICAL_CHAIN: {
-    code: "CANONICAL_CHAIN",
-    severity: "warning",
-    category: "indexability",
-    title: "Canonical chain detected",
-    description: "Canonical URL points to a page with a different canonical.",
-    impact: "Creates confusion for search engines about the preferred URL.",
-    howToFix: "Update canonical to point directly to the final preferred URL."
-  },
-  CANONICAL_CROSS_DOMAIN: {
-    code: "CANONICAL_CROSS_DOMAIN",
-    severity: "warning",
-    category: "indexability",
-    title: "Cross-domain canonical",
-    description: "Canonical points to a different domain.",
-    impact: "Transfers ranking signals to another domain. Ensure this is intentional.",
-    howToFix: "Verify cross-domain canonical is intentional or update to same domain."
-  },
-  CANONICAL_MISMATCH_SITEMAP: {
-    code: "CANONICAL_MISMATCH_SITEMAP",
-    severity: "warning",
-    category: "indexability",
-    title: "Canonical URL not in sitemap",
-    description: "The canonical URL differs from the sitemap URL.",
-    impact: "Conflicting signals about which URL should be indexed.",
-    howToFix: "Ensure sitemap contains only canonical URLs."
-  },
-  // ==================== ANCHOR TEXT ====================
-  ANCHOR_TEXT_GENERIC: {
-    code: "ANCHOR_TEXT_GENERIC",
-    severity: "notice",
-    category: "links",
-    title: "Generic anchor text detected",
-    description: 'Many internal links use generic text like "click here" or "read more".',
-    impact: "Misses opportunity to provide context to search engines.",
-    howToFix: "Use descriptive anchor text that indicates the target page content."
-  },
-  ANCHOR_TEXT_OVER_OPTIMIZED: {
-    code: "ANCHOR_TEXT_OVER_OPTIMIZED",
-    severity: "warning",
-    category: "links",
-    title: "Over-optimized anchor text",
-    description: "Excessive exact-match keyword anchor text detected.",
-    impact: "May trigger spam filters and algorithmic penalties.",
-    howToFix: "Diversify anchor text with natural variations."
-  },
-  ANCHOR_TEXT_EMPTY: {
-    code: "ANCHOR_TEXT_EMPTY",
-    severity: "warning",
-    category: "links",
-    title: "Empty anchor text",
-    description: "Link has no text content (empty anchor).",
-    impact: "Provides no context for users or search engines.",
-    howToFix: "Add descriptive text to the link or use aria-label for icon links."
-  },
-  // ==================== PAGINATION ====================
-  PAGINATION_NO_LINKS: {
-    code: "PAGINATION_NO_LINKS",
-    severity: "warning",
-    category: "crawlability",
-    title: "Pagination without HTML links",
-    description: "Paginated content uses JavaScript without HTML fallback links.",
-    impact: "Search engines cannot discover paginated content.",
-    howToFix: "Add <a href> links for pagination alongside JavaScript."
-  },
-  PAGINATION_CANONICAL_ISSUE: {
-    code: "PAGINATION_CANONICAL_ISSUE",
-    severity: "error",
-    category: "indexability",
-    title: "Pagination canonical points to page 1",
-    description: "Paginated pages have canonical pointing to page 1.",
-    impact: "Paginated content may not be indexed properly.",
-    howToFix: "Each paginated page should self-reference or use View All canonical."
-  },
-  INFINITE_SCROLL_NO_FALLBACK: {
-    code: "INFINITE_SCROLL_NO_FALLBACK",
-    severity: "warning",
-    category: "crawlability",
-    title: "Infinite scroll without fallback",
-    description: "Infinite scroll detected without pagination links.",
-    impact: "Search engines cannot access content loaded via infinite scroll.",
-    howToFix: "Implement replaceState/pushState and provide pagination links."
-  },
-  // ==================== DUPLICATE/CANNIBALIZATION ====================
-  NEAR_DUPLICATE: {
-    code: "NEAR_DUPLICATE",
-    severity: "warning",
-    category: "content",
-    title: "Near-duplicate content",
-    description: "Page has 90%+ content similarity with another page.",
-    impact: "May cause keyword cannibalization and dilute ranking signals.",
-    howToFix: "Consolidate pages, differentiate content, or use canonical tags."
-  },
-  KEYWORD_CANNIBALIZATION: {
-    code: "KEYWORD_CANNIBALIZATION",
-    severity: "warning",
-    category: "content",
-    title: "Potential keyword cannibalization",
-    description: "Multiple pages target the same primary keyword.",
-    impact: "Pages compete against each other in search results.",
-    howToFix: "Consolidate pages or differentiate keyword targeting."
-  },
-  // ==================== LINK ANALYSIS ADVANCED ====================
-  LINK_DEPTH_TOO_DEEP: {
-    code: "LINK_DEPTH_TOO_DEEP",
-    severity: "warning",
-    category: "links",
-    title: "Page too deep in site structure",
-    description: "Page requires more than 3 clicks from homepage.",
-    impact: "Deep pages receive less link equity and may be crawled less frequently.",
-    howToFix: "Improve internal linking to reduce click depth."
-  },
-  INTERNAL_REDIRECT: {
-    code: "INTERNAL_REDIRECT",
-    severity: "notice",
-    category: "links",
-    title: "Internal link to redirect",
-    description: "Internal link points to a URL that redirects.",
-    impact: "Wastes crawl budget and dilutes link equity.",
-    howToFix: "Update internal links to point directly to final URLs."
-  },
-  // ==================== JAVASCRIPT SEO ====================
-  JS_RENDERED_CONTENT: {
-    code: "JS_RENDERED_CONTENT",
-    severity: "notice",
-    category: "content",
-    title: "JavaScript-rendered content detected",
-    description: "Significant content only visible after JavaScript execution.",
-    impact: "Search engines may not see all content or delay indexing.",
-    howToFix: "Consider server-side rendering or prerendering for critical content."
-  },
-  JS_LINKS_ONLY: {
-    code: "JS_LINKS_ONLY",
-    severity: "warning",
-    category: "links",
-    title: "Links only in JavaScript",
-    description: "Internal links exist only in rendered DOM, not in source HTML.",
-    impact: "Search engines may not discover these links.",
-    howToFix: "Ensure important links are in static HTML or use server-side rendering."
-  },
-  // ==================== FAVICON & MISC ====================
-  FAVICON_MISSING: {
-    code: "FAVICON_MISSING",
-    severity: "notice",
-    category: "on-page",
-    title: "Missing favicon",
-    description: 'No favicon.ico or link rel="icon" found.',
-    impact: "Browser tabs show generic icon; poor brand presence.",
-    howToFix: 'Add a favicon.ico or link rel="icon" to your pages.'
-  },
-  LANG_ATTR_MISSING: {
-    code: "LANG_ATTR_MISSING",
-    severity: "notice",
-    category: "on-page",
-    title: "Missing lang attribute",
-    description: "HTML tag lacks lang attribute.",
-    impact: "Accessibility issue; browsers/screen readers may use wrong language.",
-    howToFix: 'Add lang attribute to HTML tag (e.g., <html lang="en">).'
-  },
-  // ==================== AI/LLM READINESS ====================
-  LLMS_TXT_MISSING: {
-    code: "LLMS_TXT_MISSING",
-    severity: "notice",
-    category: "ai-readiness",
-    title: "Missing llms.txt file",
-    description: "No llms.txt file found at the root of the domain.",
-    impact: "AI crawlers like ChatGPT and Claude may not understand how to best use your content.",
-    howToFix: "Create an llms.txt file at your domain root with guidance for AI systems. See llmstxt.org for format."
-  },
-  LLMS_TXT_INVALID: {
-    code: "LLMS_TXT_INVALID",
-    severity: "warning",
-    category: "ai-readiness",
-    title: "Invalid llms.txt format",
-    description: "The llms.txt file exists but has invalid format or syntax.",
-    impact: "AI crawlers may not be able to parse your AI guidance properly.",
-    howToFix: "Validate your llms.txt file format against the specification at llmstxt.org."
-  },
-  AI_BOT_BLOCKED_ALL: {
-    code: "AI_BOT_BLOCKED_ALL",
-    severity: "notice",
-    category: "ai-readiness",
-    title: "All AI bots blocked in robots.txt",
-    description: "robots.txt blocks all major AI crawlers (GPTBot, Claude-Web, PerplexityBot, etc.).",
-    impact: "Your content will not appear in AI-powered search and assistants.",
-    howToFix: "Consider allowing some AI bots if you want visibility in AI-generated responses."
-  },
-  AI_BOT_GPTBOT_BLOCKED: {
-    code: "AI_BOT_GPTBOT_BLOCKED",
-    severity: "notice",
-    category: "ai-readiness",
-    title: "GPTBot blocked in robots.txt",
-    description: "robots.txt blocks OpenAI's GPTBot crawler.",
-    impact: "Your content will not be used to train or cited by ChatGPT.",
-    howToFix: 'Remove "User-agent: GPTBot Disallow: /" if you want ChatGPT visibility.'
-  },
-  AI_BOT_CLAUDEBOT_BLOCKED: {
-    code: "AI_BOT_CLAUDEBOT_BLOCKED",
-    severity: "notice",
-    category: "ai-readiness",
-    title: "ClaudeBot blocked in robots.txt",
-    description: "robots.txt blocks Anthropic's ClaudeBot crawler.",
-    impact: "Your content will not be used by Claude AI.",
-    howToFix: 'Remove "User-agent: ClaudeBot Disallow: /" if you want Claude visibility.'
-  },
-  AI_BOT_PERPLEXITY_BLOCKED: {
-    code: "AI_BOT_PERPLEXITY_BLOCKED",
-    severity: "notice",
-    category: "ai-readiness",
-    title: "PerplexityBot blocked in robots.txt",
-    description: "robots.txt blocks Perplexity AI's crawler.",
-    impact: "Your content will not appear in Perplexity AI search results.",
-    howToFix: 'Remove "User-agent: PerplexityBot Disallow: /" if you want Perplexity visibility.'
-  },
-  AI_BOT_GOOGLE_EXTENDED_BLOCKED: {
-    code: "AI_BOT_GOOGLE_EXTENDED_BLOCKED",
-    severity: "notice",
-    category: "ai-readiness",
-    title: "Google-Extended blocked in robots.txt",
-    description: "robots.txt blocks Google's AI training crawler (Google-Extended).",
-    impact: "Your content will not be used for Bard/Gemini AI training (regular search unaffected).",
-    howToFix: 'Remove "User-agent: Google-Extended Disallow: /" if you want Google AI visibility.'
-  },
-  CLOUDFLARE_AI_CRAWLER_GATE_AMBIGUOUS: {
-    code: "CLOUDFLARE_AI_CRAWLER_GATE_AMBIGUOUS",
-    severity: "warning",
-    category: "ai-readiness",
-    title: "No explicit AI crawler rules on a Cloudflare-fronted site",
-    description: 'This site appears to be served through Cloudflare but robots.txt has no explicit Allow/Disallow rules for AI crawlers. Cloudflare blocks "mixed-use" AI crawlers by default on ad-hosting zones starting September 15, 2026, and is rolling out Pay Per Crawl / Pay Per Use gating beyond that.',
-    impact: "Without an explicit rule, whether AI crawlers (and future citation opportunities in ChatGPT, Claude, Perplexity, etc.) can reach this site now depends on Cloudflare account-level bot-management defaults, not on this codebase \u2014 a silent, invisible-to-git failure mode.",
-    howToFix: `Two ways to make your stance explicit, either works: (1) add a Content-Signal line to robots.txt - e.g. "Content-Signal: search=yes,ai-train=no,use=reference" - the format Cloudflare's AI Crawl Control update actually reads, or (2) add explicit User-agent rules for GPTBot, Claude-Web/ClaudeBot, PerplexityBot, and Google-Extended. Either way, confirm the matching allow/block posture in the Cloudflare dashboard under Bot Management \u2192 AI Crawl Control. If you'd rather charge than block, Cloudflare's Pay Per Crawl (AI Crawl Control \u2192 Payments tab) lets you set a per-crawl price instead of a flat allow/deny \u2014 worth a look if you get meaningful AI-crawler traffic.`
-  },
-  NO_AGENT_EXPERIENCE_SURFACE: {
-    code: "NO_AGENT_EXPERIENCE_SURFACE",
-    severity: "notice",
-    category: "ai-readiness",
-    title: "No agent-facing discovery surface found",
-    description: "None of the emerging AI-agent discovery conventions were found: llms-full.txt, SKILL.md, a discoverable MCP server, or an OpenAPI spec. This is a genuinely new, low-adoption category as of 2026 \u2014 most sites have none of these yet \u2014 so this is an opportunity, not a compliance failure.",
-    impact: "AI agents (not just chatbots answering questions, but agents that browse and act on a user's behalf) increasingly prefer sites that expose machine-readable capabilities over ones that require scraping and guessing at HTML structure. Being an early, discoverable site in this space is a low-competition differentiator right now.",
-    howToFix: "Start with whichever fits your site: llms-full.txt (a single Markdown dump of your key content \u2014 measured as fetched roughly 2x more than plain llms.txt), a SKILL.md capability manifest, or an OpenAPI spec at /openapi.json if you already have an API. A discoverable MCP server is the highest-effort, highest-payoff option if your product has one to expose."
-  },
-  HIGH_JS_RENDERING_RATIO: {
-    code: "HIGH_JS_RENDERING_RATIO",
-    severity: "warning",
-    category: "ai-readiness",
-    title: "High JavaScript rendering required",
-    description: "More than 50% of page content requires JavaScript to render.",
-    impact: "AI crawlers may not see all content; they often use static HTML only.",
-    howToFix: "Implement server-side rendering or prerendering for critical content."
-  },
-  // ==================== PIXEL-BASED META CHECKS ====================
-  TITLE_TRUNCATED_SERP: {
-    code: "TITLE_TRUNCATED_SERP",
-    severity: "warning",
-    category: "on-page",
-    title: "Title will be truncated in SERP",
-    description: "Title exceeds 580 pixels and will be cut off in Google search results.",
-    impact: "Important information at the end of your title will not be visible.",
-    howToFix: "Shorten title to fit within 580 pixel width (approximately 50-60 characters)."
-  },
-  META_DESC_TRUNCATED_SERP: {
-    code: "META_DESC_TRUNCATED_SERP",
-    severity: "notice",
-    category: "on-page",
-    title: "Meta description will be truncated in SERP",
-    description: "Meta description exceeds 920 pixels on desktop.",
-    impact: "Your description may be cut off in search results.",
-    howToFix: "Shorten description to fit within 920 pixels (approximately 150-160 characters)."
-  },
-  // ==================== SOCIAL META TAGS (Enhanced) ====================
-  TWITTER_TITLE_MISSING: {
-    code: "TWITTER_TITLE_MISSING",
-    severity: "notice",
-    category: "social",
-    title: "Missing Twitter Card title",
-    description: "No twitter:title meta tag found.",
-    impact: "Twitter/X shares will use og:title or page title as fallback.",
-    howToFix: 'Add <meta name="twitter:title" content="Your Title">'
-  },
-  TWITTER_DESCRIPTION_MISSING: {
-    code: "TWITTER_DESCRIPTION_MISSING",
-    severity: "notice",
-    category: "social",
-    title: "Missing Twitter Card description",
-    description: "No twitter:description meta tag found.",
-    impact: "Twitter/X shares will use og:description or meta description as fallback.",
-    howToFix: 'Add <meta name="twitter:description" content="Your description">'
-  },
-  OG_IMAGE_WRONG_DIMENSIONS: {
-    code: "OG_IMAGE_WRONG_DIMENSIONS",
-    severity: "notice",
-    category: "social",
-    title: "Open Graph image wrong aspect ratio",
-    description: "OG image is not the recommended 1.91:1 aspect ratio (1200x630).",
-    impact: "Image may be cropped awkwardly on social platforms.",
-    howToFix: "Use an image with 1200x630 pixels (1.91:1 aspect ratio)."
-  },
-  OG_IMAGE_TOO_LARGE: {
-    code: "OG_IMAGE_TOO_LARGE",
-    severity: "warning",
-    category: "social",
-    title: "Open Graph image file too large",
-    description: "OG image exceeds 5MB file size limit.",
-    impact: "Social platforms may not display the image.",
-    howToFix: "Compress the image to under 5MB while maintaining quality."
-  },
-  SOCIAL_PROFILES_NOT_LINKED: {
-    code: "SOCIAL_PROFILES_NOT_LINKED",
-    severity: "notice",
-    category: "social",
-    title: "No social profile links found",
-    description: "Page has no links to social media profiles.",
-    impact: "Missed opportunity for social proof and brand presence.",
-    howToFix: "Add links to your social media profiles (Facebook, Twitter, LinkedIn, etc.)."
-  },
-  // ==================== LOCAL SEO ====================
-  LOCAL_BUSINESS_SCHEMA_MISSING: {
-    code: "LOCAL_BUSINESS_SCHEMA_MISSING",
-    severity: "notice",
-    category: "local-seo",
-    title: "Missing LocalBusiness schema",
-    description: "No LocalBusiness structured data found.",
-    impact: "Local business information won't appear in Google's local knowledge panel.",
-    howToFix: "Add LocalBusiness schema with name, address, phone, and hours."
-  },
-  ORGANIZATION_SCHEMA_MISSING: {
-    code: "ORGANIZATION_SCHEMA_MISSING",
-    severity: "notice",
-    category: "local-seo",
-    title: "Missing Organization schema",
-    description: "No Organization or Person structured data found.",
-    impact: "Search engines may not understand your brand identity.",
-    howToFix: "Add Organization schema with logo, contact info, and social profiles."
-  },
-  NAP_INCONSISTENT: {
-    code: "NAP_INCONSISTENT",
-    severity: "warning",
-    category: "local-seo",
-    title: "Inconsistent NAP information",
-    description: "Name, Address, Phone detected in multiple formats on page.",
-    impact: "Inconsistent business info can hurt local search rankings.",
-    howToFix: "Use consistent NAP format across all pages and match your Google Business Profile."
-  },
-  ADDRESS_NOT_DETECTED: {
-    code: "ADDRESS_NOT_DETECTED",
-    severity: "notice",
-    category: "local-seo",
-    title: "No business address detected",
-    description: "Could not find a physical address on this page.",
-    impact: "Local businesses should display their address for local SEO.",
-    howToFix: "Add your business address in a visible location and in LocalBusiness schema."
-  },
-  PHONE_NOT_DETECTED: {
-    code: "PHONE_NOT_DETECTED",
-    severity: "notice",
-    category: "local-seo",
-    title: "No phone number detected",
-    description: "Could not find a phone number on this page.",
-    impact: "Contact information helps with local SEO and user trust.",
-    howToFix: "Add your phone number in visible location and in LocalBusiness schema."
-  },
-  // ==================== SECURITY HEADERS ====================
-  CSP_MISSING: {
-    code: "CSP_MISSING",
-    severity: "notice",
-    category: "security",
-    title: "Missing Content-Security-Policy header",
-    description: "No Content-Security-Policy (CSP) header found.",
-    impact: "Site is more vulnerable to XSS and code injection attacks.",
-    howToFix: "Add a Content-Security-Policy header to control which resources can be loaded."
-  },
-  X_FRAME_OPTIONS_MISSING: {
-    code: "X_FRAME_OPTIONS_MISSING",
-    severity: "notice",
-    category: "security",
-    title: "Missing X-Frame-Options header",
-    description: "No X-Frame-Options header found.",
-    impact: "Site may be vulnerable to clickjacking attacks.",
-    howToFix: "Add X-Frame-Options: DENY or SAMEORIGIN header."
-  },
-  X_CONTENT_TYPE_OPTIONS_MISSING: {
-    code: "X_CONTENT_TYPE_OPTIONS_MISSING",
-    severity: "notice",
-    category: "security",
-    title: "Missing X-Content-Type-Options header",
-    description: "No X-Content-Type-Options header found.",
-    impact: "Browser may MIME-sniff content types, potentially executing malicious files.",
-    howToFix: "Add X-Content-Type-Options: nosniff header."
-  },
-  REFERRER_POLICY_MISSING: {
-    code: "REFERRER_POLICY_MISSING",
-    severity: "notice",
-    category: "security",
-    title: "Missing Referrer-Policy header",
-    description: "No Referrer-Policy header found.",
-    impact: "Browser may leak referrer information to third-party sites.",
-    howToFix: "Add Referrer-Policy: strict-origin-when-cross-origin header."
-  },
-  PERMISSIONS_POLICY_MISSING: {
-    code: "PERMISSIONS_POLICY_MISSING",
-    severity: "notice",
-    category: "security",
-    title: "Missing Permissions-Policy header",
-    description: "No Permissions-Policy (formerly Feature-Policy) header found.",
-    impact: "Cannot control which browser features your site can use.",
-    howToFix: "Add Permissions-Policy header to control camera, microphone, geolocation, etc."
-  },
-  // ==================== CONTENT FRESHNESS ====================
-  CONTENT_STALE: {
-    code: "CONTENT_STALE",
-    severity: "notice",
-    category: "content",
-    title: "Content appears stale",
-    description: "Last-Modified header shows content over 1 year old.",
-    impact: "Search engines may prioritize fresher content in results.",
-    howToFix: "Update content regularly and ensure Last-Modified header is accurate."
-  },
-  NO_LAST_MODIFIED: {
-    code: "NO_LAST_MODIFIED",
-    severity: "notice",
-    category: "content",
-    title: "No Last-Modified header",
-    description: "Server does not send Last-Modified header.",
-    impact: "Browsers and CDNs cannot efficiently cache content.",
-    howToFix: "Configure your server to send Last-Modified headers."
-  },
-  OG_UPDATED_TIME_MISSING: {
-    code: "OG_UPDATED_TIME_MISSING",
-    severity: "notice",
-    category: "content",
-    title: "Missing article:modified_time",
-    description: "No article:modified_time Open Graph tag found.",
-    impact: "Social platforms may not show content update dates.",
-    howToFix: 'Add <meta property="article:modified_time" content="2024-01-01T12:00:00Z">'
-  },
-  // ==================== PERFORMANCE (Enhanced) ====================
-  RENDER_BLOCKING_RESOURCES: {
-    code: "RENDER_BLOCKING_RESOURCES",
-    severity: "warning",
-    category: "performance",
-    title: "Render-blocking resources detected",
-    description: "CSS or JavaScript files block initial page render.",
-    impact: "Delays First Contentful Paint and user perception of speed.",
-    howToFix: "Inline critical CSS, defer non-critical JS, or use async/defer attributes."
-  },
-  DOM_SIZE_EXCESSIVE: {
-    code: "DOM_SIZE_EXCESSIVE",
-    severity: "warning",
-    category: "performance",
-    title: "Excessive DOM size",
-    description: "Page has more than 1500 DOM nodes.",
-    impact: "Large DOM increases memory usage and slows style calculations.",
-    howToFix: "Simplify page structure, lazy-load content, or paginate long lists."
-  },
-  DOM_DEPTH_EXCESSIVE: {
-    code: "DOM_DEPTH_EXCESSIVE",
-    severity: "notice",
-    category: "performance",
-    title: "Excessive DOM depth",
-    description: "DOM tree is more than 32 levels deep.",
-    impact: "Deep nesting slows CSS selector matching and layout calculations.",
-    howToFix: "Flatten your HTML structure where possible."
-  },
-  IMAGE_NOT_WEBP_AVIF: {
-    code: "IMAGE_NOT_WEBP_AVIF",
-    severity: "notice",
-    category: "images",
-    title: "Images not using modern formats",
-    description: "Images use JPEG/PNG instead of WebP/AVIF.",
-    impact: "Modern formats provide 25-50% smaller file sizes.",
-    howToFix: "Convert images to WebP or AVIF format with fallbacks."
-  },
-  NO_CDN_DETECTED: {
-    code: "NO_CDN_DETECTED",
-    severity: "notice",
-    category: "performance",
-    title: "No CDN detected",
-    description: "Static resources are not served from a CDN.",
-    impact: "Users far from your server experience slower load times.",
-    howToFix: "Use a CDN like Cloudflare, Fastly, or AWS CloudFront."
-  },
-  // ==================== TECHNOLOGY DETECTION ====================
-  WORDPRESS_DETECTED: {
-    code: "WORDPRESS_DETECTED",
-    severity: "notice",
-    category: "on-page",
-    title: "WordPress detected",
-    description: "Site is built with WordPress CMS.",
-    impact: "Informational - WordPress powers 40% of the web.",
-    howToFix: "Ensure WordPress core, themes, and plugins are up to date."
-  },
-  OUTDATED_JQUERY: {
-    code: "OUTDATED_JQUERY",
-    severity: "warning",
-    category: "security",
-    title: "Outdated jQuery version detected",
-    description: "Page uses a jQuery version with known vulnerabilities.",
-    impact: "Site may be vulnerable to security exploits.",
-    howToFix: "Update jQuery to the latest version (3.x or higher)."
-  },
-  OUTDATED_FRAMEWORK: {
-    code: "OUTDATED_FRAMEWORK",
-    severity: "warning",
-    category: "security",
-    title: "Outdated JavaScript framework detected",
-    description: "Page uses an outdated version of a JavaScript framework.",
-    impact: "May have security vulnerabilities or performance issues.",
-    howToFix: "Update to the latest stable version of the framework."
-  },
-  // ==================== KEYWORD DENSITY ====================
-  KEYWORD_STUFFING: {
-    code: "KEYWORD_STUFFING",
-    severity: "warning",
-    category: "content",
-    title: "Potential keyword stuffing detected",
-    description: "A keyword appears more than 3% of total word count.",
-    impact: "May trigger search engine spam filters.",
-    howToFix: "Write naturally and use keyword variations instead of repetition."
-  },
-  NO_KEYWORDS_IN_TITLE: {
-    code: "NO_KEYWORDS_IN_TITLE",
-    severity: "warning",
-    category: "on-page",
-    title: "Top keywords not in title",
-    description: "Most common page keywords are not present in the title tag.",
-    impact: "Title may not accurately reflect page content for search engines.",
-    howToFix: "Include your primary keyword in the title tag."
-  },
-  NO_KEYWORDS_IN_H1: {
-    code: "NO_KEYWORDS_IN_H1",
-    severity: "notice",
-    category: "on-page",
-    title: "Top keywords not in H1",
-    description: "Most common page keywords are not present in the H1 heading.",
-    impact: "H1 may not signal page topic effectively.",
-    howToFix: "Include your primary keyword in the H1 heading."
-  },
-  // ==================== ADDITIONAL CHECKS ====================
-  AMP_MISSING: {
-    code: "AMP_MISSING",
-    severity: "notice",
-    category: "mobile",
-    title: "No AMP version detected",
-    description: "Page does not have an Accelerated Mobile Page version.",
-    impact: "May load slower on mobile and miss Top Stories carousel eligibility.",
-    howToFix: "Consider implementing AMP for content-heavy pages."
-  },
-  AMP_INVALID: {
-    code: "AMP_INVALID",
-    severity: "warning",
-    category: "mobile",
-    title: "Invalid AMP markup",
-    description: "AMP page contains validation errors.",
-    impact: "Invalid AMP pages may not be served from Google AMP cache.",
-    howToFix: "Validate and fix AMP errors using the AMP Validator."
-  },
-  ADS_TXT_MISSING: {
-    code: "ADS_TXT_MISSING",
-    severity: "notice",
-    category: "crawlability",
-    title: "Missing ads.txt file",
-    description: "No ads.txt file found for ad inventory authorization.",
-    impact: "If running ads, unauthorized sellers may claim your inventory.",
-    howToFix: "Create an ads.txt file listing authorized ad sellers."
-  },
-  ADS_TXT_INVALID: {
-    code: "ADS_TXT_INVALID",
-    severity: "warning",
-    category: "crawlability",
-    title: "Invalid ads.txt format",
-    description: "ads.txt file contains syntax errors.",
-    impact: "Ad platforms may not recognize your authorized sellers.",
-    howToFix: "Validate ads.txt format using IAB ads.txt validator."
-  },
-  DMARC_MISSING: {
-    code: "DMARC_MISSING",
-    severity: "notice",
-    category: "security",
-    title: "Missing DMARC record",
-    description: "No DMARC DNS record found for email authentication.",
-    impact: "Emails from your domain may be spoofed or marked as spam.",
-    howToFix: 'Add a DMARC record to your DNS: _dmarc.yourdomain.com TXT "v=DMARC1; p=none"'
-  },
-  SPF_MISSING: {
-    code: "SPF_MISSING",
-    severity: "notice",
-    category: "security",
-    title: "Missing SPF record",
-    description: "No SPF DNS record found for email authentication.",
-    impact: "Emails from your domain may be marked as spam.",
-    howToFix: "Add an SPF record to your DNS with authorized mail servers."
-  },
-  SAFE_BROWSING_FLAGGED: {
-    code: "SAFE_BROWSING_FLAGGED",
-    severity: "error",
-    category: "security",
-    title: "Site flagged by Google Safe Browsing",
-    description: "Google has flagged this site for malware or phishing.",
-    impact: "Browsers will show warnings and traffic will plummet.",
-    howToFix: "Remove malware/phishing content and request review in Search Console."
-  },
-  PLAINTEXT_EMAIL: {
-    code: "PLAINTEXT_EMAIL",
-    severity: "notice",
-    category: "security",
-    title: "Email addresses in plain text",
-    description: "Email addresses found in page HTML without obfuscation.",
-    impact: "Email addresses can be harvested by spam bots.",
-    howToFix: "Use contact forms or obfuscate emails (e.g., name[at]domain.com)."
-  },
-  DIRECTORY_LISTING_ENABLED: {
-    code: "DIRECTORY_LISTING_ENABLED",
-    severity: "warning",
-    category: "security",
-    title: "Directory listing enabled",
-    description: "Web server is configured to list directory contents.",
-    impact: "Exposes file structure and potentially sensitive files.",
-    howToFix: "Disable directory listing in your web server configuration."
-  },
-  FAVICON_NOT_ICO: {
-    code: "FAVICON_NOT_ICO",
-    severity: "notice",
-    category: "on-page",
-    title: "Favicon not in ICO format",
-    description: "Favicon is not in the traditional .ico format.",
-    impact: "Some older browsers may not display the favicon.",
-    howToFix: "Provide favicon.ico at site root in addition to PNG/SVG versions."
-  },
-  APPLE_TOUCH_ICON_MISSING: {
-    code: "APPLE_TOUCH_ICON_MISSING",
-    severity: "notice",
-    category: "mobile",
-    title: "Missing Apple Touch Icon",
-    description: "No apple-touch-icon link found.",
-    impact: "iOS users adding site to home screen will see a generic icon.",
-    howToFix: 'Add <link rel="apple-touch-icon" href="/apple-touch-icon.png">'
-  },
-  // ==================== ADVANCED SEO CHECKS ====================
-  // Featured Snippet Optimization
-  FAQ_SCHEMA_MISSING: {
-    code: "FAQ_SCHEMA_MISSING",
-    severity: "warning",
-    category: "structured-data",
-    title: "FAQ content without FAQPage schema",
-    description: "Question-format headings found but no FAQPage schema markup.",
-    impact: "Missing out on FAQ rich results and PAA box opportunities.",
-    howToFix: "Add FAQPage structured data for your Q&A content."
-  },
-  INVERTED_PYRAMID_MISSING: {
-    code: "INVERTED_PYRAMID_MISSING",
-    severity: "notice",
-    category: "content",
-    title: "Content not structured for featured snippets",
-    description: "First paragraph does not contain a direct answer or summary.",
-    impact: "Featured snippets pull from early content; burying answers reduces snippet capture rate.",
-    howToFix: "Start with a concise answer (40-80 words) that directly addresses the page topic."
-  },
-  NO_SNIPPET_BAIT_HEADERS: {
-    code: "NO_SNIPPET_BAIT_HEADERS",
-    severity: "notice",
-    category: "on-page",
-    title: "No snippet-targeting headers found",
-    description: "Headings do not use patterns that commonly trigger featured snippets.",
-    impact: "Missing opportunities for high-visibility snippet placements.",
-    howToFix: 'Use headers like "What is [topic]?", "How to [action]", or "X Ways to [achieve goal]".'
-  },
-  // Internal Link Graph
-  NO_CONTEXTUAL_INTERNAL_LINKS: {
-    code: "NO_CONTEXTUAL_INTERNAL_LINKS",
-    severity: "warning",
-    category: "links",
-    title: "No contextual internal links",
-    description: "All internal links are in navigation/footer. No editorial links in content.",
-    impact: "Editorial links in content pass more SEO value than navigational links.",
-    howToFix: "Add relevant internal links within your main content to related pages."
-  },
-  LOW_EDITORIAL_LINKS: {
-    code: "LOW_EDITORIAL_LINKS",
-    severity: "notice",
-    category: "links",
-    title: "Few editorial internal links",
-    description: "Only a few editorial (in-content) internal links found.",
-    impact: "Editorial links with surrounding context provide stronger topical signals.",
-    howToFix: "Add 2-5 relevant internal links within your body content."
-  },
-  FIRST_LINK_GENERIC_ANCHOR: {
-    code: "FIRST_LINK_GENERIC_ANCHOR",
-    severity: "notice",
-    category: "links",
-    title: "First link uses generic anchor text",
-    description: 'First link to a page uses generic anchor like "click here" or "read more".',
-    impact: "Google may prioritize first link anchor for topic signals.",
-    howToFix: "Use descriptive, keyword-relevant anchor text for internal links."
-  },
-  TOO_MANY_INTERNAL_LINKS: {
-    code: "TOO_MANY_INTERNAL_LINKS",
-    severity: "warning",
-    category: "links",
-    title: "Excessive internal links",
-    description: "Page has over 100 internal links, which may dilute PageRank distribution.",
-    impact: "Too many links reduce the value passed to each linked page.",
-    howToFix: "Reduce internal links to the most important and relevant pages."
-  },
-  NO_INTERNAL_LINKS: {
-    code: "NO_INTERNAL_LINKS",
-    severity: "error",
-    category: "links",
-    title: "No internal links found",
-    description: "Page has no internal links to other pages on the site.",
-    impact: "Creates a dead end for users and search engine crawlers.",
-    howToFix: "Add relevant internal links to related content."
-  },
-  // Resource Hints
-  MISSING_PRECONNECT: {
-    code: "MISSING_PRECONNECT",
-    severity: "warning",
-    category: "performance",
-    title: "Missing preconnect hints for third-party origins",
-    description: "Third-party origins used without preconnect hints.",
-    impact: "Connection setup to third-party origins adds latency to resource loading.",
-    howToFix: "Add preconnect hints for critical third-party origins."
-  },
-  GOOGLE_FONTS_NO_PRECONNECT: {
-    code: "GOOGLE_FONTS_NO_PRECONNECT",
-    severity: "warning",
-    category: "performance",
-    title: "Google Fonts without preconnect",
-    description: "Google Fonts are used but preconnect hints are missing.",
-    impact: "Adds significant latency to font loading, affecting LCP.",
-    howToFix: "Add preconnect hints for fonts.googleapis.com and fonts.gstatic.com."
-  },
-  HERO_IMAGE_NOT_PRELOADED: {
-    code: "HERO_IMAGE_NOT_PRELOADED",
-    severity: "notice",
-    category: "performance",
-    title: "Hero image not preloaded",
-    description: "Page has images but none are preloaded for faster LCP.",
-    impact: "Preloading LCP images can improve Largest Contentful Paint.",
-    howToFix: 'Add <link rel="preload" href="hero-image.jpg" as="image"> for your LCP image.'
-  },
-  NO_CRITICAL_RESOURCE_PRELOAD: {
-    code: "NO_CRITICAL_RESOURCE_PRELOAD",
-    severity: "notice",
-    category: "performance",
-    title: "No critical resources preloaded",
-    description: "Page has render-blocking resources but no preload hints.",
-    impact: "Preloading critical resources can improve initial render time.",
-    howToFix: "Consider preloading critical CSS, fonts, or hero images."
-  },
-  EXCESSIVE_PRELOADS: {
-    code: "EXCESSIVE_PRELOADS",
-    severity: "warning",
-    category: "performance",
-    title: "Too many preload hints",
-    description: "Page has more than 10 preload hints.",
-    impact: "Preloading too many resources competes for bandwidth and can delay critical resources.",
-    howToFix: "Limit preloads to truly critical resources (2-5 maximum)."
-  },
-  ES_MODULES_NO_MODULEPRELOAD: {
-    code: "ES_MODULES_NO_MODULEPRELOAD",
-    severity: "notice",
-    category: "performance",
-    title: "ES modules without modulepreload",
-    description: "Page uses ES modules but no modulepreload hints are present.",
-    impact: "Modulepreload can parallelize module loading for faster execution.",
-    howToFix: 'Add <link rel="modulepreload" href="critical-module.js"> for critical modules.'
-  },
-  // E-E-A-T Signals
-  YMYL_NO_AUTHOR: {
-    code: "YMYL_NO_AUTHOR",
-    severity: "warning",
-    category: "content",
-    title: "YMYL content without author information",
-    description: "This appears to be YMYL (Your Money Your Life) content but has no visible author.",
-    impact: "Google prioritizes E-E-A-T signals heavily for YMYL topics.",
-    howToFix: "Add author byline with credentials, bio, and author schema."
-  },
-  YMYL_NO_EXPERTISE: {
-    code: "YMYL_NO_EXPERTISE",
-    severity: "warning",
-    category: "content",
-    title: "YMYL content without expertise signals",
-    description: "YMYL content lacks visible expertise indicators (credentials, qualifications).",
-    impact: "Expertise is crucial for YMYL content ranking.",
-    howToFix: 'Include author credentials, "reviewed by" statements, or cite expert sources.'
-  },
-  YMYL_NO_CITATIONS: {
-    code: "YMYL_NO_CITATIONS",
-    severity: "warning",
-    category: "content",
-    title: "YMYL content without authoritative citations",
-    description: "YMYL content has no links to authoritative sources (.gov, .edu, etc.).",
-    impact: "Citing authoritative sources builds trust for sensitive topics.",
-    howToFix: "Add citations to government, academic, or recognized industry sources."
-  },
-  NO_ENTITY_IDENTIFIED: {
-    code: "NO_ENTITY_IDENTIFIED",
-    severity: "notice",
-    category: "content",
-    title: "No author or organization identified",
-    description: "Page lacks clear attribution to an author or organization.",
-    impact: "Anonymous content may be seen as less trustworthy.",
-    howToFix: "Add author byline or organization information with structured data."
-  },
-  NO_ORGANIZATION_SCHEMA: {
-    code: "NO_ORGANIZATION_SCHEMA",
-    severity: "notice",
-    category: "structured-data",
-    title: "Missing Organization schema",
-    description: "No Organization structured data found.",
-    impact: "Missed opportunity to establish organizational identity for E-E-A-T.",
-    howToFix: "Add Organization schema with name, logo, contact, and social profiles."
-  },
-  AUTHOR_NO_SCHEMA: {
-    code: "AUTHOR_NO_SCHEMA",
-    severity: "notice",
-    category: "structured-data",
-    title: "Author without Person schema",
-    description: "Author name is present but no Person structured data.",
-    impact: "Person schema helps Google understand author entity relationships.",
-    howToFix: "Add Person schema with sameAs links to author profiles."
-  },
-  NO_MODIFIED_DATE: {
-    code: "NO_MODIFIED_DATE",
-    severity: "notice",
-    category: "content",
-    title: "No content modification date",
-    description: "Content has published date but no last-modified date.",
-    impact: "Modified dates signal content freshness to search engines.",
-    howToFix: "Add article:modified_time meta tag or dateModified in schema."
-  },
-  NO_EXPERIENCE_SIGNALS: {
-    code: "NO_EXPERIENCE_SIGNALS",
-    severity: "notice",
-    category: "content",
-    title: "No first-hand experience signals detected",
-    description: "Content lacks indicators of personal/first-hand experience.",
-    impact: 'The "Experience" in E-E-A-T values authentic, first-hand knowledge.',
-    howToFix: "Add personal insights, original photos, or hands-on testing details."
-  },
-  // IndexNow
-  INDEXNOW_NOT_IMPLEMENTED: {
-    code: "INDEXNOW_NOT_IMPLEMENTED",
-    severity: "notice",
-    category: "crawlability",
-    title: "IndexNow not implemented",
-    description: "Site does not appear to have IndexNow instant indexing set up.",
-    impact: "Content changes may take longer to appear in Bing, Yandex, and other search engines.",
-    howToFix: "Create a key at indexnow.org and implement the IndexNow protocol."
-  },
-  INDEXNOW_INVALID_KEY: {
-    code: "INDEXNOW_INVALID_KEY",
-    severity: "warning",
-    category: "crawlability",
-    title: "IndexNow key format invalid",
-    description: "The IndexNow key does not match expected formats.",
-    impact: "IndexNow submissions may fail with invalid key format.",
-    howToFix: "Use a valid key format: 32-character hex or UUID format."
-  },
-  // Content Science (Novel Checks)
-  ZIPF_KEYWORD_STUFFING: {
-    code: "ZIPF_KEYWORD_STUFFING",
-    severity: "warning",
-    category: "content",
-    title: "Unnatural keyword distribution detected",
-    description: "Content deviates from natural language patterns (Zipf's law). Possible keyword stuffing.",
-    impact: "Search engines can detect unnatural text patterns, potentially triggering spam filters.",
-    howToFix: "Reduce repetition of over-used keywords and use more natural language."
-  },
-  LOW_CONTENT_ENTROPY: {
-    code: "LOW_CONTENT_ENTROPY",
-    severity: "warning",
-    category: "content",
-    title: "Low vocabulary diversity (thin content signal)",
-    description: "Content entropy is low, indicating repetitive or thin content.",
-    impact: "Low diversity content may be seen as low-quality by search engines.",
-    howToFix: "Expand vocabulary, add more unique insights, and reduce repetitive phrases."
-  },
-  HIGH_CONTENT_REPETITION: {
-    code: "HIGH_CONTENT_REPETITION",
-    severity: "notice",
-    category: "content",
-    title: "High content repetition detected",
-    description: "Content shows high repetition pattern.",
-    impact: "Highly repetitive content provides less value and may hurt engagement.",
-    howToFix: "Vary your vocabulary and sentence structures. Avoid repeating the same phrases."
-  },
-  BM25_KEYWORD_MISSING: {
-    code: "BM25_KEYWORD_MISSING",
-    severity: "warning",
-    category: "on-page",
-    title: "Target keyword not found",
-    description: "A target keyword is not present in your content at all.",
-    impact: "Page unlikely to rank for this keyword without any mention of it.",
-    howToFix: "Add natural mentions of the target keyword in your content."
-  },
-  BM25_KEYWORD_SATURATED: {
-    code: "BM25_KEYWORD_SATURATED",
-    severity: "notice",
-    category: "on-page",
-    title: "Keyword over-optimized",
-    description: "Keyword found many times. Additional mentions provide diminishing returns.",
-    impact: "Over-optimization can trigger spam signals.",
-    howToFix: "Use semantic variations and related terms instead of exact repetition."
-  },
-  // Site Maturity
-  NEW_SITE_STRATEGY: {
-    code: "NEW_SITE_STRATEGY",
-    severity: "notice",
-    category: "content",
-    title: "New website detected - Authority-first strategy recommended",
-    description: "Your site appears to be new (<90 days). Standard SEO advice won't work well.",
-    impact: "Creating lots of content without authority is wasted effort.",
-    howToFix: "Focus on building 10+ quality backlinks to ONE great page before expanding content."
-  },
-  CONTENT_AUTHORITY_IMBALANCE: {
-    code: "CONTENT_AUTHORITY_IMBALANCE",
-    severity: "warning",
-    category: "content",
-    title: "Content-to-authority imbalance",
-    description: "Site has many pages but limited backlink signals. Content is unlikely to rank.",
-    impact: "Most of your content may be invisible to search engines due to low domain authority.",
-    howToFix: "Stop publishing new content. Focus 100% on link building until you see ranking improvements."
-  },
-  GROWING_SITE_NO_BLOG: {
-    code: "GROWING_SITE_NO_BLOG",
-    severity: "notice",
-    category: "content",
-    title: "Growing site without blog/content hub",
-    description: "Site is in growth phase but lacks a blog or content section.",
-    impact: "Blog content is essential for attracting backlinks and building topical authority.",
-    howToFix: "Create a blog section with linkable content assets (guides, research, tools)."
-  },
-  // Keyword Cannibalization
-  INTERNAL_CANNIBALIZATION_SIGNAL: {
-    code: "INTERNAL_CANNIBALIZATION_SIGNAL",
-    severity: "warning",
-    category: "content",
-    title: "Duplicate H1 tags on page",
-    description: "Page has multiple H1 tags with duplicates, which can dilute keyword focus.",
-    impact: "Multiple similar H1s can confuse search engines about page topic.",
-    howToFix: "Use a single, unique H1 that clearly defines the page topic."
-  },
-  TITLE_H1_KEYWORD_MISMATCH: {
-    code: "TITLE_H1_KEYWORD_MISMATCH",
-    severity: "warning",
-    category: "on-page",
-    title: "Title and H1 target different keywords",
-    description: "The title tag and H1 heading have no overlapping keywords.",
-    impact: "Search engines may be confused about the primary topic of the page.",
-    howToFix: "Align title and H1 to target the same primary keyword or topic."
-  },
-  // ==================== ASSET MINIFICATION ====================
-  CSS_NOT_MINIFIED: {
-    code: "CSS_NOT_MINIFIED",
-    severity: "warning",
-    category: "performance",
-    title: "CSS files not minified",
-    description: "CSS files contain unnecessary whitespace, comments, or unoptimized code.",
-    impact: "Unminified CSS increases file size and page load time.",
-    howToFix: "Use a CSS minifier (cssnano, clean-css) or ensure build tools minify CSS in production."
-  },
-  JS_NOT_MINIFIED: {
-    code: "JS_NOT_MINIFIED",
-    severity: "warning",
-    category: "performance",
-    title: "JavaScript files not minified",
-    description: "JavaScript files contain unnecessary whitespace, comments, or long variable names.",
-    impact: "Unminified JavaScript increases file size, parse time, and page load time.",
-    howToFix: "Use a JS minifier (Terser, UglifyJS) or ensure build tools minify JS in production."
-  },
-  // ==================== PAGE RESOURCES ====================
-  PAGE_RESOURCES_EXCESSIVE: {
-    code: "PAGE_RESOURCES_EXCESSIVE",
-    severity: "error",
-    category: "performance",
-    title: "Excessive number of page resources",
-    description: "Page makes over 100 HTTP requests for resources.",
-    impact: "Too many HTTP requests cause slow page loads due to connection overhead and browser limits.",
-    howToFix: "Combine CSS/JS files, use image sprites, lazy-load resources, remove unused dependencies."
-  },
-  PAGE_RESOURCES_HIGH: {
-    code: "PAGE_RESOURCES_HIGH",
-    severity: "warning",
-    category: "performance",
-    title: "High number of page resources",
-    description: "Page makes over 50 HTTP requests for resources.",
-    impact: "Many HTTP requests increase page load time, especially on mobile networks.",
-    howToFix: "Bundle CSS/JS files, lazy-load images below the fold, consider critical CSS inlining."
-  },
-  PAGE_RESOURCES_THIRD_PARTY_HIGH: {
-    code: "PAGE_RESOURCES_THIRD_PARTY_HIGH",
-    severity: "warning",
-    category: "performance",
-    title: "Many third-party resources",
-    description: "Page loads many resources from third-party domains.",
-    impact: "Third-party resources add latency and are outside your control.",
-    howToFix: "Self-host critical third-party resources when possible. Use preconnect hints for remaining."
-  },
-  PAGE_RESOURCES_MANY_IFRAMES: {
-    code: "PAGE_RESOURCES_MANY_IFRAMES",
-    severity: "warning",
-    category: "performance",
-    title: "Multiple iframes detected",
-    description: "Page contains multiple iframes, each loading its own document.",
-    impact: "Iframes significantly increase page weight and can block the main thread.",
-    howToFix: "Lazy-load iframes below the fold. Consider native embeds or facade patterns."
-  },
-  // ==================== RESPONSIVE CSS ====================
-  RESPONSIVE_NO_VIEWPORT: {
-    code: "RESPONSIVE_NO_VIEWPORT",
-    severity: "error",
-    category: "mobile",
-    title: "Missing viewport meta tag",
-    description: "No viewport meta tag found for responsive design.",
-    impact: "Without viewport meta, mobile browsers render at desktop width and scale down.",
-    howToFix: 'Add <meta name="viewport" content="width=device-width, initial-scale=1"> to <head>.'
-  },
-  RESPONSIVE_NO_MEDIA_QUERIES: {
-    code: "RESPONSIVE_NO_MEDIA_QUERIES",
-    severity: "warning",
-    category: "mobile",
-    title: "No CSS media queries detected",
-    description: "No @media queries found in stylesheets.",
-    impact: "Without media queries, the site uses fixed layouts that do not adapt to screen sizes.",
-    howToFix: "Add CSS media queries for different screen sizes. Use mobile-first approach."
-  },
-  RESPONSIVE_NO_MOBILE_BREAKPOINT: {
-    code: "RESPONSIVE_NO_MOBILE_BREAKPOINT",
-    severity: "warning",
-    category: "mobile",
-    title: "No mobile breakpoints detected",
-    description: "Media queries exist but none target mobile screen sizes.",
-    impact: "Site may not be optimized for mobile devices, hurting majority of traffic.",
-    howToFix: "Add media queries for mobile: @media (max-width: 768px) { ... }"
-  },
-  // ==================== LINKS RATIO ====================
-  LINKS_NO_INTERNAL: {
-    code: "LINKS_NO_INTERNAL",
-    severity: "warning",
-    category: "links",
-    title: "No internal links found",
-    description: "Page has no internal links to other pages on the site.",
-    impact: "Internal links help search engines discover pages and distribute link equity.",
-    howToFix: "Add relevant internal links to related content or navigation."
-  },
-  LINKS_NO_EXTERNAL: {
-    code: "LINKS_NO_EXTERNAL",
-    severity: "notice",
-    category: "links",
-    title: "No external links found",
-    description: "Page has no links to external websites.",
-    impact: "Linking to authoritative sources improves credibility and content context.",
-    howToFix: "Add links to high-quality external sources that support your content."
-  },
-  LINKS_RATIO_POOR: {
-    code: "LINKS_RATIO_POOR",
-    severity: "warning",
-    category: "links",
-    title: "Poor internal-to-external link ratio",
-    description: "Page has more external links than internal links.",
-    impact: "Too many external links can dilute page authority and may look spammy.",
-    howToFix: "Add more internal links. Aim for at least 2 internal links per external link."
-  },
-  // ==================== URL SAFETY (Local Hash Database) ====================
-  URL_SAFETY_KNOWN_THREAT: {
-    code: "URL_SAFETY_KNOWN_THREAT",
-    severity: "error",
-    category: "security",
-    title: "Website URL matches known threat database",
-    description: "Your website URL matches entries in the local threat database.",
-    impact: "Browsers and security tools may block access to your site. Search engines may remove you from results.",
-    howToFix: "Scan your site for malware, remove any malicious content, and request removal from threat databases."
-  },
-  URL_SAFETY_EXTERNAL_THREAT: {
-    code: "URL_SAFETY_EXTERNAL_THREAT",
-    severity: "error",
-    category: "security",
-    title: "External links to known malicious URLs",
-    description: "External links point to URLs flagged in threat databases.",
-    impact: "Linking to malicious sites harms visitors and damages your reputation and rankings.",
-    howToFix: "Remove all links to flagged URLs immediately."
-  },
-  URL_SAFETY_SUSPICIOUS_DOMAIN: {
-    code: "URL_SAFETY_SUSPICIOUS_DOMAIN",
-    severity: "warning",
-    category: "security",
-    title: "Website URL has suspicious characteristics",
-    description: "Your URL shows patterns commonly associated with phishing or malicious sites.",
-    impact: "Users and security tools may distrust your site.",
-    howToFix: "Use a trustworthy domain structure. Avoid patterns that mimic other brands or use suspicious TLDs."
-  },
-  URL_SAFETY_SUSPICIOUS_EXTERNAL: {
-    code: "URL_SAFETY_SUSPICIOUS_EXTERNAL",
-    severity: "warning",
-    category: "security",
-    title: "External links with suspicious characteristics",
-    description: "External links show patterns associated with phishing or malicious sites.",
-    impact: "Linking to suspicious sites can harm visitors and rankings.",
-    howToFix: "Review and remove or replace suspicious external links."
-  },
-  URL_SAFETY_SHORTENERS: {
-    code: "URL_SAFETY_SHORTENERS",
-    severity: "notice",
-    category: "security",
-    title: "External links use URL shorteners",
-    description: "External links use URL shorteners, hiding the actual destination.",
-    impact: "URL shorteners reduce trust and SEO link value.",
-    howToFix: "Replace shortened URLs with direct links to the destination."
-  },
-  // ==================== FRAMEWORK-SPECIFIC SEO ====================
-  REACT_CSR_DETECTED: {
-    code: "REACT_CSR_DETECTED",
-    severity: "error",
-    category: "framework",
-    title: "Client-side rendered React app detected",
-    description: "React apps without SSR send empty HTML to crawlers. Search engines may not index your content.",
-    impact: "Critical - your content is likely invisible to Google.",
-    howToFix: "Migrate to Next.js for automatic SSR/SSG, add prerendering with react-snap, or use react-helmet-async with a prerender service."
-  },
-  NEXTJS_NO_METADATA_API: {
-    code: "NEXTJS_NO_METADATA_API",
-    severity: "warning",
-    category: "framework",
-    title: "Not using Next.js Metadata API",
-    description: "Next.js 13+ has a built-in Metadata API that is more reliable than third-party solutions.",
-    impact: "Missing out on Next.js optimized SEO features.",
-    howToFix: "Use export const metadata or generateMetadata in your page/layout files."
-  },
-  VUE_CSR_DETECTED: {
-    code: "VUE_CSR_DETECTED",
-    severity: "error",
-    category: "framework",
-    title: "Client-side rendered Vue app detected",
-    description: "Vue apps without SSR send empty HTML to crawlers.",
-    impact: "Your content may not be indexed by search engines.",
-    howToFix: "Migrate to Nuxt for automatic SSR/SSG, or add SSR with @vue/server-renderer."
-  },
-  ANGULAR_NO_UNIVERSAL: {
-    code: "ANGULAR_NO_UNIVERSAL",
-    severity: "error",
-    category: "framework",
-    title: "Angular app without Universal (SSR)",
-    description: "Client-side Angular apps send empty HTML to crawlers.",
-    impact: "Your content may not be indexed by search engines.",
-    howToFix: "Add Angular Universal for SSR: ng add @angular/ssr"
-  },
-  WORDPRESS_NO_SEO_PLUGIN: {
-    code: "WORDPRESS_NO_SEO_PLUGIN",
-    severity: "warning",
-    category: "framework",
-    title: "No SEO plugin detected",
-    description: "WordPress benefits greatly from an SEO plugin like Yoast or Rank Math.",
-    impact: "Missing automated SEO features like sitemaps, schema, and meta tag management.",
-    howToFix: "Install Yoast SEO or Rank Math plugin."
-  },
-  WORDPRESS_NO_CACHING: {
-    code: "WORDPRESS_NO_CACHING",
-    severity: "warning",
-    category: "framework",
-    title: "No caching plugin detected",
-    description: "WordPress without caching is slow, hurting Core Web Vitals.",
-    impact: "Poor performance affects user experience and rankings.",
-    howToFix: "Install WP Super Cache, W3 Total Cache, or LiteSpeed Cache."
-  },
-  SPA_EMPTY_BODY: {
-    code: "SPA_EMPTY_BODY",
-    severity: "error",
-    category: "framework",
-    title: "Single Page App with empty body",
-    description: "Page body contains minimal content, suggesting client-side rendering without SSR.",
-    impact: "Search engines see an empty page and cannot index your content.",
-    howToFix: "Implement server-side rendering, static site generation, or prerendering."
-  },
-  FRAMEWORK_OUTDATED: {
-    code: "FRAMEWORK_OUTDATED",
-    severity: "warning",
-    category: "framework",
-    title: "Outdated framework version detected",
-    description: "Running an outdated version of your framework may have security vulnerabilities and SEO bugs.",
-    impact: "Potential security issues and missing SEO improvements.",
-    howToFix: "Update to the latest stable version of your framework."
-  }
-};
-
 // src/audit/checks/featured-snippet.ts
 
 function detectDefinitionFormat(html) {
@@ -89817,11 +90245,11 @@ function analyzeFeaturedSnippet(html, url) {
     });
   }
   if (lists.found) {
-    for (const list of lists.lists) {
-      if (!list.context.toLowerCase().match(/^\d+|^(how|steps|tips|ways)/)) {
+    for (const list2 of lists.lists) {
+      if (!list2.context.toLowerCase().match(/^\d+|^(how|steps|tips|ways)/)) {
         opportunities.push({
           type: "list",
-          heading: list.context,
+          heading: list2.context,
           score: 70,
           issues: ["List heading could be more snippet-friendly"],
           suggestions: [
@@ -89882,32 +90310,6 @@ function analyzeFeaturedSnippet(html, url) {
         "Follow each question heading with a direct answer paragraph",
         "Consider adding a FAQ section with 3-5 common questions"
       ]
-    });
-  }
-  if (!invertedPyramid.found) {
-    issues.push({
-      code: "INVERTED_PYRAMID_MISSING",
-      severity: "notice",
-      category: "content",
-      title: "Content not structured for featured snippets",
-      description: "First paragraph does not contain a direct answer or summary.",
-      impact: "Featured snippets pull from early content; burying answers reduces snippet capture rate.",
-      howToFix: "Start with a concise answer (40-80 words) that directly addresses the page topic.",
-      affectedUrls: [url],
-      details: { invertedPyramidScore: invertedPyramid.score }
-    });
-  }
-  if (snippetBaitHeaders.length === 0) {
-    issues.push({
-      code: "NO_SNIPPET_BAIT_HEADERS",
-      severity: "notice",
-      category: "on-page",
-      title: "No snippet-targeting headers found",
-      description: "Headings do not use patterns that commonly trigger featured snippets.",
-      impact: "Missing opportunities for high-visibility snippet placements.",
-      howToFix: 'Use headers like "What is [topic]?", "How to [action]", or "X Ways to [achieve goal]".',
-      affectedUrls: [url],
-      details: { suggestedPatterns: ["What is X?", "How to X", "X Steps to Y", "Best X for Y"] }
     });
   }
   return {
@@ -90684,18 +91086,6 @@ function analyzeEEATSignals(html, url) {
       });
     }
   }
-  if (!author.name && !organization.name) {
-    issues.push({
-      code: "NO_ENTITY_IDENTIFIED",
-      severity: "notice",
-      category: "content",
-      title: "No author or organization identified",
-      description: "Page lacks clear attribution to an author or organization.",
-      impact: "Anonymous content may be seen as less trustworthy.",
-      howToFix: "Add author byline or organization information with structured data.",
-      affectedUrls: [url]
-    });
-  }
   if (!organization.hasSchema) {
     issues.push({
       code: "NO_ORGANIZATION_SCHEMA",
@@ -90729,18 +91119,6 @@ function analyzeEEATSignals(html, url) {
       description: "Content has published date but no last-modified date.",
       impact: "Modified dates signal content freshness to search engines.",
       howToFix: "Add article:modified_time meta tag or dateModified in schema.",
-      affectedUrls: [url]
-    });
-  }
-  if (experienceSignals.length === 0 && !isYMYL) {
-    issues.push({
-      code: "NO_EXPERIENCE_SIGNALS",
-      severity: "notice",
-      category: "content",
-      title: "No first-hand experience signals detected",
-      description: "Content lacks indicators of personal/first-hand experience.",
-      impact: 'The "Experience" in E-E-A-T values authentic, first-hand knowledge.',
-      howToFix: "Add personal insights, original photos, or hands-on testing details.",
       affectedUrls: [url]
     });
   }
@@ -90789,18 +91167,6 @@ function analyzeEEATSignals(html, url) {
     });
   }
   const isReviewContent = /\b(review|reviews|reviewed|comparison|compared|vs\.?|best \w+|top \d+)\b/.test(headline);
-  if (isReviewContent && !videoExperience.hasVideo) {
-    issues.push({
-      code: "REVIEW_NO_VIDEO",
-      severity: "notice",
-      category: "content",
-      title: "Review content without video",
-      description: "Product review or comparison content lacks video demonstrations.",
-      impact: "Video content signals first-hand experience, highly valued by Google and AI tools.",
-      howToFix: "Add hands-on video reviews showing actual product testing and demonstration.",
-      affectedUrls: [url]
-    });
-  }
   return {
     issues,
     data: {
@@ -91468,17 +91834,6 @@ function analyzeConversionElements(html, url) {
   const recommendations = [];
   if (pageType === "commercial" || pageType === "mixed") {
     if (!aboveFold.hasCTA) {
-      issues.push({
-        code: "COMMERCIAL_NO_CTA",
-        severity: "warning",
-        category: "content",
-        title: "Commercial page without clear CTA",
-        description: "This appears to be a commercial page but has no clear call-to-action.",
-        impact: "Without a CTA, visitors have no clear next step. 80% of users only see above-the-fold content.",
-        howToFix: 'Add a prominent CTA button above the fold (e.g., "Get Free Quote", "Contact Us", "Start Free Trial").',
-        affectedUrls: [url],
-        details: { pageType }
-      });
       recommendations.push("Add prominent CTA button above the fold");
     }
     if (!aboveFold.hasForm && pageType === "commercial") {
@@ -91514,17 +91869,6 @@ function analyzeConversionElements(html, url) {
     }
   }
   if (!engagementTriggers.hasEmbeddedVideo && !engagementTriggers.hasInteractiveElement) {
-    issues.push({
-      code: "NO_ENGAGEMENT_TRIGGERS",
-      severity: "notice",
-      category: "content",
-      title: "No engagement triggers found",
-      description: "Page lacks interactive elements, videos, or calculators.",
-      impact: "Interactive content increases dwell time, a user signal that influences rankings.",
-      howToFix: "Add video content, calculators, interactive tools, or expandable sections.",
-      affectedUrls: [url],
-      details: { engagementScore: engagementTriggers.engagementScore }
-    });
     recommendations.push("Add video or interactive elements to increase engagement");
   }
   if (pageType === "commercial" && !engagementTriggers.hasCalculator) {
@@ -91994,6 +92338,13 @@ function calculateOrphanRisk(contentLinks, uniqueDestinations, clusterSignals) {
   if (score >= 3) return "medium";
   return "high";
 }
+function isRootPage(url) {
+  try {
+    return (new URL(url).pathname.replace(/\/+$/, "") || "/") === "/";
+  } catch {
+    return false;
+  }
+}
 function analyzeTopicalClusters(html, url) {
   const $ = esm/* load */.Hh(html);
   const issues = [];
@@ -92068,7 +92419,7 @@ function analyzeTopicalClusters(html, url) {
       }
     });
   }
-  if (!clusterSignals.hasBreadcrumbs) {
+  if (!clusterSignals.hasBreadcrumbs && !isRootPage(url)) {
     issues.push({
       code: "NO_BREADCRUMBS",
       severity: "notice",
@@ -92077,18 +92428,6 @@ function analyzeTopicalClusters(html, url) {
       description: "Page lacks breadcrumb navigation for hierarchical context.",
       impact: "Breadcrumbs improve UX, help search engines understand site structure, and can appear in SERPs.",
       howToFix: "Add breadcrumb navigation with Schema.org BreadcrumbList markup.",
-      affectedUrls: [url]
-    });
-  }
-  if (!clusterSignals.hasRelatedPosts && !clusterSignals.hasCategoryLinks) {
-    issues.push({
-      code: "NO_RELATED_CONTENT",
-      severity: "notice",
-      category: "on-page",
-      title: "No related content section",
-      description: 'Page has no "Related Posts" or similar content discovery section.',
-      impact: "Related content sections reduce bounce rate, increase pageviews, and strengthen topic clusters.",
-      howToFix: "Add a section linking to related articles, products, or category pages.",
       affectedUrls: [url]
     });
   }
@@ -92855,18 +93194,6 @@ function analyzeInteractiveTools(html, url) {
       affectedUrls: [url]
     });
   }
-  if (dwellTimeScore < 20 && uniqueTools.length === 0) {
-    issues.push({
-      code: "LOW_DWELL_TIME_SIGNALS",
-      severity: "notice",
-      category: "content",
-      title: "Page lacks dwell time optimization",
-      description: "No interactive tools, calculators, quizzes, or video embeds detected.",
-      impact: "Interactive content significantly increases time on page, a user engagement signal.",
-      howToFix: "Add at least one interactive element: calculator, quiz, embedded video, or free tool.",
-      affectedUrls: [url]
-    });
-  }
   return {
     issues,
     data: {
@@ -93384,23 +93711,6 @@ function analyzeNavBoostSignals(html, url) {
       }
     });
   }
-  if (!bounceRiskFactors.hasAboveFoldContent || !bounceRiskFactors.hasImmediateValue) {
-    issues.push({
-      code: "HIGH_BOUNCE_RISK",
-      // A notice: a heuristic score, not a defect a crawler can see, and it fired on most sites.
-      severity: "notice",
-      category: "content",
-      title: "Page has high bounce risk signals",
-      description: "The page lacks above-fold content or immediate value for visitors.",
-      impact: "NavBoost tracks bounce rate. >70% bounce with <30s sessions hurts rankings.",
-      howToFix: "Add compelling content above the fold that delivers immediate value to visitors.",
-      affectedUrls: [url],
-      details: {
-        hasAboveFoldContent: bounceRiskFactors.hasAboveFoldContent,
-        hasImmediateValue: bounceRiskFactors.hasImmediateValue
-      }
-    });
-  }
   if (bounceRiskFactors.hasPopupRisk) {
     issues.push({
       code: "POPUP_BOUNCE_RISK",
@@ -93658,18 +93968,6 @@ function analyzeEntitySEO(html, url) {
       }
     });
   }
-  if (!entityClarity.hasWikipediaStyleIntro) {
-    issues.push({
-      code: "NO_ENTITY_DEFINITION",
-      severity: "notice",
-      category: "content",
-      title: "Missing entity definition in content",
-      description: "First paragraph lacks a clear definition of the primary entity.",
-      impact: "Clear entity definitions help AI systems extract and cite your content correctly.",
-      howToFix: 'Start content with "[Entity Name] is a [type] that [does what]" pattern.',
-      affectedUrls: [url]
-    });
-  }
   if (!entityClarity.entityNameConsistency && entityClarity.entityMentionCount < 3) {
     issues.push({
       code: "LOW_ENTITY_CONSISTENCY",
@@ -93918,7 +94216,7 @@ function analyzeFreshnessSignals(html, url) {
       category: "structured-data",
       title: "Missing dateModified in schema",
       description: "Schema markup lacks dateModified property.",
-      impact: "dateModified signals content freshness to search engines and AI assistants, boosting citation odds by ~18%.",
+      impact: "Freshness is one of the few levers the citation evidence supports: cited URLs are 25.7 percent newer than organic results (Ahrefs), and pages updated within three months averaged 6.0 ChatGPT citations against 3.6 for stale ones (SE Ranking). dateModified is how a page states its date to a crawler.",
       howToFix: "Add dateModified property to your Article/WebPage schema with ISO 8601 format.",
       affectedUrls: [url],
       details: {
@@ -93933,7 +94231,7 @@ function analyzeFreshnessSignals(html, url) {
       category: "content",
       title: "Time-sensitive content may be stale",
       description: `Content was last modified ${dateSignals.daysSinceModified} days ago on a topic that benefits from freshness.`,
-      impact: "Query Deserves Freshness (QDF) prioritizes fresh content for this topic type.",
+      impact: "Query Deserves Freshness (QDF) prioritizes fresh content for this topic type, and AI citations decay with a half-life of about 4.5 weeks, so a page that is not refreshed drops out of answers.",
       howToFix: `Update this content ${qdfRelevance.updateFrequencyRecommendation}. Add new data, stats, or insights.`,
       affectedUrls: [url],
       details: {
@@ -93969,7 +94267,7 @@ function analyzeFreshnessSignals(html, url) {
       category: "content",
       title: "No visible publish/update date",
       description: "Content page lacks a visible date for users.",
-      impact: "Users prefer seeing when content was published/updated for credibility.",
+      impact: "Readers and assistants both judge freshness from a visible date; cited pages are 25.7 percent newer than organic results (Ahrefs).",
       howToFix: "Display publish date and last updated date on the page.",
       affectedUrls: [url]
     });
@@ -94103,19 +94401,20 @@ function analyzeAIContentStructure(html, url) {
     structureScore -= 5;
   }
   structureScore = Math.max(0, Math.min(100, structureScore));
-  if (!hasComparisonTable && bodyText.includes("compar") || bodyText.includes("vs") || bodyText.includes("versus")) {
+  const comparesThings = /\b(compar(e|es|ed|ing|ison|isons)|versus|vs\.?)\b/.test(bodyText);
+  if (!hasComparisonTable && comparesThings) {
     issues.push({
       code: "AI_NO_COMPARISON_TABLE",
       severity: "notice",
       category: "ai-readiness",
-      title: "Comparison content without table format",
-      description: "Your content mentions comparisons but doesn't use a table format. AI systems can easily parse and quote table data.",
-      impact: "AI may not accurately extract comparison data, reducing chances of being cited in AI-generated comparisons.",
-      howToFix: "Convert comparison content to HTML tables with clear headers. Example: Feature | Option A | Option B",
+      title: "Comparison content without a table",
+      description: "The page compares things in prose. In a 193,507-answer study of AI assistants, pages with tables had 69 percent higher odds of being cited; a table is also the unit an assistant can quote whole.",
+      impact: "A comparison in prose gets paraphrased or skipped; one in a table gets quoted.",
+      howToFix: "Put the comparison in an HTML table with header cells: one row per option, one column per criterion.",
       affectedUrls: [url]
     });
   }
-  if (!hasStepByStep && (bodyText.includes("step") || bodyText.includes("how to") || bodyText.includes("guide"))) {
+  if (!hasStepByStep && /\b(steps?|how to|guide|tutorial|walkthrough)\b/.test(bodyText)) {
     issues.push({
       code: "AI_NO_NUMBERED_STEPS",
       severity: "notice",
@@ -94127,59 +94426,16 @@ function analyzeAIContentStructure(html, url) {
       affectedUrls: [url]
     });
   }
-  if (!hasExplicitQA && questionCount === 0) {
-    issues.push({
-      code: "AI_NO_QA_FORMAT",
-      severity: "notice",
-      category: "ai-readiness",
-      title: "No question-and-answer format detected",
-      description: "Content lacks explicit Q&A structure. AI systems often look for clear question-answer pairs to provide direct responses.",
-      impact: "Lower chance of being featured in AI direct answers or FAQ-style responses.",
-      howToFix: "Add FAQ section with common questions as headings (H2/H3) followed by concise answers. Implement FAQ schema markup.",
-      affectedUrls: [url],
-      details: {
-        suggestions: [
-          "Use question words in headings (What, How, Why, etc.)",
-          "Follow questions with short, direct answer paragraphs",
-          "Add FAQ schema markup for structured data",
-          "Consider using <details>/<summary> for expandable Q&A"
-        ]
-      }
-    });
-  }
-  if (questionCount >= 2 && !hasDirectAnswers) {
-    issues.push({
-      code: "AI_QUESTIONS_NO_DIRECT_ANSWERS",
-      severity: "notice",
-      category: "ai-readiness",
-      title: "Questions in headings lack direct answers",
-      description: `Found ${questionCount} question-style headings but answers are too long or not immediately following. AI prefers concise answers right after questions.`,
-      impact: "AI may struggle to extract clear answers, reducing citation likelihood.",
-      howToFix: "Start each answer section with a 1-2 sentence direct answer, then expand with details. First sentence should standalone as a complete answer.",
-      affectedUrls: [url]
-    });
-  }
-  if (!hasDefinitions && (bodyText.includes("what is") || bodyText.includes("definition"))) {
-    issues.push({
-      code: "AI_NO_DEFINITIONS",
-      severity: "notice",
-      category: "ai-readiness",
-      title: "Missing clear definitions",
-      description: 'Content discusses concepts but lacks Wikipedia-style definitions. AI loves clear "X is a..." statements.',
-      impact: "Less likely to be cited for definitional queries in AI search.",
-      howToFix: 'Add clear definitions early in content: "[Term] is a [category] that [distinguishing features]." Make first paragraph a complete definition.',
-      affectedUrls: [url]
-    });
-  }
   if (structureScore < 50) {
     issues.push({
       code: "AI_LOW_STRUCTURE_SCORE",
-      severity: "warning",
+      // A heuristic score, not a defect a crawler can see: never a failed build.
+      severity: "notice",
       category: "ai-readiness",
       title: "Content structure not optimized for AI parsing",
       description: `AI structure score: ${structureScore}/100. Content lacks structured elements that AI can easily parse and quote.`,
       impact: "Lower likelihood of being cited in AI-generated answers due to poor content structure.",
-      howToFix: "Improve content structure: add tables for data, numbered lists for steps, bullet points for features, Q&A sections for common questions.",
+      howToFix: "Give the assistant something to quote whole: a table for data or comparisons, a numbered list for steps, and a short paragraph that answers each question heading.",
       affectedUrls: [url],
       details: {
         structureScore,
@@ -94274,17 +94530,6 @@ function analyzeRAGChunkReadiness(html, url) {
   if (totalSections >= 3 && wellSizedSectionCount / totalSections < 0.5) {
     const tooLong = sections.filter((s) => s.sizeQuality === "too-long").length;
     const tooShort = sections.filter((s) => s.sizeQuality === "too-short").length;
-    issues.push({
-      code: "RAG_CHUNK_SIZE_MISMATCH",
-      severity: "notice",
-      category: "ai-readiness",
-      title: "Most sections are poorly sized for AI retrieval chunking",
-      description: `${wellSizedSectionCount} of ${totalSections} sections fall in a well-sized range for RAG retrieval (roughly 150-450 words); ${tooLong} are too long and likely to get split mid-thought, ${tooShort} are too short and likely to get merged with unrelated neighbors.`,
-      impact: "When an AI answer engine retrieves a chunk of this page in response to a query, oversized sections risk being cut off mid-point and undersized ones risk losing standalone context \u2014 both reduce the odds the retrieved chunk reads coherently in an AI-generated answer.",
-      howToFix: "Break up long sections (450+ words) with an additional H2/H3 subheading roughly every 300-400 words. Merge very short sections (under 150 words) into a neighboring section or expand them with enough context to stand alone.",
-      affectedUrls: [url],
-      details: { wellSizedSectionCount, totalSections, tooLong, tooShort }
-    });
   }
   if (totalSections >= 3 && danglingReferenceCount / totalSections > 0.3) {
     issues.push({
@@ -94503,7 +94748,8 @@ function analyzeCitationQuality(html, url) {
   if (totalReputable === 0 && externalLinks > 0) {
     issues.push({
       code: "AI_NO_REPUTABLE_CITATIONS",
-      severity: "warning",
+      // "Reputable" is a curated domain list, so this is a hint, never a failed build.
+      severity: "notice",
       category: "ai-readiness",
       title: "No reputable sources cited",
       description: "Content has external links but none to recognized authoritative sources. AI prioritizes content that cites reputable sources.",
@@ -94524,7 +94770,8 @@ function analyzeCitationQuality(html, url) {
   if (externalLinks === 0 && totalLinks > 0) {
     issues.push({
       code: "AI_NO_EXTERNAL_CITATIONS",
-      severity: "warning",
+      // A product or landing page with no outbound links is normal; a hint, never a failed build.
+      severity: "notice",
       category: "ai-readiness",
       title: "No external sources linked",
       description: "Content has no external links. AI values content that references and links to authoritative sources.",
@@ -94539,9 +94786,9 @@ function analyzeCitationQuality(html, url) {
       severity: "warning",
       category: "ai-readiness",
       title: "Statistics without source citations",
-      description: `Found ${statisticsWithoutSources} statistic(s) without linked sources. AI is trained to prefer claims backed by citations.`,
-      impact: "Uncited statistics reduce content credibility and E-E-A-T signals.",
-      howToFix: 'Add source links or citations for all statistics. Include the source name and year when possible (e.g., "according to [Source, 2024]").',
+      description: `Found ${statisticsWithoutSources} statistic(s) with no linked source. In the Princeton GEO experiments, adding statistics with sources raised a page's visibility in generated answers by 29 percent and adding quotations by 40 percent, while keyword stuffing lowered it by 9 percent.`,
+      impact: "An uncited number is a claim the assistant cannot verify and will not repeat with attribution.",
+      howToFix: 'Link each statistic to its source and name it in the sentence ("according to Ahrefs, 2026"), or drop the number.',
       affectedUrls: [url],
       details: {
         statisticsWithSources,
@@ -94561,26 +94808,6 @@ function analyzeCitationQuality(html, url) {
       impact: "Missing opportunity to demonstrate comprehensive research and boost E-E-A-T.",
       howToFix: 'Add a "References" or "Sources" section at the end listing all cited sources with full attribution.',
       affectedUrls: [url]
-    });
-  }
-  if (citationScore < 40) {
-    issues.push({
-      code: "AI_LOW_CITATION_QUALITY",
-      // A notice: a heuristic score, not a defect a crawler can see, and it fired on most sites.
-      severity: "notice",
-      category: "ai-readiness",
-      title: "Content citation quality needs improvement",
-      description: `Citation quality score: ${citationScore}/100. Well-cited content ranks higher in AI search results.`,
-      impact: "Low citation quality signals reduce E-E-A-T and AI citation likelihood.",
-      howToFix: "Improve citations: 1) Link to reputable sources, 2) Cite statistics with sources, 3) Add a references section, 4) Use inline citations for claims.",
-      affectedUrls: [url],
-      details: {
-        citationScore,
-        externalLinks,
-        reputableSources: totalReputable,
-        statisticsWithSources,
-        statisticsWithoutSources
-      }
     });
   }
   return {
@@ -94696,8 +94923,8 @@ function analyzeAnswerConciseness(html, url) {
       severity: "notice",
       category: "ai-readiness",
       title: "Questions lack direct, quotable answers",
-      description: `${questionHeadings} question headings found but only ${headingsWithDirectAnswers} have direct answers. AI prefers content that answers questions immediately.`,
-      impact: "AI may skip your content for sources with clearer, more direct answers.",
+      description: `${questionHeadings} question headings, ${headingsWithDirectAnswers} answered in the paragraph right after. In a 193,507-answer study, 23 percent of the pages assistants cited opened with a direct answer, against 14 percent of pages retrieved but not cited.`,
+      impact: "The assistant quotes the page that answers first and paraphrases the one that builds up to it.",
       howToFix: 'Start answer paragraphs with a direct 1-2 sentence answer. Avoid filler words like "Well," "So," "Basically." Lead with the answer, then explain.',
       affectedUrls: [url],
       details: {
@@ -94755,7 +94982,8 @@ function analyzeAnswerConciseness(html, url) {
   if (concisenessScore < 50) {
     issues.push({
       code: "AI_LOW_CONCISENESS",
-      severity: "warning",
+      // A heuristic score, not a defect a crawler can see: never a failed build.
+      severity: "notice",
       category: "ai-readiness",
       title: "Content lacks concise, quotable answers",
       description: `Conciseness score: ${concisenessScore}/100. AI prefers content with clear, succinct answers it can quote directly.`,
@@ -94916,21 +95144,6 @@ function analyzeBrandMentionOptimization(html, url) {
   if (hasSocialLinks) brandScore += 3;
   if (hasReviewLinks) brandScore += 5;
   brandScore = Math.min(100, Math.max(0, brandScore));
-  if (!hasBrandDefinition) {
-    issues.push({
-      code: "AI_NO_BRAND_DEFINITION",
-      severity: "warning",
-      category: "ai-readiness",
-      title: "No clear brand definition for AI to extract",
-      description: 'AI systems look for clear "Brand X is..." statements to quote when recommending brands. Your page lacks quotable brand definitions.',
-      impact: "AI cannot accurately describe your brand, reducing recommendation likelihood.",
-      howToFix: 'Add a clear brand definition early in your content: "[Brand] is a [category] that [key benefit]." Make it quotable (under 200 characters).',
-      affectedUrls: [url],
-      details: {
-        suggestion: `Example: "${potentialBrandName.charAt(0).toUpperCase() + potentialBrandName.slice(1)} is a [category] that helps [audience] [achieve benefit]."`
-      }
-    });
-  }
   if (!hasUSP) {
     issues.push({
       code: "AI_NO_USP",
@@ -94948,22 +95161,6 @@ function analyzeBrandMentionOptimization(html, url) {
   if (!hasFAQSection) missingTopics.push("FAQ");
   if (!hasTestimonials) missingTopics.push("testimonials/reviews");
   if (!hasProofPoints) missingTopics.push("proof points/case studies");
-  if (missingTopics.length >= 2) {
-    issues.push({
-      code: "AI_INCOMPLETE_BRAND_COVERAGE",
-      severity: "notice",
-      category: "ai-readiness",
-      title: "Incomplete brand topic coverage",
-      description: `Missing key brand topics that AI uses to answer queries: ${missingTopics.join(", ")}. AI may rely on third-party sources instead.`,
-      impact: "Third-party sites may define your brand narrative instead of you.",
-      howToFix: "Cover key brand topics on your site: pricing, positioning, proof (testimonials, case studies), and FAQs.",
-      affectedUrls: [url],
-      details: {
-        missingTopics,
-        recommendation: "Control your brand narrative by having authoritative content on these topics on your own site."
-      }
-    });
-  }
   if (!hasReviewLinks && !hasTestimonials) {
     issues.push({
       code: "AI_NO_REVIEW_INTEGRATION",
@@ -94980,27 +95177,6 @@ function analyzeBrandMentionOptimization(html, url) {
           "Local: Google Business, Yelp, BBB",
           "Professional: Clutch, UpCity"
         ]
-      }
-    });
-  }
-  if (brandScore < 50) {
-    issues.push({
-      code: "AI_LOW_BRAND_SCORE",
-      severity: "warning",
-      category: "ai-readiness",
-      title: "Brand is not well-optimized for AI extraction",
-      description: `Brand optimization score: ${brandScore}/100. AI may struggle to accurately describe and recommend your brand.`,
-      impact: "Low likelihood of being recommended in AI answers for brand-related queries.",
-      howToFix: "Improve brand clarity: add quotable definitions, USPs, testimonials, proof points, and link to review platforms.",
-      affectedUrls: [url],
-      details: {
-        brandScore,
-        hasBrandDefinition,
-        hasUSP,
-        hasTestimonials,
-        hasProofPoints,
-        hasReviewLinks,
-        quotableBrandStatements: quotableBrandStatements.slice(0, 3)
       }
     });
   }
@@ -95201,46 +95377,6 @@ function analyzeAICitationWorthiness(html, url) {
   if (hasDocumentation) citationWorthinessScore += 4;
   if (hasRealExamples) citationWorthinessScore += 3;
   citationWorthinessScore = Math.min(100, Math.max(0, citationWorthinessScore));
-  if (!hasOriginalData && !hasPrimaryResearch) {
-    issues.push({
-      code: "AI_NO_ORIGINAL_DATA",
-      severity: "notice",
-      category: "ai-readiness",
-      title: "No original data or research signals",
-      description: "Content lacks original data, surveys, or research findings. AI prefers citing sources with unique, first-party data.",
-      impact: "Generic content without original data is less likely to be cited as a source.",
-      howToFix: 'Add original data: survey results, internal analytics, case study numbers, or primary research findings. Use phrases like "Our data shows..." or "We surveyed X users...".',
-      affectedUrls: [url]
-    });
-  }
-  if (!hasFirstPersonExperience && !hasCaseStudies) {
-    issues.push({
-      code: "AI_NO_EXPERIENCE_SIGNALS",
-      severity: "notice",
-      category: "ai-readiness",
-      title: "No first-hand experience signals",
-      description: 'Content reads like it could be AI-generated. No "I tested...", "We implemented...", or case study language found.',
-      impact: "AI may prefer sources that demonstrate real-world experience over generic explanations.",
-      howToFix: `Add personal experience: "In my experience...", "When we tested...", "Here's what happened when...". Include specific scenarios you've encountered.`,
-      affectedUrls: [url]
-    });
-  }
-  if (stockImageCount > 0 && stockImageCount >= totalImages * 0.5) {
-    issues.push({
-      code: "AI_STOCK_IMAGE_HEAVY",
-      severity: "notice",
-      category: "ai-readiness",
-      title: "Heavy use of stock images",
-      description: `${stockImageCount} of ${totalImages} images appear to be from stock photo sites. Original visuals signal authenticity.`,
-      impact: "Stock-heavy content appears less authentic and expert to both users and AI.",
-      howToFix: "Replace stock photos with original screenshots, diagrams, photos, or custom graphics that AI cannot easily replicate.",
-      affectedUrls: [url],
-      details: {
-        stockImageCount,
-        totalImages
-      }
-    });
-  }
   if (!hasAuthorByline && !hasAuthorCredentials) {
     issues.push({
       code: "AI_NO_AUTHOR_EXPERTISE",
@@ -95251,29 +95387,6 @@ function analyzeAICitationWorthiness(html, url) {
       impact: "Anonymous content is less trustworthy for AI citation purposes.",
       howToFix: "Add author byline with credentials: name, title, years of experience, certifications, or relevant expertise.",
       affectedUrls: [url]
-    });
-  }
-  if (citationWorthinessScore < 40) {
-    issues.push({
-      code: "AI_LOW_CITATION_WORTHINESS",
-      // A notice: a heuristic score, not a defect a crawler can see, and it fired on most sites.
-      severity: "notice",
-      category: "ai-readiness",
-      title: "Content lacks AI-proof originality signals",
-      description: `Citation worthiness score: ${citationWorthinessScore}/100. Content appears generic and could be easily replicated by AI.`,
-      impact: "AI may not cite this content as it lacks unique value that AI cannot generate itself.",
-      howToFix: "Add what AI can't fake: original data, real screenshots, dated experiences, expert quotes, case studies, and specific proof points.",
-      affectedUrls: [url],
-      details: {
-        citationWorthinessScore,
-        aiProofElements: aiProofElements.length > 0 ? aiProofElements : ["None detected"],
-        missing: [
-          !hasOriginalData && "Original data/research",
-          !hasFirstPersonExperience && "First-person experience",
-          !hasAuthorCredentials && "Expert credentials",
-          !hasSpecificNumbers && "Specific data points"
-        ].filter(Boolean)
-      }
     });
   }
   return {
@@ -96157,26 +96270,31 @@ function validateLastmodValues(content) {
   const matches = content.match(/<lastmod>([^<]*)<\/lastmod>/g) || [];
   let invalidCount = 0;
   const now = Date.now();
+  const days = /* @__PURE__ */ new Set();
+  let sample;
   for (const match of matches) {
     const value = match.replace(/<\/?lastmod>/g, "").trim();
     const parsed = LASTMOD_PATTERN.test(value) ? new Date(value) : null;
     if (!parsed || isNaN(parsed.getTime()) || parsed.getTime() > now) {
       invalidCount++;
     }
+    days.add(value.slice(0, 10));
+    sample ??= value;
   }
-  return { count: matches.length, invalidCount };
+  const uniform = matches.length >= 10 && days.size === 1;
+  return { count: matches.length, invalidCount, uniform, sample };
 }
 async function checkRobotsTxt(baseUrl) {
   const issues = [];
   const url = new URL("/robots.txt", baseUrl).href;
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(url, {
       timeout: 1e4,
       validateStatus: () => true
     });
     if (response.status >= 500 || response.status === 429) {
       issues.push({
-        ...ISSUE_DEFINITIONS.ROBOTS_TXT_SERVER_ERROR,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.ROBOTS_TXT_SERVER_ERROR,
         affectedUrls: [url],
         details: { status: response.status }
       });
@@ -96187,7 +96305,7 @@ async function checkRobotsTxt(baseUrl) {
     }
     if (response.status >= 400) {
       issues.push({
-        ...ISSUE_DEFINITIONS.ROBOTS_TXT_MISSING,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.ROBOTS_TXT_MISSING,
         affectedUrls: [url],
         ...response.status !== 404 && { details: { status: response.status } }
       });
@@ -96197,9 +96315,9 @@ async function checkRobotsTxt(baseUrl) {
       };
     }
     const content = response.data;
-    if ((0,chunk_ZLQQXIZ3/* looksLikeHtmlFallback */.Bp)(content, response.headers?.["content-type"])) {
+    if ((0,chunk_SWTM7CDR/* looksLikeHtmlFallback */.Bp)(content, response.headers?.["content-type"])) {
       issues.push({
-        ...ISSUE_DEFINITIONS.ROBOTS_TXT_MISSING,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.ROBOTS_TXT_MISSING,
         affectedUrls: [url],
         details: { servedHtml: true }
       });
@@ -96222,7 +96340,7 @@ async function checkRobotsTxt(baseUrl) {
     }
     if (blocksAll) {
       issues.push({
-        ...ISSUE_DEFINITIONS.ROBOTS_TXT_BLOCKS_ALL,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.ROBOTS_TXT_BLOCKS_ALL,
         affectedUrls: [url]
       });
     }
@@ -96246,7 +96364,7 @@ async function checkRobotsTxt(baseUrl) {
     };
   } catch (error) {
     issues.push({
-      ...ISSUE_DEFINITIONS.ROBOTS_TXT_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.ROBOTS_TXT_MISSING,
       affectedUrls: [url],
       details: { error: error instanceof Error ? error.message : "Unknown error" }
     });
@@ -96264,7 +96382,7 @@ async function checkSitemap2(baseUrl, robotsData) {
   ];
   for (const sitemapUrl of sitemapUrls) {
     try {
-      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(sitemapUrl, {
+      const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(sitemapUrl, {
         timeout: 1e4,
         validateStatus: () => true
       });
@@ -96274,33 +96392,39 @@ async function checkSitemap2(baseUrl, robotsData) {
         const urlCount = urlMatches ? urlMatches.length : 0;
         if (!robotsData.hasSitemap) {
           issues.push({
-            ...ISSUE_DEFINITIONS.SITEMAP_NOT_IN_ROBOTS,
+            ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.SITEMAP_NOT_IN_ROBOTS,
             affectedUrls: [sitemapUrl]
           });
         }
-        const { count: lastmodCount, invalidCount: invalidLastmodCount } = validateLastmodValues(content);
+        const { count: lastmodCount, invalidCount: invalidLastmodCount, uniform: uniformLastmod, sample } = validateLastmodValues(content);
         if (lastmodCount === 0) {
           issues.push({
-            ...ISSUE_DEFINITIONS.SITEMAP_LASTMOD_MISSING,
+            ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.SITEMAP_LASTMOD_MISSING,
             affectedUrls: [sitemapUrl]
           });
         } else if (invalidLastmodCount > 0) {
           issues.push({
-            ...ISSUE_DEFINITIONS.SITEMAP_LASTMOD_INVALID,
+            ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.SITEMAP_LASTMOD_INVALID,
             affectedUrls: [sitemapUrl],
             details: { invalidCount: invalidLastmodCount, totalCount: lastmodCount }
+          });
+        } else if (uniformLastmod) {
+          issues.push({
+            ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.SITEMAP_LASTMOD_UNIFORM,
+            affectedUrls: [sitemapUrl],
+            details: { lastmod: sample, urlCount: lastmodCount }
           });
         }
         return {
           issues,
-          data: { exists: true, url: sitemapUrl, urlCount, errors: [], lastmodCount, invalidLastmodCount }
+          data: { exists: true, url: sitemapUrl, urlCount, errors: [], lastmodCount, invalidLastmodCount, uniformLastmod }
         };
       }
     } catch {
     }
   }
   issues.push({
-    ...ISSUE_DEFINITIONS.SITEMAP_MISSING,
+    ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.SITEMAP_MISSING,
     affectedUrls: [new URL("/sitemap.xml", baseUrl).href]
   });
   return {
@@ -96315,7 +96439,7 @@ async function checkRedirects(url) {
   let maxRedirects = 10;
   while (maxRedirects > 0) {
     try {
-      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(currentUrl, {
+      const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(currentUrl, {
         timeout: 1e4,
         maxRedirects: 0,
         validateStatus: () => true
@@ -96326,7 +96450,7 @@ async function checkRedirects(url) {
         const nextUrl = new URL(location, currentUrl).href;
         if (chain.includes(nextUrl)) {
           issues.push({
-            ...ISSUE_DEFINITIONS.REDIRECT_LOOP,
+            ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.REDIRECT_LOOP,
             affectedUrls: chain,
             details: { chain, loopTo: nextUrl }
           });
@@ -96344,7 +96468,7 @@ async function checkRedirects(url) {
   }
   if (chain.length > 2) {
     issues.push({
-      ...ISSUE_DEFINITIONS.REDIRECT_CHAIN,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.REDIRECT_CHAIN,
       affectedUrls: chain,
       details: { chain, hops: chain.length - 1 }
     });
@@ -96453,19 +96577,19 @@ function analyzeOnPage(html, url, headers, options = {}) {
   };
   if (!title) {
     issues.push({
-      ...ISSUE_DEFINITIONS.TITLE_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.TITLE_MISSING,
       affectedUrls: [url]
     });
   } else {
     if (title.length < 30) {
       issues.push({
-        ...ISSUE_DEFINITIONS.TITLE_TOO_SHORT,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.TITLE_TOO_SHORT,
         affectedUrls: [url],
         details: { title, length: title.length }
       });
     } else if (title.length > 60) {
       issues.push({
-        ...ISSUE_DEFINITIONS.TITLE_TOO_LONG,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.TITLE_TOO_LONG,
         affectedUrls: [url],
         details: { title, length: title.length }
       });
@@ -96473,19 +96597,19 @@ function analyzeOnPage(html, url, headers, options = {}) {
   }
   if (!description) {
     issues.push({
-      ...ISSUE_DEFINITIONS.META_DESC_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.META_DESC_MISSING,
       affectedUrls: [url]
     });
   } else {
     if (description.length < 120) {
       issues.push({
-        ...ISSUE_DEFINITIONS.META_DESC_TOO_SHORT,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.META_DESC_TOO_SHORT,
         affectedUrls: [url],
         details: { description, length: description.length }
       });
     } else if (description.length > 160) {
       issues.push({
-        ...ISSUE_DEFINITIONS.META_DESC_TOO_LONG,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.META_DESC_TOO_LONG,
         affectedUrls: [url],
         details: { description, length: description.length }
       });
@@ -96493,33 +96617,33 @@ function analyzeOnPage(html, url, headers, options = {}) {
   }
   if (!canonical) {
     issues.push({
-      ...ISSUE_DEFINITIONS.CANONICAL_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.CANONICAL_MISSING,
       affectedUrls: [url]
     });
   }
   const canonicalCount = $('link[rel="canonical"]').length;
   if (canonicalCount > 1) {
     issues.push({
-      ...ISSUE_DEFINITIONS.MULTIPLE_CANONICALS,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.MULTIPLE_CANONICALS,
       affectedUrls: [url],
       details: { count: canonicalCount }
     });
   }
   if (h1s.length === 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.H1_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.H1_MISSING,
       affectedUrls: [url]
     });
   } else if (h1s.length > 1) {
     issues.push({
-      ...ISSUE_DEFINITIONS.H1_MULTIPLE,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.H1_MULTIPLE,
       affectedUrls: [url],
       details: { h1s, count: h1s.length }
     });
   }
   if (h1s.length === 1 && title && h1s[0].toLowerCase() === title.toLowerCase()) {
     issues.push({
-      ...ISSUE_DEFINITIONS.H1_DUPLICATE_OF_TITLE,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.H1_DUPLICATE_OF_TITLE,
       affectedUrls: [url],
       details: { h1: h1s[0], title }
     });
@@ -96541,7 +96665,7 @@ function analyzeOnPage(html, url, headers, options = {}) {
   for (const heading of headings) {
     if (heading.level > previousLevel + 1 && previousLevel > 0) {
       issues.push({
-        ...ISSUE_DEFINITIONS.HEADING_SKIP,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.HEADING_SKIP,
         affectedUrls: [url],
         details: { from: previousLevel, to: heading.level }
       });
@@ -96551,14 +96675,14 @@ function analyzeOnPage(html, url, headers, options = {}) {
   }
   if (wordCount < 300) {
     issues.push({
-      ...ISSUE_DEFINITIONS.THIN_CONTENT,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.THIN_CONTENT,
       affectedUrls: [url],
       details: { wordCount }
     });
   }
   if (textToHtmlRatio < 10) {
     issues.push({
-      ...ISSUE_DEFINITIONS.LOW_TEXT_HTML_RATIO,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.LOW_TEXT_HTML_RATIO,
       affectedUrls: [url],
       details: { ratio: textToHtmlRatio.toFixed(1) + "%" }
     });
@@ -96566,7 +96690,7 @@ function analyzeOnPage(html, url, headers, options = {}) {
   const root = options.auditRoot ?? isSiteRoot(url);
   if (metaNoindex) {
     issues.push({
-      ...ISSUE_DEFINITIONS.NOINDEX_TAG,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.NOINDEX_TAG,
       severity: root ? "error" : "warning",
       affectedUrls: [url],
       details: { metaRobots: robotsMetaValues.join(", "), siteRoot: root }
@@ -96579,10 +96703,10 @@ function analyzeOnPage(html, url, headers, options = {}) {
     } catch {
     }
     issues.push({
-      ...ISSUE_DEFINITIONS.NOINDEX_HEADER,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.NOINDEX_HEADER,
       severity: preview ? "notice" : root ? "error" : "warning",
       ...preview && {
-        description: `${ISSUE_DEFINITIONS.NOINDEX_HEADER.description} This host is a preview-deployment domain (Vercel, Netlify or Cloudflare Pages), which adds this header to non-production deployments automatically - your production domain won't send it.`
+        description: `${chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.NOINDEX_HEADER.description} This host is a preview-deployment domain (Vercel, Netlify or Cloudflare Pages), which adds this header to non-production deployments automatically - your production domain won't send it.`
       },
       affectedUrls: [url],
       details: { xRobotsTag: headerLookup, siteRoot: root, previewHost: preview }
@@ -96618,7 +96742,7 @@ async function analyzeLinks(html, baseUrl, checkBroken = false) {
         internal.push({ href: fullUrl, text, nofollow });
         if (nofollow) {
           issues.push({
-            ...ISSUE_DEFINITIONS.NOFOLLOW_INTERNAL,
+            ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.NOFOLLOW_INTERNAL,
             affectedUrls: [baseUrl],
             details: { link: fullUrl, anchorText: text }
           });
@@ -96672,7 +96796,7 @@ async function analyzeLinks(html, baseUrl, checkBroken = false) {
   if (jsOnlyNavigation.length > 0) {
     const uniqueNav = jsOnlyNavigation.slice(0, 10);
     issues.push({
-      ...ISSUE_DEFINITIONS.JS_ONLY_NAVIGATION,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.JS_ONLY_NAVIGATION,
       affectedUrls: [baseUrl],
       details: {
         count: jsOnlyNavigation.length,
@@ -96685,7 +96809,7 @@ async function analyzeLinks(html, baseUrl, checkBroken = false) {
   const internalToExternalRatio = externalCount > 0 ? internalCount / externalCount : null;
   if (totalLinks > 100) {
     issues.push({
-      ...ISSUE_DEFINITIONS.TOO_MANY_LINKS,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.TOO_MANY_LINKS,
       affectedUrls: [baseUrl],
       details: { totalLinks, internal: internalCount, external: externalCount }
     });
@@ -96738,7 +96862,7 @@ async function analyzeLinks(html, baseUrl, checkBroken = false) {
     const internalToCheck = internal.slice(0, 10);
     for (const link of internalToCheck) {
       try {
-        const response = await (0,chunk_ZLQQXIZ3/* httpHead */.PW)(link.href, {
+        const response = await (0,chunk_SWTM7CDR/* httpHead */.PW)(link.href, {
           timeout: 5e3,
           maxRedirects: 5,
           validateStatus: () => true
@@ -96753,7 +96877,7 @@ async function analyzeLinks(html, baseUrl, checkBroken = false) {
     const externalToCheck = external.slice(0, 5);
     for (const link of externalToCheck) {
       try {
-        const response = await (0,chunk_ZLQQXIZ3/* httpHead */.PW)(link.href, {
+        const response = await (0,chunk_SWTM7CDR/* httpHead */.PW)(link.href, {
           timeout: 5e3,
           maxRedirects: 5,
           validateStatus: () => true
@@ -96766,14 +96890,14 @@ async function analyzeLinks(html, baseUrl, checkBroken = false) {
     }
     for (const brokenLink of brokenInternal) {
       issues.push({
-        ...ISSUE_DEFINITIONS.BROKEN_INTERNAL_LINK,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.BROKEN_INTERNAL_LINK,
         affectedUrls: [baseUrl],
         details: { brokenLink }
       });
     }
     for (const brokenLink of brokenExternal) {
       issues.push({
-        ...ISSUE_DEFINITIONS.BROKEN_EXTERNAL_LINK,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.BROKEN_EXTERNAL_LINK,
         affectedUrls: [baseUrl],
         details: { brokenLink }
       });
@@ -96839,7 +96963,7 @@ async function analyzeImages2(html, baseUrl, checkBroken = false) {
     for (const img of imagesToCheck) {
       try {
         const fullUrl = new URL(img.src, baseUrl).href;
-        const response = await (0,chunk_ZLQQXIZ3/* httpHead */.PW)(fullUrl, {
+        const response = await (0,chunk_SWTM7CDR/* httpHead */.PW)(fullUrl, {
           timeout: 5e3,
           validateStatus: () => true
         });
@@ -96857,7 +96981,7 @@ async function analyzeImages2(html, baseUrl, checkBroken = false) {
   }
   if (missingAlt.length > 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.IMG_ALT_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.IMG_ALT_MISSING,
       affectedUrls: [baseUrl],
       details: {
         count: missingAlt.length,
@@ -96867,7 +96991,7 @@ async function analyzeImages2(html, baseUrl, checkBroken = false) {
   }
   if (emptyAlt.length > 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.IMG_ALT_EMPTY,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.IMG_ALT_EMPTY,
       affectedUrls: [baseUrl],
       details: {
         count: emptyAlt.length,
@@ -96877,7 +97001,7 @@ async function analyzeImages2(html, baseUrl, checkBroken = false) {
   }
   if (missingDimensions.length > 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.IMG_NO_DIMENSIONS,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.IMG_NO_DIMENSIONS,
       affectedUrls: [baseUrl],
       details: {
         count: missingDimensions.length,
@@ -96887,7 +97011,7 @@ async function analyzeImages2(html, baseUrl, checkBroken = false) {
   }
   for (const img of largeImages) {
     issues.push({
-      ...ISSUE_DEFINITIONS.IMG_TOO_LARGE,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.IMG_TOO_LARGE,
       affectedUrls: [baseUrl],
       details: {
         src: img.src,
@@ -96897,7 +97021,7 @@ async function analyzeImages2(html, baseUrl, checkBroken = false) {
   }
   for (const img of brokenImages) {
     issues.push({
-      ...ISSUE_DEFINITIONS.IMG_BROKEN,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.IMG_BROKEN,
       affectedUrls: [baseUrl],
       details: { src: img.src }
     });
@@ -96922,7 +97046,7 @@ async function analyzePerformance(url) {
   const issues = [];
   const startTime = Date.now();
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(url, {
       headers: {
         "Accept-Encoding": "gzip, deflate, br"
       },
@@ -96945,35 +97069,35 @@ async function analyzePerformance(url) {
     };
     if (loadTime > 3e3) {
       issues.push({
-        ...ISSUE_DEFINITIONS.SLOW_PAGE,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.SLOW_PAGE,
         affectedUrls: [url],
         details: { loadTime: `${(loadTime / 1e3).toFixed(1)}s` }
       });
     }
     if (ttfbTime > 600) {
       issues.push({
-        ...ISSUE_DEFINITIONS.SLOW_TTFB,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.SLOW_TTFB,
         affectedUrls: [url],
         details: { ttfb: `${ttfbTime}ms` }
       });
     }
     if (htmlSize > 300 * 1024) {
       issues.push({
-        ...ISSUE_DEFINITIONS.HTML_TOO_LARGE,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.HTML_TOO_LARGE,
         affectedUrls: [url],
         details: { size: `${(htmlSize / 1024).toFixed(0)}KB` }
       });
     }
     if (!compressed && htmlSize > 1024) {
       issues.push({
-        ...ISSUE_DEFINITIONS.UNCOMPRESSED,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.UNCOMPRESSED,
         affectedUrls: [url],
         details: { htmlSize: `${(htmlSize / 1024).toFixed(0)}KB` }
       });
     }
     if (!cacheControl) {
       issues.push({
-        ...ISSUE_DEFINITIONS.NO_CACHE,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.NO_CACHE,
         affectedUrls: [url]
       });
     }
@@ -96981,7 +97105,7 @@ async function analyzePerformance(url) {
   } catch (error) {
     return {
       issues: [{
-        ...ISSUE_DEFINITIONS.SLOW_PAGE,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.SLOW_PAGE,
         affectedUrls: [url],
         details: { error: error instanceof Error ? error.message : "Request failed" }
       }],
@@ -96997,7 +97121,7 @@ async function analyzePerformance(url) {
 async function fetchCoreWebVitals(url, apiKey) {
   if (!apiKey) return null;
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpPost */.zA)(
+    const response = await (0,chunk_SWTM7CDR/* httpPost */.zA)(
       `https://chromeuxreport.googleapis.com/v1/records:queryRecord?key=${apiKey}`,
       { url },
       { timeout: 1e4 }
@@ -97041,7 +97165,7 @@ async function analyzeSecurity(html, url, headers) {
   const isHttps = parsedUrl.protocol === "https:";
   if (!isHttps) {
     issues.push({
-      ...ISSUE_DEFINITIONS.NOT_HTTPS,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.NOT_HTTPS,
       affectedUrls: [url]
     });
   }
@@ -97073,7 +97197,7 @@ async function analyzeSecurity(html, url, headers) {
     });
     if (mixedContentUrls.length > 0) {
       issues.push({
-        ...ISSUE_DEFINITIONS.MIXED_CONTENT,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.MIXED_CONTENT,
         affectedUrls: [url],
         details: {
           count: mixedContentUrls.length,
@@ -97092,7 +97216,7 @@ async function analyzeSecurity(html, url, headers) {
     }
   } else if (isHttps) {
     issues.push({
-      ...ISSUE_DEFINITIONS.HSTS_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.HSTS_MISSING,
       affectedUrls: [url]
     });
   }
@@ -97180,7 +97304,7 @@ function analyzeStructuredData2(html, url) {
       }
     } catch (e) {
       issues.push({
-        ...ISSUE_DEFINITIONS.SCHEMA_INVALID,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.SCHEMA_INVALID,
         affectedUrls: [url],
         details: {
           error: e instanceof Error ? e.message : "Invalid JSON",
@@ -97191,14 +97315,14 @@ function analyzeStructuredData2(html, url) {
   });
   if (schemas.length === 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.SCHEMA_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.SCHEMA_MISSING,
       affectedUrls: [url]
     });
   }
   for (const schema of schemas) {
     if (schema.errors.length > 0) {
       issues.push({
-        ...ISSUE_DEFINITIONS.SCHEMA_MISSING_REQUIRED,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.SCHEMA_MISSING_REQUIRED,
         affectedUrls: [url],
         details: {
           type: schema.type,
@@ -97317,7 +97441,7 @@ function analyzeMobile(html, url) {
   const viewportContent = viewportMeta.attr("content");
   if (!hasViewport) {
     issues.push({
-      ...ISSUE_DEFINITIONS.VIEWPORT_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.VIEWPORT_MISSING,
       affectedUrls: [url]
     });
   } else if (viewportContent) {
@@ -97326,7 +97450,7 @@ function analyzeMobile(html, url) {
       const widthMatch = viewportContent.match(/width=(\d+)/);
       if (widthMatch) {
         issues.push({
-          ...ISSUE_DEFINITIONS.VIEWPORT_NOT_RESPONSIVE,
+          ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.VIEWPORT_NOT_RESPONSIVE,
           affectedUrls: [url],
           details: {
             viewport: viewportContent,
@@ -97362,7 +97486,7 @@ function analyzeMobile(html, url) {
   });
   if (tapTargetIssues > 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.TAP_TARGETS_TOO_SMALL,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.TAP_TARGETS_TOO_SMALL,
       affectedUrls: [url],
       details: { count: tapTargetIssues }
     });
@@ -97517,20 +97641,20 @@ async function analyzeHreflang(html, url, options = {}) {
   const invalidEntries = entries.filter((e) => !e.isValid);
   if (invalidEntries.length > 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.HREFLANG_INVALID,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.HREFLANG_INVALID,
       affectedUrls: [url],
       details: { invalidLanguages: invalidEntries.map((e) => e.lang) }
     });
   }
   if (!hasSelfReference) {
     issues.push({
-      ...ISSUE_DEFINITIONS.HREFLANG_SELF_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.HREFLANG_SELF_MISSING,
       affectedUrls: [url]
     });
   }
   if (!hasXDefault && entries.length > 1) {
     issues.push({
-      ...ISSUE_DEFINITIONS.HREFLANG_X_DEFAULT_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.HREFLANG_X_DEFAULT_MISSING,
       affectedUrls: [url]
     });
   }
@@ -97538,7 +97662,7 @@ async function analyzeHreflang(html, url, options = {}) {
     for (const entry of entries) {
       if (!entry.isSelfReference && entry.href) {
         try {
-          const response = await (0,chunk_ZLQQXIZ3/* httpHead */.PW)(entry.href, {
+          const response = await (0,chunk_SWTM7CDR/* httpHead */.PW)(entry.href, {
             timeout: 5e3,
             maxRedirects: 0,
             validateStatus: () => true
@@ -97546,7 +97670,7 @@ async function analyzeHreflang(html, url, options = {}) {
           entry.statusCode = response.status;
           if (response.status >= 300) {
             issues.push({
-              ...ISSUE_DEFINITIONS.HREFLANG_TO_NON_200,
+              ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.HREFLANG_TO_NON_200,
               affectedUrls: [url],
               details: {
                 targetUrl: entry.href,
@@ -97558,7 +97682,7 @@ async function analyzeHreflang(html, url, options = {}) {
         } catch {
           entry.statusCode = 0;
           issues.push({
-            ...ISSUE_DEFINITIONS.HREFLANG_TO_NON_200,
+            ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.HREFLANG_TO_NON_200,
             affectedUrls: [url],
             details: {
               targetUrl: entry.href,
@@ -97572,12 +97696,12 @@ async function analyzeHreflang(html, url, options = {}) {
     for (const entry of entries) {
       if (!entry.isSelfReference && entry.href && entry.statusCode === 200) {
         try {
-          const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(entry.href, { timeout: 5e3 });
+          const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(entry.href, { timeout: 5e3 });
           const $target = esm/* load */.Hh(response.data);
           const hasReturnLink = $target(`link[rel="alternate"][hreflang][href*="${new URL(url).hostname}"]`).length > 0;
           if (!hasReturnLink) {
             issues.push({
-              ...ISSUE_DEFINITIONS.HREFLANG_NO_RETURN,
+              ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.HREFLANG_NO_RETURN,
               affectedUrls: [url],
               details: {
                 targetUrl: entry.href,
@@ -97632,55 +97756,55 @@ function analyzeSocialMeta(html, url) {
   };
   if (!openGraph.title) {
     issues.push({
-      ...ISSUE_DEFINITIONS.OG_TITLE_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.OG_TITLE_MISSING,
       affectedUrls: [url]
     });
   }
   if (!openGraph.description) {
     issues.push({
-      ...ISSUE_DEFINITIONS.OG_DESCRIPTION_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.OG_DESCRIPTION_MISSING,
       affectedUrls: [url]
     });
   }
   if (!openGraph.image) {
     issues.push({
-      ...ISSUE_DEFINITIONS.OG_IMAGE_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.OG_IMAGE_MISSING,
       affectedUrls: [url]
     });
   }
   if (!openGraph.url) {
     issues.push({
-      ...ISSUE_DEFINITIONS.OG_URL_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.OG_URL_MISSING,
       affectedUrls: [url]
     });
   }
   if (!openGraph.type) {
     issues.push({
-      ...ISSUE_DEFINITIONS.OG_TYPE_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.OG_TYPE_MISSING,
       affectedUrls: [url]
     });
   }
   if (!twitter.card) {
     issues.push({
-      ...ISSUE_DEFINITIONS.TWITTER_CARD_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.TWITTER_CARD_MISSING,
       affectedUrls: [url]
     });
   }
   if (!twitter.image && !openGraph.image) {
     issues.push({
-      ...ISSUE_DEFINITIONS.TWITTER_IMAGE_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.TWITTER_IMAGE_MISSING,
       affectedUrls: [url]
     });
   }
   if (!hasFavicon) {
     issues.push({
-      ...ISSUE_DEFINITIONS.FAVICON_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.FAVICON_MISSING,
       affectedUrls: [url]
     });
   }
   if (!langAttribute) {
     issues.push({
-      ...ISSUE_DEFINITIONS.LANG_ATTR_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.LANG_ATTR_MISSING,
       affectedUrls: [url]
     });
   }
@@ -97787,7 +97911,7 @@ function detectSoft404(html, url, statusCode = 200) {
   };
   if (isSoft404) {
     issues.push({
-      ...ISSUE_DEFINITIONS.SOFT_404,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.SOFT_404,
       affectedUrls: [url],
       details: {
         confidence: `${confidence}%`,
@@ -97889,7 +98013,7 @@ function analyzeAnchorText(html, url) {
   };
   if (emptyAnchors > 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.ANCHOR_TEXT_EMPTY,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.ANCHOR_TEXT_EMPTY,
       affectedUrls: [url],
       details: {
         count: emptyAnchors,
@@ -97900,7 +98024,7 @@ function analyzeAnchorText(html, url) {
   const genericRatio = totalLinks > 0 ? genericAnchors / totalLinks : 0;
   if (genericAnchors >= 3 && genericRatio > 0.2) {
     issues.push({
-      ...ISSUE_DEFINITIONS.ANCHOR_TEXT_GENERIC,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.ANCHOR_TEXT_GENERIC,
       affectedUrls: [url],
       details: {
         count: genericAnchors,
@@ -97919,7 +98043,7 @@ function analyzeAnchorText(html, url) {
   }
   if (overOptimizedAnchors.length > 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.ANCHOR_TEXT_OVER_OPTIMIZED,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.ANCHOR_TEXT_OVER_OPTIMIZED,
       affectedUrls: [url],
       details: {
         overOptimized: overOptimizedAnchors
@@ -97956,7 +98080,7 @@ async function analyzeCanonicalAdvanced(html, url, options = {}) {
   if (canonicalUrl.hostname !== baseUrl.hostname) {
     data.isCrossDomain = true;
     issues.push({
-      ...ISSUE_DEFINITIONS.CANONICAL_CROSS_DOMAIN,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.CANONICAL_CROSS_DOMAIN,
       affectedUrls: [url],
       details: {
         canonical: canonicalUrl.href,
@@ -97971,7 +98095,7 @@ async function analyzeCanonicalAdvanced(html, url, options = {}) {
       data.canonicalChain = chain;
       data.finalCanonical = chain[chain.length - 1];
       issues.push({
-        ...ISSUE_DEFINITIONS.CANONICAL_CHAIN,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.CANONICAL_CHAIN,
         affectedUrls: [url],
         details: {
           chain,
@@ -97986,7 +98110,7 @@ async function analyzeCanonicalAdvanced(html, url, options = {}) {
     const canonicalInSitemap = sitemapNormalized.includes(normalizedCanonical);
     if (urlInSitemap && !canonicalInSitemap && !data.isSelfReferencing) {
       issues.push({
-        ...ISSUE_DEFINITIONS.CANONICAL_MISMATCH_SITEMAP,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.CANONICAL_MISMATCH_SITEMAP,
         affectedUrls: [url],
         details: {
           pageUrl: url,
@@ -98001,7 +98125,7 @@ async function analyzeCanonicalAdvanced(html, url, options = {}) {
 async function followCanonicalChain(url, chain = [], maxDepth = 5) {
   if (chain.length >= maxDepth) return chain;
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(url, {
       timeout: 5e3,
       maxRedirects: 5,
       validateStatus: (status) => status < 400
@@ -98118,7 +98242,7 @@ function analyzePagination(html, url, canonical) {
   };
   if (hasInfiniteScrollScript && !hasHtmlPaginationLinks) {
     issues.push({
-      ...ISSUE_DEFINITIONS.INFINITE_SCROLL_NO_FALLBACK,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.INFINITE_SCROLL_NO_FALLBACK,
       affectedUrls: [url],
       details: {
         hasLoadMore: hasLoadMoreButton,
@@ -98128,7 +98252,7 @@ function analyzePagination(html, url, canonical) {
   }
   if (hasLoadMoreButton && !hasHtmlPaginationLinks && !hasInfiniteScrollScript) {
     issues.push({
-      ...ISSUE_DEFINITIONS.PAGINATION_NO_LINKS,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.PAGINATION_NO_LINKS,
       affectedUrls: [url],
       details: {
         suggestion: 'Ensure "Load More" button also has underlying <a> links'
@@ -98140,7 +98264,7 @@ function analyzePagination(html, url, canonical) {
     const urlHasPageNumber = paginationPatterns.some((p) => p.test(url));
     if (isCanonicalToPage1 && urlHasPageNumber) {
       issues.push({
-        ...ISSUE_DEFINITIONS.PAGINATION_CANONICAL_ISSUE,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.PAGINATION_CANONICAL_ISSUE,
         affectedUrls: [url],
         details: {
           currentPage,
@@ -98167,7 +98291,7 @@ async function analyzeRedirects(url, maxHops = 10) {
     }
     visitedUrls.add(currentUrl);
     try {
-      const response = await (0,chunk_ZLQQXIZ3/* httpHead */.PW)(currentUrl, {
+      const response = await (0,chunk_SWTM7CDR/* httpHead */.PW)(currentUrl, {
         timeout: 5e3,
         maxRedirects: 0,
         validateStatus: () => true
@@ -98206,7 +98330,7 @@ async function analyzeRedirects(url, maxHops = 10) {
   };
   if (isLoop) {
     issues.push({
-      ...ISSUE_DEFINITIONS.REDIRECT_LOOP,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.REDIRECT_LOOP,
       affectedUrls: [url],
       details: {
         chain: chain.map((h) => `${h.url} (${h.statusCode})`)
@@ -98215,7 +98339,7 @@ async function analyzeRedirects(url, maxHops = 10) {
   }
   if (!isLoop && chain.length > 2) {
     issues.push({
-      ...ISSUE_DEFINITIONS.REDIRECT_CHAIN,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.REDIRECT_CHAIN,
       affectedUrls: [url],
       details: {
         chain: chain.map((h) => `${h.url} (${h.statusCode})`),
@@ -98263,466 +98387,238 @@ async function checkInternalRedirects(internalLinks, batchSize = 10) {
 }
 
 // src/audit/checks/crawler-access.ts
-var CRAWLERS = [
-  {
-    name: "Googlebot",
-    userAgent: "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
-    matters: "Google Search indexing",
-    critical: true
-  },
-  {
-    name: "bingbot",
-    userAgent: "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",
-    matters: "Bing indexing, and Copilot answers",
-    critical: true
-  },
-  {
-    name: "GPTBot",
-    userAgent: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GPTBot/1.1; +https://openai.com/gptbot)",
-    matters: "ChatGPT being able to read and cite the page",
-    critical: false
-  },
-  {
-    name: "ClaudeBot",
-    userAgent: "Mozilla/5.0 (compatible; ClaudeBot/1.0; +claudebot@anthropic.com)",
-    matters: "Claude being able to read and cite the page",
-    critical: false
-  },
-  {
-    name: "PerplexityBot",
-    userAgent: "Mozilla/5.0 (compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot)",
-    matters: "Perplexity being able to read and cite the page",
-    critical: false
-  }
-];
 var BROWSER_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
 function isRefusal(status) {
   return status === 401 || status === 403 || status === 429 || status === 503;
 }
-async function statusFor(url, userAgent) {
+function isChallengePage(headers, body) {
+  const mitigated = headers["cf-mitigated"] ?? headers["CF-Mitigated"];
+  if (mitigated && /challenge/i.test(mitigated)) return true;
+  if (typeof body !== "string") return false;
+  const head = body.slice(0, 4e3);
+  return /cdn-cgi\/challenge-platform|<title>Just a moment\.\.\.<\/title>|_cf_chl_opt/.test(head);
+}
+async function probe(url, userAgent) {
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(url, {
       headers: { "User-Agent": userAgent },
       timeout: 15e3,
       // We want the status itself, not an exception on 4xx/5xx.
       validateStatus: () => true
     });
-    return response.status;
+    return { status: response.status, challenge: isChallengePage(response.headers ?? {}, response.data) };
   } catch {
-    return null;
+    return { status: null, challenge: false };
   }
 }
+var refused = (p) => p.challenge || p.status !== null && isRefusal(p.status);
+async function mapLimit(items, limit, fn) {
+  const out = new Array(items.length);
+  let next = 0;
+  await Promise.all(
+    Array.from({ length: Math.min(limit, items.length) }, async () => {
+      while (next < items.length) {
+        const i = next++;
+        out[i] = await fn(items[i]);
+      }
+    })
+  );
+  return out;
+}
+var MEMO_TTL_MS = 10 * 60 * 1e3;
+var memo = /* @__PURE__ */ new Map();
 async function analyzeCrawlerAccess(url) {
+  const origin = new URL(url).origin;
+  const hit = memo.get(origin);
+  if (hit && Date.now() - hit.at < MEMO_TTL_MS) return hit.result;
+  const result = run(url);
+  memo.set(origin, { at: Date.now(), result });
+  return result;
+}
+function statusText(p) {
+  if (p.challenge) return p.status === null ? "a challenge page" : `a challenge page (${p.status})`;
+  return String(p.status);
+}
+function describe(outcomes) {
+  return {
+    names: outcomes.map(({ bot }) => bot.name).join(", "),
+    statuses: outcomes.map(({ probe: probe2 }) => statusText(probe2)).join(", "),
+    loses: outcomes.map(({ bot }) => bot.loses).join(", ")
+  };
+}
+async function run(url) {
   const issues = [];
-  const baselineStatus = await statusFor(url, BROWSER_UA);
-  const data = { baselineStatus, crawlers: [] };
-  if (baselineStatus === null || baselineStatus >= 400) {
+  const data = { baselineStatus: null, rateLimited: false, crawlers: [] };
+  const baseline = await probe(url, BROWSER_UA);
+  data.baselineStatus = baseline.status;
+  if (baseline.status === null || baseline.status >= 400 || baseline.challenge) {
     return { issues, data };
   }
-  const results = await Promise.all(
-    CRAWLERS.map(async (crawler) => ({
-      crawler,
-      status: await statusFor(url, crawler.userAgent)
-    }))
-  );
-  const blocked = results.filter(({ status }) => status !== null && isRefusal(status));
-  data.crawlers = results.map(({ crawler, status }) => ({
-    name: crawler.name,
-    status,
-    blocked: status !== null && isRefusal(status)
+  const live = chunk_ZNDXIGWA/* KNOWN_BOTS */.jS.filter((bot) => bot.userAgent !== null);
+  const outcomes = await mapLimit(live, 3, async (bot) => ({ bot, probe: await probe(url, bot.userAgent) }));
+  data.crawlers = outcomes.map(({ bot, probe: probe2 }) => ({
+    name: bot.name,
+    class: bot.class,
+    status: probe2.status,
+    challenge: probe2.challenge,
+    blocked: refused(probe2)
   }));
+  const blocked = outcomes.filter(({ probe: probe2 }) => refused(probe2));
   if (blocked.length === 0) return { issues, data };
-  const search = blocked.filter(({ crawler }) => crawler.critical);
-  const ai = blocked.filter(({ crawler }) => !crawler.critical);
+  if (blocked.length === live.length && blocked.every(({ probe: probe2 }) => probe2.status === 429 && !probe2.challenge)) {
+    data.rateLimited = true;
+    return { issues, data };
+  }
+  const ofClass = (cls) => blocked.filter(({ bot }) => bot.class === cls);
+  const observed = "Observed with the crawler\u2019s user-agent. Real crawlers are also verified by IP, so a site may treat them differently.";
+  const blockedDetail = (outcomes2) => outcomes2.map(({ bot, probe: probe2 }) => ({ crawler: bot.name, status: probe2.status, challenge: probe2.challenge }));
+  const search = ofClass("search");
   if (search.length > 0) {
-    const names = search.map(({ crawler }) => crawler.name).join(", ");
+    const { names, statuses } = describe(search);
     issues.push({
       code: "SEARCH_CRAWLER_BLOCKED_AT_EDGE",
       severity: "error",
       category: "crawlability",
       title: `${names} refused at the edge, not by robots.txt`,
-      description: `A browser request to this URL returned ${baselineStatus}, but ${names} received ${search.map(({ status }) => status).join(", ")}. Something in front of the origin - a CDN, WAF or bot rule - is turning the crawler away, and robots.txt cannot show you this.`,
-      impact: "Pages a search crawler cannot fetch fall out of the index. This is the failure mode behind Cloudflare\u2019s 2026-09-15 default, where blocking AI training also blocked Googlebot because it is classed as a mixed-use crawler.",
+      description: `A browser request to this URL returned ${baseline.status}, but ${names} received ${statuses}. Something in front of the origin - a CDN, WAF or bot rule - is turning the crawler away, and robots.txt cannot show you this.`,
+      impact: "Pages a search crawler cannot fetch fall out of the index, and 88 percent of ChatGPT citations come from that index. This is the failure mode behind Cloudflare\u2019s 2026-09-15 default, where blocking AI training also blocked Googlebot because it is classed as a mixed-use crawler.",
       howToFix: `Check your CDN or WAF bot rules rather than robots.txt.
 
 On Cloudflare: the zone's Security > Bots settings, and any "Block AI Bots" or AI Crawler Control toggle. Because Googlebot crawls for both Search and AI training, blocking Training applies to all of its functions on ad-supported pages - allow Search crawlers explicitly, or opt out of the default.
 
 Confirm with Search Console's URL Inspection, which fetches as the verified Googlebot.`,
       affectedUrls: [url],
-      details: {
-        baselineStatus,
-        blocked: search.map(({ crawler, status }) => ({ crawler: crawler.name, status })),
-        note: "Observed with the crawler\u2019s user-agent. Real crawlers are also verified by IP, so a site may treat them differently."
-      }
+      details: { baselineStatus: baseline.status, blocked: blockedDetail(search), note: observed }
     });
   }
-  if (ai.length > 0) {
-    const names = ai.map(({ crawler }) => crawler.name).join(", ");
+  const aiSearch = ofClass("ai-search");
+  if (aiSearch.length > 0) {
+    const { names, statuses, loses } = describe(aiSearch);
     issues.push({
-      code: "AI_CRAWLER_BLOCKED_AT_EDGE",
+      code: "AI_SEARCH_CRAWLER_BLOCKED_AT_EDGE",
       severity: "warning",
       category: "ai-readiness",
-      title: `${names} refused at the edge, not by robots.txt`,
-      description: `A browser request returned ${baselineStatus}, but ${names} received ${ai.map(({ status }) => status).join(", ")}. The block is in front of the origin, so allowing these agents in robots.txt will not change it.`,
-      impact: "An assistant that cannot fetch the page cannot quote it. This is invisible to a robots.txt check, which is where most AI-visibility tools stop.",
-      howToFix: `If blocking them is deliberate, nothing to do. If not, the rule is in your CDN or WAF, not robots.txt - on Cloudflare see Security > Bots and any AI Crawler Control setting.`,
+      title: `${names} refused at the edge: the site is out of ${loses}`,
+      description: `A browser request returned ${baseline.status}, but ${names} received ${statuses}. These crawlers build the index each assistant answers from: OpenAI documents that a site opted out of OAI-SearchBot is not shown in ChatGPT search answers, and Anthropic says the same of Claude-SearchBot. The block is in front of the origin, so robots.txt cannot show it and allowing the bot there will not lift it.`,
+      impact: "The site is absent from those assistants\u2019 answers whatever robots.txt says. Refusing the training crawlers (GPTBot, ClaudeBot) does not have this effect; refusing the search crawlers does.",
+      howToFix: `If the refusal is deliberate, nothing to do. Otherwise the rule is in the CDN or WAF, not robots.txt: on Cloudflare, Security > Bots (AI Crawl Control) lists Search crawlers separately from Training crawlers - allow the Search class and keep Training blocked if that is the policy. Then fetch the page as the bot again; assume you are blocked until that says otherwise.`,
       affectedUrls: [url],
-      details: {
-        baselineStatus,
-        blocked: ai.map(({ crawler, status }) => ({ crawler: crawler.name, status }))
-      }
+      details: { baselineStatus: baseline.status, blocked: blockedDetail(aiSearch), note: observed }
+    });
+  }
+  const user = ofClass("user");
+  if (user.length > 0) {
+    const { names, statuses } = describe(user);
+    issues.push({
+      code: "AI_USER_FETCH_BLOCKED_AT_EDGE",
+      severity: "warning",
+      category: "ai-readiness",
+      title: `${names} refused at the edge: assistants cannot read this page when a user asks`,
+      description: `A browser request returned ${baseline.status}, but ${names} received ${statuses}. These agents fetch one page because a user pasted its link or asked about it; they are not crawlers and visit nothing on their own.`,
+      impact: "A user who asks ChatGPT, Claude or Perplexity about this page gets an error instead of its content.",
+      howToFix: "Allow the user-triggered agents (ChatGPT-User, Claude-User, Perplexity-User) in the CDN or WAF rule, even where the training crawlers stay blocked; Cloudflare\u2019s AI Crawl Control lists them as their own category.",
+      affectedUrls: [url],
+      details: { baselineStatus: baseline.status, blocked: blockedDetail(user), note: observed }
+    });
+  }
+  const training = ofClass("training");
+  if (training.length > 0) {
+    const { names, statuses } = describe(training);
+    issues.push({
+      code: "AI_TRAINING_CRAWLER_BLOCKED_AT_EDGE",
+      severity: "notice",
+      category: "ai-readiness",
+      title: `${names} refused at the edge (training crawlers)`,
+      description: `A browser request returned ${baseline.status}, but ${names} received ${statuses}. These crawlers collect model-training data only; OpenAI and Anthropic both document that refusing them has no effect on search answers.`,
+      impact: "None on visibility. Listed so the block is a decision rather than a default you did not know about: Cloudflare has blocked known AI crawlers on new zones since 2025-07-01 and on ad-bearing pages since 2026-09-15.",
+      howToFix: "Nothing, if that is the intent. To let these crawlers in, change the CDN or WAF rule; robots.txt cannot override an edge block.",
+      affectedUrls: [url],
+      details: { baselineStatus: baseline.status, blocked: blockedDetail(training), note: observed }
     });
   }
   return { issues, data };
 }
 
-// src/audit/checks/ai-readiness.ts
+// src/audit/checks/metadata-placement.ts
 
-
-// src/audit/checks/agent-experience.ts
-var SIGNAL_PATHS = [
-  { path: "/llms-full.txt", description: "Full-site content dump for AI agents \u2014 the fuller sibling of llms.txt, measured as fetched roughly 2x more often" },
-  { path: "/skill.md", description: "SKILL.md capability manifest (Anthropic Agent Skills convention)" },
-  { path: "/mcp", description: "MCP (Model Context Protocol) server, discoverable at a conventional path" },
-  { path: "/.well-known/mcp.json", description: "MCP server descriptor at the .well-known convention" },
-  { path: "/openapi.json", description: "OpenAPI spec \u2014 lets an agent discover and call your API directly instead of scraping HTML" },
-  { path: "/.well-known/ai-plugin.json", description: "AI plugin manifest (older but still-referenced convention for agent tool discovery)" }
+var TAGS = [
+  { label: "<title>", select: "title" },
+  { label: "the meta description", select: 'meta[name="description"]' },
+  { label: "the canonical link", select: 'link[rel="canonical"]' },
+  { label: "the robots meta", select: 'meta[name="robots"]' }
 ];
-async function fetchBody(baseUrl, path3) {
+function metadataPlacement(html) {
+  const $ = esm/* load */.Hh(html);
+  const inHead = [];
+  const inBody = [];
+  for (const tag of TAGS) {
+    const inHeadCount = $(`head ${tag.select}`).length;
+    if (inHeadCount > 0) inHead.push(tag.label);
+    const bodyMatches = $(`body ${tag.select}`).filter((_, el) => $(el).closest("svg").length === 0);
+    if (inHeadCount === 0 && bodyMatches.length > 0) inBody.push(tag.label);
+  }
+  return { inHead, inBody };
+}
+var GOOGLEBOT_UA = chunk_ZNDXIGWA/* KNOWN_BOTS */.jS.find((bot) => bot.name === "Googlebot").userAgent;
+async function fetchAs(url, userAgent) {
   try {
-    const url = new URL(path3, baseUrl).href;
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(url, {
+      headers: { "User-Agent": userAgent },
       timeout: 8e3,
       validateStatus: () => true
     });
-    return { status: response.status, body: String(response.data ?? "") };
+    return response.status === 200 && typeof response.data === "string" ? response.data : null;
   } catch {
     return null;
   }
 }
-async function pathExists(baseUrl, path3, fallbackBody) {
-  const result = await fetchBody(baseUrl, path3);
-  if (!result) return false;
-  if (result.status === 404) return false;
-  if (result.status < 200 || result.status >= 400) return false;
-  if (fallbackBody != null && result.body === fallbackBody) return false;
-  return true;
+function list(labels) {
+  if (labels.length <= 1) return labels.join("");
+  return `${labels.slice(0, -1).join(", ")} and ${labels[labels.length - 1]}`;
 }
-async function checkAgentExperience(baseUrl) {
+async function analyzeMetadataPlacement(html, url, options = {}) {
+  const page = metadataPlacement(html);
+  const data = { page, streamed: [] };
   const issues = [];
-  const probePath = `/__rankcli_ax_probe_${Math.random().toString(36).slice(2)}`;
-  const baseline = await fetchBody(baseUrl, probePath);
-  const fallbackBody = baseline && baseline.status >= 200 && baseline.status < 400 ? baseline.body : null;
-  const signals = await Promise.all(
-    SIGNAL_PATHS.map(async ({ path: path3, description }) => ({
-      path: path3,
-      description,
-      present: await pathExists(baseUrl, path3, fallbackBody)
-    }))
-  );
-  const presentCount = signals.filter((s) => s.present).length;
-  const score = Math.round(presentCount / signals.length * 100);
-  if (presentCount === 0) {
-    issues.push({
-      ...ISSUE_DEFINITIONS.NO_AGENT_EXPERIENCE_SURFACE,
-      affectedUrls: [baseUrl],
-      details: { checkedPaths: SIGNAL_PATHS.map((s) => s.path) }
-    });
+  const essential = TAGS.slice(0, 3).map((t) => t.label);
+  const suspicious = essential.some((label) => !page.inHead.includes(label)) || page.inBody.length > 0;
+  if (options.compareAsGooglebot !== false && suspicious) {
+    const asGooglebot = await fetchAs(url, GOOGLEBOT_UA);
+    if (asGooglebot) {
+      data.googlebot = metadataPlacement(asGooglebot);
+      data.streamed = data.googlebot.inHead.filter((label) => !page.inHead.includes(label));
+    }
   }
-  return { issues, data: { signals, score } };
-}
-
-// src/audit/checks/ai-readiness.ts
-var AI_BOTS = {
-  GPTBot: "GPTBot",
-  "ChatGPT-User": "ChatGPT-User",
-  "OAI-SearchBot": "OAI-SearchBot",
-  ClaudeBot: "ClaudeBot",
-  "Claude-Web": "Claude-Web",
-  "anthropic-ai": "anthropic-ai",
-  PerplexityBot: "PerplexityBot",
-  "Google-Extended": "Google-Extended",
-  Bytespider: "Bytespider",
-  CCBot: "CCBot"
-};
-async function checkLlmsTxt(baseUrl) {
-  const issues = [];
-  const url = new URL("/llms.txt", baseUrl).href;
-  try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
-      timeout: 1e4,
-      validateStatus: () => true
-    });
-    if (response.status === 404 || response.status >= 400) {
-      issues.push({
-        ...ISSUE_DEFINITIONS.LLMS_TXT_MISSING,
-        affectedUrls: [url]
-      });
-      return {
-        issues,
-        data: { exists: false, valid: false, errors: ["File not found"] }
-      };
-    }
-    const content = response.data;
-    if ((0,chunk_ZLQQXIZ3/* looksLikeHtmlFallback */.Bp)(content, response.headers?.["content-type"])) {
-      issues.push({
-        ...ISSUE_DEFINITIONS.LLMS_TXT_MISSING,
-        affectedUrls: [url]
-      });
-      return { issues, data: { exists: false, valid: false, errors: ["File not found (the site served HTML)"] } };
-    }
-    const lines = content.split("\n").filter((line) => line.trim());
-    const errors = [];
-    let valid = true;
-    if (lines.length === 0) {
-      errors.push("File is empty");
-      valid = false;
-    } else if (!lines[0].startsWith("#")) {
-      errors.push("File should start with a markdown heading (# Site Name)");
-      valid = false;
-    }
-    const hasDescription = content.toLowerCase().includes("## ") || content.length > 50;
-    if (!hasDescription) {
-      errors.push("File should contain meaningful content describing your site for AI");
-      valid = false;
-    }
-    if (!valid) {
-      issues.push({
-        ...ISSUE_DEFINITIONS.LLMS_TXT_INVALID,
-        affectedUrls: [url],
-        details: { errors }
-      });
-    }
-    return {
-      issues,
-      data: { exists: true, content, valid, errors }
-    };
-  } catch (error) {
+  if (data.streamed.length > 0) {
+    const labels = list(data.streamed);
+    const inBody = data.streamed.filter((label) => page.inBody.includes(label));
+    const where = inBody.length === data.streamed.length ? "they arrive later, inside <body>" : inBody.length > 0 ? "some arrive later inside <body> and the rest not at all" : "they are absent";
     issues.push({
-      ...ISSUE_DEFINITIONS.LLMS_TXT_MISSING,
+      code: "METADATA_STREAMED_FOR_BOTS",
+      severity: "warning",
+      category: "indexability",
+      title: `${labels} reach Googlebot but not other agents`,
+      description: `Fetched as Googlebot, this page has ${labels} in <head>. Fetched as this audit, which is on no framework's bot list, ${where}. Next.js app router streams metadata this way: it waits for it only for user agents it recognises, so OAI-SearchBot, Claude-SearchBot, PerplexityBot, link previews and any crawler it does not list read the page without it.`,
+      impact: 'Google may still index the page correctly; every other reader gets it without a canonical or a description. That is the "Duplicate without user-selected canonical" and zero-impressions failure in the Next.js reports, and for AI search a page with nothing to cite.',
+      howToFix: "Serve the metadata in the initial HTML to everyone. Next.js: list the AI crawlers in `htmlLimitedBots` in next.config (OAI-SearchBot, Claude-SearchBot, PerplexityBot, ChatGPT-User, Claude-User), or make the route\u2019s metadata synchronous so nothing is streamed. Other frameworks: emit <title>, the description and the canonical before any body content.",
       affectedUrls: [url],
-      details: { error: error instanceof Error ? error.message : "Unknown error" }
+      details: { streamed: data.streamed, page, googlebot: data.googlebot }
     });
-    return {
-      issues,
-      data: { exists: false, valid: false, errors: ["Failed to fetch"] }
-    };
-  }
-}
-function parseContentSignal(robotsTxtContent) {
-  for (const line of robotsTxtContent.split("\n")) {
-    const trimmed = line.trim();
-    if (trimmed.toLowerCase().startsWith("content-signal:")) {
-      return trimmed.substring(trimmed.indexOf(":") + 1).trim();
-    }
-  }
-  return null;
-}
-async function checkAIBotBlocking(baseUrl) {
-  const issues = [];
-  const url = new URL("/robots.txt", baseUrl).href;
-  const blockedBots = [];
-  const allowedBots = [];
-  try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
-      timeout: 1e4,
-      validateStatus: () => true
-    });
-    if (response.status === 404 || response.status >= 400) {
-      return {
-        issues,
-        data: {
-          robotsExists: false,
-          blockedBots: [],
-          allowedBots: Object.keys(AI_BOTS),
-          allBlocked: false,
-          contentSignal: null
-        }
-      };
-    }
-    const content = response.data;
-    const lines = content.split("\n");
-    const contentSignal = parseContentSignal(content);
-    let currentUserAgent = "";
-    const botRules = {};
-    for (const line of lines) {
-      const trimmed = line.trim().toLowerCase();
-      if (trimmed.startsWith("content-signal:")) {
-        continue;
-      } else if (trimmed.startsWith("user-agent:")) {
-        currentUserAgent = trimmed.split(":")[1].trim();
-      } else if (trimmed.startsWith("disallow:")) {
-        const path3 = trimmed.split(":")[1]?.trim() || "";
-        for (const [botKey, botName] of Object.entries(AI_BOTS)) {
-          if (currentUserAgent === "*" || currentUserAgent === botKey.toLowerCase() || currentUserAgent === botName.toLowerCase()) {
-            if (path3 === "/" || path3 === "/*") {
-              if (!botRules[botKey]) {
-                botRules[botKey] = { allowed: false, disallowAll: false };
-              }
-              if (currentUserAgent !== "*" || currentUserAgent === "*" && !botRules[botKey].allowed) {
-                botRules[botKey].disallowAll = true;
-              }
-            }
-          }
-        }
-      } else if (trimmed.startsWith("allow:")) {
-        for (const [botKey] of Object.entries(AI_BOTS)) {
-          if (currentUserAgent === botKey.toLowerCase()) {
-            if (!botRules[botKey]) {
-              botRules[botKey] = { allowed: true, disallowAll: false };
-            }
-            botRules[botKey].allowed = true;
-          }
-        }
-      }
-    }
-    for (const [botKey] of Object.entries(AI_BOTS)) {
-      const rules = botRules[botKey];
-      if (rules?.disallowAll && !rules?.allowed) {
-        blockedBots.push(botKey);
-      } else {
-        allowedBots.push(botKey);
-      }
-    }
-    if (blockedBots.length === Object.keys(AI_BOTS).length) {
-      issues.push({
-        ...ISSUE_DEFINITIONS.AI_BOT_BLOCKED_ALL,
-        affectedUrls: [url],
-        details: { blockedBots }
-      });
-    } else {
-      if (blockedBots.includes("GPTBot") || blockedBots.includes("ChatGPT-User")) {
-        issues.push({
-          ...ISSUE_DEFINITIONS.AI_BOT_GPTBOT_BLOCKED,
-          affectedUrls: [url]
-        });
-      }
-      if (blockedBots.includes("ClaudeBot") || blockedBots.includes("Claude-Web") || blockedBots.includes("anthropic-ai")) {
-        issues.push({
-          ...ISSUE_DEFINITIONS.AI_BOT_CLAUDEBOT_BLOCKED,
-          affectedUrls: [url]
-        });
-      }
-      if (blockedBots.includes("PerplexityBot")) {
-        issues.push({
-          ...ISSUE_DEFINITIONS.AI_BOT_PERPLEXITY_BLOCKED,
-          affectedUrls: [url]
-        });
-      }
-      if (blockedBots.includes("Google-Extended")) {
-        issues.push({
-          ...ISSUE_DEFINITIONS.AI_BOT_GOOGLE_EXTENDED_BLOCKED,
-          affectedUrls: [url]
-        });
-      }
-    }
-    return {
-      issues,
-      data: {
-        robotsExists: true,
-        blockedBots,
-        allowedBots,
-        allBlocked: blockedBots.length === Object.keys(AI_BOTS).length,
-        contentSignal
-      }
-    };
-  } catch (error) {
-    return {
-      issues,
-      data: {
-        robotsExists: false,
-        blockedBots: [],
-        allowedBots: Object.keys(AI_BOTS),
-        allBlocked: false,
-        contentSignal: null
-      }
-    };
-  }
-}
-function checkJSRenderingRatio(html, url) {
-  const issues = [];
-  const $ = esm/* load */.Hh(html);
-  $("script, style, noscript").remove();
-  const staticText = $("body").text().replace(/\s+/g, " ").trim();
-  const staticWordCount = staticText.split(/\s+/).filter((word) => word.length > 0).length;
-  const hasReactRoot = $("#root, #app, #__next, [data-reactroot]").length > 0;
-  const hasVueApp = $("#app[data-v-app], [data-v-]").length > 0;
-  const hasAngularApp = $("[ng-app], [data-ng-app]").length > 0;
-  const hasEmptyBody = staticWordCount < 50;
-  let ratio = 0;
-  if (hasEmptyBody && (hasReactRoot || hasVueApp || hasAngularApp)) {
-    ratio = 90;
-  } else if (hasReactRoot || hasVueApp || hasAngularApp) {
-    ratio = 50;
-  } else if (staticWordCount < 100) {
-    ratio = 60;
-  } else {
-    ratio = 10;
-  }
-  const hasNoScript = $("noscript").length > 0;
-  if (hasNoScript && ratio > 50) {
-    ratio -= 20;
-  }
-  if (ratio > 50) {
+  } else if (page.inBody.length > 0) {
+    const labels = list(page.inBody);
     issues.push({
-      ...ISSUE_DEFINITIONS.HIGH_JS_RENDERING_RATIO,
+      code: "METADATA_OUTSIDE_HEAD",
+      severity: "warning",
+      category: "indexability",
+      title: `${labels} sit inside <body>, where crawlers do not read them`,
+      description: `${labels} appear after the first body content. The HTML parser closes <head> at that point, so they land in <body>; Google documents that a canonical outside <head> is ignored, and a description there is not used as a snippet.`,
+      impact: "The page can be indexed under a URL you did not choose and shown without its description.",
+      howToFix: "Emit the metadata before any body content: from the server-rendered <head>, not from a component that renders late or a script that injects tags after load.",
       affectedUrls: [url],
-      details: { ratio: `${ratio}%`, staticWordCount }
+      details: { inBody: page.inBody, inHead: page.inHead }
     });
   }
-  return {
-    issues,
-    data: { ratio, staticWordCount }
-  };
-}
-async function checkCloudflareAICrawlerGate(baseUrl, botBlocking) {
-  const issues = [];
-  let behindCloudflare = false;
-  try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(baseUrl, {
-      timeout: 1e4,
-      validateStatus: () => true
-    });
-    const server = response.headers["server"] || "";
-    behindCloudflare = server.toLowerCase().includes("cloudflare") || "cf-ray" in response.headers;
-  } catch {
-    behindCloudflare = false;
-  }
-  const hasExplicitAIRules = botBlocking.robotsExists && (botBlocking.blockedBots.length > 0 || !!botBlocking.contentSignal);
-  const ambiguous = behindCloudflare && !hasExplicitAIRules;
-  if (ambiguous) {
-    issues.push({
-      ...ISSUE_DEFINITIONS.CLOUDFLARE_AI_CRAWLER_GATE_AMBIGUOUS,
-      affectedUrls: [baseUrl]
-    });
-  }
-  return {
-    issues,
-    data: { behindCloudflare, hasExplicitAIRules, ambiguous }
-  };
-}
-async function runAIReadinessChecks(baseUrl, html) {
-  const allIssues = [];
-  const llmsResult = await checkLlmsTxt(baseUrl);
-  allIssues.push(...llmsResult.issues);
-  const botResult = await checkAIBotBlocking(baseUrl);
-  allIssues.push(...botResult.issues);
-  const jsResult = checkJSRenderingRatio(html, baseUrl);
-  allIssues.push(...jsResult.issues);
-  const cfGateResult = await checkCloudflareAICrawlerGate(baseUrl, botResult.data);
-  allIssues.push(...cfGateResult.issues);
-  const agentExperienceResult = await checkAgentExperience(baseUrl);
-  allIssues.push(...agentExperienceResult.issues);
-  return {
-    issues: allIssues,
-    data: {
-      llmsTxt: llmsResult.data,
-      botBlocking: botResult.data,
-      jsRenderingRatio: jsResult.data.ratio,
-      cloudflareAIGate: cfGateResult.data,
-      agentExperience: agentExperienceResult.data
-    }
-  };
+  return { issues, data };
 }
 
 // src/audit/checks/serp-preview.ts
@@ -98871,7 +98767,7 @@ function analyzeSERPPreview(html, url) {
   const urlData = formatSERPUrl(url);
   if (titleTruncated.truncated) {
     issues.push({
-      ...ISSUE_DEFINITIONS.TITLE_TRUNCATED_SERP,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.TITLE_TRUNCATED_SERP,
       affectedUrls: [url],
       details: {
         pixelWidth: titlePixels,
@@ -98883,7 +98779,7 @@ function analyzeSERPPreview(html, url) {
   }
   if (descTruncatedDesktop.truncated) {
     issues.push({
-      ...ISSUE_DEFINITIONS.META_DESC_TRUNCATED_SERP,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.META_DESC_TRUNCATED_SERP,
       affectedUrls: [url],
       details: {
         pixelWidth: descPixelsDesktop,
@@ -99117,13 +99013,13 @@ function analyzeLocalSEO(html, url) {
   const socialProfiles = detectSocialProfiles(html);
   if (!hasLocalBusiness && (detectedPhones.length > 0 || detectedAddresses.length > 0)) {
     issues.push({
-      ...ISSUE_DEFINITIONS.LOCAL_BUSINESS_SCHEMA_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.LOCAL_BUSINESS_SCHEMA_MISSING,
       affectedUrls: [url]
     });
   }
   if (!hasOrganization && !hasLocalBusiness) {
     issues.push({
-      ...ISSUE_DEFINITIONS.ORGANIZATION_SCHEMA_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.ORGANIZATION_SCHEMA_MISSING,
       affectedUrls: [url]
     });
   }
@@ -99132,20 +99028,20 @@ function analyzeLocalSEO(html, url) {
   if (isBusinessPage) {
     if (detectedAddresses.length === 0 && !schemaData?.address) {
       issues.push({
-        ...ISSUE_DEFINITIONS.ADDRESS_NOT_DETECTED,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.ADDRESS_NOT_DETECTED,
         affectedUrls: [url]
       });
     }
     if (detectedPhones.length === 0 && !schemaData?.phone) {
       issues.push({
-        ...ISSUE_DEFINITIONS.PHONE_NOT_DETECTED,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.PHONE_NOT_DETECTED,
         affectedUrls: [url]
       });
     }
   }
   if (socialProfiles.length === 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.SOCIAL_PROFILES_NOT_LINKED,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.SOCIAL_PROFILES_NOT_LINKED,
       affectedUrls: [url]
     });
   }
@@ -99179,7 +99075,7 @@ function parseHSTS(header) {
 async function analyzeSecurityHeaders2(url) {
   const issues = [];
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(url, {
       timeout: 15e3,
       validateStatus: () => true,
       maxRedirects: 5
@@ -99205,43 +99101,43 @@ async function analyzeSecurityHeaders2(url) {
     const hstsData = parseHSTS(hsts);
     if (!isHttps) {
       issues.push({
-        ...ISSUE_DEFINITIONS.NOT_HTTPS,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.NOT_HTTPS,
         affectedUrls: [url]
       });
     }
     if (isHttps && !hsts) {
       issues.push({
-        ...ISSUE_DEFINITIONS.HSTS_MISSING,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.HSTS_MISSING,
         affectedUrls: [url]
       });
     }
     if (!csp) {
       issues.push({
-        ...ISSUE_DEFINITIONS.CSP_MISSING,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.CSP_MISSING,
         affectedUrls: [url]
       });
     }
     if (!xFrameOptions) {
       issues.push({
-        ...ISSUE_DEFINITIONS.X_FRAME_OPTIONS_MISSING,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.X_FRAME_OPTIONS_MISSING,
         affectedUrls: [url]
       });
     }
     if (!xContentTypeOptions) {
       issues.push({
-        ...ISSUE_DEFINITIONS.X_CONTENT_TYPE_OPTIONS_MISSING,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.X_CONTENT_TYPE_OPTIONS_MISSING,
         affectedUrls: [url]
       });
     }
     if (!referrerPolicy) {
       issues.push({
-        ...ISSUE_DEFINITIONS.REFERRER_POLICY_MISSING,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.REFERRER_POLICY_MISSING,
         affectedUrls: [url]
       });
     }
     if (!permissionsPolicy) {
       issues.push({
-        ...ISSUE_DEFINITIONS.PERMISSIONS_POLICY_MISSING,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.PERMISSIONS_POLICY_MISSING,
         affectedUrls: [url]
       });
     }
@@ -99331,7 +99227,7 @@ async function analyzeContentFreshness(url, html) {
   const issues = [];
   let lastModified = null;
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpHead */.PW)(url, {
+    const response = await (0,chunk_SWTM7CDR/* httpHead */.PW)(url, {
       timeout: 1e4,
       validateStatus: () => true
     });
@@ -99356,13 +99252,13 @@ async function analyzeContentFreshness(url, html) {
   const isStale = ageInDays !== null && ageInDays > 365;
   if (!lastModified) {
     issues.push({
-      ...ISSUE_DEFINITIONS.NO_LAST_MODIFIED,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.NO_LAST_MODIFIED,
       affectedUrls: [url]
     });
   }
   if (isStale) {
     issues.push({
-      ...ISSUE_DEFINITIONS.CONTENT_STALE,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.CONTENT_STALE,
       affectedUrls: [url],
       details: {
         ageInDays,
@@ -99375,7 +99271,7 @@ async function analyzeContentFreshness(url, html) {
   const isArticle = $("article").length > 0 || $('meta[property="og:type"][content="article"]').length > 0 || $('meta[property="article:published_time"]').length > 0;
   if (isArticle && !htmlDates.articleModifiedTime && !htmlDates.ogUpdatedTime) {
     issues.push({
-      ...ISSUE_DEFINITIONS.OG_UPDATED_TIME_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.OG_UPDATED_TIME_MISSING,
       affectedUrls: [url]
     });
   }
@@ -99465,7 +99361,7 @@ function analyzeDOMStructure(html, url) {
   const criticalPathLength = renderBlockingResources.css.length + renderBlockingResources.js.length;
   if (nodeCount > DOM_SIZE_ERROR) {
     issues.push({
-      ...ISSUE_DEFINITIONS.DOM_SIZE_EXCESSIVE,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.DOM_SIZE_EXCESSIVE,
       severity: "error",
       affectedUrls: [url],
       details: {
@@ -99476,7 +99372,7 @@ function analyzeDOMStructure(html, url) {
     });
   } else if (nodeCount > DOM_SIZE_WARNING) {
     issues.push({
-      ...ISSUE_DEFINITIONS.DOM_SIZE_EXCESSIVE,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.DOM_SIZE_EXCESSIVE,
       affectedUrls: [url],
       details: {
         nodeCount,
@@ -99487,7 +99383,7 @@ function analyzeDOMStructure(html, url) {
   }
   if (maxDepth > DOM_DEPTH_WARNING) {
     issues.push({
-      ...ISSUE_DEFINITIONS.DOM_DEPTH_EXCESSIVE,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.DOM_DEPTH_EXCESSIVE,
       affectedUrls: [url],
       details: {
         maxDepth,
@@ -99497,7 +99393,7 @@ function analyzeDOMStructure(html, url) {
   }
   if (criticalPathLength > 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.RENDER_BLOCKING_RESOURCES,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.RENDER_BLOCKING_RESOURCES,
       affectedUrls: [url],
       details: {
         cssFiles: renderBlockingResources.css,
@@ -99630,7 +99526,7 @@ function analyzeModernImages(html, url) {
   if (legacyFormatCount > 0 && !hasPictureElements && !hasSourceSet) {
     const legacyImages = uniqueImages.filter((img) => !img.isModernFormat && LEGACY_FORMATS.includes(img.format));
     issues.push({
-      ...ISSUE_DEFINITIONS.IMAGE_NOT_WEBP_AVIF,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.IMAGE_NOT_WEBP_AVIF,
       affectedUrls: legacyImages.slice(0, 10).map((img) => img.src),
       details: {
         legacyImageCount: legacyFormatCount,
@@ -99645,7 +99541,7 @@ function analyzeModernImages(html, url) {
   );
   if (imagesWithoutDimensions.length > 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.IMG_NO_DIMENSIONS,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.IMG_NO_DIMENSIONS,
       affectedUrls: imagesWithoutDimensions.slice(0, 10).map((img) => img.src),
       details: {
         count: imagesWithoutDimensions.length
@@ -99838,7 +99734,7 @@ function detectLibraries($, html, technologies, issues, url) {
     });
     if (version && VULNERABLE_JQUERY.some((v) => version.startsWith(v))) {
       issues.push({
-        ...ISSUE_DEFINITIONS.OUTDATED_JQUERY,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.OUTDATED_JQUERY,
         affectedUrls: [url],
         details: { version, recommendation: "Update to jQuery 3.5.0 or later" }
       });
@@ -100189,7 +100085,7 @@ function analyzeKeywords(html, url) {
   const potentialStuffing = totalWords >= 200 ? topKeywords.filter((k) => k.density > 4 && !isBrandWord(k.word)).map((k) => k.word) : [];
   if (potentialStuffing.length > 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.KEYWORD_STUFFING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.KEYWORD_STUFFING,
       affectedUrls: [url],
       details: {
         keywords: potentialStuffing,
@@ -100204,7 +100100,7 @@ function analyzeKeywords(html, url) {
   const keywordsInTitle = topBodyKeywords.filter((k) => titleWords.includes(k));
   if (keywordsInTitle.length === 0 && topBodyKeywords.length > 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.NO_KEYWORDS_IN_TITLE,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.NO_KEYWORDS_IN_TITLE,
       affectedUrls: [url],
       details: {
         topKeywords: topBodyKeywords,
@@ -100216,7 +100112,7 @@ function analyzeKeywords(html, url) {
   const keywordsInH1 = topBodyKeywords.filter((k) => h1Words.includes(k));
   if (keywordsInH1.length === 0 && topBodyKeywords.length > 0 && h1) {
     issues.push({
-      ...ISSUE_DEFINITIONS.NO_KEYWORDS_IN_H1,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.NO_KEYWORDS_IN_H1,
       affectedUrls: [url],
       details: {
         topKeywords: topBodyKeywords,
@@ -100272,7 +100168,7 @@ async function checkAdsTxt(baseUrl) {
   const issues = [];
   const url = new URL("/ads.txt", baseUrl).href;
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(url, {
       timeout: 1e4,
       validateStatus: () => true
     });
@@ -100297,7 +100193,7 @@ async function checkAdsTxt(baseUrl) {
     const valid = errors.length === 0 && validEntries > 0;
     if (!valid && validEntries > 0) {
       issues.push({
-        ...ISSUE_DEFINITIONS.ADS_TXT_INVALID,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.ADS_TXT_INVALID,
         affectedUrls: [url],
         details: { errors, validEntries }
       });
@@ -100334,7 +100230,7 @@ async function checkDMARC(domain) {
       };
     } else {
       issues.push({
-        ...ISSUE_DEFINITIONS.DMARC_MISSING,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.DMARC_MISSING,
         affectedUrls: [domain]
       });
       return {
@@ -100344,7 +100240,7 @@ async function checkDMARC(domain) {
     }
   } catch {
     issues.push({
-      ...ISSUE_DEFINITIONS.DMARC_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.DMARC_MISSING,
       affectedUrls: [domain]
     });
     return {
@@ -100371,7 +100267,7 @@ async function checkSPF(domain) {
       };
     } else {
       issues.push({
-        ...ISSUE_DEFINITIONS.SPF_MISSING,
+        ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.SPF_MISSING,
         affectedUrls: [domain]
       });
       return {
@@ -100435,7 +100331,7 @@ function checkPlaintextEmails(html, url) {
   const uniqueEmails = [...new Set(filteredEmails)];
   if (uniqueEmails.length > 0) {
     issues.push({
-      ...ISSUE_DEFINITIONS.PLAINTEXT_EMAIL,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.PLAINTEXT_EMAIL,
       affectedUrls: [url],
       details: {
         emails: uniqueEmails,
@@ -100451,7 +100347,7 @@ function checkAppleTouchIcon(html, url) {
   const hasAppleTouchIcon = $('link[rel="apple-touch-icon"]').length > 0 || $('link[rel="apple-touch-icon-precomposed"]').length > 0;
   if (!hasAppleTouchIcon) {
     issues.push({
-      ...ISSUE_DEFINITIONS.APPLE_TOUCH_ICON_MISSING,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.APPLE_TOUCH_ICON_MISSING,
       affectedUrls: [url]
     });
   }
@@ -100762,7 +100658,7 @@ function analyzeResourceHints(html, url) {
 
 async function checkRobotsTxtForIndexNow(baseUrl) {
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(`${new URL(baseUrl).origin}/robots.txt`, {
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(`${new URL(baseUrl).origin}/robots.txt`, {
       timeout: 1e4,
       validateStatus: () => true
     });
@@ -100799,7 +100695,7 @@ async function findIndexNowKeyFile(baseUrl, possibleKeys) {
     if (!isValidIndexNowKey(key)) continue;
     const keyUrl = `${origin}/${key}.txt`;
     try {
-      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(keyUrl, {
+      const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(keyUrl, {
         timeout: 5e3,
         validateStatus: () => true
       });
@@ -100931,7 +100827,7 @@ async function getSSLCertificateAge(url) {
 }
 async function checkWaybackMachine(domain) {
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(
       `https://web.archive.org/cdx/search/cdx?url=${domain}&output=json&limit=1&from=1990`,
       {
         timeout: 1e4,
@@ -100962,7 +100858,7 @@ async function estimateIndexedPages(url) {
     ];
     for (const sitemapUrl of sitemapUrls) {
       try {
-        const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(sitemapUrl, {
+        const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(sitemapUrl, {
           timeout: 1e4,
           validateStatus: () => true
         });
@@ -101120,23 +101016,6 @@ async function analyzeSiteMaturity(html, url) {
     contentToAuthorityRatio
   };
   const { strategy, recommendations } = determineStrategy(maturityLevel, authorityIndicators, contentMetrics);
-  if (maturityLevel === "new" && ageSource === "wayback" && estimatedAgeDays !== null) {
-    issues.push({
-      code: "NEW_SITE_STRATEGY",
-      severity: "notice",
-      category: "content",
-      title: "New website detected - Authority-first strategy recommended",
-      description: `The Wayback Machine first saw this site ${estimatedAgeDays} days ago. Standard SEO advice won't work well for a site under 90 days old.`,
-      impact: "Creating lots of content without authority is wasted effort. Content from new sites rarely ranks.",
-      howToFix: "Focus on building 10+ quality backlinks to ONE great page before expanding content. See strategic recommendations.",
-      affectedUrls: [url],
-      details: {
-        estimatedAge: estimatedAgeDays,
-        recommendedStrategy: strategy,
-        recommendations
-      }
-    });
-  }
   if (maturityLevel === "growing" && ageSource === "wayback" && !htmlSignals.hasBlog) {
     issues.push({
       code: "GROWING_SITE_NO_BLOG",
@@ -101877,7 +101756,7 @@ async function traceRedirectChain(url, options = {}) {
     visitedUrls.add(currentUrl);
     try {
       const startTime = Date.now();
-      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(currentUrl, {
+      const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(currentUrl, {
         timeout,
         maxRedirects: 0,
         // Don't auto-follow, we want to trace manually
@@ -102144,7 +102023,8 @@ function analyzeImage($, img, index) {
   const srcLower = src.toLowerCase();
   const usesModernFormat = MODERN_FORMATS2.some((fmt) => srcLower.includes(fmt));
   const isInHeader = $img.closest('header, [class*="hero"], [class*="banner"], [class*="jumbotron"]').length > 0;
-  const isAboveFold = index < 3 || isInHeader;
+  const isInFooter = $img.closest('footer, [class*="footer"]').length > 0;
+  const isAboveFold = !isInFooter && (index < 3 || isInHeader);
   if (!hasExplicitDimensions) {
     issues.push("Missing width/height attributes (causes CLS)");
   }
@@ -102490,11 +102370,11 @@ async function resolveTxtWithin(resolveTxt, name) {
 }
 async function fetchBingSiteAuth(origin) {
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(`${origin}/BingSiteAuth.xml`, {
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(`${origin}/BingSiteAuth.xml`, {
       timeout: FILE_TIMEOUT_MS,
       maxBytes: 64 * 1024
     });
-    return response.status === 200 && typeof response.data === "string" && !(0,chunk_ZLQQXIZ3/* looksLikeHtmlFallback */.Bp)(response.data, response.headers["content-type"]) && /<users[\s>]/i.test(response.data);
+    return response.status === 200 && typeof response.data === "string" && !(0,chunk_SWTM7CDR/* looksLikeHtmlFallback */.Bp)(response.data, response.headers["content-type"]) && /<users[\s>]/i.test(response.data);
   } catch {
     return false;
   }
@@ -102520,7 +102400,7 @@ async function analyzeBingOptimization(html, url) {
     ];
     for (const keyUrl of keyPatterns) {
       try {
-        const keyResponse = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(keyUrl, { timeout: 5e3 });
+        const keyResponse = await (0,chunk_SWTM7CDR/* httpGet */.lx)(keyUrl, { timeout: 5e3 });
         if (keyResponse.status === 200 && keyResponse.data.length >= 8) {
           hasBingIndexNowKey = true;
           break;
@@ -102555,35 +102435,12 @@ async function analyzeBingOptimization(html, url) {
   });
   let bingSitemapAccessible = false;
   try {
-    const sitemapResponse = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(`${baseUrl}/sitemap.xml`, { timeout: 5e3 });
+    const sitemapResponse = await (0,chunk_SWTM7CDR/* httpGet */.lx)(`${baseUrl}/sitemap.xml`, { timeout: 5e3 });
     bingSitemapAccessible = sitemapResponse.status === 200 && sitemapResponse.data.includes("<?xml");
   } catch {
   }
   if (!hasBingMetaTag && !hasBingSiteAuth && !hasBingDnsRecord) {
     detectedIssues.push("No Bing site verification");
-    issues.push({
-      code: "BING_NOT_VERIFIED",
-      // A notice: verification done through Search Console import or a DNS record this run
-      // could not see leaves no trace in the HTML, so this cannot be a warning.
-      severity: "notice",
-      category: "ai-readiness",
-      title: verification.dnsChecked ? "Site not verified with Bing Webmaster Tools" : "Bing Webmaster Tools verification not visible in the HTML",
-      description: verification.dnsChecked ? "No msvalidate.01 meta tag in the HTML, no MS= TXT record on the domain and no /BingSiteAuth.xml file. ChatGPT Search uses Bing's index. Verifying your site with Bing Webmaster Tools ensures proper indexing and access to Bing-specific SEO tools." : "No msvalidate.01 meta tag in the HTML and no /BingSiteAuth.xml file. The site may be verified through a DNS record instead, which this run could not check. ChatGPT Search uses Bing's index. Verifying your site with Bing Webmaster Tools ensures proper indexing and access to Bing-specific SEO tools.",
-      impact: "May reduce visibility in ChatGPT Search results and miss Bing-specific optimization opportunities.",
-      howToFix: "If the site is not yet in Bing Webmaster Tools: 1) Go to Bing Webmaster Tools, 2) Add your site (or import it from Google Search Console), 3) Choose a verification method (meta tag, DNS record or XML file), 4) Add the verification code to your site.",
-      affectedUrls: [url],
-      details: {
-        hasBingMetaTag,
-        hasBingSiteAuth,
-        hasBingDnsRecord,
-        dnsChecked: verification.dnsChecked,
-        verificationMethods: [
-          'Add <meta name="msvalidate.01" content="YOUR_CODE"> to <head>',
-          "Add an MS=YOUR_CODE TXT record to the domain's DNS",
-          "Upload BingSiteAuth.xml to root directory"
-        ]
-      }
-    });
   }
   if (!hasBingIndexNowKey) {
     detectedIssues.push("No IndexNow key for Bing");
@@ -102619,20 +102476,6 @@ async function analyzeBingOptimization(html, url) {
   const hasAddressOnPage = $("address").text().trim().length > 0 || detectAddresses(html).length > 0;
   if (hasAddressOnPage && !hasLocalBusinessSchema) {
     detectedIssues.push("Local business may not be on Bing Places");
-    issues.push({
-      code: "BING_PLACES_MISSING",
-      severity: "notice",
-      category: "ai-readiness",
-      title: "Local business not optimized for Bing Places",
-      description: "Your site appears to have a physical location but may not be listed on Bing Places. Bing Places listings appear in Bing Maps and can be referenced by AI assistants.",
-      impact: "Missing local search visibility in Bing and potential AI assistant recommendations for local queries.",
-      howToFix: "Claim your Bing Places listing: 1) Go to bingplaces.com, 2) Claim or add your business, 3) Verify ownership, 4) Add complete business information.",
-      affectedUrls: [url],
-      details: {
-        bingPlacesUrl: "https://www.bingplaces.com/",
-        recommendation: "Also add sameAs link to your Bing Places listing in Organization schema"
-      }
-    });
   }
   return {
     issues,
@@ -102670,7 +102513,7 @@ async function validateRobotsTxt(url) {
   const parsedUrl = new URL(url);
   const robotsUrl = new URL("/robots.txt", parsedUrl.origin).href;
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(robotsUrl, {
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(robotsUrl, {
       timeout: 1e4,
       validateStatus: () => true
     });
@@ -102950,7 +102793,7 @@ async function findBrokenLinks(urls) {
   const results = await Promise.all(
     toCheck.map(async (linkUrl) => {
       try {
-        const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(linkUrl, {
+        const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(linkUrl, {
           timeout: 8e3,
           validateStatus: () => true
         });
@@ -102981,21 +102824,21 @@ async function analyzeLlmsTxt(url) {
   let contentLength = 0;
   let brokenLinks = [];
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(llmsTxtUrl, {
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(llmsTxtUrl, {
       timeout: 1e4,
       validateStatus: () => true
     });
-    if (response.status === 200 && !(0,chunk_ZLQQXIZ3/* looksLikeHtmlFallback */.Bp)(response.data, response.headers?.["content-type"])) {
+    if (response.status === 200 && !(0,chunk_SWTM7CDR/* looksLikeHtmlFallback */.Bp)(response.data, response.headers?.["content-type"])) {
       exists = true;
       content = response.data;
       contentLength = content.length;
       structure = analyzeStructure(content);
     }
-    const fullResponse = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(llmsFullUrl, {
+    const fullResponse = await (0,chunk_SWTM7CDR/* httpGet */.lx)(llmsFullUrl, {
       timeout: 1e4,
       validateStatus: () => true
     });
-    if (fullResponse.status === 200 && !(0,chunk_ZLQQXIZ3/* looksLikeHtmlFallback */.Bp)(fullResponse.data, fullResponse.headers?.["content-type"])) {
+    if (fullResponse.status === 200 && !(0,chunk_SWTM7CDR/* looksLikeHtmlFallback */.Bp)(fullResponse.data, fullResponse.headers?.["content-type"])) {
       fullVersionExists = true;
     }
   } catch {
@@ -103005,10 +102848,10 @@ async function analyzeLlmsTxt(url) {
       code: "AI_NO_LLMS_TXT",
       severity: "notice",
       category: "ai-readiness",
-      title: "No llms.txt file found",
-      description: "llms.txt is a proposed standard for providing context to LLMs about your website. Having one helps AI systems better understand and represent your site.",
-      impact: "AI systems may have less context about your site, potentially leading to less accurate representations.",
-      howToFix: "Create an /llms.txt file with a Markdown description of your site. Include: site name, brief description, and links to key pages. See https://llmstxt.org/ for the specification.",
+      title: "No llms.txt",
+      description: "No /llms.txt. It is a convention for coding agents and documentation sites (Lighthouse 13.3 audits it; Anthropic, OpenAI, Stripe, Vercel and Supabase publish one for their docs). No search engine or answer engine reads it: Google says it neither helps nor harms, and in a 137,000-domain study 97 percent of the files received no request in a month.",
+      impact: "None on search or AI answers. A documentation site gains a curated index for the agents that look for one.",
+      howToFix: "For a documentation site, publish /llms.txt: an H1 with the project name, a one-line blockquote description, then markdown links with a short description each (the Lighthouse criteria). For a marketing site, ignore this notice. See https://llmstxt.org/.",
       affectedUrls: [llmsTxtUrl],
       details: {
         specification: "https://llmstxt.org/",
@@ -103138,6 +102981,149 @@ function analyzeStructure(content) {
   };
 }
 
+// src/audit/discovery/link-crawler.ts
+var HIGH_PRIORITY_PATTERNS = [
+  /^\/(pricing|about|features|contact|demo|signup|login|blog)\/?$/i,
+  /^\/(products?|services?|solutions?|plans?)\/?$/i,
+  /^\/(docs?|documentation|help|support|faq)\/?$/i,
+  /^\/(careers?|jobs?|team|company)\/?$/i
+];
+var MEDIUM_PRIORITY_PATTERNS = [
+  /^\/(privacy|terms|legal|security)\/?$/i,
+  /^\/[a-z0-9-]+\/?$/i
+  // Top-level pages
+];
+var EXCLUDE_PATTERNS = [
+  /\.(png|jpg|jpeg|gif|svg|webp|ico|pdf|zip|tar|gz)$/i,
+  // Images & archives
+  /\.(json|xml|txt|webmanifest|rss|atom)$/i,
+  // Data files (not HTML)
+  /^(mailto:|tel:|javascript:|#)/i,
+  // Non-HTTP
+  /\/(api|_next|static|assets|cdn)\//i,
+  // Technical paths
+  /[?&](utm_|ref=|source=)/i
+  // Tracking params
+];
+function extractLinks3(html, baseUrl) {
+  const base = new URL(baseUrl);
+  const links = /* @__PURE__ */ new Set();
+  const hrefRegex = /href=["']([^"']+)["']/gi;
+  let match;
+  while ((match = hrefRegex.exec(html)) !== null) {
+    try {
+      const href = match[1];
+      if (EXCLUDE_PATTERNS.some((pattern) => pattern.test(href))) {
+        continue;
+      }
+      let url;
+      if (href.startsWith("http://") || href.startsWith("https://")) {
+        url = new URL(href);
+      } else if (href.startsWith("/")) {
+        url = new URL(href, base);
+      } else {
+        continue;
+      }
+      if (url.hostname !== base.hostname) {
+        continue;
+      }
+      const normalized = normalizeUrl3(url);
+      if (normalized) {
+        links.add(normalized);
+      }
+    } catch {
+    }
+  }
+  return Array.from(links);
+}
+var extractInternalLinks2 = extractLinks3;
+function normalizeUrl3(url) {
+  url.hash = "";
+  const paramsToRemove = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "ref", "source"];
+  for (const param of paramsToRemove) {
+    url.searchParams.delete(param);
+  }
+  let pathname = url.pathname;
+  if (pathname.length > 1 && pathname.endsWith("/")) {
+    pathname = pathname.slice(0, -1);
+  }
+  if (pathname === "" || pathname === "/") {
+    return null;
+  }
+  return `${url.protocol}//${url.hostname}${pathname}${url.search}`;
+}
+function calculatePriority(url) {
+  try {
+    const pathname = new URL(url).pathname;
+    for (const pattern of HIGH_PRIORITY_PATTERNS) {
+      if (pattern.test(pathname)) {
+        return 9;
+      }
+    }
+    for (const pattern of MEDIUM_PRIORITY_PATTERNS) {
+      if (pattern.test(pathname)) {
+        return 6;
+      }
+    }
+    const depth = (pathname.match(/\//g) || []).length;
+    if (depth >= 3) {
+      return 2;
+    }
+    if (depth === 2) {
+      return 4;
+    }
+    return 5;
+  } catch {
+    return 1;
+  }
+}
+function discoverPagesFromLinks(baseUrl, html, maxPages = 5) {
+  const links = extractLinks3(html, baseUrl);
+  const pages = links.map((url) => ({
+    url,
+    source: "internal-link",
+    priority: calculatePriority(url)
+  }));
+  pages.sort((a, b) => b.priority - a.priority);
+  return pages.slice(0, maxPages);
+}
+function parseSitemap(xml, baseUrl) {
+  const pages = [];
+  const base = new URL(baseUrl);
+  const locRegex = /<loc>([^<]+)<\/loc>/gi;
+  let match;
+  while ((match = locRegex.exec(xml)) !== null) {
+    try {
+      const url = new URL(match[1]);
+      if (url.hostname !== base.hostname) {
+        continue;
+      }
+      if (EXCLUDE_PATTERNS.some((pattern) => pattern.test(url.pathname))) {
+        continue;
+      }
+      pages.push({
+        url: url.href,
+        source: "sitemap",
+        priority: calculatePriority(url.href)
+      });
+    } catch {
+    }
+  }
+  return pages;
+}
+function mergePages(...pageSets) {
+  const seen = /* @__PURE__ */ new Map();
+  for (const pages of pageSets) {
+    for (const page of pages) {
+      const existing = seen.get(page.url);
+      if (!existing || page.priority > existing.priority) {
+        seen.set(page.url, page);
+      }
+    }
+  }
+  return Array.from(seen.values()).sort((a, b) => b.priority - a.priority);
+}
+
 // src/audit/checks/html-compliance.ts
 
 async function analyzeHtmlCompliance(html, url, headers) {
@@ -103248,7 +103234,7 @@ async function analyzeHtmlCompliance(html, url, headers) {
   if (!hasFavicon) {
     try {
       const faviconUrl = new URL("/favicon.ico", parsedUrl.origin).href;
-      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(faviconUrl, {
+      const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(faviconUrl, {
         timeout: 5e3,
         validateStatus: () => true
       });
@@ -103467,7 +103453,7 @@ async function analyzeCanonicalDomain(url) {
 }
 async function testUrl(url) {
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(url, {
       timeout: 1e4,
       maxRedirects: 0,
       // Don't follow redirects
@@ -103505,7 +103491,7 @@ async function analyzeCachingHeaders(url, headers) {
   let htmlHeaders = headers;
   if (!htmlHeaders) {
     try {
-      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
+      const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(url, {
         timeout: 1e4,
         validateStatus: () => true
       });
@@ -103535,7 +103521,7 @@ async function analyzeCachingHeaders(url, headers) {
   const assetsToCheck = assetUrls.slice(0, 5);
   for (const assetUrl of assetsToCheck) {
     try {
-      const assetResponse = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(assetUrl, {
+      const assetResponse = await (0,chunk_SWTM7CDR/* httpGet */.lx)(assetUrl, {
         timeout: 5e3,
         validateStatus: () => true
       });
@@ -103650,7 +103636,7 @@ function parseCacheHeaders(headers) {
 async function getStaticAssetUrls(pageUrl) {
   const assets = [];
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(pageUrl, {
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(pageUrl, {
       timeout: 1e4,
       validateStatus: () => true
     });
@@ -104290,7 +104276,7 @@ async function analyzeAssetMinification(html, url) {
   const cssToCheck = assetUrls.css.slice(0, 3);
   const cssPromises = cssToCheck.map(async (cssUrl) => {
     try {
-      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(cssUrl, {
+      const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(cssUrl, {
         timeout: 3e3,
         // Reduced timeout
         validateStatus: () => true
@@ -104311,7 +104297,7 @@ async function analyzeAssetMinification(html, url) {
   const jsToCheck = assetUrls.js.slice(0, 3);
   const jsPromises = jsToCheck.map(async (jsUrl) => {
     try {
-      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(jsUrl, {
+      const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(jsUrl, {
         timeout: 3e3,
         // Reduced timeout
         validateStatus: () => true
@@ -104685,7 +104671,7 @@ async function analyzeResponsiveCss(html, url) {
   await Promise.all(
     sameOrigin.slice(0, MAX_STYLESHEETS).map(async (cssUrl) => {
       try {
-        const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(cssUrl, {
+        const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(cssUrl, {
           timeout: STYLESHEET_TIMEOUT_MS,
           maxBytes: MAX_STYLESHEET_BYTES
         });
@@ -104827,7 +104813,7 @@ async function analyzeDirectoryListing(url) {
     const dirUrl = `${baseOrigin}${dir}`;
     checkedDirectories.push(dir);
     try {
-      const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(dirUrl, {
+      const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(dirUrl, {
         timeout: 3e3,
         // Reduced timeout
         validateStatus: () => true
@@ -105460,19 +105446,6 @@ async function analyzeTrackingVerification(html, url) {
     sitemap: { inRobotsTxt: false }
     // Set later if we check robots.txt
   };
-  if (!hasGa4 && !hasGtm && otherAnalytics.length === 0) {
-    issues.push({
-      code: "GA4_MISSING",
-      // A notice: which analytics a site runs is a choice, not an SEO defect.
-      severity: "notice",
-      category: "on-page",
-      title: "Google Analytics 4 not detected",
-      description: "No GA4 tracking code found. GA4 is essential for measuring organic traffic and conversions.",
-      impact: "Cannot measure SEO impact without analytics tracking.",
-      howToFix: "Add GA4 tracking code to your site. Get your measurement ID from analytics.google.com.",
-      affectedUrls: [url]
-    });
-  }
   if (!hasGscVerification) {
     const dnsChecked = verification.dnsChecked;
     issues.push({
@@ -105490,31 +105463,8 @@ async function analyzeTrackingVerification(html, url) {
   }
   if (!hasBingVerification) {
     const dnsChecked = verification.dnsChecked;
-    issues.push({
-      code: "BING_VERIFICATION_MISSING",
-      severity: "notice",
-      category: "on-page",
-      title: dnsChecked ? "Bing Webmaster Tools verification not found" : "Bing Webmaster Tools verification not visible in the HTML",
-      description: dnsChecked ? "No msvalidate.01 meta tag in the HTML, no MS= TXT record on the domain and no /BingSiteAuth.xml file. Bing/Yahoo account for 5-8% of search traffic." : "No msvalidate.01 meta tag in the HTML and no /BingSiteAuth.xml file. The site may be verified through a DNS record instead, which this run could not check. Bing/Yahoo account for 5-8% of search traffic.",
-      impact: "Missing insights on Bing/Yahoo search traffic.",
-      howToFix: "If the site is not yet in Bing Webmaster Tools, add it there: import it from Google Search Console, or verify with the meta tag, a DNS record or BingSiteAuth.xml. Get it from bing.com/webmasters.",
-      affectedUrls: [url],
-      details: { dnsChecked }
-    });
   }
   if (!hasGtm) {
-    if (otherAnalytics.length === 0) {
-      issues.push({
-        code: "GTM_MISSING",
-        severity: "notice",
-        category: "on-page",
-        title: "Google Tag Manager not detected",
-        description: "GTM not found. While not required, GTM makes it easier to manage tracking tags without code changes.",
-        impact: "Tag management requires developer involvement for each change.",
-        howToFix: "Consider using GTM for easier tag management. It allows marketing to add tags without developer help.",
-        affectedUrls: [url]
-      });
-    }
   } else if (!hasGtmNoscript) {
     issues.push({
       code: "GTM_NOSCRIPT_MISSING",
@@ -105585,13 +105535,12 @@ var REDUNDANT_WHEN_PRESENT = [
   { keep: "APPLE_TOUCH_ICON_MISSING", drop: ["HTML_NO_APPLE_TOUCH_ICON"] },
   { keep: "LLMS_TXT_MISSING", drop: ["AI_NO_LLMS_TXT"] },
   { keep: "INDEXNOW_NOT_IMPLEMENTED", drop: ["BING_NO_INDEXNOW"] },
-  { keep: "BING_VERIFICATION_MISSING", drop: ["BING_NOT_VERIFIED"] },
-  { keep: "SITEMAP_MISSING", drop: ["BING_SITEMAP_MISSING", "SITEMAP_NOT_IN_ROBOTS"] },
+  // No sitemap makes IndexNow moot: Bing's advice is an accurate lastmod paired with IndexNow.
+  { keep: "SITEMAP_MISSING", drop: ["BING_SITEMAP_MISSING", "SITEMAP_NOT_IN_ROBOTS", "INDEXNOW_NOT_IMPLEMENTED"] },
   { keep: "ROBOTS_TXT_MISSING", drop: ["SITEMAP_NOT_IN_ROBOTS"] },
   { keep: "IMAGES_MISSING_DIMENSIONS", drop: ["IMG_NO_DIMENSIONS"] },
   { keep: "NO_MODERN_IMAGE_FORMATS", drop: ["IMAGE_NOT_WEBP_AVIF"] },
   { keep: "SOCIAL_PROFILES_NOT_LINKED", drop: ["NO_SOCIAL_PROFILES"] },
-  { keep: "NO_EXPERIENCE_SIGNALS", drop: ["AI_NO_EXPERIENCE_SIGNALS"] },
   // No structured data at all makes every "your schema lacks X" finding moot.
   {
     keep: "SCHEMA_MISSING",
@@ -105622,7 +105571,8 @@ var REDUNDANT_WHEN_PRESENT = [
       "SPA_WITHOUT_SSR",
       "EMPTY_BODY_CONTENT",
       "HIGH_JS_RENDERING_RATIO",
-      "AI_LOW_HTML_READABILITY"
+      "AI_LOW_HTML_READABILITY",
+      "NAV_NOT_IN_HTML"
     ]
   },
   // An empty body has no vocabulary to be undiverse.
@@ -105631,9 +105581,8 @@ var REDUNDANT_WHEN_PRESENT = [
   { keep: "NO_INTERNAL_LINKS", drop: ["NO_CONTENT_INTERNAL_LINKS", "HIGH_ORPHAN_RISK", "LINKS_NO_INTERNAL"] },
   // No testimonials on the page, said once instead of six times.
   { keep: "NO_SOCIAL_PROOF", drop: ["BOFU_NO_SOCIAL_PROOF", "AI_NO_TESTIMONIALS", "AI_NO_REVIEW_INTEGRATION", "AI_NO_REVIEW_PLATFORMS", "AI_WEAK_REVIEW_ECOSYSTEM"] },
-  { keep: "AI_NO_TESTIMONIALS", drop: ["AI_NO_REVIEW_INTEGRATION", "AI_NO_REVIEW_PLATFORMS", "AI_WEAK_REVIEW_ECOSYSTEM"] },
+  { keep: "AI_NO_TESTIMONIALS", drop: ["AI_NO_REVIEW_INTEGRATION", "AI_NO_REVIEW_PLATFORMS", "AI_WEAK_REVIEW_ECOSYSTEM"] }
   // The brand-score composite restates the brand-definition finding it is built from.
-  { keep: "AI_NO_BRAND_DEFINITION", drop: ["AI_LOW_BRAND_SCORE", "NO_ENTITY_DEFINITION"] }
 ];
 function dedupeIssues(issues) {
   const present = new Set(issues.map((i) => i.code));
@@ -105704,7 +105653,7 @@ async function runFullAudit(options) {
       console.error("Crawlability check failed:", err);
       return [];
     }),
-    (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, {
+    (0,chunk_SWTM7CDR/* httpGet */.lx)(url, {
       timeout: 3e4,
       validateStatus: () => true
     }).catch((err) => {
@@ -105737,7 +105686,7 @@ async function runFullAudit(options) {
   if (statusCode >= 400) {
     const blocked = statusCode === 401 || statusCode === 403 || statusCode === 429;
     allIssues.push({
-      ...ISSUE_DEFINITIONS.HTTP_ERROR_STATUS,
+      ...chunk_ZNDXIGWA/* ISSUE_DEFINITIONS */.rB.HTTP_ERROR_STATUS,
       title: `Page returns HTTP ${statusCode}`,
       description: `The audited URL answered with HTTP ${statusCode}${fetchResult.statusText ? ` ${fetchResult.statusText}` : ""}. Page content checks were skipped - they would only be grading the error page.${blocked ? " This status often means a firewall or bot protection (Cloudflare, Vercel, etc.) is refusing automated clients: check that search engine crawlers get the page, and allowlist the RankCLI user agent or audit a preview URL." : ""}`,
       affectedUrls: [url],
@@ -105755,7 +105704,7 @@ async function runFullAudit(options) {
     const target = metaRefreshTarget(body, url);
     if (!target) break;
     try {
-      const next = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(target, { timeout: 3e4, validateStatus: () => true });
+      const next = await (0,chunk_SWTM7CDR/* httpGet */.lx)(target, { timeout: 3e4, validateStatus: () => true });
       if (next.status >= 400) break;
       refreshHops.push(target);
       url = target;
@@ -105923,6 +105872,7 @@ async function runFullAudit(options) {
     asyncChecks.push(safeAsyncIssues("Crawler Access", async () => (await analyzeCrawlerAccess(url)).issues));
     asyncChecks.push(safeAsync("Canonical Domain", () => analyzeCanonicalDomain(url)));
   }
+  asyncChecks.push(safeAsync("Metadata Placement", () => analyzeMetadataPlacement(html, url, { compareAsGooglebot: !staticBuild })));
   asyncChecks.push(safeAsyncIssues("Framework Detection", async () => {
     const frameworkInfo = detectFramework({ html, headers });
     if (frameworkInfo.framework === "unknown") return [];
@@ -105944,7 +105894,7 @@ async function runFullAudit(options) {
     asyncChecks.push(safeAsync("Responsive CSS", () => analyzeResponsiveCss(html, url)));
   }
   if (runPremiumChecks) {
-    asyncChecks.push(safeAsync("AI Readiness", () => runAIReadinessChecks(url, html)));
+    asyncChecks.push(safeAsync("AI Readiness", () => (0,chunk_ZNDXIGWA/* runAIReadinessChecks */.FM)(url, html)));
     asyncChecks.push(safeAsync("Content Freshness", () => analyzeContentFreshness(url, html)));
     asyncChecks.push(safeAsync("Additional Checks", () => runAdditionalChecks(url, html)));
     asyncChecks.push(safeAsync("IndexNow", () => analyzeIndexNow(html, url, headers)));
@@ -106001,7 +105951,8 @@ async function runFullAudit(options) {
     h1: onPageResult.data.h1s,
     wordCount: onPageResult.data.wordCount,
     loadTime: perfData.loadTime,
-    issues: issues.map((i) => i.code)
+    issues: issues.map((i) => i.code),
+    internalLinks: extractInternalLinks2(html, url)
   });
   console.error("\n\u2705 Audit complete!\n");
   return createReport(url, domain, issues, pages);
@@ -106065,7 +106016,7 @@ function calculateHealthScore(issues) {
   }
   const crawlability = Math.max(0, 100 - categoryDeductions.crawlability * 5);
   const indexability = Math.max(0, 100 - categoryDeductions.indexability * 5);
-  const onPage = Math.max(0, 100 - categoryDeductions["on-page"] * 3);
+  const onPage = Math.max(0, 100 - (categoryDeductions["on-page"] * 3 + categoryDeductions["structured-data"]));
   const content = Math.max(0, 100 - categoryDeductions.content * 3);
   const links = Math.max(0, 100 - categoryDeductions.links * 3);
   const performance = Math.max(0, 100 - categoryDeductions.performance * 4);
@@ -106115,7 +106066,7 @@ function formatReport(report) {
   lines.push(`    Links:         ${report.healthScore.links}/100`);
   lines.push(`    Performance:   ${report.healthScore.performance}/100`);
   lines.push(`    Security:      ${report.healthScore.security}/100`);
-  lines.push(`    AI Readiness:  ${report.healthScore.aiReadiness}/100`);
+  lines.push(`    AI Readiness:  ${report.healthScore.aiReadiness}/100  (hygiene on evidence-backed levers; not a citation predictor)`);
   lines.push(`    Social:        ${report.healthScore.social}/100`);
   lines.push(`    Local SEO:     ${report.healthScore.localSeo}/100`);
   lines.push(`    Accessibility: ${report.healthScore.accessibility}/100`);
@@ -106295,157 +106246,15 @@ function generateDuplicateIssues(result, currentUrl) {
   return issues;
 }
 
-// src/audit/discovery/link-crawler.ts
-var HIGH_PRIORITY_PATTERNS = [
-  /^\/(pricing|about|features|contact|demo|signup|login|blog)\/?$/i,
-  /^\/(products?|services?|solutions?|plans?)\/?$/i,
-  /^\/(docs?|documentation|help|support|faq)\/?$/i,
-  /^\/(careers?|jobs?|team|company)\/?$/i
-];
-var MEDIUM_PRIORITY_PATTERNS = [
-  /^\/(privacy|terms|legal|security)\/?$/i,
-  /^\/[a-z0-9-]+\/?$/i
-  // Top-level pages
-];
-var EXCLUDE_PATTERNS = [
-  /\.(png|jpg|jpeg|gif|svg|webp|ico|pdf|zip|tar|gz)$/i,
-  // Images & archives
-  /\.(json|xml|txt|webmanifest|rss|atom)$/i,
-  // Data files (not HTML)
-  /^(mailto:|tel:|javascript:|#)/i,
-  // Non-HTTP
-  /\/(api|_next|static|assets|cdn)\//i,
-  // Technical paths
-  /[?&](utm_|ref=|source=)/i
-  // Tracking params
-];
-function extractLinks3(html, baseUrl) {
-  const base = new URL(baseUrl);
-  const links = /* @__PURE__ */ new Set();
-  const hrefRegex = /href=["']([^"']+)["']/gi;
-  let match;
-  while ((match = hrefRegex.exec(html)) !== null) {
-    try {
-      const href = match[1];
-      if (EXCLUDE_PATTERNS.some((pattern) => pattern.test(href))) {
-        continue;
-      }
-      let url;
-      if (href.startsWith("http://") || href.startsWith("https://")) {
-        url = new URL(href);
-      } else if (href.startsWith("/")) {
-        url = new URL(href, base);
-      } else {
-        continue;
-      }
-      if (url.hostname !== base.hostname) {
-        continue;
-      }
-      const normalized = normalizeUrl3(url);
-      if (normalized) {
-        links.add(normalized);
-      }
-    } catch {
-    }
-  }
-  return Array.from(links);
-}
-function normalizeUrl3(url) {
-  url.hash = "";
-  const paramsToRemove = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "ref", "source"];
-  for (const param of paramsToRemove) {
-    url.searchParams.delete(param);
-  }
-  let pathname = url.pathname;
-  if (pathname.length > 1 && pathname.endsWith("/")) {
-    pathname = pathname.slice(0, -1);
-  }
-  if (pathname === "" || pathname === "/") {
-    return null;
-  }
-  return `${url.protocol}//${url.hostname}${pathname}${url.search}`;
-}
-function calculatePriority(url) {
-  try {
-    const pathname = new URL(url).pathname;
-    for (const pattern of HIGH_PRIORITY_PATTERNS) {
-      if (pattern.test(pathname)) {
-        return 9;
-      }
-    }
-    for (const pattern of MEDIUM_PRIORITY_PATTERNS) {
-      if (pattern.test(pathname)) {
-        return 6;
-      }
-    }
-    const depth = (pathname.match(/\//g) || []).length;
-    if (depth >= 3) {
-      return 2;
-    }
-    if (depth === 2) {
-      return 4;
-    }
-    return 5;
-  } catch {
-    return 1;
-  }
-}
-function discoverPagesFromLinks(baseUrl, html, maxPages = 5) {
-  const links = extractLinks3(html, baseUrl);
-  const pages = links.map((url) => ({
-    url,
-    source: "internal-link",
-    priority: calculatePriority(url)
-  }));
-  pages.sort((a, b) => b.priority - a.priority);
-  return pages.slice(0, maxPages);
-}
-function parseSitemap(xml, baseUrl) {
-  const pages = [];
-  const base = new URL(baseUrl);
-  const locRegex = /<loc>([^<]+)<\/loc>/gi;
-  let match;
-  while ((match = locRegex.exec(xml)) !== null) {
-    try {
-      const url = new URL(match[1]);
-      if (url.hostname !== base.hostname) {
-        continue;
-      }
-      if (EXCLUDE_PATTERNS.some((pattern) => pattern.test(url.pathname))) {
-        continue;
-      }
-      pages.push({
-        url: url.href,
-        source: "sitemap",
-        priority: calculatePriority(url.href)
-      });
-    } catch {
-    }
-  }
-  return pages;
-}
-function mergePages(...pageSets) {
-  const seen = /* @__PURE__ */ new Map();
-  for (const pages of pageSets) {
-    for (const page of pages) {
-      const existing = seen.get(page.url);
-      if (!existing || page.priority > existing.priority) {
-        seen.set(page.url, page);
-      }
-    }
-  }
-  return Array.from(seen.values()).sort((a, b) => b.priority - a.priority);
-}
-
 // src/audit/discovery/sitemap.ts
 var MAX_CHILD_SITEMAPS = 5;
 var MAX_SITEMAP_BYTES = 2 * 1024 * 1024;
 async function fetchText(url, timeout, maxBytes) {
   try {
-    const response = await (0,chunk_ZLQQXIZ3/* httpGet */.lx)(url, { timeout, validateStatus: () => true, maxBytes });
+    const response = await (0,chunk_SWTM7CDR/* httpGet */.lx)(url, { timeout, validateStatus: () => true, maxBytes });
     if (response.status !== 200) return null;
     const body = typeof response.data === "string" ? response.data : "";
-    if ((0,chunk_ZLQQXIZ3/* looksLikeHtmlFallback */.Bp)(body, response.headers["content-type"])) return null;
+    if ((0,chunk_SWTM7CDR/* looksLikeHtmlFallback */.Bp)(body, response.headers["content-type"])) return null;
     return body;
   } catch {
     return null;
@@ -106474,7 +106283,7 @@ function childSitemaps(xml) {
 }
 var isSitemapXml = (xml) => /<urlset|<sitemapindex/i.test(xml);
 async function discoverPagesFromSitemap(baseUrl, maxPages, options = {}) {
-  const result = { pages: [], sitemapsRead: 0 };
+  const result = { pages: [], sitemapsRead: 0, urls: [], complete: false };
   if (maxPages <= 0) return result;
   const timeout = options.timeout ?? 1e4;
   const base = new URL(baseUrl);
@@ -106486,6 +106295,7 @@ async function discoverPagesFromSitemap(baseUrl, maxPages, options = {}) {
   ];
   const seen = /* @__PURE__ */ new Set();
   let pages = [];
+  let truncated = false;
   for (const candidate of candidates) {
     if (seen.has(candidate)) continue;
     seen.add(candidate);
@@ -106494,19 +106304,27 @@ async function discoverPagesFromSitemap(baseUrl, maxPages, options = {}) {
     result.sitemapsRead++;
     result.sitemapUrl ??= candidate;
     if (/<sitemapindex/i.test(xml)) {
-      for (const child of childSitemaps(xml).slice(0, MAX_CHILD_SITEMAPS)) {
+      const children = childSitemaps(xml);
+      if (children.length > MAX_CHILD_SITEMAPS) truncated = true;
+      for (const child of children.slice(0, MAX_CHILD_SITEMAPS)) {
         if (seen.has(child)) continue;
         seen.add(child);
         const childXml = await fetchText(child, timeout, MAX_SITEMAP_BYTES);
         if (!childXml || !isSitemapXml(childXml)) continue;
         result.sitemapsRead++;
         pages = mergePages(pages, parseSitemap(childXml, baseUrl));
-        if (pages.length >= maxPages) break;
+        if (pages.length >= maxPages) {
+          truncated = true;
+          break;
+        }
       }
     } else {
       pages = mergePages(pages, parseSitemap(xml, baseUrl));
     }
-    if (pages.length >= maxPages) break;
+    if (pages.length >= maxPages) {
+      truncated = true;
+      break;
+    }
   }
   const pathOf = (url) => {
     try {
@@ -106517,7 +106335,10 @@ async function discoverPagesFromSitemap(baseUrl, maxPages, options = {}) {
     }
   };
   const root = pathOf(baseUrl);
-  result.pages = pages.filter((p) => pathOf(p.url) !== root).slice(0, maxPages);
+  const own = pages.filter((p) => pathOf(p.url) !== root);
+  result.pages = own.slice(0, maxPages);
+  result.urls = own.map((p) => p.url);
+  result.complete = result.sitemapsRead > 0 && !truncated;
   return result;
 }
 
@@ -106761,6 +106582,95 @@ var samePage = (a, b) => {
   };
   return key(a) === key(b);
 };
+function canonicalPageUrl(raw) {
+  try {
+    const u = new URL(raw);
+    u.hash = "";
+    for (const p of ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "ref", "source"]) u.searchParams.delete(p);
+    const path3 = u.pathname.replace(/\/+$/, "") || "/";
+    return `${u.protocol}//${u.hostname.toLowerCase()}${path3}${u.search}`;
+  } catch {
+    return null;
+  }
+}
+function buildLinkGraph(homeUrl, audited, sitemap2) {
+  const home = canonicalPageUrl(homeUrl) ?? homeUrl;
+  const depth = { [home]: 0 };
+  const queue = [home];
+  while (queue.length > 0) {
+    const page = queue.shift();
+    for (const link of audited.get(page) ?? []) {
+      if (!audited.has(link) || link in depth) continue;
+      depth[link] = depth[page] + 1;
+      queue.push(link);
+    }
+  }
+  const unreachable = [...audited.keys()].filter((page) => page !== home && !(page in depth));
+  const sitemapPages = [...new Set(sitemap2.urls.map(canonicalPageUrl).filter((u) => !!u && u !== home))];
+  const complete = sitemap2.complete && sitemapPages.length > 0 && sitemapPages.every((page) => audited.has(page));
+  const graph = {
+    homepageLinks: (audited.get(home) ?? []).length,
+    depth,
+    unreachable,
+    coverage: { audited: audited.size, sitemap: sitemapPages.length, complete }
+  };
+  if (complete) {
+    const linked = /* @__PURE__ */ new Set();
+    for (const links of audited.values()) for (const link of links) linked.add(link);
+    graph.orphans = sitemapPages.filter((page) => !linked.has(page));
+  }
+  return graph;
+}
+function linkGraphIssues(homeUrl, graph) {
+  const issues = [];
+  const { coverage } = graph;
+  if (graph.homepageLinks <= 2 && (coverage.sitemap >= 10 || coverage.audited >= 5)) {
+    const n = graph.homepageLinks;
+    issues.push({
+      code: "NAV_NOT_IN_HTML",
+      severity: "warning",
+      category: "crawlability",
+      title: `The homepage links to ${n} page${n === 1 ? "" : "s"} in its HTML`,
+      description: `Before any JavaScript runs, the homepage's HTML links to ${n} internal page${n === 1 ? "" : "s"}, while the site has ${coverage.sitemap >= 10 ? `${coverage.sitemap} pages in its sitemap` : `at least ${coverage.audited} pages`}. A crawler that does not execute the scripts sees the content and no way to the rest of the site. "The content was server-rendered. The navigation was not."`,
+      impact: "Pages reached only through client-rendered navigation are discovered late or not at all. The write-up this check comes from had 258 of 406 pages indexed, and the sitemap was never the problem.",
+      howToFix: "Render the navigation and the in-content links in the HTML: server-render the nav component, or ship a plain <nav> of <a href> links that the client enhances.",
+      affectedUrls: [homeUrl],
+      details: { homepageLinks: n, coverage }
+    });
+  }
+  if (graph.orphans && graph.orphans.length > 0) {
+    const n = graph.orphans.length;
+    const m = coverage.sitemap;
+    issues.push({
+      code: "ORPHAN_PAGES",
+      severity: n / m >= 0.25 ? "warning" : "notice",
+      category: "crawlability",
+      title: `${n} of ${m} sitemap pages have no incoming link`,
+      description: `Every page in the sitemap was audited, and these have no link from any of them in the HTML, before JavaScript: ${graph.orphans.slice(0, 10).join(", ")}${n > 10 ? ` and ${n - 10} more` : ""}.`,
+      impact: "A page only the sitemap knows about is crawled late and ranks as the dead end it is; nothing on the site vouches for it.",
+      howToFix: "Link each one from a related page or a hub. A page not worth a link may not be worth a sitemap entry either.",
+      affectedUrls: graph.orphans,
+      details: { orphans: graph.orphans, coverage }
+    });
+  }
+  if (coverage.complete) {
+    const deep = Object.entries(graph.depth).filter(([, d]) => d >= 4).map(([page]) => page);
+    if (deep.length > 0) {
+      issues.push({
+        code: "DEEP_PAGES",
+        severity: "notice",
+        category: "crawlability",
+        title: `${deep.length} page${deep.length === 1 ? " is" : "s are"} four or more clicks from the homepage`,
+        description: `Over the links in the HTML, the shortest path from the homepage to ${deep.slice(0, 10).join(", ")}${deep.length > 10 ? ` and ${deep.length - 10} more` : ""} is four clicks or longer.`,
+        impact: "Crawl depth is a priority signal: pages far from the homepage are crawled less often and treated as less important.",
+        howToFix: "Link important pages from the homepage or a hub page so that every page is within three clicks.",
+        affectedUrls: deep,
+        details: { depth: Object.fromEntries(deep.map((page) => [page, graph.depth[page]])), coverage }
+      });
+    }
+  }
+  return issues;
+}
 async function auditSite(options) {
   const { url } = options;
   const cleanups = [];
@@ -106800,6 +106710,7 @@ async function auditPages(options) {
   let pagesToAudit = [url];
   let source = "none";
   let sitemapUrl;
+  let sitemapRead = { urls: [], complete: false };
   const homepageHtml = await fetchHtml(url, 1e4);
   let detectedFramework = detectFramework({});
   if (homepageHtml) {
@@ -106810,6 +106721,7 @@ async function auditPages(options) {
       if (options.discovery !== "links") {
         const sitemap2 = await discoverPagesFromSitemap(url, wanted);
         sitemapUrl = sitemap2.sitemapUrl;
+        sitemapRead = { urls: sitemap2.urls ?? [], complete: !!sitemap2.complete };
         found.push(...sitemap2.pages);
         if (sitemap2.pages.length > 0) source = "sitemap";
       }
@@ -106853,12 +106765,21 @@ async function auditPages(options) {
   const pages = [];
   let primaryReport = null;
   let pagesAudited = 0;
+  const audited = /* @__PURE__ */ new Map();
+  let linksReported = true;
   results.forEach((result, i) => {
     if (result.status === "fulfilled" && result.value) {
       const report = result.value;
       allIssues.push(report.issues);
       if (i === 0) primaryReport = report;
       pagesAudited++;
+      const links = report.pages[0]?.internalLinks;
+      if (links) {
+        const page = canonicalPageUrl(pagesToAudit[i]);
+        if (page) audited.set(page, links.map(canonicalPageUrl).filter((u) => !!u));
+      } else {
+        linksReported = false;
+      }
       const count = (...severities) => report.issues.filter((x) => severities.includes(x.severity)).length;
       pages.push({
         url: pagesToAudit[i],
@@ -106877,10 +106798,20 @@ async function auditPages(options) {
   const pageFailure = primary.issues.find((i) => i.code === "FETCH_ERROR" || i.code === "HTTP_ERROR_STATUS");
   progress({ phase: "audit", status: "done", audited: pagesAudited, total: pagesToAudit.length, ms: auditMs, pageFailure });
   const checksRun = (primary.summary?.passed || 0) + (primary.summary?.errors || 0) + (primary.summary?.warnings || 0) || 200;
+  let linkGraph;
+  if (linksReported && audited.size > 0 && !pageFailure) {
+    linkGraph = buildLinkGraph(url, audited, sitemapRead);
+    allIssues.push(linkGraphIssues(url, linkGraph));
+    for (const page of pages) {
+      const key = canonicalPageUrl(page.url);
+      if (key && key in linkGraph.depth) page.depth = linkGraph.depth[key];
+    }
+  }
   return {
     primaryReport: primary,
     issues: mergeIssues(allIssues),
     pages,
+    linkGraph,
     score: primary.healthScore?.overall || 0,
     pagesAudited,
     pagesDiscovered: pagesToAudit.length,
@@ -106937,8 +106868,8 @@ var EMPTY_GATE = { budgets: [] };
 var RULE_HELP = `${FAIL_ON_LEVELS.join(", ")}, score<N or score:<category><N`;
 function parseFailOn(rules) {
   const spec = { budgets: [] };
-  const list = (Array.isArray(rules) ? rules : rules ? [rules] : []).flatMap((r) => String(r).split(",")).map((r) => r.trim()).filter(Boolean);
-  for (const rule of list) {
+  const list2 = (Array.isArray(rules) ? rules : rules ? [rules] : []).flatMap((r) => String(r).split(",")).map((r) => r.trim()).filter(Boolean);
+  for (const rule of list2) {
     const lower = rule.toLowerCase();
     if (FAIL_ON_LEVELS.includes(lower)) {
       const level = lower;
@@ -108166,7 +108097,7 @@ function generatePRDescription(fixes, config) {
   };
 }
 async function createPullRequest(options, deps) {
-  const run = deps?.execAsync || execAsync;
+  const run2 = deps?.execAsync || execAsync;
   if (options.dryRun) {
     console.log("DRY RUN - Would create PR:");
     console.log(`Title: ${options.title}`);
@@ -108180,7 +108111,7 @@ async function createPullRequest(options, deps) {
   }
   try {
     if (options.createBranch) {
-      await run(`git checkout -b ${options.headBranch}`);
+      await run2(`git checkout -b ${options.headBranch}`);
     }
     let cmd = `gh pr create --title "${options.title.replace(/"/g, '\\"')}"`;
     cmd += ` --base "${options.baseBranch}"`;
@@ -108201,7 +108132,7 @@ async function createPullRequest(options, deps) {
 ${options.body}
 EOF
 )"`;
-    const { stdout } = await run(cmd);
+    const { stdout } = await run2(cmd);
     const url = stdout.trim();
     const numberMatch = url.match(/\/pull\/(\d+)/);
     const number = numberMatch ? parseInt(numberMatch[1], 10) : void 0;
@@ -108223,10 +108154,10 @@ function generateBranchName(prefix = "seo-fixes") {
   return `${prefix}-${timestamp}-${random}`;
 }
 async function checkGitHubCLI(deps) {
-  const run = deps?.execAsync || execAsync;
+  const run2 = deps?.execAsync || execAsync;
   try {
-    await run("gh --version");
-    await run("gh auth status");
+    await run2("gh --version");
+    await run2("gh auth status");
     return { available: true, authenticated: true };
   } catch (error) {
     const message = error.message;
@@ -115493,14 +115424,14 @@ async function generateH1Fix(params) {
 // src/tools/index.ts
 var tools = {
   // Crawling tools
-  crawl_url: (params) => (0,chunk_ZLQQXIZ3/* crawlUrl */.L1)(params),
-  extract_meta: (params) => (0,chunk_ZLQQXIZ3/* extractMeta */.lD)(params),
-  analyze_headings: (params) => (0,chunk_ZLQQXIZ3/* analyzeHeadings */.w9)(params),
-  extract_images: (params) => (0,chunk_ZLQQXIZ3/* extractImages */.qq)(params),
-  extract_links: (params) => (0,chunk_ZLQQXIZ3/* extractLinks */.rc)(params),
-  extract_schema: (params) => (0,chunk_ZLQQXIZ3/* extractSchema */.TT)(params),
-  check_robots: (params) => (0,chunk_ZLQQXIZ3/* checkRobots */.W1)(params),
-  check_sitemap: (params) => (0,chunk_ZLQQXIZ3/* checkSitemap */.u7)(params),
+  crawl_url: (params) => (0,chunk_MYAJGWIH/* crawlUrl */.L1)(params),
+  extract_meta: (params) => (0,chunk_MYAJGWIH/* extractMeta */.lD)(params),
+  analyze_headings: (params) => (0,chunk_MYAJGWIH/* analyzeHeadings */.w9)(params),
+  extract_images: (params) => (0,chunk_MYAJGWIH/* extractImages */.qq)(params),
+  extract_links: (params) => (0,chunk_MYAJGWIH/* extractLinks */.rc)(params),
+  extract_schema: (params) => (0,chunk_MYAJGWIH/* extractSchema */.TT)(params),
+  check_robots: (params) => (0,chunk_MYAJGWIH/* checkRobots */.W1)(params),
+  check_sitemap: (params) => (0,chunk_MYAJGWIH/* checkSitemap */.u7)(params),
   // File tools
   read_file: (params) => readFile2(params),
   write_file: (params) => dist_writeFile(params),
@@ -115509,7 +115440,7 @@ var tools = {
   find_html_entry: (params) => findHtmlEntry(params),
   find_page_files: (params) => findPageFiles(params),
   // High-level analysis
-  analyze_url: (params) => (0,chunk_ZLQQXIZ3/* analyzeUrl */.OU)(params)
+  analyze_url: (params) => (0,chunk_MYAJGWIH/* analyzeUrl */.OU)(params)
 };
 
 // src/executor.ts
@@ -115780,7 +115711,7 @@ async function executeAgent(agent, options = {}) {
   }
 }
 async function runDirectAnalysis(url) {
-  const { analyzeUrl: analyzeUrl2 } = await __nccwpck_require__.e(/* import() */ 421).then(__nccwpck_require__.bind(__nccwpck_require__, 5421));
+  const { analyzeUrl: analyzeUrl2 } = await __nccwpck_require__.e(/* import() */ 433).then(__nccwpck_require__.bind(__nccwpck_require__, 433));
   const result = await analyzeUrl2({ url });
   if (!result.success || !result.data) {
     throw new Error(result.error || "Analysis failed");
@@ -122285,6 +122216,58 @@ var PLACEHOLDERS = [
   { pattern: /\blorem ipsum\b/i, what: "lorem ipsum" },
   { pattern: /\bXXX-XXX-XXXX\b/i, what: "an unfilled phone template" }
 ];
+var BUSINESS_FACT_KEYS = /* @__PURE__ */ new Set([
+  "telephone",
+  "faxNumber",
+  "email",
+  "streetAddress",
+  "postalCode",
+  "addressLocality",
+  "addressRegion",
+  "postOfficeBoxNumber",
+  "latitude",
+  "longitude",
+  "openingHours",
+  "priceRange",
+  "foundingDate",
+  "numberOfEmployees",
+  "ratingValue",
+  "reviewCount",
+  "ratingCount",
+  "sameAs",
+  "vatID",
+  "taxID",
+  "legalName",
+  "founder"
+]);
+function businessFacts(text) {
+  const facts = /* @__PURE__ */ new Set();
+  const visit = (node, key) => {
+    if (Array.isArray(node)) return node.forEach((v) => visit(v, key));
+    if (node && typeof node === "object") {
+      for (const [k, v] of Object.entries(node)) visit(v, k);
+      return;
+    }
+    if (key && BUSINESS_FACT_KEYS.has(key) && (typeof node === "string" || typeof node === "number")) {
+      const value = String(node).trim();
+      if (value) facts.add(`${key}: ${value}`);
+    }
+  };
+  for (const m of text.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    try {
+      visit(JSON.parse(m[1]));
+    } catch {
+    }
+  }
+  for (const m of text.matchAll(/href=["'](tel|mailto):([^"'?]+)/gi)) facts.add(`${m[1].toLowerCase()}: ${m[2].trim()}`);
+  return facts;
+}
+function inventedFacts(original, replacement) {
+  return [...businessFacts(replacement)].filter((fact) => {
+    const value = fact.slice(fact.indexOf(": ") + 2);
+    return !(original && original.includes(value));
+  });
+}
 function isSharedShell(html) {
   return /<div[^>]+id=["'](root|app|__next|__nuxt)["']/i.test(html);
 }
@@ -122296,6 +122279,9 @@ function assessReplacement(path3, original, replacement) {
     if (hit && !(original && pattern.test(original))) {
       add("placeholder_content", `contains ${what} (${hit[0]})`);
     }
+  }
+  for (const fact of inventedFacts(original, replacement)) {
+    add("invented_business_fact", `adds ${fact}, which the original does not contain`);
   }
   if (/\.html?$/i.test(path3) && isSharedShell(replacement)) {
     const addsCanonical = /<link[^>]+rel=["']canonical["']/i.test(replacement) && !(original && /<link[^>]+rel=["']canonical["']/i.test(original));
@@ -124805,22 +124791,22 @@ var RankTracker = class {
 // src/analyzers/index.ts
 var analyzers_exports = {};
 (0,chunk_6BWS3CLP/* __export */.V)(analyzers_exports, {
-  AI_CRAWLERS_INFO: () => chunk_3ZSCLNTW/* AI_CRAWLERS_INFO */.E0,
-  analyzeCitationReadiness: () => chunk_3ZSCLNTW/* analyzeCitationReadiness */.g0,
+  AI_CRAWLERS_INFO: () => chunk_ZNDXIGWA/* AI_CRAWLERS_INFO */.E0,
+  analyzeCitationReadiness: () => chunk_ZNDXIGWA/* analyzeCitationReadiness */.g0,
   analyzeComprehensive: () => analyzeComprehensive,
-  analyzeContentStructure: () => chunk_3ZSCLNTW/* analyzeContentStructure */.d8,
+  analyzeContentStructure: () => chunk_ZNDXIGWA/* analyzeContentStructure */.d8,
   analyzeCoreWebVitals: () => chunk_4E4MQOSP/* analyzeCoreWebVitals */.j,
-  analyzeEntityExtraction: () => chunk_3ZSCLNTW/* analyzeEntityExtraction */.J6,
-  analyzeGEO: () => chunk_3ZSCLNTW/* analyzeGEO */.YR,
+  analyzeEntityExtraction: () => chunk_ZNDXIGWA/* analyzeEntityExtraction */.J6,
+  analyzeGEO: () => chunk_ZNDXIGWA/* analyzeGEO */.YR,
   analyzeImages: () => chunk_2JADKV3Z/* analyzeImages */.B,
   analyzeInternalLinking: () => chunk_K6VSXDD6/* analyzeInternalLinking */.W,
   analyzeMobileSEO: () => chunk_M27NQCWW/* analyzeMobileSEO */.I,
-  analyzeRobotsTxtForAI: () => chunk_3ZSCLNTW/* analyzeRobotsTxtForAI */.bG,
+  analyzeRobotsTxtForAI: () => chunk_ZNDXIGWA/* analyzeRobotsTxtForAI */.bG,
   analyzeSecurityHeaders: () => chunk_AK2IC22C/* analyzeSecurityHeaders */.$,
   analyzeStructuredData: () => chunk_VSQD74I7/* analyzeStructuredData */.y,
-  calculateLLMSignals: () => chunk_3ZSCLNTW/* calculateLLMSignals */.z6,
-  detectRenderingMode: () => chunk_3ZSCLNTW/* detectRenderingMode */.rl,
-  generateAIFriendlyRobotsTxt: () => chunk_3ZSCLNTW/* generateAIFriendlyRobotsTxt */.mT,
+  calculateLLMSignals: () => chunk_ZNDXIGWA/* calculateLLMSignals */.z6,
+  detectRenderingMode: () => chunk_ZNDXIGWA/* detectRenderingMode */.rl,
+  generateAIFriendlyRobotsTxt: () => chunk_ZNDXIGWA/* generateAIFriendlyRobotsTxt */.mT,
   generateResponsiveImage: () => chunk_2JADKV3Z/* generateResponsiveImage */.X,
   generateSchemaTemplate: () => chunk_VSQD74I7/* generateSchemaTemplate */.J,
   generateSecurityHeaders: () => chunk_AK2IC22C/* generateSecurityHeaders */.O,
@@ -124828,7 +124814,7 @@ var analyzers_exports = {};
 });
 async function analyzeComprehensive(html, url, options = {}) {
   const { robotsTxt, headers } = options;
-  const { analyzeGEO: analyzeGEO2 } = await __nccwpck_require__.e(/* import() */ 361).then(__nccwpck_require__.bind(__nccwpck_require__, 9361));
+  const { analyzeGEO: analyzeGEO2 } = await __nccwpck_require__.e(/* import() */ 731).then(__nccwpck_require__.bind(__nccwpck_require__, 7731));
   const { analyzeCoreWebVitals: analyzeCoreWebVitals2 } = await __nccwpck_require__.e(/* import() */ 890).then(__nccwpck_require__.bind(__nccwpck_require__, 7890));
   const { analyzeSecurityHeaders: analyzeSecurityHeaders3 } = await __nccwpck_require__.e(/* import() */ 823).then(__nccwpck_require__.bind(__nccwpck_require__, 5823));
   const { analyzeStructuredData: analyzeStructuredData3 } = await __nccwpck_require__.e(/* import() */ 254).then(__nccwpck_require__.bind(__nccwpck_require__, 2254));
